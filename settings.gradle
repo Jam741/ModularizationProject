@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':customer', ':employee'
+include ':commonlibrary', ':customer', ':employee', ':IMLib', ':IMKit', ':baseywmj'
