@@ -23,17 +23,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-
--dontwarn okio.**
--dontwarn javax.annotation.**
-
-# activityrouter
--keep class com.github.mzule.activityrouter.router.** { *; }

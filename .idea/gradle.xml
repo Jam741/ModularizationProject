@@ -8,12 +8,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/FlycoTabLayout_Lib" />
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
             <option value="$PROJECT_DIR$/baseywmj" />
             <option value="$PROJECT_DIR$/commonlibrary" />
             <option value="$PROJECT_DIR$/customer" />
             <option value="$PROJECT_DIR$/employee" />
+            <option value="$PROJECT_DIR$/testapp" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
