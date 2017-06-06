@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
     package="com.yingwumeijia.baseywmj">
 
     <application
@@ -7,11 +7,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true">
 
-        <!--高德地图-->
+        <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="bc26ebb41cdaab04fcc0c4b8335879bb"></meta-data>
+            android:value="bc26ebb41cdaab04fcc0c4b8335879bb" />
 
+        <activity android:name=".function.main.MainActivity" />
     </application>
 
 </manifest>

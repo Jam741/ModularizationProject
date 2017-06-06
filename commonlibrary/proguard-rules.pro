@@ -37,3 +37,7 @@
 
 # activityrouter
 -keep class com.github.mzule.activityrouter.router.** { *; }
+
+#Gson
+-keep class com.google.gson.** { *; }
+-keepattributes Signature

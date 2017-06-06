@@ -1,3 +1,84 @@
 <resources>
     <string name="app_name">baseywmj</string>
+
+
+    <!--========================================Error==================================-->
+    <string name="input_phone_error">手机号码错误，请重新输入</string>
+    <string name="input_password_error">密码错误，请重新输入</string>
+    <string name="input_smsCode_error">验证码错误，请重新输入</string>
+    <string name="input_verificationCode_error">验证码错误，请重新输入</string>
+    <string name="input_keywords_error">关键字输入错误，请重新输入</string>
+    <string name="input_nikename_error">昵称输入错误，请重新输入</string>
+    <string name="login_result_error">手机号或密码错误，请重新输入</string>
+    <string name="login_sucess">登录成功</string>
+    <string name="net_connect_error">网络异常,请检查网络设置</string>
+    <string name="net_network_fail">数据加载失败,请重试</string>
+    <string name="hint_password">请输入8-20位数字或字母密码</string>
+    <string name="hint_password_for_had">请输入密码</string>
+    <string name="hint_phone">请输入手机号</string>
+    <string name="hint_sms_code">请输入验证码</string>
+    <string name="hint_new_password">确认新密码</string>
+    <string name="hint_old_password">输入旧密码</string>
+    <string name="hint_confirm_password">确认密码</string>
+    <string name="password_rule_text">8-20位数字或字母</string>
+
+    <string name="agree_agreement">我同意《用户服务协议》</string>
+    <string name="must_agree_agreement">请同意用户协议</string>
+    <string name="case_list_nav_style">风格</string>
+    <string name="case_list_nav_fx">房型</string>
+    <string name="case_list_nav_time">造价</string>
+    <string name="user_not_login">用户未登录</string>
+
+    <string name="collect_succ">收藏成功</string>
+    <string name="cancelCollect_succ">已取消收藏</string>
+
+
+    <!--========================================Dialog==================================-->
+    <string name="dialog_clear_cache">确认清除缓存?</string>
+    <string name="btn_confirm">确定</string>
+    <string name="btn_cancel">取消</string>
+    <string name="dialog_title">提示</string>
+
+    `
+    <!--=====================-->
+    <string name="edit_password_succ">重置密码成功</string>
+
+
+    <string name="sendSmsCode_succ">短信验证码发送成功</string>
+    <string name="sendSmsCode_error">短信验证码发送失败</string>
+    <string name="register_succ">注册成功</string>
+    <string name="register_error">注册失败</string>
+
+    <string name="no_pressmion">没有权限</string>
+    <string name="no_more_case_load">更多作品陆续上传中，敬请期待...</string>
+
+
+    <string name="listview_header_hint_normal">下拉刷新</string>
+    <string name="listview_header_hint_release">释放立即刷新</string>
+    <string name="listview_header_last_time">上次更新时间：</string>
+    <string name="listview_loading">正在加载...</string>
+    <string name="nomore_loading"></string>
+    <string name="refresh_done">刷新完成</string>
+    <string name="refreshing">正在刷新...</string>
+
+    <!-- 分享成功失败的 Toast -->
+    <string name="weibosdk_demo_toast_share_success">分享成功</string>
+    <string name="weibosdk_demo_toast_share_failed">分享失败</string>
+    <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
+
+
+    <string name="home_rad_main">Home</string>
+    <string name="case_rad_main">Case</string>
+    <string name="conversation_rad_main">Conversion</string>
+    <string name="person_rad_main">Person</string>
+    <string name="case_detail_title">作品详情</string>
+
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unknown">发送返回</string>
+
+
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
 </resources>

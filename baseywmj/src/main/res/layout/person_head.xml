@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mine_top_height"
+        android:background="@mipmap/user_bg">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/user_bg_shadow" />
+
+
+        <RelativeLayout
+            android:id="@+id/btn_ed_person"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="23dp"
+            android:layout_marginLeft="23dp">
+
+            <RelativeLayout
+                android:id="@+id/portrait_layout"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:background="@drawable/portrait_border"
+                tools:ignore="RtlHardcoded">
+
+                <ImageView
+                    android:id="@+id/iv_portrait"
+                    android:layout_width="94dp"
+                    android:layout_height="94dp"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/mine_user_ywmj_circle"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/login_out_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/portrait_layout"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="享受完美体验？"
+                    android:textColor="@color/text_color_whide"
+                    android:textSize="15sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/btn_login"
+                    android:layout_width="102dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/btn_bg_stroke_whide"
+                    android:gravity="center"
+                    android:text="立即登陆"
+                    android:textColor="@color/text_color_whide"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_login_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/mine_info_more_ico" />
+
+            <LinearLayout
+                android:id="@+id/login_in_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@id/portrait_layout"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:ignore="RtlHardcoded">
+
+
+                <TextView
+                    android:id="@+id/tv_nike_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_color_whide"
+                    android:textSize="@dimen/text_title_lag"
+                    tools:text="Name" />
+
+                <TextView
+                    android:id="@+id/tv_collect_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_color_whide"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    tools:text="0个收藏" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="线上支付首款 即享会员权益"
+                    android:textColor="@color/text_color_whide"
+                    android:textSize="@dimen/font6_sp" />
+
+                <RelativeLayout
+                    android:id="@+id/btn_vip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/mine_vip_stroke"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableLeft="@mipmap/mine_vip_ico"
+                        android:drawablePadding="3dp"
+                        android:gravity="center"
+                        android:text="查看会员权益"
+                        android:textColor="#E4D1A9"
+                        android:textSize="@dimen/font6_sp" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/btn_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@mipmap/mine_nav_bar_setup_ico"
+                android:paddingLeft="@dimen/horizontal_margin"
+                android:paddingRight="@dimen/horizontal_margin" />
+
+            <RelativeLayout
+                android:id="@+id/btn_message"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/horizontal_margin"
+                android:paddingRight="@dimen/horizontal_margin"
+                android:visibility="invisible">
+
+
+                <TextView
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@mipmap/mine_nav_bar_notice_ico" />
+
+                <ImageView
+                    android:id="@+id/iv_messagePoint"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_alignTop="@+id/tv_message"
+                    android:layout_toRightOf="@id/tv_message"
+                    android:src="@drawable/message_point"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</merge>

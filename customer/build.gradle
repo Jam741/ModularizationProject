@@ -12,14 +12,56 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+
+        }
     }
+
+    signingConfigs {
+
+        config {
+            try {
+                keyAlias KEY_ALIAS_CLIECT
+                keyPassword KEY_PASSWORD
+                storePassword KEY_PASSWORD
+                storeFile file(STORE_FILE_APTH_CLIECT)
+                v2SigningEnabled false
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField("String", "APP_TYPE", "APP_C")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+
+            minifyEnabled false
+            //是否清理无用资源
+//            shrinkResources false
+            //是否启用zipAlign压缩
+//            zipAlignEnabled true
+            //是否支持本地化调整
+            pseudoLocalesEnabled true
+        }
+        debug {
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            signingConfig signingConfigs.config
+
+            minifyEnabled false
+            //是否清理无用资源
+//            shrinkResources false
+//            zipAlignEnabled true
+            pseudoLocalesEnabled true
         }
     }
 }

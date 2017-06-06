@@ -1,29 +1,54 @@
 package com.yingwumeijia.commonlibrary.base
 
 import android.app.Activity
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.annotation.IdRes
+import android.widget.Toast
 import com.kaopiz.kprogresshud.KProgressHUD
 
-class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
-    var content: Activity? = null
+    lateinit var content: Activity
 
-    private var progressDialog: KProgressHUD? = null
+    private val toast: Toast by lazy {
+        createToast(this)
+    }
+
+    private val progressDialog: KProgressHUD by lazy {
+        KProgressHUD.create(content, KProgressHUD.Style.PIE_DETERMINATE)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         content = this
     }
 
-
-    fun showDialog(){
-        if(progressDialog == null){
-            progressDialog = KProgressHUD.create(content,KProgressHUD.Style.PIE_DETERMINATE)
-        }
-
-        if (!progressDialog!!.isShowing){
-            progressDialog!!.show()
-        }
+    fun showDialog() {
+        progressDialog.show()
     }
+
+    fun dismissDialog() {
+        progressDialog.dismiss()
+    }
+
+    fun createToast(context: Context): Toast {
+        var toast = Toast(context)
+        toast.duration = Toast.LENGTH_SHORT
+        return toast
+    }
+
+    fun toastWith(msg: String) {
+        toast.setText(msg)
+    }
+
+    fun toastWith(@IdRes msg: Int) {
+        toast.setText(msg)
+    }
+
+    fun toastCancel() {
+        toast.cancel()
+    }
+
 }

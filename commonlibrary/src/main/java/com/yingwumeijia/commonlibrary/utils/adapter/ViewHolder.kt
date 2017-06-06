@@ -1,8 +1,10 @@
 package com.yingwumeijia.commonlibrary.utils.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -13,29 +15,40 @@ import android.widget.TextView
 /**
  * Created by jamisonline on 2017/5/25.
  */
-class ViewHolder constructor(context: Context, parent: ViewGroup, @LayoutRes layoutId: Int, position: Int) {
+class ViewHolder {
 
-    var mViews: SparseArray<View>
+    var activity: Activity? = null
+
+    var fragment: Fragment? = null
+
+
+    var mViews = SparseArray<View>()
     var mContentView: View
-    var mContent: Context
-    var mPosition: Int
-    var mLayoutId: Int
+    var position: Int? = null
 
-    init {
-        this.mViews = SparseArray()
-        this.mContent = context
-        this.mLayoutId = layoutId
-        this.mPosition = position
-        this.mContentView = LayoutInflater.from(mContent).inflate(layoutId, parent, false)
+
+    constructor(activity: Activity, parent: ViewGroup, @LayoutRes layoutId: Int) {
+        this.mContentView = LayoutInflater.from(activity).inflate(layoutId, parent, false)
         this.mContentView.setTag(this)
+    }
 
+    constructor(fragment: Fragment, parent: ViewGroup, @LayoutRes layoutId: Int) {
+        this.mContentView = LayoutInflater.from(fragment.context).inflate(layoutId, parent, false)
+        this.mContentView.setTag(this)
     }
 
 
     companion object {
-        fun get(context: Context, convertView: View, parent: ViewGroup, @LayoutRes layoutId: Int, position: Int): ViewHolder {
+        fun get(activity: Activity, convertView: View?, parent: ViewGroup, @LayoutRes layoutId: Int): ViewHolder {
             if (convertView == null)
-                return ViewHolder(context, parent, layoutId, position)
+                return ViewHolder(activity, parent, layoutId)
+            else
+                return convertView.getTag() as ViewHolder
+        }
+
+        fun get(fragment: Fragment, convertView: View, parent: ViewGroup, @LayoutRes layoutId: Int): ViewHolder {
+            if (convertView == null)
+                return ViewHolder(fragment, parent, layoutId)
             else
                 return convertView.getTag() as ViewHolder
         }

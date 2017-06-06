@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!--指示器-->
+    <style name="commonTabLayout">
+        <item name="android:height">@dimen/commonTabLayoutHeight</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="tl_iconHeight">23dp</item>
+        <item name="tl_iconWidth">23dp</item>
+    </style>
+
+    <!--主页指示器-->
+    <style name="commonTabLayout_main" parent="commonTabLayout">
+        <item name="tl_textSelectColor">#787878</item>
+        <item name="tl_textUnselectColor">#929292</item>
+        <item name="tl_textsize">12sp</item>
+        <item name="tl_underline_color">#DDDDDD</item>
+        <item name="tl_underline_height">1dp</item>
+    </style>
+
+
+    <!--标题-->
+    <style name="TextTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/color_1</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+</resources>

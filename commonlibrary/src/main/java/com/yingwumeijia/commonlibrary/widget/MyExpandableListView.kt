@@ -12,9 +12,8 @@ import android.widget.ExpandableListView
 class MyExpandableListView(context: Context, attrs: AttributeSet)// TODO Auto-generated constructor stub
     : ExpandableListView(context, attrs) {
 
-    @Override
-    protected fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        // TODO Auto-generated method stub
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2,
 
                 MeasureSpec.AT_MOST)
