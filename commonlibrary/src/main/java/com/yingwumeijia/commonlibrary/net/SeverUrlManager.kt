@@ -26,7 +26,7 @@ object SeverUrlManager {
     }
 
     fun refreshBaseUrl(baseUrl: String) {
-        SPUtils.put(BaseApplication.appContext(), KEY_BASE_URL, baseUrl);
+        SPUtils.put(BaseApplication.appContext(), KEY_BASE_URL, baseUrl)
     }
 
 

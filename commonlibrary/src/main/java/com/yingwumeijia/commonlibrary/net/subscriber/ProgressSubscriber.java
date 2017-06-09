@@ -14,7 +14,7 @@ import rx.Subscriber;
  * Created by helin on 2016/10/10 15:49.
  */
 
-public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener {
+public abstract class ProgressSubscriber<T> extends Subscriber<T> implements ProgressCancelListener {
 
 
     private KProgressHUD dialogHandler;
@@ -32,7 +32,7 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
     /**
      * 显示Dialog
      */
-    public void showProgressDialog(){
+    public void showProgressDialog() {
         if (dialogHandler != null) {
 //            dialogHandler.obtainMessage(SimpleLoadDialog.SHOW_PROGRESS_DIALOG).sendToTarget();
             dialogHandler.show();
@@ -47,15 +47,18 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
     /**
      * 隐藏Dialog
      */
-    private void dismissProgressDialog(){
+    private void dismissProgressDialog() {
         if (dialogHandler != null) {
 //            dialogHandler.obtainMessage(SimpleLoadDialog.DISMISS_PROGRESS_DIALOG).sendToTarget();
-            dialogHandler.dismiss();;
-            dialogHandler=null;
+            dialogHandler.dismiss();
+            ;
+            dialogHandler = null;
         }
     }
+
     @Override
     public void onError(Throwable e) {
+        dismissProgressDialog();
         e.printStackTrace();
         if (false) { //这里自行替换判断网络的代码
             _onError("网络不可用");
@@ -64,7 +67,6 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
         } else {
             _onError("请求失败，请稍后再试...");
         }
-        dismissProgressDialog();
     }
 
 
@@ -74,6 +76,8 @@ public  abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pr
             this.unsubscribe();
         }
     }
+
     protected abstract void _onNext(T t);
+
     protected abstract void _onError(String message);
 }

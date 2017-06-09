@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/commonlibrary" />
             <option value="$PROJECT_DIR$/customer" />
             <option value="$PROJECT_DIR$/employee" />
+            <option value="$PROJECT_DIR$/stub" />
             <option value="$PROJECT_DIR$/testapp" />
           </set>
         </option>

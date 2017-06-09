@@ -45,23 +45,20 @@ public class RxHelper {
     }
 
 
-    public static <T> Observable.Transformer<ApiModel<T>, T> handleResult(final ActivityLifeCycleEvent activityLifeCycleEvent, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
-        return new Observable.Transformer<ApiModel<T>, T>() {
+    public static <T> Observable.Transformer<T, T> handleResult(final ActivityLifeCycleEvent activityLifeCycleEvent, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
+        return new Observable.Transformer<T, T>() {
             @Override
-            public Observable<T> call(Observable<ApiModel<T>> apiModelObservable) {
+            public Observable<T> call(Observable<T> apiModelObservable) {
                 Observable<ActivityLifeCycleEvent> compareLifecycleObservable = lifecycleSubject.takeFirst(new Func1<ActivityLifeCycleEvent, Boolean>() {
                     @Override
                     public Boolean call(ActivityLifeCycleEvent event) {
                         return activityLifeCycleEvent.equals(event);
                     }
                 });
-                return apiModelObservable.flatMap(new Func1<ApiModel<T>, Observable<T>>() {
-                    @Override
-                    public Observable<T> call(ApiModel<T> tApiModel) {
-                        if (tApiModel.success)
-                            return createData(tApiModel.data);
-                        else
-                            return Observable.error(new ApiException(tApiModel.errorCode, tApiModel.message));
+                return apiModelObservable.flatMap(new Func1<T, Observable<T>>() {
+                        @Override
+                    public Observable<T> call(T t) {
+                            return createData(t);
                     }
                 }).takeUntil(compareLifecycleObservable).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }

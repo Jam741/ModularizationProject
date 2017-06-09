@@ -1,9 +1,15 @@
 package com.yingwumeijia.baseywmj.function.main
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.github.mzule.activityrouter.annotation.Module
+import com.github.mzule.activityrouter.annotation.Router
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.empty.TabEntity
 import com.yingwumeijia.baseywmj.function.active.ActiveFragment
@@ -14,8 +20,15 @@ import com.yingwumeijia.commonlibrary.base.BaseActivity
 import kotlinx.android.synthetic.main.main_act.*
 import kotlinx.android.synthetic.main.main_page.*
 
+@Router("main")
 class MainActivity : BaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener {
 
+    companion object {
+        fun start(context: Activity) {
+            val starter = Intent(context, MainActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
 
     /**
      * MainViewPage

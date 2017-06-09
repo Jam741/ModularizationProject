@@ -19,6 +19,7 @@ package com.yingwumeijia.commonlibrary.net.converter;
 import android.util.Log;
 
 import com.google.gson.TypeAdapter;
+import com.orhanobut.logger.Logger;
 import com.yingwumeijia.commonlibrary.net.ApiModel;
 import com.yingwumeijia.commonlibrary.net.ErrorCode;
 import com.yingwumeijia.commonlibrary.net.exception.ApiException;
@@ -58,7 +59,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
                 // 特定 API 的错误，在相应的 Subscriber 的 onError 的方法中进行处理
                 throw new ApiException(apiModel.errorCode, apiModel.message);
             } else if (apiModel.success) {
-                return apiModel;
+                return apiModel.data;
             }
         } finally {
             value.close();

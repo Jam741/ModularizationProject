@@ -5,14 +5,18 @@
     <application
         android:allowBackup="true"
         android:label="@string/app_name"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
 
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="bc26ebb41cdaab04fcc0c4b8335879bb" />
 
-        <activity android:name=".function.main.MainActivity" />
+        <activity
+            android:name=".function.main.MainActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

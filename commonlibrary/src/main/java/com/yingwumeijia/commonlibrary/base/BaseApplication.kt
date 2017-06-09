@@ -19,9 +19,6 @@ open class BaseApplication : Application() {
         sAppContent = applicationContext
 
         Hawk.init(this)
-                .setLogInterceptor { message ->
-                    Logger.d("Hawk", message)
-                }
                 .build()
     }
 

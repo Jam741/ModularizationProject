@@ -1,5 +1,6 @@
 package com.yingwumeijia.android.ywmj.client
 
+import com.github.mzule.activityrouter.annotation.Modules
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.AppType
@@ -8,7 +9,9 @@ import com.yingwumeijia.baseywmj.base.JBaseApp
 /**
  * Created by jamisonline on 2017/5/31.
  */
+@Modules("app", "sdk")
 class CustomerApp : JBaseApp() {
+
     override fun appType(): AppType {
         return AppType.APP_C
     }

@@ -1,16 +1,16 @@
 package com.yingwumeijia.commonlibrary.net
 
-import android.content.Context
-import com.orhanobut.logger.Logger
+import android.util.Log
 import com.yingwumeijia.commonlibrary.api.CommonApi
+import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.net.interceptor.AccountInterceptor
 import com.yingwumeijia.commonlibrary.net.proxy.ProxyHandler
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.reflect.Proxy
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by jamisonline on 2017/6/1.
@@ -32,16 +32,18 @@ class RetrofitUtil {
                     .baseUrl(SeverUrlManager.baseUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .client(okHttpClient())
+                    .client(defaultClient())
                     .build()
         }
 
-        private fun okHttpClient(): OkHttpClient {
-            return OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor()).addInterceptor(AccountInterceptor()).build()
-        }
-
-        private fun httpLoggingInterceptor(): HttpLoggingInterceptor {
-            return HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Logger.d("HTTP", message) }).setLevel(HttpLoggingInterceptor.Level.BODY)
+        private fun defaultClient(): OkHttpClient {
+            val builder = OkHttpClient.Builder()
+            val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.d("HTTP",message) })
+            builder.connectTimeout(10000, TimeUnit.MILLISECONDS)
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+            builder.addInterceptor(loggingInterceptor)
+            builder.addInterceptor(AccountInterceptor())
+            return builder.build()
         }
 
 

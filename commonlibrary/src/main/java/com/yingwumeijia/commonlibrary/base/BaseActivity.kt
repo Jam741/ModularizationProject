@@ -16,7 +16,7 @@ open class BaseActivity : AppCompatActivity() {
         createToast(this)
     }
 
-    private val progressDialog: KProgressHUD by lazy {
+    val progressDialog: KProgressHUD by lazy {
         KProgressHUD.create(content, KProgressHUD.Style.PIE_DETERMINATE)
     }
 
@@ -25,13 +25,6 @@ open class BaseActivity : AppCompatActivity() {
         content = this
     }
 
-    fun showDialog() {
-        progressDialog.show()
-    }
-
-    fun dismissDialog() {
-        progressDialog.dismiss()
-    }
 
     fun createToast(context: Context): Toast {
         var toast = Toast(context)

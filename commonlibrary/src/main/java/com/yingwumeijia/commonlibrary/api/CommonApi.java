@@ -22,4 +22,6 @@ public interface CommonApi {
     @POST("user/refreshToken")
     Observable<UserSession> refreshToken(@Query("sessionId") String sessionId,
                                          @Query("refreshToken") String refreshToken);
+
+
 }

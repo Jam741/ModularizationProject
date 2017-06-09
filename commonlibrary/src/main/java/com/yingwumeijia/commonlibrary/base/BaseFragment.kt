@@ -1,5 +1,6 @@
 package com.yingwumeijia.commonlibrary.base
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.IdRes
@@ -13,33 +14,35 @@ import android.widget.Toast
  */
 open class BaseFragment : Fragment() {
 
-    lateinit var context: BaseActivity
+    lateinit var context: Fragment
 
-    private val toast: Toast by lazy {
-        createToast(context)
-    }
+    private var toast: Toast? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        context = activity as BaseActivity
+        context = this
     }
 
-    fun createToast(context: Context): Toast {
-        var toast = Toast(context)
-        toast.duration = Toast.LENGTH_SHORT
-        return toast
-    }
 
     fun toastWith(msg: String) {
-        toast.setText(msg)
+        if (toast == null)
+            toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT)
+        else
+            toast!!.setText(msg)
+        toast!!.show()
     }
 
     fun toastWith(@IdRes msg: Int) {
-        toast.setText(msg)
+        if (toast == null)
+            toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT)
+        else
+            toast!!.setText(msg)
+        toast!!.show()
     }
 
     fun toastCancel() {
-        toast.cancel()
+        if (toast != null)
+            toast!!.cancel()
     }
 
 }

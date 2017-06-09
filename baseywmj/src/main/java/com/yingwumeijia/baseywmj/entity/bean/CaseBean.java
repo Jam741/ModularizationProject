@@ -17,7 +17,7 @@ public class CaseBean implements Serializable {
     private int houseArea;
     private BigDecimal cost;
     private String decorateType;
-    private int collectionCount;
+    private Long collectionCount;
     private boolean has720;
     private long viewCount;
 
@@ -93,11 +93,11 @@ public class CaseBean implements Serializable {
         this.decorateType = decorateType;
     }
 
-    public int getCollectionCount() {
+    public Long getCollectionCount() {
         return collectionCount;
     }
 
-    public void setCollectionCount(int collectionCount) {
+    public void setCollectionCount(Long collectionCount) {
         this.collectionCount = collectionCount;
     }
 
