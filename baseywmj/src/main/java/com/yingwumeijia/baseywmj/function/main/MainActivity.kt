@@ -75,6 +75,7 @@ class MainActivity : BaseActivity(), OnTabSelectListener, ViewPager.OnPageChange
             mTabEntities.add(i, TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]))
         }
 
+        viewpager.offscreenPageLimit = 4
         viewpager.adapter = mPageAdapter
         viewpager.addOnPageChangeListener(this@MainActivity)
         tl_main.setTabData(mTabEntities)

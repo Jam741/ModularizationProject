@@ -54,7 +54,8 @@ class RecyclerViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 
     fun getViewWith(@IdRes viewId: Int): View {
 
-        var view: View = mViews[viewId]
+        var view: View?
+        view = mViews[viewId]
         if (view == null) {
             view = itemView.findViewById(viewId)
             mViews.put(viewId, view)
