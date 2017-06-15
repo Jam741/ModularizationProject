@@ -22,5 +22,4 @@ class ActiveFragment : JBaseFragment() {
         return inflater!!.inflate(R.layout.active_frag, container, false)
     }
 
-
 }

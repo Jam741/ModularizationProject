@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tab_height"
+    android:background="@color/bg_whide"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/tv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@mipmap/mine_apply_ico"
+        android:drawablePadding="20dp"
+        android:drawableRight="@mipmap/mine_more_ico"
+        android:gravity="center_vertical"
+        android:text="申请推客"
+        android:textColor="@color/color_6"
+        android:textSize="@dimen/font4_sp" />
+
+</RelativeLayout>

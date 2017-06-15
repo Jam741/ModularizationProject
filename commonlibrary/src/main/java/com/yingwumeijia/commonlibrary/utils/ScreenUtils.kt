@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.yingwumeijia.commonlibrary.StarterApplication
+import com.yingwumeijia.commonlibrary.base.BaseApplication
 
 import java.lang.reflect.Method
 
@@ -26,7 +27,7 @@ object ScreenUtils {
     val displayMetrics: DisplayMetrics
         get() {
             if (metrics == null) {
-                metrics = StarterApplication.appResources().displayMetrics
+                metrics = BaseApplication.appResources().displayMetrics
             }
             return metrics!!
         }

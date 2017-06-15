@@ -1,7 +1,7 @@
 package com.yingwumeijia.baseywmj.api
 
+import com.yingwumeijia.baseywmj.utils.RetrofitUtil
 import com.yingwumeijia.commonlibrary.api.CommonApi
-import com.yingwumeijia.commonlibrary.net.RetrofitUtil
 
 /**
  * Created by jamisonline on 2017/6/2.

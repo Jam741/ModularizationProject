@@ -25,4 +25,10 @@ object AppTypeManager {
         }
     }
 
+    fun isAppC(): Boolean {
+        if (appType() == AppType.APP_C)
+            return true
+        return false
+    }
+
 }

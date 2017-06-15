@@ -12,9 +12,7 @@ open class BaseActivity : AppCompatActivity() {
 
     lateinit var content: Activity
 
-    private val toast: Toast by lazy {
-        createToast(this)
-    }
+    private var toast: Toast? = null
 
     val progressDialog: KProgressHUD by lazy {
         KProgressHUD.create(content, KProgressHUD.Style.PIE_DETERMINATE)
@@ -33,15 +31,23 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun toastWith(msg: String) {
-        toast.setText(msg)
+        if (toast == null)
+            toast = Toast.makeText(content, msg, Toast.LENGTH_SHORT)
+        else
+            toast!!.setText(msg)
+        toast!!.show()
     }
 
     fun toastWith(@IdRes msg: Int) {
-        toast.setText(msg)
+        if (toast == null)
+            toast = Toast.makeText(content, msg, Toast.LENGTH_SHORT)
+        else
+            toast!!.setText(msg)
+        toast!!.show()
     }
 
     fun toastCancel() {
-        toast.cancel()
+        toast!!.cancel()
     }
 
 }

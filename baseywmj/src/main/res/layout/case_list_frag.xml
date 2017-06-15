@@ -69,10 +69,11 @@
         android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.RecyclerView
+        <com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
             android:id="@+id/rv_case"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:paddingTop="@dimen/actionbar_height" />
 
 

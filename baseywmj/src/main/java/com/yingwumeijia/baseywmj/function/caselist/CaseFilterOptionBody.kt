@@ -8,8 +8,8 @@ package com.yingwumeijia.baseywmj.function.caselist
 class CaseFilterOptionBody {
 
     //v1.3.4 作品类型，1为竣工作品，2为设计作品
-    var caseType = 0
-    //作品分类，1为设计，2为硬装，3为软装，4为全装
+    var caseType = 1
+    //
     var decorateType = 0
     //装修风格(byte)
     var style = 0//装修风格(byte)

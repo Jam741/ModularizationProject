@@ -6,7 +6,7 @@ package com.yingwumeijia.android.ywmj.client
 object Constant {
 
 
-    //     val BASE_URL = "https://gate.yingwumeijia.com/";
-    val BASE_URL = "https://devgate.yingwumeijia.com"
+        val BASE_URL = "https://gate.yingwumeijia.com/"
+//    val BASE_URL = "https://devgate.yingwumeijia.com"
 //     val BASE_URL = "https://testgate.yingwumeijia.com";
 }

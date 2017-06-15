@@ -56,9 +56,9 @@ public class RxHelper {
                     }
                 });
                 return apiModelObservable.flatMap(new Func1<T, Observable<T>>() {
-                        @Override
+                    @Override
                     public Observable<T> call(T t) {
-                            return createData(t);
+                        return createData(t);
                     }
                 }).takeUntil(compareLifecycleObservable).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }

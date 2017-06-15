@@ -4,8 +4,7 @@ package com.yingwumeijia.baseywmj.option
  * Created by jamisonline on 2017/6/8.
  */
 
-object Config{
-
+object Config {
 
     val size = 10
 

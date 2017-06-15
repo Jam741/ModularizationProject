@@ -1,23 +1,67 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "com.yingwumeijia.android.worker"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
+        multiDexEnabled true
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        ndk {
+
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+
+        }
     }
+
+    signingConfigs {
+
+        config {
+            try {
+                keyAlias KEY_ALIAS_WORKER
+                keyPassword KEY_PASSWORD
+                storePassword KEY_PASSWORD
+                storeFile file(STORE_FILE_APTH_WORKER)
+                v2SigningEnabled true
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            buildConfigField("boolean", "LOG_DEBUG", "false")
+            buildConfigField("String", "APP_TYPE", "APP_E")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+
+            minifyEnabled false
+            //是否清理无用资源
+//            shrinkResources false
+            //是否启用zipAlign压缩
+//            zipAlignEnabled true
+            //是否支持本地化调整
+            pseudoLocalesEnabled true
+        }
+        debug {
+            buildConfigField("boolean", "LOG_DEBUG", "true")
+            signingConfig signingConfigs.config
+
+            minifyEnabled false
+            //是否清理无用资源
+//            shrinkResources false
+//            zipAlignEnabled true
+            pseudoLocalesEnabled true
         }
     }
 }
@@ -27,8 +71,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile project(':baseywmj')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
+}
+repositories {
+    mavenCentral()
 }

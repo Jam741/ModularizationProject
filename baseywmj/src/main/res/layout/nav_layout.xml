@@ -52,12 +52,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/btn_hx"
+        android:id="@+id/btn_fx"
         android:layout_width="60dp"
         android:layout_height="30dp">
 
         <TextView
-            android:id="@+id/tv_hx"
+            android:id="@+id/tv_fx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -73,12 +73,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/btn_time"
+        android:id="@+id/btn_area"
         android:layout_width="60dp"
         android:layout_height="30dp">
 
         <TextView
-            android:id="@+id/tv_time"
+            android:id="@+id/tv_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

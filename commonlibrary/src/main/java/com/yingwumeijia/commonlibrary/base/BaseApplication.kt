@@ -2,11 +2,8 @@ package com.yingwumeijia.commonlibrary.base
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import com.orhanobut.hawk.Hawk
-import com.orhanobut.hawk.HawkBuilder
-import com.orhanobut.hawk.LogInterceptor
-import com.orhanobut.hawk.NoEncryption
-import com.orhanobut.logger.Logger
 
 /**
  * Created by jamisonline on 2017/5/31.
@@ -28,6 +25,10 @@ open class BaseApplication : Application() {
 
         fun appContext(): Context {
             return sAppContent!!
+        }
+
+        fun appResources(): Resources {
+            return appContext().resources
         }
     }
 

@@ -31,7 +31,7 @@ android {
                 keyPassword KEY_PASSWORD
                 storePassword KEY_PASSWORD
                 storeFile file(STORE_FILE_APTH_CLIECT)
-                v2SigningEnabled false
+                v2SigningEnabled true
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
             }

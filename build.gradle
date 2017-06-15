@@ -24,7 +24,7 @@ allprojects {
         jcenter()
     }
 
-    tasks.withType(JavaCompile){
+    tasks.withType(JavaCompile) {
         sourceCompatibility = JavaVersion.VERSION_1_9
         targetCompatibility = JavaVersion.VERSION_1_9
     }
@@ -35,7 +35,7 @@ task clean(type: Delete) {
 }
 
 
-ext{
+ext {
     compileSdkVersion = 25
     buildToolsVersion = "25.0.3"
 
@@ -47,4 +47,7 @@ ext{
     kotlin_version = "1.1.2"
     constraintLayout = "1.0.2"
     appcompat = "25.3.1"
+
+    //打包环境   安全起见 只对debug.apk生效
+    buildPath = "dev" // release pre dev test
 }

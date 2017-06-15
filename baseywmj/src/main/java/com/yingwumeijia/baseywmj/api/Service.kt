@@ -1,8 +1,8 @@
 package com.yingwumeijia.baseywmj.api
 
-import com.yingwumeijia.baseywmj.entity.bean.CaseBean
-import com.yingwumeijia.baseywmj.entity.bean.SeverBean
+import com.yingwumeijia.baseywmj.entity.bean.*
 import com.yingwumeijia.baseywmj.function.caselist.CaseFilterOptionBody
+import com.yingwumeijia.baseywmj.function.user.login.LoginBean
 import retrofit2.http.*
 import rx.Observable
 
@@ -12,9 +12,22 @@ import rx.Observable
 interface Service {
 
 
+    /**
+     * 获取BASE URL
+     */
     @GET("serviceQuery/appServer")
     fun getService(@Query("appType") appType: String,
                    @Query("version") version: String): Observable<SeverBean>
+
+
+    /**
+     * 登陆
+
+     * @return
+     */
+    @POST("user/login")
+    fun login(@Body loginBean: LoginBean): Observable<UserBean>
+
 
     /**
      * 首页作品列表
@@ -29,5 +42,54 @@ interface Service {
     fun getCaseList(@Path("pageNum") pageNum: Int,
                     @Path("pageSize") pageSize: Int,
                     @Body caseFilterOptionBody: CaseFilterOptionBody): Observable<List<CaseBean>>
+
+
+    /**
+     * 获取用户详细信息接口
+
+     * @return
+     */
+    @GET("customer/getCustomerDetail")
+    fun getCustomerDetail_C(): Observable<CustomerDetailBean>
+
+
+    @GET("employee/getEmployeeDetail")
+    fun getCustomerDetail_E(): Observable<CustomerDetailBean>
+
+
+    /**
+     * 作品筛选枚举集合
+
+     * @return
+     */
+    @GET("case/app/types")
+    fun getCaseTypeSet(): Observable<CaseTypeSetBean>
+
+
+    /**
+     * 获取融云token
+
+     * @return
+     */
+    @GET("im/getToken")
+    abstract fun getIMToken(): Observable<TokenBean>
+
+
+    /**
+     * 注册
+
+     * @return
+     */
+    @POST("user/register")
+    fun register(@Body loginBean: LoginBean): Observable<RegisterResultBean>
+
+
+    /**
+     * 确认开通
+
+     * @return
+     */
+    @POST("user/confirm")
+    fun confirm(@Body loginBean: LoginBean): Observable<UserBean>
 
 }
