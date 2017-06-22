@@ -1,11 +1,11 @@
-package com.yingwumeijia.commonlibrary.net.proxy;
+package com.yingwumeijia.baseywmj.utils.net.proxy;
 
 import android.util.Log;
 
+import com.yingwumeijia.baseywmj.utils.net.RetrofitUtil;
 import com.yingwumeijia.commonlibrary.entity.UserSession;
 import com.yingwumeijia.commonlibrary.net.AccountManager;
 import com.yingwumeijia.commonlibrary.net.IGlobalManager;
-import com.yingwumeijia.commonlibrary.net.RetrofitUtil;
 import com.yingwumeijia.commonlibrary.net.exception.NotLoginThrowable;
 import com.yingwumeijia.commonlibrary.net.exception.TokenInvalidException;
 import com.yingwumeijia.commonlibrary.net.exception.TokenIsRefreshEdException;

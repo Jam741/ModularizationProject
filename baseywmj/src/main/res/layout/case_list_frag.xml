@@ -91,43 +91,11 @@
             android:clickable="false"
             android:src="@mipmap/work_back_top_ic" />
 
-        <LinearLayout
-            android:id="@+id/empty_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:paddingBottom="50dp"
-            android:visibility="gone">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
-                android:src="@mipmap/work_search_no_result_ico"
-                tools:ignore="ContentDescription" />
+        <include
+            layout="@layout/empty_layout"
+            android:paddingTop="@dimen/actionbar_height" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="抱歉，没有匹配的作品"
-                android:textColor="@color/text_color_weak"
-                android:textSize="@dimen/text_title_medium"
-                tools:ignore="HardcodedText" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="请选择其他类型或搜索"
-                android:textColor="@color/text_color_weak"
-                android:textSize="@dimen/text_title_medium"
-                tools:ignore="HardcodedText" />
-
-
-        </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>

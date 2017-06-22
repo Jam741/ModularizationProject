@@ -23,6 +23,8 @@
     <color name="divider_normal">#E6E6E6</color>
     <color name="im_backage_color">#F8F8F8</color>
 
+    <color name="windowBackground">#f6f6f6</color>
+
 
     <!--v1.2.0 new color tint-->
     <color name="color_1">#282828</color>

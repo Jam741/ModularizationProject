@@ -1,5 +1,6 @@
 package com.yingwumeijia.baseywmj.function.main
 
+import android.content.Context
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeSetBean
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
@@ -12,7 +13,7 @@ import rx.subjects.PublishSubject
 /**
  * Created by jamisonline on 2017/6/12.
  */
-class MainController(var view: MainActivity, var publishSubject: PublishSubject<ActivityLifeCycleEvent>) {
+class MainController(var context: Context, var publishSubject: PublishSubject<ActivityLifeCycleEvent>) {
 
     var classfilyAdapter: CaseFilterClassfilyAdapter? = null
     var styleAdapter: NewCaseTypeAdapter? = null
@@ -27,14 +28,14 @@ class MainController(var view: MainActivity, var publishSubject: PublishSubject<
 
     fun didCaseFilterSet() {
         var ob: Observable<CaseTypeSetBean> = Api.service.getCaseTypeSet()
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<CaseTypeSetBean>(view) {
+        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<CaseTypeSetBean>(context) {
 
             override fun _onNext(t: CaseTypeSetBean) {
                 classfilyAdapter = CaseFilterClassfilyAdapter(t.doneCasesTypes, t.designCasesTypes)
-                styleAdapter = NewCaseTypeAdapter(t.decorateStyleType, view)
-                hoseTypeAdapter = NewCaseTypeAdapter(t.houseType, view)
-                hoseAreaAdapter = NewCaseTypeAdapter(t.houseAreaTypes, view)
-                cityAdapter = NewCaseTypeAdapter(t.cityTypes, view)
+                styleAdapter = NewCaseTypeAdapter(t.decorateStyleType, context)
+                hoseTypeAdapter = NewCaseTypeAdapter(t.houseType, context)
+                hoseAreaAdapter = NewCaseTypeAdapter(t.houseAreaTypes, context)
+                cityAdapter = NewCaseTypeAdapter(t.cityTypes, context)
                 classfilyAdapter!!.setSelected(0, 0)
                 styleAdapter!!.setSelected(0)
                 hoseTypeAdapter!!.setSelected(0)

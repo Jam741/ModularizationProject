@@ -103,6 +103,13 @@ public class HttpUtil {
         RetrofitCache.load("nocacheKey", observable, false, false).subscribe(subscriber);
     }
 
+    public <T> void toNolifeSubscribe(Observable<T> ob, Subscriber<T> subscriber) {
+        ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
+    }
+
+    public <T> void toNolifeSubscribe(Observable<T> ob, ProgressSubscriber<T> subscriber) {
+        ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
+    }
 
     /**
      * 网络请求统一的线程调度

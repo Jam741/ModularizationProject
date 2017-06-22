@@ -1,11 +1,14 @@
 package com.yingwumeijia.baseywmj.base
 
 import android.os.Bundle
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.commonlibrary.base.BaseActivity
 import rx.subjects.PublishSubject
 
 open class JBaseActivity : BaseActivity(), JBaseView {
+
+    val isAppC: Boolean = AppTypeManager.isAppC()
 
 
     val lifecycleSubject = PublishSubject.create<ActivityLifeCycleEvent>()

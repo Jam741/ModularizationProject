@@ -49,5 +49,5 @@ ext {
     appcompat = "25.3.1"
 
     //打包环境   安全起见 只对debug.apk生效
-    buildPath = "dev" // release pre dev test
+    buildPath = "dev" // release pre dev test default
 }

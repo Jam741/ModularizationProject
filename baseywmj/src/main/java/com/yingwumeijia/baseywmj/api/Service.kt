@@ -2,7 +2,7 @@ package com.yingwumeijia.baseywmj.api
 
 import com.yingwumeijia.baseywmj.entity.bean.*
 import com.yingwumeijia.baseywmj.function.caselist.CaseFilterOptionBody
-import com.yingwumeijia.baseywmj.function.user.login.LoginBean
+import com.yingwumeijia.baseywmj.function.user.LoginBean
 import retrofit2.http.*
 import rx.Observable
 
@@ -91,5 +91,42 @@ interface Service {
      */
     @POST("user/confirm")
     fun confirm(@Body loginBean: LoginBean): Observable<UserBean>
+
+
+    /**
+     * 发送验证码
+
+     * @param phone
+     * *
+     * @param source 1-注册，2-找回
+     * *
+     * @return
+     */
+    @POST("user/sendSmsCode")
+    fun sendSmsCode(@Query("phone") phone: String,
+                    @Query("source") source: Int): Observable<String>
+
+
+    /**
+     * 找回密码
+
+     * @return
+     */
+    @PUT("user/getBackPassword")
+    fun findPassword(@Body loginBean: LoginBean): Observable<UserBean>
+
+
+    /**
+     * 密码设置
+
+     * @param oldPassword
+     * *
+     * @param newPassword
+     * *
+     * @return
+     */
+    @PUT("user/setPassword")
+    fun setPassword(@Query("oldPassword") oldPassword: String,
+                    @Query("newPassword") newPassword: String): Observable<String>
 
 }

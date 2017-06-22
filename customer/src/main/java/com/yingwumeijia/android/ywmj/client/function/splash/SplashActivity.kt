@@ -1,10 +1,7 @@
 package com.yingwumeijia.android.ywmj.client.function.splash
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import com.github.mzule.activityrouter.router.Routers
-import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.ywmj.client.Constant
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.api.Service
@@ -38,7 +35,7 @@ class SplashActivity : JBaseActivity() {
 
     private fun defaultClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.d("Sever:",message) })
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.d("Sever:", message) })
         builder.connectTimeout(10000, TimeUnit.MILLISECONDS)
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor(loggingInterceptor)
@@ -54,7 +51,7 @@ class SplashActivity : JBaseActivity() {
                 .subscribe(object : Subscriber<SeverBean>() {
                     override fun onNext(t: SeverBean?) {
                         SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
-                        MainActivity.start(content)
+                        MainActivity.start(context)
                     }
 
                     override fun onError(e: Throwable?) {

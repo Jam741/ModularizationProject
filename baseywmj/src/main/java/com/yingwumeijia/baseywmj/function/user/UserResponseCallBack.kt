@@ -7,9 +7,18 @@ import com.yingwumeijia.baseywmj.entity.bean.UserBean
  */
 interface UserResponseCallBack {
 
-    public fun error(msg: String, code: Int)
+    /**
+     * 登录失败
+     */
+    fun error(msg: String, code: Int)
 
-    public fun success(userBean: UserBean)
+    /**
+     * 登录成功
+     */
+    fun success(userBean: UserBean)
 
-    public fun completed()
+    /**
+     * 登录完成
+     */
+    fun completed()
 }

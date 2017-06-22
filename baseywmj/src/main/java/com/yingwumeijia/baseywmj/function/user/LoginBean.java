@@ -1,4 +1,4 @@
-package com.yingwumeijia.baseywmj.function.user.login;
+package com.yingwumeijia.baseywmj.function.user;
 
 /**
  * Created by Jam on 2016/12/20 下午2:53.
@@ -15,12 +15,21 @@ public class LoginBean {
 
     private IdentityInfoBean identityInfo;
     private UserExtensionInfoBean userExtensionInfo;
+    private String invitationCode;
+
 
 
     public LoginBean(IdentityInfoBean identityInfo, UserExtensionInfoBean userExtensionInfo) {
         this.identityInfo = identityInfo;
         this.userExtensionInfo = userExtensionInfo;
     }
+
+    public LoginBean(IdentityInfoBean identityInfo, UserExtensionInfoBean userExtensionInfo, String invitationCode) {
+        this.identityInfo = identityInfo;
+        this.userExtensionInfo = userExtensionInfo;
+        this.invitationCode = invitationCode;
+    }
+
 
     public IdentityInfoBean getIdentityInfo() {
         return identityInfo;

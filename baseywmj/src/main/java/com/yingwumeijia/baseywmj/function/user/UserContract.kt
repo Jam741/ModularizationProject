@@ -11,7 +11,9 @@ interface UserContract {
 
         fun login(phone: String, password: String)
 
-        fun register(phone: String, password: String, smsCode: String, invaCode: String)
+        fun register(phone: String, password: String, smsCode: String, invaCode: String?)
+
+        fun findPasssword(phone: String,password: String,smsCode: String)
 
         fun sendSmsCode(phone: String, source: Int)
     }
@@ -29,16 +31,19 @@ interface UserContract {
 
     interface LoginView : View
 
-    interface FindPassworldView : View {
+    interface SendSmsView : View {
 
         fun showInputErrorFromSmsCode()
-
-        fun enableSendSmsButton(enable: Boolean)
 
         fun resetSendSmsButtom()
 
         fun didSendSmsButtonText(s: String)
+
+        fun launchSendSmsButtonText()
     }
 
-    interface RegisterView : FindPassworldView
+
+    interface FindPasswordView : SendSmsView
+
+    interface RegisterView : SendSmsView
 }

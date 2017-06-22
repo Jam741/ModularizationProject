@@ -17,6 +17,7 @@ import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
 import kotlinx.android.synthetic.main.case_list_frag.*
+import kotlinx.android.synthetic.main.empty_layout.*
 import kotlinx.android.synthetic.main.nav_layout.*
 
 
@@ -206,7 +207,8 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
 
     override fun showEmpty(empty: Boolean) {
-
+        if (empty) empty_layout.visibility = View.VISIBLE
+        else empty_layout.visibility = View.GONE
     }
 
 
@@ -287,6 +289,8 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tv_empty.text = "抱歉，没有匹配的作品\n请选择其他类型或搜索"
+        iv_empty.setImageResource(R.mipmap.work_search_no_result_ico)
         btn_classify.setOnClickListener(this@CaseListFragment)
         btn_style.setOnClickListener(this@CaseListFragment)
         btn_fx.setOnClickListener(this@CaseListFragment)

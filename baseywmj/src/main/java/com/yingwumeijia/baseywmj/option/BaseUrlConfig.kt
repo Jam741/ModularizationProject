@@ -25,6 +25,9 @@ object BaseUrlConfig {
     val BASE_URL_TEST = "https://testgate.yingwumeijia.com"
     val BASE_URL_H5_TEST = "https://testmobile.yingwumeijia.com/appv/"
 
+    /*本机地址*/
+    val BASE_URL_H5_PC = "https://testmobile.yingwumeijia.com/appv/"
+
 
     fun baseSeverUrl(): String {
         if (BuildConfig.DEBUG) {
@@ -44,8 +47,11 @@ object BaseUrlConfig {
                 return BASE_URL_H5_DEV
             } else if (BuildConfig.PATH.equals("test")) {
                 return BASE_URL_H5_TEST
-            } else if (BuildConfig.PATH.equals("pre"))
+            } else if (BuildConfig.PATH.equals("pre")) {
                 return BASE_URL_H5_PRE
+            } else {
+                return ""
+            }
         }
         return BASE_URL_H5_RELEASE
     }
