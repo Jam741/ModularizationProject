@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 
 import com.kaopiz.kprogresshud.KProgressHUD;
+import com.yingwumeijia.commonlibrary.net.HttpUtil;
 import com.yingwumeijia.commonlibrary.net.NetUtils;
 import com.yingwumeijia.commonlibrary.net.exception.ApiException;
 import com.yingwumeijia.commonlibrary.widget.ProgressCancelListener;
@@ -66,21 +67,7 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
     @Override
     public void onError(Throwable e) {
         dismissProgressDialog();
-        e.printStackTrace();
-        String message;
-        if (NetUtils.isConnected(context)) {
-            message = "网络异常";
-        } else if (e instanceof ApiException) {
-            message = ((ApiException) e).getError_message();
-        } else if (e instanceof ConnectException) {
-            message = "网络连接异常，请重试";
-        } else if (e instanceof SocketTimeoutException) {
-            message = "网络请求超时，请重试";
-        } else {
-            message = "网络异常";
-        }
-        e.printStackTrace();
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        HttpUtil.disposeHttpException(context, e);
     }
 
 

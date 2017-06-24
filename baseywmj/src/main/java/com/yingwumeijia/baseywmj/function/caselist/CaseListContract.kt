@@ -23,6 +23,7 @@ interface CaseListContract {
 
         fun onLoadComplete(page: Int, empty: Boolean)
 
+
     }
 
 

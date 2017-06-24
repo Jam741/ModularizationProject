@@ -16,7 +16,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/person_head" />
+            <FrameLayout
+                android:id="@+id/head_content"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mine_top_height"
+                android:background="@mipmap/user_bg"></FrameLayout>
+
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_menu"

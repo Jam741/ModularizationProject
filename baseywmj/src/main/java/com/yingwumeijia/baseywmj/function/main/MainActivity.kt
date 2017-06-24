@@ -83,7 +83,7 @@ class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChang
 
     val mTabEntities by lazy { initTabEntities() }
 
-    val mFragments = arrayListOf(CaseListFragment.newInstance(), ActiveFragment.newInstance(), ConversationListFragment.newInstance(), PersonalFragment.newInstance())
+    val mFragments = arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), ConversationListFragment.newInstance(), PersonalFragment.newInstance())
 
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 

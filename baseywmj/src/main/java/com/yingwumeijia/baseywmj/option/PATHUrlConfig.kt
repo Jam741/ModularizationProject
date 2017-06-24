@@ -1,11 +1,18 @@
 package com.yingwumeijia.baseywmj.option
 
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.BuildConfig
+import com.yingwumeijia.commonlibrary.net.SeverUrlManager
 
 /**
  * Created by jamisonline on 2017/6/15.
+ *
+ * 网络环境配置
  */
-object BaseUrlConfig {
+object PATHUrlConfig {
+
+    /*编译环境配置，安全起见只对  debug包生效*/
+    val buildPath = 0   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,main_pc = 4
 
     val DEFAULT_URL_C = "https://customer.yingwumeijia.com/"
 
@@ -29,30 +36,32 @@ object BaseUrlConfig {
     val BASE_URL_H5_PC = "https://testmobile.yingwumeijia.com/appv/"
 
 
-    fun baseSeverUrl(): String {
+    fun severUrl(): String {
         if (BuildConfig.DEBUG) {
-            if (BuildConfig.PATH.equals("dev")) {
-                return BASE_URL_DEV
-            } else if (BuildConfig.PATH.equals("test")) {
-                return BASE_URL_TEST
-            } else if (BuildConfig.PATH.equals("pre"))
-                return BASE_URL_PRE
+            Logger.d(BuildConfig.DEBUG)
+            var url = ""
+            when (buildPath) {
+                0 -> url = BASE_URL_DEV
+                1 -> url = BASE_URL_PRE
+                2 -> url = BASE_URL_RELEASE
+                3 -> url = BASE_URL_TEST
+            }
+            return url
+        } else {
+            return BASE_URL_DEV
         }
-        return BASE_URL_RELEASE
     }
 
     fun baseH5Url(): String {
         if (BuildConfig.DEBUG) {
-            if (BuildConfig.PATH.equals("dev")) {
-                return BASE_URL_H5_DEV
-            } else if (BuildConfig.PATH.equals("test")) {
-                return BASE_URL_H5_TEST
-            } else if (BuildConfig.PATH.equals("pre")) {
-                return BASE_URL_H5_PRE
-            } else {
-                return ""
+            when (buildPath) {
+                0 -> return BASE_URL_H5_DEV
+                1 -> return BASE_URL_H5_PRE
+                2 -> return BASE_URL_H5_RELEASE
+                3 -> return BASE_URL_H5_TEST
+                4 -> return BASE_URL_H5_PC
             }
         }
-        return BASE_URL_H5_RELEASE
+        return SeverUrlManager.baseWebUrl()
     }
 }

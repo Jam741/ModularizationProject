@@ -93,8 +93,8 @@ class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallB
 
 
         btn_login.setOnClickListener { v: View? -> didLogin() }
-        btn_findPwd.setOnClickListener { v: View? -> FindPwdActivity.start(context) }
-        btn_register.setOnClickListener { v: View? -> RegisterActivity.start(context) }
+        btn_findPwd.setOnClickListener { v: View? -> FindPwdActivity.start(context, currentLogin) }
+        btn_register.setOnClickListener { v: View? -> RegisterActivity.start(context, currentLogin) }
 
     }
 

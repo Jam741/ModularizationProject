@@ -95,62 +95,62 @@ class RecyclerViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         return this
     }
 
-    fun setImageUrl256(fragment: Fragment, viewId: Int, imageUrl: String) {
+    fun setImageUrl256(fragment: Fragment, viewId: Int, imageUrl: String?) {
         val view = getViewWith(viewId) as ImageView
         JImageLolder.load256(fragment, view, imageUrl)
     }
 
-    fun setImageUrl256(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String) {
+    fun setImageUrl256(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load256(fragmentActivity, imageView, imageUrl)
     }
 
-    fun setImageUrl256(activity: Activity, viewId: Int, imageUrl: String) {
+    fun setImageUrl256(activity: Activity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load256(activity, imageView, imageUrl)
     }
 
-    fun setImageUrl256(context: Context, viewId: Int, imageUrl: String) {
+    fun setImageUrl256(context: Context, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load256(context, imageView, imageUrl)
     }
 
-    fun setImageUrl720(fragment: Fragment, viewId: Int, imageUrl: String) {
+    fun setImageUrl720(fragment: Fragment, viewId: Int, imageUrl: String?) {
         val view = getViewWith(viewId) as ImageView
         JImageLolder.load720(fragment, view, imageUrl)
     }
 
-    fun setImageUrl720(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String) {
+    fun setImageUrl720(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load720(fragmentActivity, imageView, imageUrl)
     }
 
-    fun setImageUrl720(activity: Activity, viewId: Int, imageUrl: String) {
+    fun setImageUrl720(activity: Activity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load720(activity, imageView, imageUrl)
     }
 
-    fun setImageUrl720(context: Context, viewId: Int, imageUrl: String) {
+    fun setImageUrl720(context: Context, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load720(context, imageView, imageUrl)
     }
 
-    fun setImageUrl480(fragment: Fragment, viewId: Int, imageUrl: String) {
+    fun setImageUrl480(fragment: Fragment, viewId: Int, imageUrl: String?) {
         val view = getViewWith(viewId) as ImageView
         JImageLolder.load480(fragment, view, imageUrl)
     }
 
-    fun setImageUrl480(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String) {
+    fun setImageUrl480(fragmentActivity: FragmentActivity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load480(fragmentActivity, imageView, imageUrl)
     }
 
-    fun setImageUrl480(activity: Activity, viewId: Int, imageUrl: String) {
+    fun setImageUrl480(activity: Activity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load480(activity, imageView, imageUrl)
     }
 
-    fun setImageUrl480(context: Context, viewId: Int, imageUrl: String) {
+    fun setImageUrl480(context: Context, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load480(context, imageView, imageUrl)
     }

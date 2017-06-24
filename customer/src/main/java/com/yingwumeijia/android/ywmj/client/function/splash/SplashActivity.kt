@@ -8,6 +8,7 @@ import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
 import com.yingwumeijia.baseywmj.function.main.MainActivity
+import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.commonlibrary.net.SeverUrlManager
 import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.utils.AppUtils
@@ -24,7 +25,7 @@ class SplashActivity : JBaseActivity() {
 
     val Api by lazy {
         Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(PATHUrlConfig.severUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(defaultClient())
@@ -50,8 +51,7 @@ class SplashActivity : JBaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SeverBean>() {
                     override fun onNext(t: SeverBean?) {
-                        SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
-                        MainActivity.start(context)
+                        didSuccess(t!!)
                     }
 
                     override fun onError(e: Throwable?) {
@@ -64,6 +64,14 @@ class SplashActivity : JBaseActivity() {
 
                 })
 
+    }
+
+    /**
+     *  加载完成
+     */
+    private fun didSuccess(t: SeverBean) {
+        SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
+        MainActivity.start(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

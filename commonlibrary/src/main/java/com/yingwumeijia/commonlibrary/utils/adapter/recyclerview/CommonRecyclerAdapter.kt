@@ -11,6 +11,8 @@ import android.view.ViewGroup
  */
 abstract class CommonRecyclerAdapter<T> constructor(var activity: Activity?, var fragment: Fragment?, var data: ArrayList<T>?, var layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder>() {
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewHolder {
         if (activity == null) {
             activity = fragment!!.activity

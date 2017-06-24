@@ -41,13 +41,13 @@ ext {
 
     minSdkVersion = 15
     targetSdkVersion = 22
-    versionCode = 14
-    versionName = "1.5.0"
+    versionCode = 15
+    versionName = "1.6.0"
 
     kotlin_version = "1.1.2"
     constraintLayout = "1.0.2"
     appcompat = "25.3.1"
 
     //打包环境   安全起见 只对debug.apk生效
-    buildPath = "dev" // release pre dev test default
+    buildPath = 0 //dev=0 release=1 pre=2  test=3 default=4
 }

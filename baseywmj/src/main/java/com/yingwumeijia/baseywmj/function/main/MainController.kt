@@ -13,7 +13,7 @@ import rx.subjects.PublishSubject
 /**
  * Created by jamisonline on 2017/6/12.
  */
-class MainController(var context: Context, var publishSubject: PublishSubject<ActivityLifeCycleEvent>) {
+open class MainController(var context: Context, var publishSubject: PublishSubject<ActivityLifeCycleEvent>) {
 
     var classfilyAdapter: CaseFilterClassfilyAdapter? = null
     var styleAdapter: NewCaseTypeAdapter? = null

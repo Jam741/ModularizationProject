@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeEnum
 import com.yingwumeijia.baseywmj.function.main.MainActivity
+import com.yingwumeijia.baseywmj.function.search.SearchActivity
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
@@ -23,10 +26,13 @@ import kotlinx.android.synthetic.main.nav_layout.*
 
 /**
  * Created by jamisonline on 2017/5/31.
+ * 案例列表
  */
 class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.LoadingListener, View.OnClickListener {
 
     var pageNum = Config.page
+
+    val fromSearch: Boolean by lazy { arguments.getBoolean(Constant.KEY_CASE_LIST_SOURCE) }
 
     val mCaseFilterOptionBody: CaseFilterOptionBody = CaseFilterOptionBody()
 
@@ -66,23 +72,38 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
         when (v?.id) {
             R.id.btn_classify -> {
                 drawableIndex = 0
-                (activity as MainActivity).showDrawableLayout(drawableIndex)
+                if (fromSearch)
+                    (activity as SearchActivity).showDrawableLayout(drawableIndex)
+                else
+                    (activity as MainActivity).showDrawableLayout(drawableIndex)
             }
             R.id.btn_style -> {
                 drawableIndex = 1
-                (activity as MainActivity).showDrawableLayout(drawableIndex)
+                if (fromSearch)
+                    (activity as SearchActivity).showDrawableLayout(drawableIndex)
+                else
+                    (activity as MainActivity).showDrawableLayout(drawableIndex)
             }
             R.id.btn_fx -> {
                 drawableIndex = 2
-                (activity as MainActivity).showDrawableLayout(drawableIndex)
+                if (fromSearch)
+                    (activity as SearchActivity).showDrawableLayout(drawableIndex)
+                else
+                    (activity as MainActivity).showDrawableLayout(drawableIndex)
             }
             R.id.btn_area -> {
                 drawableIndex = 3
-                (activity as MainActivity).showDrawableLayout(drawableIndex)
+                if (fromSearch)
+                    (activity as SearchActivity).showDrawableLayout(drawableIndex)
+                else
+                    (activity as MainActivity).showDrawableLayout(drawableIndex)
             }
             R.id.btn_city -> {
                 drawableIndex = 4
-                (activity as MainActivity).showDrawableLayout(drawableIndex)
+                if (fromSearch)
+                    (activity as SearchActivity).showDrawableLayout(drawableIndex)
+                else
+                    (activity as MainActivity).showDrawableLayout(drawableIndex)
             }
         }
     }
@@ -207,8 +228,13 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
 
     override fun showEmpty(empty: Boolean) {
-        if (empty) empty_layout.visibility = View.VISIBLE
-        else empty_layout.visibility = View.GONE
+        if (empty) {
+            if (fromSearch) rv_case.visibility = View.GONE
+            empty_layout.visibility = View.VISIBLE
+        } else {
+            if (fromSearch) rv_case.visibility = View.VISIBLE
+            empty_layout.visibility = View.GONE
+        }
     }
 
 
@@ -273,12 +299,39 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
     companion object {
 
-        fun newInstance(): CaseListFragment {
+        /**
+         * @param forSearchPage 用于搜索页面
+         */
+        fun newInstance(fromSearch: Boolean): CaseListFragment {
             val args = Bundle()
+            args.putBoolean(Constant.KEY_CASE_LIST_SOURCE, fromSearch)
             val fragment = CaseListFragment()
             fragment.arguments = args
             return fragment
         }
+    }
+
+
+    /**
+     * 显示titleLayout
+     */
+    fun showTitleLayout(show: Boolean) {
+        if (show) {
+            title_layout.visibility = View.VISIBLE
+        } else {
+            title_layout.visibility = View.GONE
+        }
+    }
+
+    /**
+     * 搜索
+     */
+    fun search(keyWords: String) {
+        mCaseFilterOptionBody.reset()
+        mCaseFilterOptionBody.refresh = false
+        mCaseFilterOptionBody.queryKey = keyWords
+        pageNum = Config.page
+        presenter.loadCaseList(pageNum, mCaseFilterOptionBody)
     }
 
 
@@ -296,16 +349,23 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
         btn_fx.setOnClickListener(this@CaseListFragment)
         btn_area.setOnClickListener(this@CaseListFragment)
         btn_city.setOnClickListener(this@CaseListFragment)
-        btnScrollTop.setOnClickListener { v: View? -> rv_case.smoothScrollToPosition(0) }
-        iv_search.setOnClickListener { v: View? -> "" }
+        btnScrollTop.setOnClickListener { rv_case.smoothScrollToPosition(0) }
+        iv_search.setOnClickListener { SearchActivity.start(activity) }
         rv_case.run {
             layoutManager = LinearLayoutManager(context)
             setLoadingListener(this@CaseListFragment)
             setAdapter(caseListAdapter)
             addFootView(LoadingMoreFooter(context, getString(R.string.no_more_case_load)))
             addOnScrollListener(caseListScrollListener)
+            loadMoreComplete()
         }
-        presenter.loadCaseList(pageNum, mCaseFilterOptionBody)
+        if (fromSearch) {
+            showTitleLayout(false)
+            showEmpty(true)
+        } else {
+            showTitleLayout(true)
+            presenter.loadCaseList(pageNum, mCaseFilterOptionBody)
+        }
     }
 
 }

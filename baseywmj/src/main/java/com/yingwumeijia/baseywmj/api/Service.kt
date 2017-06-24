@@ -129,4 +129,12 @@ interface Service {
     fun setPassword(@Query("oldPassword") oldPassword: String,
                     @Query("newPassword") newPassword: String): Observable<String>
 
+    /**
+     * 获取搜索热词列表
+
+     * @return
+     */
+    @GET("case/app/hotkeys")
+    fun getHotKeys(): Observable<List<String>>
+
 }

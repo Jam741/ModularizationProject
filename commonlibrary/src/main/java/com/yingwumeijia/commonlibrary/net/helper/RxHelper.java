@@ -60,7 +60,7 @@ public class RxHelper {
                     public Observable<T> call(T t) {
                         return createData(t);
                     }
-                }).takeUntil(compareLifecycleObservable).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+                }).takeUntil(compareLifecycleObservable).subscribeOn(Schedulers.io()).unsubscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread(),true);
             }
         };
     }
