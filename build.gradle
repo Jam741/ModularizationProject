@@ -42,7 +42,7 @@ ext {
     minSdkVersion = 15
     targetSdkVersion = 22
     versionCode = 15
-    versionName = "1.6.0"
+    versionName = "1.5.0"
 
     kotlin_version = "1.1.2"
     constraintLayout = "1.0.2"

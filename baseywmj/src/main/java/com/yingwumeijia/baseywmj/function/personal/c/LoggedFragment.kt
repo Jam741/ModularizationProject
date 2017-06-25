@@ -14,9 +14,19 @@ import kotlinx.android.synthetic.main.person_logged_header_c.*
 
 /**
  * Created by jamisonline on 2017/6/23.
+ *
+ * C端 已登录头部片段
  */
 
 class LoggedFragment : JBaseFragment() {
+
+
+    companion object {
+        fun newInstance(): LoggedFragment {
+            return LoggedFragment()
+        }
+    }
+
 
     var userBean: UserBean? = null
 
@@ -27,7 +37,7 @@ class LoggedFragment : JBaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        imageView
+        imageView.setOnClickListener { TODO("编辑个人信息页面") }
 
     }
 
