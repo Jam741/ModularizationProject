@@ -47,7 +47,8 @@ class PersonPresenter constructor(var fragment: Fragment, var view: PersonContra
             ob = Api.service.getCustomerDetail_E()
         HttpUtil.getInstance().toSubscribe(ob, object : ProgressSubscriber<CustomerDetailBean>(context) {
             override fun _onNext(bean: CustomerDetailBean) {
-
+                UserManager.cacheUserData(bean.customerDto)
+                view.didUpDateUserData()
             }
         }, "cacheKey", ActivityLifeCycleEvent.DESTROY, lifecycleSubject, false, false)
     }

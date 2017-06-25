@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.commonlibrary.base.BaseFragment
 import rx.subjects.PublishSubject
@@ -15,6 +16,8 @@ import rx.subjects.PublishSubject
 open class JBaseFragment : BaseFragment() {
 
     val TAG = this.javaClass.simpleName
+
+    val isAppC: Boolean = AppTypeManager.isAppC()
 
 
     val lifecycleSubject = PublishSubject.create<ActivityLifeCycleEvent>()

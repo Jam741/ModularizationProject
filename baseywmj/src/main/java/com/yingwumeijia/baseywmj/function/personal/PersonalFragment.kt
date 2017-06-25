@@ -33,7 +33,6 @@ enum class MenuAction {
 
 class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAdapter.MenuOnItemClickListener, PersonGroupMenuAdapter.MenuOnItemLongClickListener {
 
-
     val presenter: PersonContract.Presenter by lazy {
         PersonPresenter(this, this, lifecycleSubject)
     }
@@ -56,24 +55,35 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showLogIn(logIn: Boolean) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-        val needReplace = childFragmentManager.findFragmentById(R.id.head_content) != null
-
-        if (logIn) {
-            if (needReplace)
-                childFragmentManager.beginTransaction().replace(R.id.head_content, loggedCFragment).commit()
-            else
-                childFragmentManager.beginTransaction().add(R.id.head_content, loggedCFragment).commit()
+    override fun showLoginView(logIn: Boolean) {
+        if (isAppC) {
+            if (logIn) {
+                changeHeadFragment(loggedCFragment)
+            } else {
+                changeHeadFragment(loggedCFragment)
+            }
         } else {
-            if (needReplace)
-                childFragmentManager.beginTransaction().replace(R.id.head_content, loggedCFragment).commit()
-            else
-                childFragmentManager.beginTransaction().add(R.id.head_content, loggedCFragment).commit()
+            if (logIn) {
+                changeHeadFragment(loggedCFragment)
+            } else {
+                changeHeadFragment(loggedCFragment)
+            }
         }
     }
 
+    override fun refreshLoginView() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    fun changeHeadFragment(fragment: JBaseFragment) {
+        val currentFragment = childFragmentManager.findFragmentById(R.id.head_content)
+        if (currentFragment == null) {
+            childFragmentManager.beginTransaction().add(R.id.head_content, fragment).commit()
+        } else {
+            if (currentFragment != fragment)
+                childFragmentManager.beginTransaction().replace(R.id.head_content, fragment).commit()
+        }
+    }
 
     override fun showMenus(menuInfosList: ArrayList<ArrayList<MenuInfo>>) {
         personGroupMenuAdapter.refreshMenu(menuInfosList)
@@ -108,7 +118,7 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
         if (isVisibleToUser) {
             if (UserManager.isLogin(activity))
                 presenter.initPersonInfo()
-            showLogIn(UserManager.isLogin(activity))
+            showLoginView(UserManager.isLogin(activity))
         } else {
 
         }
