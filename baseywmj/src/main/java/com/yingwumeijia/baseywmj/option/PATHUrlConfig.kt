@@ -14,7 +14,6 @@ object PATHUrlConfig {
     /*编译环境配置，安全起见只对  debug包生效*/
     val buildPath = 2   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,main_pc = 4
 
-
     val DEFAULT_URL_C = "https://customer.yingwumeijia.com/"
 
     val DEFAULT_URL_E = "https://employee.yingwumeijia.com/"

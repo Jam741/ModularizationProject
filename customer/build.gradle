@@ -27,10 +27,10 @@ android {
 
         config {
             try {
-                keyAlias KEY_ALIAS_CLIECT
-                keyPassword KEY_PASSWORD
-                storePassword KEY_PASSWORD
-                storeFile file(STORE_FILE_APTH_CLIECT)
+//                keyAlias KEY_ALIAS_CLIECT
+//                keyPassword KEY_PASSWORD
+//                storePassword KEY_PASSWORD
+//                storeFile file(STORE_FILE_APTH_CLIECT)
                 v2SigningEnabled true
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())

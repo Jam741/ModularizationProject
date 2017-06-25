@@ -11,9 +11,13 @@ interface PersonContract {
 
     interface View : JBaseView {
 
+        fun didUpDateUserData()
+
         fun showMenus(menuInfosList: ArrayList<ArrayList<MenuInfo>>)
 
-        fun showLogIn(logIn: Boolean)
+        fun showLoginView(logIn: Boolean)
+
+        fun refreshLoginView()
     }
 
 

@@ -54,7 +54,7 @@ class SplashActivity : JBaseActivity() {
                 .subscribe(object : Subscriber<SeverBean>() {
                     override fun onNext(t: SeverBean?) {
                         SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
-                        MainActivity.start(content)
+                        MainActivity.start(context)
                     }
 
                     override fun onError(e: Throwable?) {

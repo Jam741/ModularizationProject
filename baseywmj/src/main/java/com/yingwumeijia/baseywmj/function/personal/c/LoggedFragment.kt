@@ -9,6 +9,7 @@ import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
+import com.yingwumeijia.baseywmj.function.personal.PersonHeadFrgament
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.person_logged_header_c.*
 
@@ -18,7 +19,11 @@ import kotlinx.android.synthetic.main.person_logged_header_c.*
  * C端 已登录头部片段
  */
 
-class LoggedFragment : JBaseFragment() {
+class LoggedFragment : PersonHeadFrgament() {
+
+    override fun upDate(bundle: Bundle) {
+        initView()
+    }
 
 
     companion object {
@@ -48,11 +53,6 @@ class LoggedFragment : JBaseFragment() {
             JImageLolder.load(getContext(), iv_portrait, R.mipmap.mine_user_ywmj_circle)
         else
             JImageLolder.load(context, iv_portrait, userBean!!.showHead)
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        Logger.d(hidden)
     }
 
 }
