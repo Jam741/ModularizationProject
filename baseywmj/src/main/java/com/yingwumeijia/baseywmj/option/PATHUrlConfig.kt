@@ -19,36 +19,41 @@ object PATHUrlConfig {
     val DEFAULT_URL_E = "https://employee.yingwumeijia.com/"
 
 
+    /*写死本机的环境*/
+    val BASE_URL_DEFAULT = "https://devgate.yingwumeijia.com"
+    val BASE_URL_H5_DEFAULT = "https://testmobile.yingwumeijia.com/appv/"
+
     /*生产环境*/
     val BASE_URL_RELEASE = "https://gate.yingwumeijia.com/"
     val BASE_URL_H5_RELEASE = "https://mobile.yingwumeijia.com/appv/"
+
     /*预发布环境*/
     val BASE_URL_PRE = "https://pregate.yingwumeijia.com/"
     val BASE_URL_H5_PRE = "https://premobile.yingwumeijia.com/appv/"
+
     /*开发环境*/
     val BASE_URL_DEV = "https://devgate.yingwumeijia.com"
     val BASE_URL_H5_DEV = "https://devmobile.yingwumeijia.com/appv/"
+
     /*测试环境*/
     val BASE_URL_TEST = "https://testgate.yingwumeijia.com"
     val BASE_URL_H5_TEST = "https://testmobile.yingwumeijia.com/appv/"
 
-    /*本机地址*/
-    val BASE_URL_H5_PC = "https://testmobile.yingwumeijia.com/appv/"
-
 
     fun severUrl(): String {
+        Logger.d(BuildConfig.DEBUG)
         if (BuildConfig.DEBUG) {
-            Logger.d(BuildConfig.DEBUG)
             var url = ""
             when (buildPath) {
                 0 -> url = BASE_URL_DEV
                 1 -> url = BASE_URL_PRE
                 2 -> url = BASE_URL_RELEASE
                 3 -> url = BASE_URL_TEST
+                4 -> url = BASE_URL_DEFAULT
             }
             return url
         } else {
-            return BASE_URL_DEV
+            return BASE_URL_RELEASE
         }
     }
 
@@ -59,7 +64,7 @@ object PATHUrlConfig {
                 1 -> return BASE_URL_H5_PRE
                 2 -> return BASE_URL_H5_RELEASE
                 3 -> return BASE_URL_H5_TEST
-                4 -> return BASE_URL_H5_PC
+                4 -> return BASE_URL_H5_DEFAULT
             }
         }
         return SeverUrlManager.baseWebUrl()

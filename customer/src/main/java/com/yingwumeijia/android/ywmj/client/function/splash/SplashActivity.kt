@@ -2,6 +2,7 @@ package com.yingwumeijia.android.ywmj.client.function.splash
 
 import android.os.Bundle
 import android.util.Log
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.ywmj.client.Constant
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.api.Service
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit
 class SplashActivity : JBaseActivity() {
 
     val Api by lazy {
+        Logger.d(PATHUrlConfig.severUrl())
         Retrofit.Builder()
                 .baseUrl(PATHUrlConfig.severUrl())
                 .addConverterFactory(GsonConverterFactory.create())

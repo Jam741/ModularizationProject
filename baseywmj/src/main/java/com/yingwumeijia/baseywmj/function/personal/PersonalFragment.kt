@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.personal.c.LoggedFragment
 import kotlinx.android.synthetic.main.person_frag.*
 
 /**
@@ -37,6 +38,10 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
         PersonPresenter(this, this, lifecycleSubject)
     }
 
+    val loggedCFragment by lazy {
+        LoggedFragment.newInstance()
+    }
+
     val personGroupMenuAdapter: PersonGroupMenuAdapter by lazy {
         PersonGroupMenuAdapter(activity, this, this)
     }
@@ -53,6 +58,20 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
 
     override fun showLogIn(logIn: Boolean) {
 //        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        val needReplace = childFragmentManager.findFragmentById(R.id.head_content) != null
+
+        if (logIn) {
+            if (needReplace)
+                childFragmentManager.beginTransaction().replace(R.id.head_content, loggedCFragment).commit()
+            else
+                childFragmentManager.beginTransaction().add(R.id.head_content, loggedCFragment).commit()
+        } else {
+            if (needReplace)
+                childFragmentManager.beginTransaction().replace(R.id.head_content, loggedCFragment).commit()
+            else
+                childFragmentManager.beginTransaction().add(R.id.head_content, loggedCFragment).commit()
+        }
     }
 
 
@@ -80,11 +99,19 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.d("jam", "personFragment-onResume")
-        showLogIn(UserManager.isLogin(activity))
-        if (UserManager.isLogin(activity))
-            presenter.initPersonInfo()
+
+    /**
+     * 界面是否对用户可见状态回调
+     */
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (isVisibleToUser) {
+            if (UserManager.isLogin(activity))
+                presenter.initPersonInfo()
+            showLogIn(UserManager.isLogin(activity))
+        } else {
+
+        }
     }
+
 }
