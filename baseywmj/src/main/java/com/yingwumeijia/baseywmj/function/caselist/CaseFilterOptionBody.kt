@@ -23,4 +23,15 @@ class CaseFilterOptionBody {
     var cityType = 0
     //是否是刷新操作（true = 是刷新操作，false = 查询操作）
     var refresh = true
+
+    fun reset() {
+        caseType = 1
+        decorateType = 0
+        style = 0
+        houseType = 0
+        areaType = 0
+        queryKey = null
+        cityType = 0
+        refresh = true
+    }
 }

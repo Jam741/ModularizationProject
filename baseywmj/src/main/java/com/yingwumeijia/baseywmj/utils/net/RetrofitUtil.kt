@@ -1,12 +1,12 @@
 package com.yingwumeijia.baseywmj.utils.net
 
 import android.util.Log
-import com.yingwumeijia.baseywmj.option.BaseUrlConfig
 import com.yingwumeijia.commonlibrary.api.CommonApi
 import com.yingwumeijia.commonlibrary.net.IGlobalManager
 import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.net.interceptor.AccountInterceptor
 import com.yingwumeijia.baseywmj.utils.net.proxy.ProxyHandler
+import com.yingwumeijia.commonlibrary.net.SeverUrlManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -30,7 +30,7 @@ class RetrofitUtil {
 
         private fun getRetrofit(): Retrofit {
             return Retrofit.Builder()
-                    .baseUrl(BaseUrlConfig.baseSeverUrl())
+                    .baseUrl(SeverUrlManager.baseUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(defaultClient())

@@ -2,6 +2,7 @@ package com.yingwumeijia.baseywmj.function.personal
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -81,6 +82,7 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
 
     override fun onResume() {
         super.onResume()
+        Log.d("jam", "personFragment-onResume")
         showLogIn(UserManager.isLogin(activity))
         if (UserManager.isLogin(activity))
             presenter.initPersonInfo()

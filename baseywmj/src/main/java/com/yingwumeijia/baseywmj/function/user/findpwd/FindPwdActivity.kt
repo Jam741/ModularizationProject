@@ -10,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
@@ -25,9 +26,13 @@ import kotlinx.android.synthetic.main.findpassword_frag.*
 class FindPwdActivity : JBaseActivity(), UserContract.FindPasswordView, UserResponseCallBack, View.OnClickListener {
 
 
+    val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
+
+
     companion object {
-        fun start(activity: Activity) {
+        fun start(activity: Activity, currentLogin: Boolean) {
             val starter: Intent = Intent(activity, FindPwdActivity::class.java)
+            starter.putExtra(Constant.KEY_LOGIN_SOURCE, currentLogin)
             activity.startActivity(starter)
         }
     }
@@ -50,7 +55,9 @@ class FindPwdActivity : JBaseActivity(), UserContract.FindPasswordView, UserResp
     override fun success(userBean: UserBean) {}
 
     override fun completed() {
-        MainActivity.start(context)
+        close()
+        if (!currentLogin)
+            MainActivity.start(context)
     }
 
     val userPresenter: UserContract.Presenter by lazy { UserPresenter(context, this, lifecycleSubject, this) }

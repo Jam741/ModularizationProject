@@ -73,22 +73,16 @@ public class HttpUtil {
     }
 
 
-    public <T> void toSimpleSubscribe(Observable<T> ob, SimpleSubscriber<T> subscriber, final ActivityLifeCycleEvent event, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
-        Observable.Transformer<Object, Object> result = RxHelper.handleResult(event, lifecycleSubject);
-        ob.compose(result);
-        RetrofitCache.load("nocacheKey", ob, false, false).subscribe(subscriber);
-    }
-
     public <T> void toSimpleSubscribe(Observable<T> ob, SimpleSubscriber<T> subscriber, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
         Observable.Transformer<T, T> result = RxHelper.handleResult(ActivityLifeCycleEvent.DESTROY, lifecycleSubject);
         Observable<T> observable = ob.compose(result);
-        RetrofitCache.load("nocacheKey", observable, false, false).subscribe(subscriber);
+        observable.subscribe(subscriber);
     }
 
     public <T> void toSimpleSubscribe(Observable<T> ob, Subscriber<T> subscriber, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject) {
         Observable.Transformer<T, T> result = RxHelper.handleResult(ActivityLifeCycleEvent.DESTROY, lifecycleSubject);
         Observable<T> observable = ob.compose(result);
-        RetrofitCache.load("nocacheKey", observable, false, false).subscribe(subscriber);
+        observable.subscribe(subscriber);
     }
 
     public <T> void toSimpleSubscribe(Observable<T> ob, final ProgressSubscriber<T> subscriber, final PublishSubject<ActivityLifeCycleEvent> lifecycleSubject, final boolean showProgressDialog) {
@@ -103,12 +97,32 @@ public class HttpUtil {
         RetrofitCache.load("nocacheKey", observable, false, false).subscribe(subscriber);
     }
 
+
+    public <T> void toNolifeSubscribe(Observable<T> ob, SimpleSubscriber<T> subscriber) {
+        ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
+    }
+
     public <T> void toNolifeSubscribe(Observable<T> ob, Subscriber<T> subscriber) {
         ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
     }
 
-    public <T> void toNolifeSubscribe(Observable<T> ob, ProgressSubscriber<T> subscriber) {
-        ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
+    public <T> void toNolifeSubscribe(Observable<T> ob, final ProgressSubscriber<T> subscriber) {
+        ob.compose(HttpUtil.<T>applySchedulers()).doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                subscriber.showProgressDialog();
+            }
+        }).subscribe(subscriber);
+    }
+
+    public <T> void toNolifeSubscribe(Observable<T> ob, final ProgressSubscriber<T> subscriber, final boolean showProgressDialog) {
+        ob.compose(HttpUtil.<T>applySchedulers()).doOnSubscribe(new Action0() {
+            @Override
+            public void call() {
+                if (showProgressDialog)
+                    subscriber.showProgressDialog();
+            }
+        }).subscribe(subscriber);
     }
 
     /**
@@ -127,7 +141,7 @@ public class HttpUtil {
         };
     }
 
-    public static <T> Subscriber<T> newSubscriber(final Context context, final Action1<T> onNext) {
+    public static <T> Subscriber<T> newNoProgressSubscriber(final Context context, final Action1<T> onNext) {
 
         final Subscriber<T> subscriber = new Subscriber<T>() {
             @Override
@@ -138,20 +152,6 @@ public class HttpUtil {
             @Override
             public void onError(Throwable e) {
 
-                String message;
-                if (NetUtils.isConnected(context)) {
-                    message = "网络异常";
-                } else if (e instanceof ApiException) {
-                    message = ((ApiException) e).getError_message();
-                } else if (e instanceof ConnectException) {
-                    message = "网络连接异常，请重试";
-                } else if (e instanceof SocketTimeoutException) {
-                    message = "网络请求超时，请重试";
-                } else {
-                    message = "网络异常";
-                }
-                e.printStackTrace();
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -162,6 +162,25 @@ public class HttpUtil {
             }
         };
         return subscriber;
+    }
+
+
+    public static void disposeHttpException(Context context, Throwable e) {
+
+        String message;
+        if (NetUtils.isConnected(context)) {
+            message = "网络异常";
+        } else if (e instanceof ApiException) {
+            message = ((ApiException) e).getError_message();
+        } else if (e instanceof ConnectException) {
+            message = "网络连接异常，请重试";
+        } else if (e instanceof SocketTimeoutException) {
+            message = "网络请求超时，请重试";
+        } else {
+            message = "网络异常";
+        }
+        e.printStackTrace();
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 
 }

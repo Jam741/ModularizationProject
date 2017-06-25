@@ -7,5 +7,8 @@ object Constant {
 
     val DEFAULT_INT_VALUE = -1
     val DEFAULT_BOOLEAN_VALUE = false
+
     val KEY_LOGIN_SOURCE = "KEY_LOGIN_SOURCE"
+    val KEY_CASE_LIST_SOURCE = "KEY_CASE_LIST_SOURCE"
+
 }

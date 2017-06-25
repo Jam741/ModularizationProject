@@ -33,6 +33,11 @@
             android:name=".function.user.register.RegisterActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".function.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateVisible" />
+
     </application>
 
 </manifest>

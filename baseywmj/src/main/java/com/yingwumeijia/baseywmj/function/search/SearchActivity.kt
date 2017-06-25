@@ -12,38 +12,47 @@ import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeEnum
 import com.yingwumeijia.baseywmj.function.caselist.CaseListFragment
 import com.yingwumeijia.baseywmj.function.main.MainController
+import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
+import com.zhy.view.flowlayout.FlowLayout
+import com.zhy.view.flowlayout.TagFlowLayout
 import kotlinx.android.synthetic.main.case_list_option_title.*
 import kotlinx.android.synthetic.main.drawer_layout.*
+import kotlinx.android.synthetic.main.search_assist_layout.*
 import kotlinx.android.synthetic.main.search_layout.*
 
 /**
  * Created by jamisonline on 2017/6/20.
  */
 
-class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener {
+class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener, SearchController.OnLoadHistoryAndHotKeyWordsListener, TagFlowLayout.OnTagClickListener {
 
 
-    fun start(activity: Activity) {
-        val starter = Intent(activity, SearchActivity::class.java)
-        activity.startActivity(starter)
+    companion object {
+        fun start(activity: Activity) {
+            val starter = Intent(activity, SearchActivity::class.java)
+            activity.startActivity(starter)
+        }
+
     }
+
 
     var drawableIndex: Int = 0
 
 
-    val controller: MainController by lazy {
-        MainController(context, lifecycleSubject)
+    val controller: SearchController by lazy {
+        SearchController(context, lifecycleSubject, this@SearchActivity)
     }
 
     val caseListFragment by lazy {
-        CaseListFragment()
+        CaseListFragment.newInstance(true)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_layout)
 
+        controller
         controller.didCaseFilterSet()
 
         if (supportFragmentManager.findFragmentById(R.id.content) == null)
@@ -64,6 +73,11 @@ class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener {
         val lp = right_drawer.getLayoutParams()
         lp.width = ScreenUtils.screenWidth * 8 / 12
         right_drawer.layoutParams = lp
+
+
+        //搜索相关控件
+        flow_hot.setOnTagClickListener(this)
+        flow_history.setOnTagClickListener(this)
     }
 
     fun exNavChildItemClick(groupPosition: Int, childPosition: Int): Boolean {
@@ -167,5 +181,31 @@ class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener {
         drawer_root.openDrawer(Gravity.RIGHT)
     }
 
+
+    override fun didLoadHistoryKeyWords(data: List<String>?) {
+        if (ListUtil.isEmpty(data)) {
+            history_layout.visibility = View.GONE
+        } else {
+            search_assist_layout.visibility = View.VISIBLE
+            history_layout.visibility = View.VISIBLE
+        }
+    }
+
+    override fun didLoadHotKeyWords(data: List<String>?) {
+        if (ListUtil.isEmpty(data)) {
+            hot_layout.visibility = View.GONE
+        } else {
+            search_assist_layout.visibility = View.VISIBLE
+            hot_layout.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onTagClick(view: View?, position: Int, parent: FlowLayout?): Boolean {
+        when (parent!!.id) {
+            R.id.flow_hot -> caseListFragment.search((controller.hotKeyWordsAdapter.getItem(position) as String))
+            R.id.flow_history -> caseListFragment.search((controller.historyKeyWordsAdapter.getItem(position) as String))
+        }
+        return true
+    }
 
 }

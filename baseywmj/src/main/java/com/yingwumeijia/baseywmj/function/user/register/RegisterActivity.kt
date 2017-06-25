@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
@@ -28,9 +29,13 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
 class RegisterActivity : JBaseActivity(), UserContract.RegisterView, UserResponseCallBack, TextView.OnEditorActionListener, View.OnClickListener {
 
 
+    val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
+
+
     companion object {
-        fun start(activity: Activity) {
+        fun start(activity: Activity, currentLogin: Boolean) {
             val starter: Intent = Intent(activity, RegisterActivity::class.java)
+            starter.putExtra(Constant.KEY_LOGIN_SOURCE, currentLogin)
             activity.startActivity(starter)
         }
     }
@@ -46,7 +51,9 @@ class RegisterActivity : JBaseActivity(), UserContract.RegisterView, UserRespons
     override fun success(userBean: UserBean) {}
 
     override fun completed() {
-        MainActivity.start(context)
+        close()
+        if (!currentLogin)
+            MainActivity.start(context)
     }
 
 

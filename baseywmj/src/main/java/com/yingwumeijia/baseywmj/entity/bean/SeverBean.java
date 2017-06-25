@@ -13,11 +13,21 @@ public class SeverBean {
      * upgrade : false
      */
     String serverUrl;
+    String webUrl;
     String appImkey;
     boolean upgrade;
     String latestAndroidUrl;
     String latestAndroidMd5;
     boolean newVersion;
+
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
+    }
 
     public String getLatestAndroidUrl() {
         return latestAndroidUrl;

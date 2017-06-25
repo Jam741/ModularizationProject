@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionbar_height"
         android:background="@color/bg_whide"
@@ -77,9 +78,6 @@
             android:paddingTop="@dimen/actionbar_height" />
 
 
-        <include layout="@layout/nav_layout" />
-
-
         <ImageButton
             android:id="@+id/btnScrollTop"
             android:layout_width="wrap_content"
@@ -94,7 +92,10 @@
 
         <include
             layout="@layout/empty_layout"
-            android:paddingTop="@dimen/actionbar_height" />
+            android:layout_marginTop="@dimen/actionbar_height" />
+
+
+        <include layout="@layout/nav_layout" />
 
 
     </RelativeLayout>

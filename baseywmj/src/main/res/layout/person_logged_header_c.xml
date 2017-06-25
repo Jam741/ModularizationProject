@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mine_top_height"
+    android:background="@mipmap/user_bg_shadow"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/portraitLayout"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:background="@drawable/portrait_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+
+        <ImageView
+            android:id="@+id/iv_portrait"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/mine_user_ywmj_circle"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="19dp"
+        android:paddingBottom="50dp"
+        android:paddingLeft="100dp"
+        android:paddingTop="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/portraitLayout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/portraitLayout"
+        app:srcCompat="@mipmap/mine_info_more_ico" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/bg_whide"
+        android:textSize="@dimen/text_title_lag"
+        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintTop_toTopOf="@+id/portraitLayout"
+        tools:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:text="线上支付首款 即享会员权益"
+        android:textColor="@color/bg_whide"
+        android:textSize="@dimen/font6_sp"
+        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/mine_vip_stroke"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableLeft="@mipmap/mine_vip_ico"
+            android:drawablePadding="4dp"
+            android:gravity="center"
+            android:text="查看会员权益"
+            android:textColor="#E4D1A9"
+            android:textSize="@dimen/font6_sp" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

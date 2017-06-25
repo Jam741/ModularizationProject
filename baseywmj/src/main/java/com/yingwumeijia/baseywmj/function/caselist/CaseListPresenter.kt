@@ -27,11 +27,9 @@ class CaseListPresenter(var view: CaseListContract.View, var context: Fragment, 
 
 
     override fun loadCaseList(page: Int, caseFilterOptionBody: CaseFilterOptionBody) {
-        Logger.d(page.toString())
         val ob = Api.service.getCaseList(page, Config.size, caseFilterOptionBody)
-        HttpUtil.getInstance().toSimpleSubscribe(ob, HttpUtil.newSubscriber(context.context, { list: List<CaseBean>? ->
+        HttpUtil.getInstance().toSimpleSubscribe(ob, HttpUtil.newNoProgressSubscriber(context.context, { list: List<CaseBean>? ->
             view.showEmpty(page == Config.page && ListUtil.isEmpty(list))
-            Logger.d(page.toString() + ListUtil.isEmpty(list))
             view.onLoadComplete(page, ListUtil.isEmpty(list))
             if (list != null)
                 view.onResponseList(list as ArrayList<CaseBean>)
@@ -39,6 +37,5 @@ class CaseListPresenter(var view: CaseListContract.View, var context: Fragment, 
     }
 
     init {
-        Logger.d("createPresenter")
     }
 }
