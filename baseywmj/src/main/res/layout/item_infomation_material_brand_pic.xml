@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_item"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@drawable/brand_border"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="1dp">
+
+
+    <ImageView
+        android:id="@+id/iv_brandIcon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:layout_marginRight="@dimen/font7_dp"
+        android:scaleType="centerInside" />
+
+    <View
+        android:layout_width="@dimen/divider_height"
+        android:layout_height="match_parent"
+        android:background="@color/divider_normal" />
+
+    <TextView
+        android:id="@+id/tv_brandName"
+        android:layout_width="@dimen/font7_dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:gravity="center"
+        android:maxLength="3"
+        android:text="睡觉睡觉"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/font7_dp" />
+
+</LinearLayout>

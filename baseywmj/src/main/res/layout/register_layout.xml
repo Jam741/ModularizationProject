@@ -7,6 +7,9 @@
     android:background="@color/bg_whide"
     android:orientation="vertical">
 
+    <include layout="@layout/toolbr_layout" />
+
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/edit_height"

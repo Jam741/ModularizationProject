@@ -6,11 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.c.LoggedFragment
+import com.yingwumeijia.baseywmj.function.personal.c.NotLoggedFragment
+import com.yingwumeijia.baseywmj.function.setting.SettingActivity
+import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import kotlinx.android.synthetic.main.person_frag.*
+import kotlinx.android.synthetic.main.person_title_layout.*
 
 /**
  * Created by jamisonline on 2017/5/31.
@@ -37,9 +42,12 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
         PersonPresenter(this, this, lifecycleSubject)
     }
 
-    val loggedCFragment by lazy {
-        LoggedFragment.newInstance()
-    }
+
+    val loggedCFragment by lazy { LoggedFragment.newInstance() }
+
+    val loggedEFragment by lazy { LoggedFragment.newInstance() }
+
+    val notLogginCFragment by lazy { NotLoggedFragment.newInstance() }
 
     val personGroupMenuAdapter: PersonGroupMenuAdapter by lazy {
         PersonGroupMenuAdapter(activity, this, this)
@@ -56,17 +64,19 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
     }
 
     override fun showLoginView(logIn: Boolean) {
+        Logger.d(logIn)
         if (isAppC) {
             if (logIn) {
                 changeHeadFragment(loggedCFragment)
             } else {
-                changeHeadFragment(loggedCFragment)
+                changeHeadFragment(notLogginCFragment)
             }
         } else {
             if (logIn) {
                 changeHeadFragment(loggedCFragment)
             } else {
-                changeHeadFragment(loggedCFragment)
+                activity.finish()
+                LoginActivity.start(context.activity, false)
             }
         }
     }
@@ -107,8 +117,19 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
             layoutManager = LinearLayoutManager(context)
             adapter = personGroupMenuAdapter
         }
+
+        btn_setting.setOnClickListener { SettingActivity.start(activity) }
+        btn_message.setOnClickListener { TODO("去站内信页面") }
+
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if (UserManager.isLogin(activity))
+            presenter.initPersonInfo()
+        showLoginView(UserManager.isLogin(activity))
+    }
 
     /**
      * 界面是否对用户可见状态回调
@@ -116,12 +137,16 @@ class PersonalFragment : JBaseFragment(), PersonContract.View, PersonGroupMenuAd
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            if (UserManager.isLogin(activity))
-                presenter.initPersonInfo()
             showLoginView(UserManager.isLogin(activity))
         } else {
 
         }
     }
+
+    override fun didUpDateUserData() {
+        if (UserManager.isLogin(activity))
+            if (isAppC) loggedCFragment.onUserDataChanged() else loggedEFragment.onUserDataChanged()
+    }
+
 
 }

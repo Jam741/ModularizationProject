@@ -1,6 +1,8 @@
 package com.yingwumeijia.baseywmj.entity.bean;
 
 
+import com.yingwumeijia.baseywmj.entity.UserSession;
+
 /**
  * Created by Jam
  * on 2016/6/1 17:49

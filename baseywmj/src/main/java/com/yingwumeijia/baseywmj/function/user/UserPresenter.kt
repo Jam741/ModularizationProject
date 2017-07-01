@@ -1,7 +1,6 @@
 package com.yingwumeijia.baseywmj.function.user
 
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Build
 import android.os.CountDownTimer
 import android.support.v7.app.AlertDialog
@@ -14,9 +13,10 @@ import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
 import com.yingwumeijia.baseywmj.utils.RSAUtils
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
+import com.yingwumeijia.baseywmj.utils.net.AccountManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
-import com.yingwumeijia.commonlibrary.net.HttpUtil
-import com.yingwumeijia.commonlibrary.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.AppInfo
 import com.yingwumeijia.commonlibrary.utils.NetworkUtils
 import com.yingwumeijia.commonlibrary.utils.T
@@ -75,11 +75,11 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         identityInfoBean.password = RSAUtils.encryptByPublicKey(password)
 
         var ob = Api.service.login(LoginBean(identityInfoBean, userExtensionInfoBean))
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
                 didLoginSuccess(t!!)
             }
-        }, publishSubject, true)
+        })
     }
 
 
@@ -104,8 +104,8 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
                             .Builder(context)
                             .setTitle(R.string.dialog_title)
                             .setMessage(t.message)
-                            .setPositiveButton(R.string.btn_confirm, DialogInterface.OnClickListener { dialog, which -> confirm(phone, t.token) })
-                            .setNegativeButton(R.string.btn_cancel, DialogInterface.OnClickListener { dialog, which -> T.showShort(context, "已取消") })
+                            .setPositiveButton(R.string.btn_confirm, { dialog, which -> confirm(phone, t.token) })
+                            .setNegativeButton(R.string.btn_cancel, { dialog, which -> T.showShort(context, "已取消") })
                             .show()
                 } else {
                     didLoginSuccess(t!!.customerDto)
@@ -179,7 +179,9 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      * 登录成功
      */
     fun didLoginSuccess(userBean: UserBean) {
+        AccountManager.refreshAccount(userBean.userSession)
         UserManager.cacheUserData(userBean)
+        UserManager.setLoginStatus(context, true)
         if (userResponseCallBack != null) {
             userResponseCallBack!!.success(userBean)
             userResponseCallBack!!.completed()

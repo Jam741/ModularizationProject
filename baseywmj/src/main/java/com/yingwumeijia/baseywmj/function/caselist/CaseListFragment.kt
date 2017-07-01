@@ -324,6 +324,17 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
     }
 
     /**
+     * 显示筛选导航
+     */
+    fun showNavLayout(show: Boolean) {
+        if (show) {
+            navlayout.visibility = View.VISIBLE
+        } else {
+            navlayout.visibility = View.GONE
+        }
+    }
+
+    /**
      * 搜索
      */
     fun search(keyWords: String) {

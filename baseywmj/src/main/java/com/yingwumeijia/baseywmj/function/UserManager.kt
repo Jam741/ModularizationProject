@@ -1,8 +1,10 @@
 package com.yingwumeijia.baseywmj.function
 
+import android.app.Activity
 import android.content.Context
 import com.orhanobut.hawk.Hawk
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
+import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 
 /**
@@ -39,4 +41,19 @@ object UserManager {
         if (Hawk.contains(KEY_USER_CACHE_DATA))
             Hawk.delete(KEY_USER_CACHE_DATA)
     }
+
+
+    /**
+     * 执行用户权限的操作 需要先通过先决条件
+     */
+    fun precedent(context: Activity): Boolean {
+        if (isLogin(context)) {
+            return true
+        } else {
+            LoginActivity.startCurrent(context)
+            return false
+        }
+    }
+
+
 }

@@ -11,6 +11,7 @@ import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.text.util.Linkify
 import android.util.SparseArray
 import android.view.*
@@ -63,12 +64,13 @@ class RecyclerViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         return view
     }
 
-    fun setTextWith(@IdRes viewId: Int, text: String) {
+    fun setTextWith(@IdRes viewId: Int, text: String?) {
         var tv = getViewWith(viewId) as TextView
+        if (TextUtils.isEmpty(text)) return Unit
         tv.text = text
     }
 
-    fun setTextView(@IdRes viewId: Int, @IdRes resId: Int) {
+    fun setTextWith(@IdRes viewId: Int, @IdRes resId: Int) {
         var tv = getViewWith(viewId) as TextView
         tv.setText(resId)
     }
@@ -148,6 +150,11 @@ class RecyclerViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
     fun setImageUrl480(activity: Activity, viewId: Int, imageUrl: String?) {
         val imageView = getViewWith(viewId) as ImageView
         JImageLolder.load480(activity, imageView, imageUrl)
+    }
+
+    fun setImageUrlOriginal(activity: Activity, viewId: Int, imageUrl: String?) {
+        val imageView = getViewWith(viewId) as ImageView
+        JImageLolder.loadOriginal(activity, imageView, imageUrl)
     }
 
     fun setImageUrl480(context: Context, viewId: Int, imageUrl: String?) {

@@ -205,18 +205,72 @@ object JImageLolder {
 //        GlideApp.with(activity).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
     }
 
-    fun load100(fragmentActivity: FragmentActivity, imageView: ImageView, imageUrl: String?) {
+    fun loadPortrait100(activity: Activity, imageView: ImageView, imageUrl: String?) {
         var url = imageUrl
         if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
-        Glide.with(fragmentActivity).load(url).crossFade().placeholder(R.mipmap.case_moren_pic).into(imageView)
-//        GlideApp.with(fragmentActivity).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+        Glide.with(activity).load(url).crossFade().transform(GlideCircleTransform(activity)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(activity).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
     }
 
-    fun load100(fragment: Fragment, imageView: ImageView, imageUrl: String?) {
+    fun loadPortrait100(context: Context, imageView: ImageView, imageUrl: String?) {
         var url = imageUrl
         if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
-        Glide.with(fragment).load(url).crossFade().placeholder(R.mipmap.case_moren_pic).into(imageView)
-//        GlideApp.with(fragment).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+        Glide.with(context).load(url).crossFade().transform(GlideCircleTransform(context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
     }
 
+    fun loadPortrait100(fragment: Fragment, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(fragment).load(url).crossFade().transform(GlideCircleTransform(fragment.context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait256(activity: Activity, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(activity).load(url).crossFade().transform(GlideCircleTransform(activity)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(activity).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait256(context: Context, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(context).load(url).crossFade().transform(GlideCircleTransform(context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait256(context: Context, imageView: ImageView, imageUrl: Int?) {
+        var url = imageUrl
+        Glide.with(context).load(url).crossFade().transform(GlideCircleTransform(context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait256(fragment: Fragment, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(fragment).load(url).crossFade().transform(GlideCircleTransform(fragment.context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait480(activity: Activity, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(activity).load(url).crossFade().transform(GlideCircleTransform(activity)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(activity).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait480(context: Context, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(context).load(url).crossFade().transform(GlideCircleTransform(context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
+
+    fun loadPortrait480(fragment: Fragment, imageView: ImageView, imageUrl: String?) {
+        var url = imageUrl
+        if (contanisSizeParameter(imageUrl)) url = imageUrl + IMAGE_FOR_SHARE
+        Glide.with(fragment).load(url).crossFade().transform(GlideCircleTransform(fragment.context)).placeholder(R.mipmap.case_moren_pic).into(imageView)
+//        GlideApp.with(context).load(url).placeholder(R.mipmap.case_moren_pic).into(imageView)
+    }
 }

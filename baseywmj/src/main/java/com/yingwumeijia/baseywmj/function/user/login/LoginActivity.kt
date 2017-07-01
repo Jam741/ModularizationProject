@@ -1,6 +1,7 @@
 package com.yingwumeijia.baseywmj.function.user.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +12,7 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.user.UserContract
 import com.yingwumeijia.baseywmj.function.user.UserPresenter
@@ -28,9 +30,15 @@ class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallB
     val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
 
     companion object {
-        fun start(context: Activity, currentLogin: Boolean) {
+        fun start(context: Context, currentLogin: Boolean) {
             val starter = Intent(context, LoginActivity::class.java)
             starter.putExtra(Constant.KEY_LOGIN_SOURCE, currentLogin)
+            context.startActivity(starter)
+        }
+
+        fun startCurrent(context: Context) {
+            val starter = Intent(context, LoginActivity::class.java)
+            starter.putExtra(Constant.KEY_LOGIN_SOURCE, true)
             context.startActivity(starter)
         }
     }
@@ -67,6 +75,8 @@ class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallB
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_layout)
+
+        UserManager.setLoginStatus(context, false)
 
         /*E端隐藏注册按钮*/
         if (isAppC) btn_register.visibility = View.VISIBLE else btn_register.visibility = View.GONE

@@ -19,6 +19,7 @@ import com.zhy.view.flowlayout.TagFlowLayout
 import kotlinx.android.synthetic.main.case_list_option_title.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.search_assist_layout.*
+import kotlinx.android.synthetic.main.search_edit_layout.*
 import kotlinx.android.synthetic.main.search_layout.*
 
 /**
@@ -52,7 +53,6 @@ class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener, SearchC
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_layout)
 
-        controller
         controller.didCaseFilterSet()
 
         if (supportFragmentManager.findFragmentById(R.id.content) == null)
@@ -76,6 +76,7 @@ class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener, SearchC
 
 
         //搜索相关控件
+        btn_cancel.setOnClickListener { close() }
         flow_hot.setOnTagClickListener(this)
         flow_history.setOnTagClickListener(this)
     }

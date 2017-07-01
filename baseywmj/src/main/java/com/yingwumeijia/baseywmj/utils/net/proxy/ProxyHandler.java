@@ -2,15 +2,16 @@ package com.yingwumeijia.baseywmj.utils.net.proxy;
 
 import android.util.Log;
 
+import com.yingwumeijia.baseywmj.api.Api;
+import com.yingwumeijia.baseywmj.entity.UserSession;
+import com.yingwumeijia.baseywmj.utils.net.AccountManager;
+import com.yingwumeijia.baseywmj.utils.net.IGlobalManager;
 import com.yingwumeijia.baseywmj.utils.net.RetrofitUtil;
-import com.yingwumeijia.commonlibrary.entity.UserSession;
-import com.yingwumeijia.commonlibrary.net.AccountManager;
-import com.yingwumeijia.commonlibrary.net.IGlobalManager;
-import com.yingwumeijia.commonlibrary.net.exception.NotLoginThrowable;
-import com.yingwumeijia.commonlibrary.net.exception.TokenInvalidException;
-import com.yingwumeijia.commonlibrary.net.exception.TokenIsRefreshEdException;
-import com.yingwumeijia.commonlibrary.net.exception.TokenIsTimeMatterException;
-import com.yingwumeijia.commonlibrary.net.exception.TokenNotExistException;
+import com.yingwumeijia.baseywmj.utils.net.exception.NotLoginThrowable;
+import com.yingwumeijia.baseywmj.utils.net.exception.TokenInvalidException;
+import com.yingwumeijia.baseywmj.utils.net.exception.TokenIsRefreshEdException;
+import com.yingwumeijia.baseywmj.utils.net.exception.TokenIsTimeMatterException;
+import com.yingwumeijia.baseywmj.utils.net.exception.TokenNotExistException;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -76,7 +77,6 @@ public class ProxyHandler implements InvocationHandler {
                                     //Token 不存在，执行退出登录的操作。（为了防止多个请求，都出现 Token 不存在的问题，
                                     // 这里需要取消当前所有的网络请求）
                                     mGlobalManager.exitLogin();
-
                                     NotLoginThrowable notLoginThrowable = new NotLoginThrowable("not-login");
                                     return Observable.error(notLoginThrowable);
                                 } else if (throwable instanceof TokenIsTimeMatterException) {
@@ -101,8 +101,7 @@ public class ProxyHandler implements InvocationHandler {
                 return Observable.just(true);
             } else {
                 //call the refresh token api
-                RetrofitUtil.Companion.getInstacne().
-                        getCommonService()
+                Api.Companion.getService()
                         .refreshToken(AccountManager.INSTANCE.sessionId(), AccountManager.INSTANCE.refreshToken())
                         .subscribe(new Subscriber<UserSession>() {
 

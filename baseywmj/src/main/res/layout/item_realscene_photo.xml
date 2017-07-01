@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/iv_image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tv_floor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/realscence_text_stoken"
+        android:gravity="center"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font7_sp"
+        android:textStyle="normal"
+        tools:text="Simple text" />
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font5_sp"
+        tools:text="原生平面" />
+
+</LinearLayout>

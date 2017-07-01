@@ -33,6 +33,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".function.person.TestActivity"></activity>
+
+        <!--友盟统计-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57b532c867e58ec956000e3c"></meta-data>
+
+        <!--渠道号-->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
     </application>
 
 </manifest>

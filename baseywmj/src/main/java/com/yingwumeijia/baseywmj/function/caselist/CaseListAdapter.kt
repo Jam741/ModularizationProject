@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
@@ -45,7 +46,10 @@ class CaseListAdapter : CommonRecyclerAdapter<CaseBean> {
             setVisible(R.id.has720Layout, caseBean.isHas720)
             setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
                 override fun itemClick(itemView: View, position: Int) {
-//                        StartActivityManager.startCaseDetailActivity(mContext, caseBean.getCaseId())
+                    if (activity == null)
+                        StartActivityManager.startCaseDetailActivity(fragment!!.activity, caseBean.getCaseId())
+                    else
+                        StartActivityManager.startCaseDetailActivity(activity!!, caseBean.getCaseId())
                 }
             })
         }

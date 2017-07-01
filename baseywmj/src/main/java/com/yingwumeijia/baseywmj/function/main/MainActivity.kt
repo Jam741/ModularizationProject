@@ -1,13 +1,11 @@
 package com.yingwumeijia.baseywmj.function.main
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
@@ -16,19 +14,15 @@ import android.view.View.VISIBLE
 import android.widget.AdapterView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.github.mzule.activityrouter.annotation.Module
 import com.github.mzule.activityrouter.annotation.Router
-import com.orhanobut.hawk.Hawk
 import com.yingwumeijia.baseywmj.R
-import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
-import com.yingwumeijia.baseywmj.empty.TabEntity
+import com.yingwumeijia.baseywmj.entity.TabEntity
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeEnum
 import com.yingwumeijia.baseywmj.function.active.ActiveFragment
 import com.yingwumeijia.baseywmj.function.caselist.CaseListFragment
 import com.yingwumeijia.baseywmj.function.im.ConversationListFragment
 import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
-import com.yingwumeijia.commonlibrary.base.BaseActivity
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import kotlinx.android.synthetic.main.case_list_option_title.*
 import kotlinx.android.synthetic.main.drawer_layout.*

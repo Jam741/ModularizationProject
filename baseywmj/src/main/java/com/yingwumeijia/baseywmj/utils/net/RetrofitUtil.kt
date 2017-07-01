@@ -1,12 +1,9 @@
 package com.yingwumeijia.baseywmj.utils.net
 
 import android.util.Log
-import com.yingwumeijia.commonlibrary.api.CommonApi
-import com.yingwumeijia.commonlibrary.net.IGlobalManager
-import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
-import com.yingwumeijia.commonlibrary.net.interceptor.AccountInterceptor
+import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
+import com.yingwumeijia.baseywmj.utils.net.interceptor.AccountInterceptor
 import com.yingwumeijia.baseywmj.utils.net.proxy.ProxyHandler
-import com.yingwumeijia.commonlibrary.net.SeverUrlManager
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -50,10 +47,6 @@ class RetrofitUtil {
 
     }
 
-
-    fun getCommonService(): CommonApi {
-        return get<CommonApi>(CommonApi::class.java)
-    }
 
     operator fun <T> get(tClass: Class<T>): T {
         return getRetrofit().create(tClass)

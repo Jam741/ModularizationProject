@@ -2,7 +2,7 @@ package com.yingwumeijia.baseywmj.option
 
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.BuildConfig
-import com.yingwumeijia.commonlibrary.net.SeverUrlManager
+import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 
 /**
  * Created by jamisonline on 2017/6/15.
@@ -12,7 +12,7 @@ import com.yingwumeijia.commonlibrary.net.SeverUrlManager
 object PATHUrlConfig {
 
     /*编译环境配置，安全起见只对  debug包生效*/
-    val buildPath = 2   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,main_pc = 4
+    val buildPath = 0   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,main_pc = 4
 
     val DEFAULT_URL_C = "https://customer.yingwumeijia.com/"
 
@@ -42,30 +42,25 @@ object PATHUrlConfig {
 
     fun severUrl(): String {
         Logger.d(BuildConfig.DEBUG)
-        if (BuildConfig.DEBUG) {
-            var url = ""
-            when (buildPath) {
-                0 -> url = BASE_URL_DEV
-                1 -> url = BASE_URL_PRE
-                2 -> url = BASE_URL_RELEASE
-                3 -> url = BASE_URL_TEST
-                4 -> url = BASE_URL_DEFAULT
-            }
-            return url
-        } else {
-            return BASE_URL_RELEASE
+        var url = ""
+        when (buildPath) {
+            0 -> url = BASE_URL_DEV
+            1 -> url = BASE_URL_PRE
+            2 -> url = BASE_URL_RELEASE
+            3 -> url = BASE_URL_TEST
+            4 -> url = BASE_URL_DEFAULT
         }
+        return url
+
     }
 
     fun baseH5Url(): String {
-        if (BuildConfig.DEBUG) {
-            when (buildPath) {
-                0 -> return BASE_URL_H5_DEV
-                1 -> return BASE_URL_H5_PRE
-                2 -> return BASE_URL_H5_RELEASE
-                3 -> return BASE_URL_H5_TEST
-                4 -> return BASE_URL_H5_DEFAULT
-            }
+        when (buildPath) {
+            0 -> return BASE_URL_H5_DEV
+            1 -> return BASE_URL_H5_PRE
+            2 -> return BASE_URL_H5_RELEASE
+            3 -> return BASE_URL_H5_TEST
+            4 -> return BASE_URL_H5_DEFAULT
         }
         return SeverUrlManager.baseWebUrl()
     }

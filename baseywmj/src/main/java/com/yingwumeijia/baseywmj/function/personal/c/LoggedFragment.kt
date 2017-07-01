@@ -5,11 +5,10 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
-import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
-import com.yingwumeijia.baseywmj.function.personal.PersonHeadFrgament
+import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.personal.BaseLoggedFragment
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.person_logged_header_c.*
 
@@ -19,9 +18,10 @@ import kotlinx.android.synthetic.main.person_logged_header_c.*
  * C端 已登录头部片段
  */
 
-class LoggedFragment : PersonHeadFrgament() {
+class LoggedFragment : BaseLoggedFragment() {
 
-    override fun upDate(bundle: Bundle) {
+    override fun onUserDataChanged() {
+        userBean = UserManager.getUserData()
         initView()
     }
 
@@ -41,18 +41,16 @@ class LoggedFragment : PersonHeadFrgament() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         imageView.setOnClickListener { TODO("编辑个人信息页面") }
-
     }
 
     private fun initView() {
         if (userBean == null) return Unit
         tv_name.text = userBean!!.showName
         if (TextUtils.isEmpty(userBean!!.showHead))
-            JImageLolder.load(getContext(), iv_portrait, R.mipmap.mine_user_ywmj_circle)
+            JImageLolder.loadPortrait256(context.context, iv_portrait, R.mipmap.mine_user_ywmj_circle)
         else
-            JImageLolder.load(context, iv_portrait, userBean!!.showHead)
+            JImageLolder.loadPortrait256(context, iv_portrait, userBean!!.showHead)
     }
 
 }

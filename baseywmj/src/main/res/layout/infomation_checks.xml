@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_checks"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="55dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:paddingRight="20dp"-->
+        <!--android:text="施工资料"-->
+        <!--android:textColor="@color/color_1"-->
+        <!--android:textSize="@dimen/font2_sp" />-->
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/divider_height"-->
+        <!--android:layout_marginLeft="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:background="@color/divider_normal" />-->
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:gravity="center_vertical"-->
+        <!--android:paddingLeft="20dp"-->
+        <!--android:paddingRight="20dp"-->
+        <!--android:text="施工各阶段的节点验收视频和图片，将记录工长及现场情况信息。\n这是您判别工长能力，以及其是否为本工地负责人的重要依据。"-->
+        <!--android:textColor="@color/color_1"-->
+        <!--android:textSize="@dimen/font4_sp" />-->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_checks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

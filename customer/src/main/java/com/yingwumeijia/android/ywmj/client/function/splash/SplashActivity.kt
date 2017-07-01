@@ -3,15 +3,16 @@ package com.yingwumeijia.android.ywmj.client.function.splash
 import android.os.Bundle
 import android.util.Log
 import com.orhanobut.logger.Logger
-import com.yingwumeijia.android.ywmj.client.Constant
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
-import com.yingwumeijia.commonlibrary.net.SeverUrlManager
-import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
+import com.yingwumeijia.baseywmj.utils.net.AccountManager
+import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
+import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.utils.AppUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -73,12 +74,14 @@ class SplashActivity : JBaseActivity() {
      */
     private fun didSuccess(t: SeverBean) {
         SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
+        close()
         MainActivity.start(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        if (!UserManager.isLogin(context)) AccountManager.clearnAccount()
         loadBaseUrl()
     }
 }

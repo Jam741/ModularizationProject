@@ -8,11 +8,9 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.main.MainController
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
-import com.yingwumeijia.commonlibrary.net.HttpUtil
-import com.yingwumeijia.commonlibrary.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.ListUtil
-import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
-import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import rx.Observable

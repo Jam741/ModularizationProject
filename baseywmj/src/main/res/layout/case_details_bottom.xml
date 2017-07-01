@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tab_height"
+    android:background="@color/bg_whide"
+    android:orientation="horizontal"
+    android:visibility="visible">
+
+    <ImageView
+        android:id="@+id/btnCollect"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:button="@null"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:src="@mipmap/bottom_collect_ico"
+        tools:ignore="RtlSymmetry" />
+
+
+    <RelativeLayout
+        android:layout_width="55dp"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/btnComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/horizontal_margin"
+            android:button="@null"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/bottom_chat_ico"
+            tools:ignore="RtlSymmetry" />
+
+
+        <com.flyco.tablayout.widget.MsgView xmlns:mv="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tv_messageNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/btnComment"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="11.5sp"
+            android:visibility="gone"
+            mv:mv_backgroundColor="#FD481F"
+            mv:mv_isRadiusHalfHeight="true"
+            mv:mv_strokeColor="#ffffff"
+            mv:mv_strokeWidth="1dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:drawableLeft="@mipmap/bottom_share_ico"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/vertical_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        tools:ignore="RelativeOverlap,RtlSymmetry" />
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:id="@+id/btnConnectTeam"
+        android:layout_width="130dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:gravity="center_vertical|right">
+
+        <ImageView
+            android:id="@+id/iv_designerPortrait"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="7dp"
+            tools:src="@mipmap/ic_launcher" />
+
+
+        <TextView
+            android:id="@+id/tv_connectTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/black_ico"
+            android:gravity="center"
+            android:text="咨询"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font3_sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

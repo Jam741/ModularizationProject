@@ -1,6 +1,10 @@
 [
     {
-        "merged": "D:\\Project\\ModularizationProject\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\rc_file_path.xml",
-        "source": "D:\\Project\\ModularizationProject\\IMKit\\build\\intermediates\\bundles\\debug\\res\\xml\\rc_file_path.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/D:\\Project\\ModularizationProject\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\xml\\rc_file_path.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/D:\\Project\\ModularizationProject\\IMKit\\build\\intermediates\\bundles\\debug\\res\\xml\\rc_file_path.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/xml/rc_file_path.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/xml/rc_file_path.xml"
     }
 ]

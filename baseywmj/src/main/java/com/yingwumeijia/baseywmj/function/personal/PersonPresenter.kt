@@ -1,19 +1,14 @@
 package com.yingwumeijia.baseywmj.function.personal
 
 import android.support.v4.app.Fragment
-import android.widget.Toast
-import com.yingwumeijia.baseywmj.AppType
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
-import com.yingwumeijia.baseywmj.entity.bean.CaseBean
 import com.yingwumeijia.baseywmj.entity.bean.CustomerDetailBean
 import com.yingwumeijia.baseywmj.function.UserManager
-import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
-import com.yingwumeijia.commonlibrary.net.HttpUtil
-import com.yingwumeijia.commonlibrary.net.subscriber.ProgressSubscriber
-import com.yingwumeijia.commonlibrary.utils.ListUtil
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import rx.Observable
 import rx.subjects.PublishSubject
 import java.util.ArrayList

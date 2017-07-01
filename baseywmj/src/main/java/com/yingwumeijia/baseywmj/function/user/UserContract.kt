@@ -1,7 +1,5 @@
 package com.yingwumeijia.baseywmj.function.user
 
-import com.yingwumeijia.commonlibrary.net.ErrorCode
-
 /**
  * Created by jamisonline on 2017/6/15.
  */

@@ -1,18 +1,15 @@
 package com.yingwumeijia.android.worker.function.splash
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import com.github.mzule.activityrouter.router.Routers
-import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.worker.Constant
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
 import com.yingwumeijia.baseywmj.function.main.MainActivity
-import com.yingwumeijia.commonlibrary.net.SeverUrlManager
-import com.yingwumeijia.commonlibrary.net.converter.GsonConverterFactory
+import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
+import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.utils.AppUtils
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

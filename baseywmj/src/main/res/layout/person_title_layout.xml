@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:gravity="right"
+    android:orientation="horizontal">
+
+
+    <TextView
+        android:id="@+id/btn_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawableLeft="@mipmap/sweep_ic"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin" />
+
+    <TextView
+        android:id="@+id/btn_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:drawableLeft="@mipmap/mine_nav_bar_setup_ico"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin" />
+
+    <RelativeLayout
+        android:id="@+id/btn_message"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:visibility="visible">
+
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@mipmap/mine_nav_bar_notice_ico" />
+
+        <ImageView
+            android:id="@+id/iv_messagePoint"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_alignTop="@+id/tv_message"
+            android:layout_toRightOf="@id/tv_message"
+            android:src="@drawable/message_point"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</LinearLayout>

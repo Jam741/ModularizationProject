@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        android:text="视屏标题"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_video_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="视屏标题"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/font4_sp"
+        android:textStyle="normal" />
+
+    <!--<ImageView-->
+    <!--android:layout_width=""-->
+    <!--android:layout_height="" />-->
+
+    <RelativeLayout
+        android:id="@+id/previewVideoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/iv_video_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/btn_play_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/case_details_play_ico" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#30000000" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

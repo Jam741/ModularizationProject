@@ -18,7 +18,7 @@ open class BaseActivity : AppCompatActivity() {
     private var toast: Toast? = null
 
     val progressDialog: KProgressHUD by lazy {
-        KProgressHUD.create(context, KProgressHUD.Style.PIE_DETERMINATE)
+        KProgressHUD.create(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

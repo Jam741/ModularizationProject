@@ -29,6 +29,7 @@
 
     <dimen name="tab_height">60dp</dimen>
     <dimen name="tab_height_mini">50dp</dimen>
+    <dimen name="sliding_tab_height">44dp</dimen>
     <dimen name="web_progress_bar_height">2dp</dimen>
 
     <!--v1.1.2 new font size-->
