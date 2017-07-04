@@ -18,7 +18,7 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
  * Describe:
  */
 
-class PersonGroupMenuAdapter(internal var context: Context, internal var menuOnItemClickListener: MenuOnItemClickListener, internal var menuOnItemLongClickListener: MenuOnItemLongClickListener) : RecyclerView.Adapter<PersonGroupMenuAdapter.MyViewHolder>() {
+class PersonGroupMenuAdapter(internal var context: Context, internal var menuOnItemClickListener: MenuOnItemClickListener?, internal var menuOnItemLongClickListener: MenuOnItemLongClickListener?) : RecyclerView.Adapter<PersonGroupMenuAdapter.MyViewHolder>() {
 
     val data: ArrayList<ArrayList<MenuInfo>> = ArrayList<ArrayList<MenuInfo>>()
 

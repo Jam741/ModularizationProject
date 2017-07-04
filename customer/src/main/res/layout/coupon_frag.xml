@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
+        android:id="@+id/rv_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <TextView
+        android:id="@+id/empty_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="85dp"
+        android:drawablePadding="28dp"
+        android:lineSpacingExtra="5dp"
+        android:drawableTop="@mipmap/mine_ticket_no_data_ico"
+        android:text="暂无优惠券，可关注优惠\n里的活动信息进行领取哦"
+        android:textColor="@color/color_5"
+        android:visibility="gone"
+        android:textSize="@dimen/font4_sp" />
+
+
+</FrameLayout>

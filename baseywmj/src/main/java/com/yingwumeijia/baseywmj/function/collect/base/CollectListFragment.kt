@@ -33,7 +33,6 @@ abstract open class CollectListFragment<T> : JBaseFragment(), CollectListContrac
         return inflater!!.inflate(R.layout.collect_list_frag, container, false)
     }
 
-
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tv_empty_layout.text = emptyText()

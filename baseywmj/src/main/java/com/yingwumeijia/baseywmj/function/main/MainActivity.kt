@@ -17,6 +17,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import com.github.mzule.activityrouter.annotation.Router
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.entity.TabEntity
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeEnum
 import com.yingwumeijia.baseywmj.function.active.ActiveFragment
@@ -29,9 +30,10 @@ import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.main_act.*
 import kotlinx.android.synthetic.main.main_page.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 @Router("main")
-class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener {
+abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener {
 
     companion object {
         fun start(context: Activity) {
@@ -77,7 +79,9 @@ class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChang
 
     val mTabEntities by lazy { initTabEntities() }
 
-    val mFragments = arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), ConversationListFragment.newInstance(), PersonalFragment.newInstance())
+    val mFragments = getFragments()
+
+    abstract fun getFragments(): ArrayList<JBaseFragment>
 
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 

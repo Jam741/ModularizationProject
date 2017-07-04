@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.yingwumeijia.android.worker.Constant
 import com.yingwumeijia.android.worker.R
+import com.yingwumeijia.android.worker.function.home.EmployeeMainActivity
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
@@ -35,7 +36,7 @@ class SplashActivity : JBaseActivity() {
 
     private fun defaultClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
-        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.d("Sever:",message) })
+        val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message -> Log.d("Sever:", message) })
         builder.connectTimeout(10000, TimeUnit.MILLISECONDS)
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         builder.addInterceptor(loggingInterceptor)
@@ -50,8 +51,7 @@ class SplashActivity : JBaseActivity() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SeverBean>() {
                     override fun onNext(t: SeverBean?) {
-                        SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
-                        MainActivity.start(context)
+                        didSuccess(t!!)
                     }
 
                     override fun onError(e: Throwable?) {
@@ -65,6 +65,17 @@ class SplashActivity : JBaseActivity() {
                 })
 
     }
+
+
+    /**
+     *  加载完成
+     */
+    private fun didSuccess(t: SeverBean) {
+        SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
+        close()
+        EmployeeMainActivity.start(context)
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

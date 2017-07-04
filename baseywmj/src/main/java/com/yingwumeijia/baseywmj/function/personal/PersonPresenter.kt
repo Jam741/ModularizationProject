@@ -16,21 +16,9 @@ import java.util.ArrayList
 /**
  * Created by jamisonline on 2017/6/11.
  */
-class PersonPresenter constructor(var fragment: Fragment, var view: PersonContract.View, var lifecycleSubject: PublishSubject<ActivityLifeCycleEvent>) : PersonContract.Presenter {
+class PersonPresenter (var fragment: Fragment, var view: PersonContract.View, var lifecycleSubject: PublishSubject<ActivityLifeCycleEvent>) : PersonContract.Presenter {
 
     val context = fragment.activity
-
-    val groupMenuList_C by lazy {
-        createMenuInfoList_C()
-    }
-    val groupMenuList_E by lazy {
-        createMenuInfoList_E()
-    }
-
-    override fun initMenu() {
-        if (AppTypeManager.isAppC())
-            view.showMenus(groupMenuList_C)
-    }
 
 
     override fun initPersonInfo() {
@@ -48,12 +36,6 @@ class PersonPresenter constructor(var fragment: Fragment, var view: PersonContra
         }, "cacheKey", ActivityLifeCycleEvent.DESTROY, lifecycleSubject, false, false)
     }
 
-    override fun menusClick(action: MenuAction) {
-        when (action) {
-            MenuAction.order -> ""
-            MenuAction.bill -> ""
-        }
-    }
 
     private fun createMenuInfoList_C(): ArrayList<ArrayList<MenuInfo>> {
         val groupList = ArrayList<ArrayList<MenuInfo>>()

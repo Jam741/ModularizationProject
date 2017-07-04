@@ -34,6 +34,31 @@
         </activity>
         <activity android:name=".function.person.TestActivity"></activity>
 
+        <activity
+            android:name=".function.home.CustomerMainActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".function.person.info.PersonInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.person.edit.EditPersonInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.coupon.CouponActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.coupon.details.CouponDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.coupon.details.CouponDetailForiscountActivity"
+            android:screenOrientation="portrait" />
+
         <!--友盟统计-->
         <meta-data
             android:name="UMENG_APPKEY"

@@ -13,20 +13,14 @@ interface PersonContract {
 
         fun didUpDateUserData()
 
-        fun showMenus(menuInfosList: ArrayList<ArrayList<MenuInfo>>)
+        fun showMenus()
 
         fun showLoginView(logIn: Boolean)
-
-        fun refreshLoginView()
     }
 
 
     interface Presenter : JBasePresenter {
 
-        fun initMenu()
-
         fun initPersonInfo()
-
-        fun menusClick(action: MenuAction)
     }
 }

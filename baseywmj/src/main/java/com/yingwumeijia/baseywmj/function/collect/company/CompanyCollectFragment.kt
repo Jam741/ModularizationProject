@@ -50,7 +50,7 @@ class CompanyCollectFragment : CollectListFragment<CollectCompanyBean.ResultBean
     }
 
     override fun createCollectPresenter(): CollectListContract.Presenter {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return CompanyCollectPresenter(context.context, this)
     }
 
     override fun emptyText(): String {

@@ -164,6 +164,38 @@ interface Service {
     fun setPassword(@Query("oldPassword") oldPassword: String,
                     @Query("newPassword") newPassword: String): Observable<String>
 
+
+    /**
+     * 修改昵称
+
+     * @param nickName
+     * *
+     * @return
+     */
+    @POST("customer/updateNickName")
+    fun updateNickName(@Query("nickName") nickName: String): Observable<String>
+
+    /**
+     * 上传头像
+
+     * @param headImage
+     * *
+     * @return
+     */
+    @POST("customer/upLoadHeadImage")
+    fun uploadHeadImage_C(@Query("headImage") headImage: String): Observable<Boolean>
+
+
+    /**
+     * 上传头像
+
+     * @param headImage
+     * *
+     * @return
+     */
+    @PUT("employee/upLoadHeadImage")
+    fun uploadHeadImage_E(@Query("headImage") headImage: String): Observable<Boolean>
+
     /**
      * 获取搜索热词列表
 
@@ -505,5 +537,75 @@ interface Service {
                                  @Query("sourceType") sourceType: Int,
                                  @Query("serviceType") serviceType: Int): Observable<ServiceStandardBean>
 
+    /**
+     * 获取优惠券列表
+
+     * @param available
+     * *
+     * @param pageNum
+     * *
+     * @param pageSize
+     * *
+     * @return
+     */
+    @GET("coupon")
+    fun getCouponList(@Query("available") available: Boolean,
+                      @Query("pageNum") pageNum: Int,
+                      @Query("pageSize") pageSize: Int): Observable<CouponListResponseBean>
+
+
+    /**
+     * 查询优惠券详细信息
+
+     * @param couponId
+     * *
+     * @return
+     */
+    @GET("coupon/{couponId}")
+    fun getCouponDetail(@Path("couponId") couponId: Int): Observable<CouponDetail>
+
+
+    /**
+     * 活动签到
+
+     * @param activityId
+     * *
+     * @param sign
+     * *
+     * @param couponCode
+     * *
+     * @return
+     */
+    @POST("activity/coupon")
+    fun couponSign(@Query("activityId") activityId: Int?,
+                   @Query("sign") sign: String,
+                   @Query("couponCode") couponCode: String): Observable<String>
+
+
+    /**
+     * 查看浏览历史
+
+     * @return
+     */
+    @GET("case/app/history/views")
+    abstract fun getHistoryViews(): Observable<List<CaseBean>>
+
+
+    /**
+     * 清空浏览历史
+
+     * @return
+     */
+    @POST("case/app/history/views")
+    abstract fun clearHistoryViews(): Observable<String>
+
+
+    /**
+     * 获取七牛Token
+
+     * @return
+     */
+    @GET("upload/getToken")
+    fun getUpLoadToken(): Observable<String>
 
 }

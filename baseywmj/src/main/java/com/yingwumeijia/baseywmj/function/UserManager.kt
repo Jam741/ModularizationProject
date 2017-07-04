@@ -42,6 +42,13 @@ object UserManager {
             Hawk.delete(KEY_USER_CACHE_DATA)
     }
 
+    fun refreshProtrait(protrait: String) {
+
+    }
+
+    fun refreshNikeName(nikeName: String) {
+
+    }
 
     /**
      * 执行用户权限的操作 需要先通过先决条件

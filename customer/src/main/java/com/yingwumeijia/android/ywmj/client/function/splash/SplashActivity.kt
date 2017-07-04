@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.ywmj.client.R
+import com.yingwumeijia.android.ywmj.client.function.home.CustomerMainActivity
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
@@ -75,7 +76,7 @@ class SplashActivity : JBaseActivity() {
     private fun didSuccess(t: SeverBean) {
         SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
         close()
-        MainActivity.start(context)
+        CustomerMainActivity.start(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

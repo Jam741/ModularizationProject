@@ -24,10 +24,6 @@
             android:value="bc26ebb41cdaab04fcc0c4b8335879bb" />
 
         <activity
-            android:name=".function.main.MainActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".function.user.login.LoginActivity"
             android:screenOrientation="portrait" />
 
@@ -79,6 +75,19 @@
         <activity
             android:name=".function.setting.about.ConnectUsActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.collect.CollectActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!-- CameraSDK相册选取 -->
+        <activity android:name="com.muzhi.camerasdk.PhotoPickActivity" />
+        <activity android:name="com.muzhi.camerasdk.PreviewActivity" />
+        <activity android:name="com.muzhi.camerasdk.CropperImageActivity" />
+        <activity android:name="com.muzhi.camerasdk.FilterImageActivity" />
+        <activity android:name="com.muzhi.camerasdk.CropperImageRectangleActivity" />
+
 
     </application>
 

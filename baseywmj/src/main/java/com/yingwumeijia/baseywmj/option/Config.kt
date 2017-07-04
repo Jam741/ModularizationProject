@@ -32,4 +32,6 @@ object Config {
     val CODE_GET_CONTACT_INFO = 1013//获取联系人信息
     val CODE_PICK_SINGLE_STING = 1014//获取联系人信息
     val CODE_CALL_PHONE_NUMBER = 1015//获取联系人信息
+
+    val BASE_QINIU_URL = "http://o8nljewkg.bkt.clouddn.com/"
 }

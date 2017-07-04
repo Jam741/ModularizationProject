@@ -37,6 +37,13 @@ public class UserBean {
      * showHead :
      */
 
+
+    private int userDetailType = 0;
+    private int companyId;
+    private String headImage;
+    private String lifePhotos;
+    private String resume;
+
     private int id;
     private String userName;
     private String userPhone;
@@ -58,11 +65,60 @@ public class UserBean {
     private int entityId;
     private String nickName;
     private String showName;
+    private String userDetailTypeDesc;
     private String showHead;
     private String userTitle;
     private String imUid;
     private UserSession userSession;
 
+
+    public int getUserDetailType() {
+        return userDetailType;
+    }
+
+    public void setUserDetailType(int userDetailType) {
+        this.userDetailType = userDetailType;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public String getLifePhotos() {
+        return lifePhotos;
+    }
+
+    public void setLifePhotos(String lifePhotos) {
+        this.lifePhotos = lifePhotos;
+    }
+
+    public String getResume() {
+        return resume;
+    }
+
+    public void setResume(String resume) {
+        this.resume = resume;
+    }
+
+    public String getUserDetailTypeDesc() {
+        return userDetailTypeDesc;
+    }
+
+    public void setUserDetailTypeDesc(String userDetailTypeDesc) {
+        this.userDetailTypeDesc = userDetailTypeDesc;
+    }
 
     public UserSession getUserSession() {
         return userSession;
