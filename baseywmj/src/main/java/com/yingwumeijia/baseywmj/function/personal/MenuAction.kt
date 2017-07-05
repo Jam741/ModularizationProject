@@ -15,5 +15,10 @@ enum class MenuAction {
     beginner, //新手引导
     testH5, //测试H5入口
     history, //历史浏览
-    invite//邀请
+    invite, //邀请
+    help, //我要帮助
+    material, //主材补贴
+
+
+
 }

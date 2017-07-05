@@ -19,6 +19,7 @@ import com.yingwumeijia.commonlibrary.utils.ListUtil;
 import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter;
 import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +120,7 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
             } else {
                 brands = data.get(groupPosition).getBrands();
             }
-            groupViewHolder.gv_pics.setAdapter(createBrandThumbAdapter(convertView.getContext(), brands));
+            groupViewHolder.gv_pics.setAdapter(createBrandThumbAdapter(convertView.getContext(), (ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean>) brands));
             //    initTumber(convertView.getContext(), groupViewHolder.ll_pics, brands);
 
         }
@@ -157,8 +158,8 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
     }
 
 
-    private CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean> createBrandThumbAdapter(final Context context, List<CaseInfomationBean.CostBrandsBean.BrandsBean> brands) {
-        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, brands, R.layout.item_infomation_brands_thumb) {
+    private CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean> createBrandThumbAdapter(final Context context, ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean> brands) {
+        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, brands , R.layout.item_infomation_brands_thumb) {
             @Override
             public void conver(ViewHolder helper, CaseInfomationBean.CostBrandsBean.BrandsBean item, int position) {
                 helper
@@ -185,7 +186,7 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
 
 
     private CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean> createBrandPicAdapter(final Context context, List<CaseInfomationBean.CostBrandsBean.BrandsBean> brandsBeen) {
-        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, brandsBeen, R.layout.item_infomation_material_brand_pic) {
+        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, (ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean>) brandsBeen, R.layout.item_infomation_material_brand_pic) {
             @Override
             public void conver(ViewHolder helper, final CaseInfomationBean.CostBrandsBean.BrandsBean item, int position) {
 

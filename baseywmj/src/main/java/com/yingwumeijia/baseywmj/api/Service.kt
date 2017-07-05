@@ -15,6 +15,7 @@ import com.yingwumeijia.baseywmj.function.introduction.company.CompanyIntriducti
 import com.yingwumeijia.baseywmj.function.introduction.company.resume.CompanyResumeBean
 import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeIntroductionBean
 import com.yingwumeijia.baseywmj.function.introduction.serviceStandard.ServiceStandardBean
+import com.yingwumeijia.baseywmj.function.opinion.FeedbackBean
 import com.yingwumeijia.baseywmj.function.user.LoginBean
 import retrofit2.http.*
 import rx.Observable
@@ -607,5 +608,26 @@ interface Service {
      */
     @GET("upload/getToken")
     fun getUpLoadToken(): Observable<String>
+
+
+    @GET("im/internalMessage/{messageId}")
+    fun internalMessage(@Path("messageId") messageId: Int): Observable<String>
+
+
+    /**
+     * 我要吐槽
+
+     * @param feedbackBean
+     * *
+     * @return
+     */
+    @POST("user/feedback")
+    fun sendOpinion(@Body feedbackBean: FeedbackBean): Observable<String>
+
+    /**
+     * 查询专属平台家居顾问信息
+     */
+    @GET("advisor")
+    fun getAdvisorInfo(): Observable<AdvisorInfoBean>
 
 }

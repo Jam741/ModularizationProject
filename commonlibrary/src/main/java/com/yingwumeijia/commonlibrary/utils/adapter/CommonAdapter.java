@@ -1,11 +1,13 @@
 package com.yingwumeijia.commonlibrary.utils.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +18,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     protected LayoutInflater mLayoutInflater;
     protected Context mContext;
-    protected List<T> mDatas;
+    protected ArrayList<T> mDatas;
     private int mItemLayoutId;
 
-    public CommonAdapter(Context mContext, List<T> mDatas, int mItemLayoutId) {
+    public CommonAdapter(Context mContext, ArrayList<T> mDatas, int mItemLayoutId) {
         this.mLayoutInflater = LayoutInflater.from(mContext);
         this.mContext = mContext;
         this.mDatas = mDatas;

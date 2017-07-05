@@ -1,5 +1,7 @@
 package com.yingwumeijia.baseywmj.function.collect
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
@@ -22,6 +24,13 @@ class CollectActivity : JBaseActivity() {
     val fragments = arrayListOf(CaseCollectFragment(), EmployeeCollectFragment(), CompanyCollectFragment())
 
     val adapter by lazy { TabWithPagerAdapter(supportFragmentManager, titles, fragments) }
+
+    companion object {
+        fun start(context: Context) {
+            val starter = Intent(context, CollectActivity::class.java)
+            context.startActivity(starter)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

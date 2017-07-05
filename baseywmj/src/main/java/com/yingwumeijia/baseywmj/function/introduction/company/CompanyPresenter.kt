@@ -22,6 +22,7 @@ import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerA
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.yingwumeijia.commonlibrary.widget.SpannableTextView
 import rx.Observable
+import java.util.ArrayList
 
 /**
  * Created by jamisonline on 2017/6/27.
@@ -56,7 +57,7 @@ class CompanyPresenter(var activity: Activity, var companyId: Int, var caseId: I
     }
 
     private fun createServiceStandardAdapter(): CommonAdapter<CompanyIntriductionBean.ServiceStandardDtoBean.ServiceStandardsBean> {
-        return object : CommonAdapter<CompanyIntriductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity, companyBean!!.serviceStandardDto.serviceStandards, R.layout.item_servicestandard) {
+        return object : CommonAdapter<CompanyIntriductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity, companyBean!!.serviceStandardDto.serviceStandards as ArrayList<CompanyIntriductionBean.ServiceStandardDtoBean.ServiceStandardsBean>, R.layout.item_servicestandard) {
             override fun conver(helper: ViewHolder?, item: CompanyIntriductionBean.ServiceStandardDtoBean.ServiceStandardsBean?, position: Int) {
 
 

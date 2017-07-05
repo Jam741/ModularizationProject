@@ -59,6 +59,18 @@
             android:name=".function.coupon.details.CouponDetailForiscountActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".function.invite.InviteActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.enter.EnterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.enter.EditEnterActivity"
+            android:screenOrientation="portrait" />
+
         <!--友盟统计-->
         <meta-data
             android:name="UMENG_APPKEY"

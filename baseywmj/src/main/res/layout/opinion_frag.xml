@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="bottom"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:text="吐槽"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/font6_sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/color_3" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:background="@color/color_whide"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="15dp">
+
+
+        <TextView
+            android:id="@+id/font_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="0/200"
+            android:textColor="@color/color_5"
+            android:textSize="@dimen/font4_sp" />
+
+
+        <EditText
+            android:id="@+id/tv_opinionContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/font_num"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:hint="用着不爽?跟鹦鹉美家吐吐槽"
+            android:maxLength="200"
+            android:scrollbarStyle="insideInset"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font4_sp" />
+
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/color_3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="图片(选填)"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font4_sp" />
+
+            <TextView
+                android:id="@+id/photo_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="0/4"
+                android:textColor="@color/color_5"
+                android:textSize="@dimen/font4_sp" />
+
+        </LinearLayout>
+
+
+        <com.rx.android.jamspeedlibrary.utils.view.MyGridView
+            android:id="@+id/gv_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="8dp"
+            android:horizontalSpacing="7dp"
+            android:numColumns="3"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:verticalSpacing="7dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/color_3" />
+
+    <TextView
+        android:id="@+id/btn_commit"
+        style="@style/MyButton2"
+        android:layout_width="137dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="22dp"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="提交"
+        android:textSize="@dimen/font3_sp" />
+
+
+    <Button
+        android:id="@+id/pay"
+        style="@style/MyButton2"
+        android:layout_width="137dp"
+        android:layout_height="39dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="22dp"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="付款"
+        android:textSize="@dimen/font3_sp"
+        android:visibility="gone" />
+
+
+</LinearLayout>

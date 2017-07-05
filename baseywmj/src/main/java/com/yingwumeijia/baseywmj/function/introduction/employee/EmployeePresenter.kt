@@ -23,6 +23,7 @@ import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerA
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.yingwumeijia.commonlibrary.widget.SpannableTextView
 import rx.Observable
+import java.util.*
 
 /**
  * Created by jamisonline on 2017/6/29.
@@ -62,7 +63,7 @@ class EmployeePresenter(var activity: Activity, var view: EmployeeContract.View,
 
 
     private fun createArticleAdapter(): CommonAdapter<EmployeeIntroductionBean.ArticlesBean> {
-        return object : CommonAdapter<EmployeeIntroductionBean.ArticlesBean>(activity, employeeBean!!.articles, R.layout.item_article_lsit) {
+        return object : CommonAdapter<EmployeeIntroductionBean.ArticlesBean>(activity, employeeBean!!.articles as ArrayList<EmployeeIntroductionBean.ArticlesBean>, R.layout.item_article_lsit) {
             override fun conver(helper: ViewHolder?, item: EmployeeIntroductionBean.ArticlesBean?, position: Int) {
                 helper!!.run {
                     setText(R.id.tv_title, item!!.title)
@@ -74,9 +75,8 @@ class EmployeePresenter(var activity: Activity, var view: EmployeeContract.View,
     }
 
     private fun createServiceStandardAdapter(): CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean> {
-        return object : CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity, employeeBean!!.serviceStandardDto.serviceStandards, R.layout.item_servicestandard) {
+        return object : CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity, employeeBean!!.serviceStandardDto.serviceStandards as ArrayList<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>, R.layout.item_servicestandard) {
             override fun conver(helper: ViewHolder?, item: EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean?, position: Int) {
-
 
                 var price = ""
                 if (item!!.priceEnd !== 0) {

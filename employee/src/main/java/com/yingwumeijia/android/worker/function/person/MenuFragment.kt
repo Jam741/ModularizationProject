@@ -1,9 +1,16 @@
 package com.yingwumeijia.android.worker.function.person
 
+import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.yingwumeijia.android.worker.R
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.MenuAction
 import com.yingwumeijia.baseywmj.function.personal.MenuInfo
 import com.yingwumeijia.baseywmj.function.personal.PersonMenuFragment
+import kotlinx.android.synthetic.main.person_menu.*
 import java.util.ArrayList
 
 /**
@@ -11,7 +18,7 @@ import java.util.ArrayList
  */
 class MenuFragment : PersonMenuFragment() {
 
-    val menusForTwirrer by lazy { createMenuInfoListTwirrer() }
+    val menusForNormal by lazy { createMenuInfoListTwirrer() }
 
     private fun createMenuInfoListTwirrer(): ArrayList<ArrayList<MenuInfo>> {
         val groupList = ArrayList<ArrayList<MenuInfo>>()
@@ -45,8 +52,27 @@ class MenuFragment : PersonMenuFragment() {
         }
     }
 
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater!!.inflate(com.yingwumeijia.baseywmj.R.layout.person_menu, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        rv_menu.run {
+            layoutManager = LinearLayoutManager(context)
+            adapter = personGroupMenuAdapter
+        }
+        refreshMenusForUserStatus()
+    }
+
     override fun initMenuForUserDetailType(userDetailType: Int) {
-        refreshMenu(menusForTwirrer)
+        refreshMenusForUserStatus()
+    }
+
+
+    fun refreshMenusForUserStatus() {
+        val twitterStatus = UserManager.getTwitterStatus()
+        refreshMenu(menusForNormal)
     }
 
     override fun itemClick(action: MenuAction) {

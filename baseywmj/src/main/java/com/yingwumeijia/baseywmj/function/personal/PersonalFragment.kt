@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.c.NotLoggedFragment
 import com.yingwumeijia.baseywmj.function.setting.SettingActivity
@@ -77,7 +78,7 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_setting.setOnClickListener { SettingActivity.start(activity) }
-        btn_message.setOnClickListener { TODO("去站内信页面") }
+        btn_message.setOnClickListener { StartActivityManager.startMessageActivity(activity) }
         showMenus()
     }
 

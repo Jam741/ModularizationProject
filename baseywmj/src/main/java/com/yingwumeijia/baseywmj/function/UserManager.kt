@@ -3,6 +3,7 @@ package com.yingwumeijia.baseywmj.function
 import android.app.Activity
 import android.content.Context
 import com.orhanobut.hawk.Hawk
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.commonlibrary.utils.SPUtils
@@ -14,6 +15,7 @@ import com.yingwumeijia.commonlibrary.utils.SPUtils
 object UserManager {
 
     val KEY_USER_CACHE_DATA = "KEY_USER_CACHE_DATA"
+    val KEY_TWITTER_CACHE_DATA = "KEY_TWITTER_CACHE_DATA"
 
     fun isLogin(context: Context): Boolean {
         return SPUtils.get(context, "KEY_LOGIN_STATUS", false) as Boolean
@@ -63,4 +65,13 @@ object UserManager {
     }
 
 
+    /***********************推客相关*******************************/
+    fun cacheTwitterStatus(twitterStatus: Int) {
+        Hawk.put(KEY_TWITTER_CACHE_DATA, twitterStatus)
+    }
+
+
+    fun getTwitterStatus(): Int {
+        return Hawk.get(KEY_TWITTER_CACHE_DATA, Constant.DEFAULT_INT_VALUE)
+    }
 }

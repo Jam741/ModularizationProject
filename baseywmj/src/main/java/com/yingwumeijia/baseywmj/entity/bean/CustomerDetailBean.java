@@ -18,7 +18,7 @@ public class CustomerDetailBean {
 
     private UserBean customerDto;
     private int collectionCount;
-    private int twitterStatus;
+    private int twitterStatus = -1;
     private String twitterStatusDesc;
     private boolean isTwitterCustomer;
     private String twitterBaseUrl;

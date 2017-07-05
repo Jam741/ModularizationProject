@@ -52,6 +52,7 @@ class CouponActivity : JBaseActivity(), CouponContract.View, XRecyclerView.Loadi
             setLoadingListener(this@CouponActivity)
         }
 
+        btn_checkPast.setOnClickListener { CouponActivity.start(context, false) }
         btn_explain.visibility = if (available) View.VISIBLE else View.GONE
     }
 
