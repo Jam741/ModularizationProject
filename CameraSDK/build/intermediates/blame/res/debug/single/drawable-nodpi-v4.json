@@ -48,10 +48,6 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/brannan_luma.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/toaster_color_shift.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/toaster_color_shift.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/vignette_map.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/vignette_map.png"
     },
@@ -60,12 +56,16 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/nmap.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/walden_map.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/walden_map.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/toaster_color_shift.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/toaster_color_shift.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/earlybird_overlay_map.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/earlybird_overlay_map.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/walden_map.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/walden_map.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/brannan_blowout.png",
@@ -92,24 +92,24 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/blackboard.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/sutro_curves.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/sutro_curves.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/earlybird_curves.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/earlybird_curves.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/sutro_curves.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/sutro_curves.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/hudson_background.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/hudson_background.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/sierra_vignette.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/sierra_vignette.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/edge_burn.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/edge_burn.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/sierra_vignette.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/sierra_vignette.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/hefe_metal.png",
@@ -168,12 +168,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/brannan_screen.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/lomo_map.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/lomo_map.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/lock.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/lock.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/lomo_map.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/res/drawable-nodpi/lomo_map.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/debug/drawable-nodpi-v4/nashville_map.png",

@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.yingwumeijia.baseywmj.R
@@ -123,4 +125,16 @@ class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallB
     fun didLogin() {
         userPresenter.login(phoneValue(), passwordValue())
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (!isAppC) {
+                close()
+                System.exit(0)
+                return true
+            }
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
 }

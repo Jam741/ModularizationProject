@@ -37,7 +37,6 @@ class PersonGroupMenuAdapter(internal var context: Context, internal var menuOnI
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.rvGroup.layoutManager = LinearLayoutManager(context)
-        holder.rvGroup.addItemDecoration(HorizontalDividerItemDecoration.Builder(context).margin(ScreenUtils.dp2px(20f, context), 0).build())
         holder.rvGroup.adapter = PersonMenuAdapter(data[position], context, menuOnItemClickListener, menuOnItemLongClickListener)
     }
 

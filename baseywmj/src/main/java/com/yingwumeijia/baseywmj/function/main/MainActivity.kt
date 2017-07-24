@@ -108,7 +108,7 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
 
-        lv_nav.setOnItemClickListener(this@MainActivity)
+        lv_nav.onItemClickListener = this@MainActivity
 
         exlv_nav.run {
             setOnGroupClickListener { parent, v, groupPosition, id -> false }
@@ -116,7 +116,7 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
         }
 
 
-        val lp = right_drawer.getLayoutParams()
+        val lp = right_drawer.layoutParams
         lp.width = ScreenUtils.screenWidth * 8 / 12
         right_drawer.layoutParams = lp
 

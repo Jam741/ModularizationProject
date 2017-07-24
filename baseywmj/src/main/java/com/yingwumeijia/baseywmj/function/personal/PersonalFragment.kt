@@ -77,10 +77,20 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_setting.setOnClickListener { SettingActivity.start(activity) }
-        btn_message.setOnClickListener { StartActivityManager.startMessageActivity(activity) }
+        btn_setting.setOnClickListener { startSetting() }
+        btn_message.setOnClickListener { startMessage() }
+        btn_scan.setOnClickListener { startScan() }
         showMenus()
     }
+
+    /**
+     * 扫一扫
+     */
+    open fun startScan() {}
+
+    fun startMessage(){StartActivityManager.startMessageActivity(activity)}
+
+    fun startSetting(){SettingActivity.start(activity)}
 
 
     override fun onResume() {

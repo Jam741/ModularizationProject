@@ -35,6 +35,7 @@ class PersonMenuAdapter(private val data: List<MenuInfo>, private val context: C
         val right_drawable = context.resources.getDrawable(R.mipmap.mine_more_ico)
         left_drawable.setBounds(0, 0, left_drawable.minimumWidth, left_drawable.minimumHeight)
         right_drawable.setBounds(0, 0, right_drawable.minimumWidth, right_drawable.minimumHeight)
+        holder.divider.visibility = if (position == data.size - 1) View.GONE else View.VISIBLE
         holder.tv_menu.setCompoundDrawables(left_drawable, null, right_drawable, null)
         holder.tv_menu.text = text
     }
@@ -45,10 +46,10 @@ class PersonMenuAdapter(private val data: List<MenuInfo>, private val context: C
 
     inner class MyViewHolder(itemView: View, var menuOnItemClickListener: PersonGroupMenuAdapter.MenuOnItemClickListener?, var menuOnItemLongClickListener: PersonGroupMenuAdapter.MenuOnItemLongClickListener?) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
 
-        var tv_menu: TextView
+        val tv_menu = itemView.findViewById(R.id.tv_menu) as TextView
+        val divider = itemView.findViewById(R.id.divider)
 
         init {
-            tv_menu = itemView.findViewById(R.id.tv_menu) as TextView
             itemView.setOnClickListener(this)
             itemView.setOnLongClickListener(this)
         }

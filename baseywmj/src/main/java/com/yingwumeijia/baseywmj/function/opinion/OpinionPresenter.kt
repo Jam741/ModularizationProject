@@ -1,5 +1,6 @@
 package com.yingwumeijia.baseywmj.function.opinion
 
+import android.app.Activity
 import android.content.Context
 import android.os.Build
 import com.yingwumeijia.baseywmj.api.Api
@@ -14,7 +15,7 @@ import com.yingwumeijia.commonlibrary.utils.ListUtil
 /**
  * Created by jamisonline on 2017/7/5.
  */
-class OpinionPresenter(var context: Context, var view: OpinionContract.View) : OpinionContract.Presenter {
+class OpinionPresenter(var context: Activity, var view: OpinionContract.View) : OpinionContract.Presenter {
 
 
     val feedbackBean by lazy {

@@ -43,6 +43,7 @@ public abstract class ProgressSubscriber<T> extends Subscriber<T> implements Pro
 
     @Override
     public void onNext(T t) {
+        dismissProgressDialog();
         _onNext(t);
     }
 

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/vertical_margin"
+                android:background="@color/windowBackground" />
+
+            <com.rx.android.jamspeedlibrary.utils.view.MyExpandableListView
+                android:id="@+id/listTeam"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/windowBackground"
+                android:childDivider="@android:color/transparent"
+                android:divider="@color/divider_normal"
+                android:dividerHeight="0dp"
+                android:groupIndicator="@null" />
+
+            <LinearLayout
+                android:id="@+id/btn_renameProject"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_whide"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="项目名称"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font4_sp" />
+
+                <TextView
+                    android:id="@+id/tv_projectName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@mipmap/mine_more_ico"
+                    android:ellipsize="end"
+                    android:gravity="right|center_vertical"
+                    android:maxLines="1"
+                    android:textColor="@color/color_4"
+                    android:textSize="@dimen/font4_sp"
+                    tools:text="项目名称" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/divider_normal" />
+
+            <Button
+                android:id="@+id/btn_dismiss_conversation"
+                style="@style/MyButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="22dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="22dp"
+                android:enabled="true"
+                android:gravity="center"
+                android:text="退出聊天"
+                android:textColor="@color/btn_color"
+                android:textSize="@dimen/text_normal" />
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

@@ -166,7 +166,7 @@ public class HttpUtil {
     public static void disposeHttpException(Context context, Throwable e) {
 
         String message;
-        if (NetUtils.isConnected(context)) {
+        if (!NetUtils.isConnected(context)) {
             message = "网络异常";
         } else if (e instanceof ApiException) {
             message = ((ApiException) e).getError_message();

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.android.ywmj.client.function.coupon.CouponActivity
+import com.yingwumeijia.android.ywmj.client.function.enter.EnterActivity
 import com.yingwumeijia.android.ywmj.client.function.historyView.HistoryViewActivity
 import com.yingwumeijia.android.ywmj.client.function.invite.InviteActivity
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.AdvisorInfoBean
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.WebViewManager
 import com.yingwumeijia.baseywmj.function.collect.CollectActivity
 import com.yingwumeijia.baseywmj.function.opinion.OpinionActivity
 import com.yingwumeijia.baseywmj.function.personal.MenuAction
@@ -121,9 +123,9 @@ class MenuFragment : PersonMenuFragment() {
         gv_top.run {
             adapter = topAdapter
             setOnItemClickListener { parent, view, position, id ->
-                when (topAdapter.getmDatas()[position].action) {
+                when (topAdapter.getItem(position).action) {
                     MenuAction.help -> getHelp()
-                    MenuAction.material -> TODO("主材补贴")
+                    MenuAction.material -> WebViewManager.startFullScreen(activity, "http://192.168.28.50:8090/#/materialSubsidy")
                     MenuAction.favourable -> CouponActivity.start(context, true)
                 }
             }
@@ -161,7 +163,7 @@ class MenuFragment : PersonMenuFragment() {
             MenuAction.bill -> toastWith("活动账单")
             MenuAction.collect -> CollectActivity.start(activity)
             MenuAction.history -> HistoryViewActivity.start(activity)
-            MenuAction.apply -> toastWith("我要入住")
+            MenuAction.apply -> EnterActivity.start(activity)
             MenuAction.twitter -> toastWith("我的退推客")
             MenuAction.advice -> OpinionActivity.start(activity)
             MenuAction.invite -> InviteActivity.start(activity)

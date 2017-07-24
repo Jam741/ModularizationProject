@@ -57,7 +57,7 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            setContentView(R.layout.employee_introduction_frag)
+        setContentView(R.layout.employee_introduction_frag)
         topTitle.text = "个人简介"
         TextViewUtils.setDrawableToLeft(context, topRight, R.mipmap.bottom_collect_ico)
         topLeft.setOnClickListener(this)
@@ -114,7 +114,7 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
         headerViewHolder.lv_articles.run {
             visibility = View.GONE
             adapter = presenter.articleAdapter
-            setOnItemClickListener { _, _, position, _ -> WebViewManager.startHasTitle(context, presenter.articleAdapter.getItem(position).url) }
+            setOnItemClickListener { _, _, position, _ -> WebViewManager.startHasTitle(context, presenter.articleAdapter.getItem(position).url, null) }
         }
 
     }

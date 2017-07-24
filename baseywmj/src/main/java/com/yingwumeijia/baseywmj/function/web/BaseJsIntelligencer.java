@@ -31,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ import rx.schedulers.Schedulers;
  * Describe:
  */
 
-public class BaseJsIntelligencer {
+public class BaseJsIntelligencer implements Serializable{
 
 
 //    protected Activity activity;

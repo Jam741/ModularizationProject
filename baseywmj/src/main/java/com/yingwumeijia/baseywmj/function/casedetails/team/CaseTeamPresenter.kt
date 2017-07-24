@@ -87,7 +87,10 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
      * 创建竣工图片适配器
      */
     private fun createCeremonyAdapter(): CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean> {
-        return object : CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(null, fragment, teamData!!.surroundingMaterials as ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>, R.layout.item_ceremony) {
+        val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>() }
+        if (teamData!!.surroundingMaterials.startCeremony != null) ceremonyBeanList.add(teamData!!.surroundingMaterials.startCeremony)
+        if (teamData!!.surroundingMaterials.endCeremony != null) ceremonyBeanList.add(teamData!!.surroundingMaterials.endCeremony)
+        return object : CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(null, fragment, ceremonyBeanList, R.layout.item_ceremony) {
             override fun convert(holder: RecyclerViewHolder, ceremonyBean: ProductionTeamBean.SurroundingMaterials.CeremonyBean, position: Int) {
                 holder
                         .run {

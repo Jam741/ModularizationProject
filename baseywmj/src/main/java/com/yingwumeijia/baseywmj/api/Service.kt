@@ -17,6 +17,8 @@ import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeIntroduc
 import com.yingwumeijia.baseywmj.function.introduction.serviceStandard.ServiceStandardBean
 import com.yingwumeijia.baseywmj.function.opinion.FeedbackBean
 import com.yingwumeijia.baseywmj.function.user.LoginBean
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.*
 import rx.Observable
 
@@ -589,7 +591,7 @@ interface Service {
      * @return
      */
     @GET("case/app/history/views")
-    abstract fun getHistoryViews(): Observable<List<CaseBean>>
+    fun getHistoryViews(): Observable<List<CaseBean>>
 
 
     /**
@@ -598,7 +600,7 @@ interface Service {
      * @return
      */
     @POST("case/app/history/views")
-    abstract fun clearHistoryViews(): Observable<String>
+    fun clearHistoryViews(): Observable<String>
 
 
     /**
@@ -629,5 +631,198 @@ interface Service {
      */
     @GET("advisor")
     fun getAdvisorInfo(): Observable<AdvisorInfoBean>
+
+
+    /**
+     * 申请入驻
+
+     * @param applyJoinBean
+     * *
+     * @return
+     */
+    @POST("company/join")
+    fun componyJoin(@Body applyJoinBean: ApplyJoinBean): Observable<String>
+
+
+    /**
+     * 获取H5所需Token
+
+     * @return
+     */
+    @GET("user/login/token")
+    fun getH5Token(): Observable<String>
+
+
+    /**
+     * 扫一扫生成订单
+
+     * @param sign
+     * *
+     * @return
+     */
+    @POST("/order/confirm")
+    fun scanOrderConfirm(@Query("sign") sign: String): Observable<String>
+
+    /**
+     * 获取活动页面的
+
+     * @return
+     */
+    @GET("activity/url")
+    fun getActivityUrl(): Observable<String>
+
+    /**
+     * 下载文件
+     * @param fileUrl
+     * *
+     * @return
+     */
+    @GET
+    fun downloadFileWithDynamicUrlSync(@Url fileUrl: String): Call<ResponseBody>
+
+
+    /**
+     * 获取常用回复
+
+     * @return
+     */
+    @GET("im/commonLanguage")
+    fun getCommonLanguage(): Observable<List<CommonLanguage>>
+
+    /**
+     * 插入常用回复
+
+     * @return
+     */
+    @POST("im/commonLanguage")
+    fun insertCommonLanguage(@Query("content") content: String): Observable<CommonLanguage>
+
+    /**
+     * 删除常用回复
+
+     * @return
+     */
+    @DELETE("im/commonLanguage/{id}")
+    fun deleteCommonLanguage(@Path("id") id: Int): Observable<String>
+
+
+    /**
+     * 获取会话信息
+
+     * @param sessionId
+     * *
+     * @return
+     */
+    @GET("im/session/{sessionId}")
+    fun getSessionInfo(@Path("sessionId") sessionId: String): Observable<SessionDetailBean>
+
+
+    /**
+     * 获取开放电话的业者的列表
+
+     * @param sessionId
+     * *
+     * @return
+     */
+    @GET("im/session/{sessionId}/contact")
+    fun getEmployeeOpenPhoneList(@Path("sessionId") sessionId: String): Observable<String>
+
+
+    /**
+     * 添加会话成员
+
+     * @param addSessionMember
+     * *
+     * @return
+     */
+    @POST("im/session/member")
+    fun addMemberToSession(@Body addSessionMember: AddSessionMember): Observable<String>
+
+
+    /**
+     * 获取会话成员信息
+
+     * @param memberId 成员ID（注意是用户在第三方IM平台的UID）
+     * *
+     * @return
+     */
+    @GET("im/session/member/{memberId}")
+    fun getMemberInfo(@Path("memberId") memberId: String): Observable<MemberBean>
+
+
+    /**
+     * 搜索业主
+
+     * @param phone
+     * *
+     * @return
+     */
+    @GET("im/session/{sessionId}/search/customer")
+    fun searchCustomer(@Path("sessionId") sessionId: String, @Query("phone") phone: String): Observable<MemberBean>
+
+    /**
+     * 查询业者
+
+     * @param employeeName
+     * *
+     * @param companyName
+     * *
+     * @return
+     */
+    @GET("im/session/{sessionId}/search/employee")
+    fun searchEmployeeList(@Path("sessionId") sessionId: String,
+                           @Query("employeeName") employeeName: String?,
+                           @Query("companyName") companyName: String?
+    ): Observable<List<MemberBean>>
+
+
+    /**
+     * 关闭会话
+
+     * @param sessionId
+     * *
+     * @return
+     */
+    @POST("im/session/{sessionId}")
+    fun dismissConversation(@Path("sessionId") sessionId: String): Observable<String>
+
+    /**
+     * 退出会话
+
+     * @param sessionId
+     * *
+     * @return
+     */
+    @DELETE("im/session/{sessionId}/quit")
+    fun quitSession(@Path("sessionId") sessionId: String): Observable<String>
+
+
+    /**
+     * Implementation Notes:用户移除会话成员（只有会话创建者才可以踢人）
+
+     * @param sessionId
+     * *
+     * @param memberId  成员ID（注意是用户在第三方IM平台的UID）
+     * *
+     * @return
+     */
+    @DELETE("im/session/{sessionId}/member/{memberId}")
+    fun deleteMemberFromSession(@Path("sessionId") sessionId: String,
+                                @Path("memberId") memberId: String): Observable<String>
+
+
+    /**
+     * 用户修改会话名称
+
+     * @param sessionId
+     * *
+     * @param newSessionName
+     * *
+     * @return
+     */
+    @POST("im/session/{sessionId}/rename")
+    fun renameSession(@Path("sessionId") sessionId: String,
+                      @Query("newSessionName") newSessionName: String): Observable<String>
+
 
 }

@@ -45,7 +45,7 @@ abstract class CommonRecyclerAdapter<T> constructor(var activity: Activity?, var
     }
 
 
-    fun clearnData() {
+    open fun clearnData() {
         data!!.clear()
     }
 

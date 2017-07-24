@@ -7,18 +7,11 @@ import android.content.Context
  */
 object OneWebModelManager {
 
-
-    fun binding(context: Context) {
-        OneWebSDK.init(context)
+    fun startHasTitle(context: Context, url: String, title: String?) {
+        OneWebActivity.start(context, url, title, true)
     }
-
-
-    fun start(context: Context, url: String, title: String?) {
-
-    }
-
 
     fun startNoTitle(context: Context, url: String) {
-
+        OneWebActivity.start(context, url, null, false)
     }
 }

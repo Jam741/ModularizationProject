@@ -31,15 +31,15 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
 
     var isCollect: Boolean = false
 
-    val caseId: Int by lazy {
-        intent.getIntExtra(Constant.KEY_CASE_DETAIL_ID, Constant.DEFAULT_INT_VALUE)
-    }
+    val caseId: Int by lazy { intent.getIntExtra(Constant.KEY_CASE_DETAIL_ID, Constant.DEFAULT_INT_VALUE) }
+
+    val forGoBack by lazy { intent.getBooleanExtra(Constant.KEY_CASE_DETAIL_GO_BACK, false) }
 
     val presenter by lazy { CaseDetailPresenter(context, caseId, this) }
 
     val mTitles = arrayOf("现场实景", "原创团队", "项目资料")
 
-    val mFragments  by lazy {
+    val mFragments by lazy {
         arrayListOf(RealSceneFragment.newInstance(caseId), CaseTeamFragment.newInstance(caseId), MaterialFragment.newInstance(caseId))
     }
 
@@ -51,7 +51,7 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
             R.id.topLeft -> close()
             R.id.btnShare -> presenter.share()
             R.id.btnCollect -> if (isCollect) presenter.cancelCollect() else presenter.collect()
-            R.id.btnConnectTeam -> presenter.connectTeam()
+            R.id.btnConnectTeam -> if (forGoBack) close() else presenter.connectTeam()
             R.id.btnComment -> TODO("去评论页面")
             R.id.topRight -> if (isCollect) presenter.cancelCollect() else presenter.collect()
         }
@@ -82,11 +82,17 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
 
 
     companion object {
-        fun start(context: Context, id: Int) {
+        fun start(context: Context, id: Int, forGoBack: Boolean) {
             val starter = Intent(context, CaseDetailActivity::class.java)
             starter.putExtra(Constant.KEY_CASE_DETAIL_ID, id)
+            starter.putExtra(Constant.KEY_CASE_DETAIL_GO_BACK, forGoBack)
             context.startActivity(starter)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        presenter.onNewIntent(intent)
     }
 
 

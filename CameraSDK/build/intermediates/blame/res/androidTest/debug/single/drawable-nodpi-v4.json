@@ -88,12 +88,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/inkwell_map.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/sutro_curves.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/sutro_curves.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/vignette_map.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/vignette_map.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/sutro_curves.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/sutro_curves.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/sutro_edge_burn.png",
@@ -112,12 +112,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/brannan_blowout.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/brannan_contrast.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/brannan_contrast.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/lock.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/lock.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/brannan_contrast.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/bundles/debug/res/drawable-nodpi-v4/brannan_contrast.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/CameraSDK/build/intermediates/res/merged/androidTest/debug/drawable-nodpi-v4/brannan_luma.png",

@@ -2,6 +2,7 @@ package com.yingwumeijia.android.ywmj.client.function.enter;
 
 import com.yingwumeijia.baseywmj.base.JBasePresenter;
 import com.yingwumeijia.baseywmj.base.JBaseView;
+import com.yingwumeijia.baseywmj.entity.bean.ApplyJoinBean;
 
 /**
  * Created by Jam on 2017/2/24 上午11:41.

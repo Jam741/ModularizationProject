@@ -11,7 +11,7 @@ interface MaterialContract {
 
 
     interface View : JBaseView {
-        fun initCost(costs: List<CaseInfomationBean.CostsBean>, totallCost: BigDecimal, caseCover: String, totallArea: BigDecimal)
+        fun initCost(costs: List<CaseInfomationBean.CostsBean>?, totallCost: BigDecimal, caseCover: String, totallArea: BigDecimal)
 
         fun initCostBrands(costBrands: List<CaseInfomationBean.CostBrandsBean>)
 

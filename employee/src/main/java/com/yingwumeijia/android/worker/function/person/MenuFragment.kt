@@ -53,7 +53,7 @@ class MenuFragment : PersonMenuFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(com.yingwumeijia.baseywmj.R.layout.person_menu, container, false)
+        return inflater!!.inflate(R.layout.person_menu, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

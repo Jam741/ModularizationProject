@@ -5,6 +5,7 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.AppType
 import com.yingwumeijia.baseywmj.base.JBaseApp
+import com.yingwumeijia.sharelibrary.ShareSDK
 
 /**
  * Created by jamisonline on 2017/5/31.
@@ -18,6 +19,7 @@ class MyApp : JBaseApp() {
 
     override fun onCreate() {
         super.onCreate()
+        ShareSDK.init(applicationContext)
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG

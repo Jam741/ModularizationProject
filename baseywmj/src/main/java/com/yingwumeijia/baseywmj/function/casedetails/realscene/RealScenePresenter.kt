@@ -41,7 +41,7 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
 
     override fun play720() {
         if (realSceneBena != null && !TextUtils.isEmpty(realSceneBena!!.pathOf720)) {
-            WebViewManager.startHasTitle(context, realSceneBena!!.pathOf720)
+            WebViewManager.startHasTitle(context, realSceneBena!!.pathOf720, null)
         }
     }
 

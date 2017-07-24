@@ -77,11 +77,11 @@ class CouponDetailActivity : JBaseActivity() {
         tv.reset()
         // Add the first piece
         tv.addPiece(SpannableTextView.Piece.Builder(title).textColor(resources.getColor(R.color.color_1))
-                .style(Typeface.NORMAL).textSize(resources.getDimension(R.dimen.font1_sp) as Int).build())
+                .style(Typeface.NORMAL).textSize(resources.getDimension(R.dimen.font1_sp).toInt()).build())
 
         // Add the second piece
         tv.addPiece(SpannableTextView.Piece.Builder(content).textColor(resources.getColor(R.color.color_1))
-                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font1_sp) as Int).build())
+                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font1_sp).toInt()).build())
 
         // Display the final, styled text
         tv.display()
@@ -93,11 +93,11 @@ class CouponDetailActivity : JBaseActivity() {
         tv.reset()
         // Add the first piece
         tv.addPiece(SpannableTextView.Piece.Builder(title).textColor(resources.getColor(R.color.color_1))
-                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_detail_price1) as Int).build())
+                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_detail_price1).toInt()).build())
 
         // Add the second piece
         tv.addPiece(SpannableTextView.Piece.Builder(content).textColor(resources.getColor(R.color.color_4))
-                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_detail_price1) as Int).build())
+                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_detail_price1).toInt()).build())
 
         // Display the final, styled text
         tv.display()
@@ -108,9 +108,10 @@ class CouponDetailActivity : JBaseActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result == null) {
             super.onActivityResult(requestCode, resultCode, data)
-        }else{
-            if (result.contents == null)  { toastWith("取消")}
-            else {
+        } else {
+            if (result.contents == null) {
+                toastWith("取消")
+            } else {
                 try {
                     val gson = Gson()
                     val info = gson.fromJson(result.contents, SiginInfo::class.java)

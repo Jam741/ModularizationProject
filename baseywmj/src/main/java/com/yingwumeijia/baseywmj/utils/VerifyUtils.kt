@@ -62,4 +62,13 @@ object VerifyUtils {
             return mobiles!!.matches(telRegex.toRegex())
     }
 
+
+    /**
+     * 校验公司名称
+     */
+    fun verifyCompanyName(companyName: String?): Boolean {
+        if (TextUtils.isEmpty(companyName)) return false
+        else return companyName!!.trim().length >= 2
+    }
+
 }

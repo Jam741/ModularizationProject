@@ -22,9 +22,6 @@ open class JBaseFragment : BaseFragment() {
 
     val lifecycleSubject = PublishSubject.create<ActivityLifeCycleEvent>()
 
-    val progressDialog: KProgressHUD by lazy {
-        KProgressHUD.create(context.context, KProgressHUD.Style.ANNULAR_DETERMINATE)
-    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE)

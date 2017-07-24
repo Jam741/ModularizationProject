@@ -60,7 +60,8 @@ class CouponDetailForiscountActivity : JBaseActivity() {
         if (couponDetail.getAmount().toInt() !== 0) {
             createSpannableTextViewForPrice(tv_couponPrice, "¥ ", "" + couponDetail.amount.toInt())
         } else {
-            createSpannableTextViewForPrice(tv_couponPrice, "", "免费") }
+            createSpannableTextViewForPrice(tv_couponPrice, "", "免费")
+        }
 
         coupon_bg.setBackgroundColor(if (couponDetail.isEffective) Color.parseColor("#ed316b") else Color.parseColor("#CDCDCD"))
         tv_couponType.text = couponDetail.typeDesc
@@ -78,11 +79,11 @@ class CouponDetailForiscountActivity : JBaseActivity() {
         tv.reset()
         // Add the first piece
         tv.addPiece(SpannableTextView.Piece.Builder(title).textColor(resources.getColor(R.color.bg_whide))
-                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_item_price1) as Int).build())
+                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_item_price1).toInt()).build())
 
         // Add the second piece
         tv.addPiece(SpannableTextView.Piece.Builder(content).textColor(resources.getColor(R.color.bg_whide))
-                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_item_price2) as Int).build())
+                .style(Typeface.BOLD).textSize(resources.getDimension(R.dimen.font_coupon_item_price2).toInt()).build())
 
         // Display the final, styled text
         tv.display()

@@ -44,7 +44,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, Obje
     public Object convert(ResponseBody value) throws IOException {
         try {
             ApiModel apiModel = (ApiModel) adapter.fromJson(value.charStream());
-            if (apiModel.errorCode == ErrorCode.TOKEN_NOT_EXIST) {
+            if (apiModel.errorCode == ErrorCode.TOKEN_NOT_EXIST || apiModel.errorCode == ErrorCode.TOKEN_OTHER_LOGIN) {
 //                LoginActivity.start();
                 throw new TokenNotExistException();
             } else if (apiModel.errorCode == ErrorCode.TOKEN_INVALID) {

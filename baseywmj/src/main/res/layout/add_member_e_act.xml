@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/add_member_header" />
+
+    <RelativeLayout
+        android:id="@+id/employeeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionbar_height"
+        android:visibility="visible">
+
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tl_eTitle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height"
+            android:background="@color/color_whide"
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:paddingRight="@dimen/horizontal_margin"
+            app:tl_divider_padding="5dp"
+            app:tl_iconVisible="false"
+            app:tl_indicator_color="@color/colorAccent"
+            app:tl_indicator_corner_radius="2dp"
+            app:tl_indicator_height="2dp"
+            app:tl_indicator_margin_bottom="5dp"
+            app:tl_indicator_width="55dp"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/color_6"
+            app:tl_textUnselectColor="@color/color_1"
+            app:tl_textsize="@dimen/font4_sp"
+            app:tl_underline_gravity="BOTTOM" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_normal" />
+
+        <View
+            android:layout_width="@dimen/divider_height"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_alignParentBottom="true"
+            android:background="@color/divider_normal" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+
+    </FrameLayout>
+
+
+</LinearLayout>

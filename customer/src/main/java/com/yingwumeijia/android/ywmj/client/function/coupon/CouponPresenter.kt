@@ -88,7 +88,7 @@ class CouponPresenter(var context: Activity, var view: CouponContract.View, var 
         tv.reset()
         // Add the first piece
         tv.addPiece(SpannableTextView.Piece.Builder(title).textColor(context.resources.getColor(R.color.bg_whide))
-                .style(Typeface.BOLD).textSize(context.resources.getDimension(R.dimen.font_coupon_item_price1) as Int).build())
+                .style(Typeface.BOLD).textSize(context.resources.getDimension(R.dimen.font_coupon_item_price1).toInt()).build())
 
         // Add the second piece
         tv.addPiece(SpannableTextView.Piece.Builder(content).textColor(context.resources.getColor(R.color.bg_whide))
@@ -99,7 +99,7 @@ class CouponPresenter(var context: Activity, var view: CouponContract.View, var 
     }
 
 
-    companion object{
+    companion object {
         fun couponDate(startTime: String, endTime: String?, countDown: Int, guoqi: Boolean): String {
 
             var showDate: String? = null
@@ -164,10 +164,6 @@ class CouponPresenter(var context: Activity, var view: CouponContract.View, var 
         }
 
     }
-
-
-
-
 
 
     override fun getCouponList(available: Boolean, pageNum: Int, pageSize: Int) {

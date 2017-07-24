@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -15,6 +17,8 @@ android {
 
         // Specifies the ABI configurations of your native
         // libraries Gradle should build and package with your APK.
+
+
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
@@ -28,11 +32,11 @@ android {
 
     //android studio默认so文件加载目录为:src/main/jniLibs
     //如在module的build.gradle按照如下方式,自定义了so文件加载目录请确保对应目录下只有armeabi目录
-    //    sourceSets {
-    //        main{
-    //            jniLibs.srcDirs = ['libs']
-    //        }
-    //    }
+//        sourceSets {
+//            main{
+//                jniLibs.srcDirs = ['libs']
+//            }
+//        }
 }
 
 dependencies {
@@ -40,9 +44,9 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     compile project(':commonlibrary')
+    compile project(':reslibrary')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 }

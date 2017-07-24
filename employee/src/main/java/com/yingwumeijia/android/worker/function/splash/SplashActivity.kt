@@ -8,7 +8,6 @@ import com.yingwumeijia.android.worker.function.home.EmployeeMainActivity
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
-import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.commonlibrary.utils.AppUtils
@@ -46,7 +45,7 @@ class SplashActivity : JBaseActivity() {
 
     fun loadBaseUrl() {
         Api
-                .getService("c", AppUtils.getVersionName(this))
+                .getService("e", AppUtils.getVersionName(this))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SeverBean>() {

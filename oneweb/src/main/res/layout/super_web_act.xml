@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <!--<include layout="@layout/toolbr_layout" />-->
+    <include layout="@layout/toolbr_layout" />
 
     <FrameLayout
         android:id="@+id/webviewContainerView"

@@ -28,12 +28,15 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
  */
 class OneWebActivity : JBaseActivity() {
 
-    val titleStr by lazy { intent.getStringExtra(Constant.KEY_TITLE) }
     val urlStr by lazy { intent.getStringExtra(Constant.KEY_URL) }
     val hasTitle by lazy { intent.getBooleanExtra(Constant.KEY_HAS_TITLE, false) }
+    val jsBradge by lazy { JsIntelligencer(this) }
+    var titleStr: String? = null
+
 
     val webView: WebView by lazy { WebView(context) }
     val webSettings by lazy { webView.settings }
+
 
     companion object {
         fun start(context: Context, url: String, title: String?, hasTitlte: Boolean) {
@@ -51,7 +54,10 @@ class OneWebActivity : JBaseActivity() {
         window.setFormat(PixelFormat.TRANSLUCENT)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 
-        progressDialog.show()
+
+        if (!TextUtils.isEmpty(intent.getStringExtra(Constant.KEY_TITLE)))
+            titleStr = intent.getStringExtra(Constant.KEY_TITLE)
+
         topLeft.setOnClickListener { close() }
         if (hasTitle) toolbar.visibility = View.VISIBLE else toolbar.visibility = View.GONE
         if (!TextUtils.isEmpty(titleStr)) topTitle.text = titleStr
@@ -92,12 +98,23 @@ class OneWebActivity : JBaseActivity() {
                 super.onProgressChanged(p0, p1)
                 if (p1 > 95) progressDialog.dismiss()
             }
+
+
+            override fun onReceivedTitle(p0: WebView?, p1: String?) {
+                super.onReceivedTitle(p0, p1)
+                if (hasTitle && TextUtils.isEmpty(titleStr) && !TextUtils.isEmpty(p1))
+                    topTitle.text = p1
+            }
         })
+
+        webView.addJavascriptInterface(jsBradge, "jsIntelligencer")
+        jsBradge.webView = webView
 
 
         if (null != savedInstanceState) {
             webView.restoreState(savedInstanceState)
         } else {
+            progressDialog.show()
             webView.loadUrl(urlStr)
         }
     }
@@ -109,6 +126,19 @@ class OneWebActivity : JBaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         webView.saveState(outState)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (jsBradge != null)
+            jsBradge!!.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (jsBradge != null)
+            jsBradge!!.onResume()
     }
 
 

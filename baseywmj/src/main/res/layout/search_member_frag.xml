@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+
+        <TextView
+            android:id="@+id/empty_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="85dp"
+            android:drawablePadding="28dp"
+            android:drawableTop="@mipmap/work_search_no_result_ico"
+            android:text="抱歉，未找到相关结果"
+            android:textColor="@color/color_5"
+            android:textSize="@dimen/font4_sp"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:id="@+id/tv_companyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="为避免造成困扰，请尽量添加同一公司的业者"
+            android:textColor="@color/color_4"
+            android:visibility="gone" />
+
+    </FrameLayout>
+
+</LinearLayout>

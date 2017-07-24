@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.kaopiz.kprogresshud.KProgressHUD
 
 /**
  * Created by jamisonline on 2017/5/31.
@@ -22,6 +23,9 @@ open class BaseFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
     }
 
+    val progressDialog: KProgressHUD by lazy {
+        KProgressHUD.create(activity)
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, container, savedInstanceState)

@@ -1,6 +1,14 @@
 package com.yingwumeijia.baseywmj.function.casedetails
 
 import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
+import com.sina.weibo.sdk.share.WbShareCallback
+import com.tencent.tauth.IUiListener
+import com.tencent.tauth.UiError
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.UserManager
@@ -9,6 +17,9 @@ import com.yingwumeijia.baseywmj.function.casedetails.model.CreateSessionBean
 import com.yingwumeijia.baseywmj.function.collect.CollectType
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.sharelibrary.ShareData
+import com.yingwumeijia.sharelibrary.ShareDialog
+import com.yingwumeijia.sharelibrary.ShareManager
 import rx.Observable
 
 /**
@@ -19,6 +30,10 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
     var caseSimpleData: CaseDetailBannerBean? = null
 
     val isAppc = AppTypeManager.isAppC()
+
+    var shareManager: ShareManager? = null
+
+    val shareDialog by lazy { ShareDialog(shareManager!!) }
 
     override fun start() {
 
@@ -58,7 +73,29 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
     }
 
     override fun share() {
-        TODO("分享") //To change body of created functions use File | Settings | File Templates.
+        if (caseSimpleData == null) return Unit
+        val shareInfo = caseSimpleData!!.shareInfo
+        Glide.with(context.applicationContext).load(shareInfo.cover + "&imageView2/2/w/256").asBitmap().into(object : SimpleTarget<Bitmap>() {
+            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                if (shareManager == null) {
+                    val shareData = ShareData(shareInfo.caseName, shareInfo.designConcept, shareInfo.cover, resource, shareInfo.cover + "&imageView2/2/w/256", 1)
+                    shareManager = ShareManager(context, shareData!!, object : WbShareCallback {
+                        override fun onWbShareFail() {}
+
+                        override fun onWbShareCancel() {}
+
+                        override fun onWbShareSuccess() {}
+                    }, object : IUiListener {
+                        override fun onComplete(p0: Any?) {}
+
+                        override fun onCancel() {}
+
+                        override fun onError(p0: UiError?) {}
+                    })
+                }
+                shareDialog.show()
+            }
+        })
     }
 
     override fun cancelCollect() {
@@ -89,4 +126,10 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
         }
     }
 
+
+    fun onNewIntent(intent: Intent?) {
+        if (intent != null && shareManager != null) {
+            shareManager!!.onNextIntent(intent!!)
+        }
+    }
 }

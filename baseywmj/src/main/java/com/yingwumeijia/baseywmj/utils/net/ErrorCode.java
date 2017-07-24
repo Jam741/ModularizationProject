@@ -17,4 +17,7 @@ public class ErrorCode {
     public static final int TOKEN_TIME_MATTER = 316;
 
 
+    public static final int TOKEN_OTHER_LOGIN = 317;
+
+
 }

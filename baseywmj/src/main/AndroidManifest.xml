@@ -11,6 +11,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <!--打电话权限-->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!--获取联系人信息权限-->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -18,10 +28,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <!-- 高德地图 -->
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="bc26ebb41cdaab04fcc0c4b8335879bb" />
 
         <activity
             android:name=".function.user.login.LoginActivity"
@@ -88,6 +94,31 @@
             android:name=".function.opinion.OpinionActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".function.web.OneWebActivity"
+            android:screenOrientation="portrait" />
+
+
+        <!--*******************************************************************************-->
+        <!--IM 会话相关-->
+        <!--*******************************************************************************-->
+        <activity
+            android:name=".im.ConversationDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".im.add.AddCustomerActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".im.add.AddEmployeeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".im.add.EditProjectNameActivity"
+            android:screenOrientation="portrait" />
+        <!--*******************************************************************************-->
+
 
         <!-- CameraSDK相册选取 -->
         <activity android:name="com.muzhi.camerasdk.PhotoPickActivity" />
@@ -95,6 +126,12 @@
         <activity android:name="com.muzhi.camerasdk.CropperImageActivity" />
         <activity android:name="com.muzhi.camerasdk.FilterImageActivity" />
         <activity android:name="com.muzhi.camerasdk.CropperImageRectangleActivity" />
+
+
+        <!-- 高德地图 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="bc26ebb41cdaab04fcc0c4b8335879bb" />
 
 
     </application>

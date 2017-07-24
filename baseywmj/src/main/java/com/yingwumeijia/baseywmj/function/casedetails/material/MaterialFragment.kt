@@ -27,13 +27,13 @@ class MaterialFragment : JBaseFragment(), MaterialContract.View {
 
     val presenter by lazy { MaterialPresenter(this, caseId, this) }
 
-    override fun initCost(costs: List<CaseInfomationBean.CostsBean>, totallCost: BigDecimal, caseCover: String, totallArea: BigDecimal) {
+    override fun initCost(costs: List<CaseInfomationBean.CostsBean>?, totallCost: BigDecimal, caseCover: String, totallArea: BigDecimal) {
         JImageLolder.load480(context, iv_costBg, caseCover)
         tv_totalCost.text = "¥ " + MoneyFormatUtils.fromatWan(totallCost) + "万"
         tv_totalArea.text = "施工面积 " + totallArea.toInt() + " m²"
     }
 
-    override fun initCostBrands(costBrands: List<CaseInfomationBean.CostBrandsBean>) {
+    override fun initCostBrands(costBrands: List<CaseInfomationBean.CostBrandsBean> ) {
         layoutMaterialBrand.visibility = View.VISIBLE
         ex_materialBrand.run {
             setOnGroupClickListener { _, _, _, _ -> return@setOnGroupClickListener true }

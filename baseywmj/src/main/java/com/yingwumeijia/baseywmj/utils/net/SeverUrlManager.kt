@@ -16,27 +16,37 @@ object SeverUrlManager {
 
     val KEY_BASE_URL = "KEY_BASE_URL"
     val KEY_BASE_WEB_URL = "KEY_BASE_WEB_URL"
+    val KEY_IM_KEY = "KEY_IM_KEY"
 
     val DEFAULT_URL_C = "https://customer.yingwumeijia.com/"
 
     val DEFAULT_URL_E = "https://employee.yingwumeijia.com/"
 
+    val DEFAULT_IM_KEY = "y745wfm84k0ov"
+
 
     fun baseUrl(): String {
-        return com.yingwumeijia.commonlibrary.utils.SPUtils.get(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.SeverUrlManager.KEY_BASE_URL, com.yingwumeijia.baseywmj.utils.net.SeverUrlManager.DEFAULT_URL_C) as String
+        return SPUtils.get(BaseApplication.Companion.appContext(), SeverUrlManager.KEY_BASE_URL, SeverUrlManager.DEFAULT_URL_C) as String
     }
 
     fun refreshBaseUrl(baseUrl: String) {
-        com.yingwumeijia.commonlibrary.utils.SPUtils.put(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.SeverUrlManager.KEY_BASE_URL, baseUrl)
+        SPUtils.put(BaseApplication.Companion.appContext(), SeverUrlManager.KEY_BASE_URL, baseUrl)
     }
 
     fun baseWebUrl(): String {
-        return com.yingwumeijia.commonlibrary.utils.SPUtils.get(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.SeverUrlManager.KEY_BASE_WEB_URL, "") as String
+        return SPUtils.get(BaseApplication.Companion.appContext(), SeverUrlManager.KEY_BASE_WEB_URL, "") as String
     }
 
     fun refreshWebBaseUrl(baseUrl: String) {
-        com.yingwumeijia.commonlibrary.utils.SPUtils.put(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.SeverUrlManager.KEY_BASE_WEB_URL, baseUrl)
+        SPUtils.put(BaseApplication.Companion.appContext(), SeverUrlManager.KEY_BASE_WEB_URL, baseUrl)
     }
 
+    fun IMKey(): String {
+        return SPUtils.get(BaseApplication.appContext(), KEY_IM_KEY, DEFAULT_IM_KEY) as String
+    }
+
+    fun refreshIMKey(imKey: String) {
+        SPUtils.put(BaseApplication.appContext(), KEY_IM_KEY, imKey)
+    }
 
 }

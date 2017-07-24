@@ -14,7 +14,7 @@ object StartActivityManager {
      * 打开案例详情页面
      */
     fun startCaseDetailActivity(activity: Activity, caseId: Int) {
-        CaseDetailActivity.start(activity, caseId)
+        CaseDetailActivity.start(activity, caseId, false)
     }
 
     /**
@@ -33,6 +33,14 @@ object StartActivityManager {
     fun startMessageActivity(context: Context) {
         MessageActivity.start(context)
     }
-    
+
+
+    /**
+     * 跳转到会员权益
+     */
+    fun startVipInfoPage(context: Context) {
+        WebViewManager.startHasTitle(context, "https://mobile.yingwumeijia.com/template/memberRights.html", null)
+    }
+
 
 }
