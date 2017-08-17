@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 2017052715 
-        versionName "2.8.12"
+        versionCode 2017081018
+        versionName "2.8.15 Dev"
     }
     buildTypes {
         release {
@@ -33,6 +33,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'src/main/libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:support-v4:'+rootProject.ext.appcompat
     compile project (':IMLib')
 }

@@ -17,12 +17,39 @@ public class CustomerDetailBean {
      */
 
     private UserBean customerDto;
+    private UserBean employeeDto;
     private int collectionCount;
     private int twitterStatus = -1;
     private String twitterStatusDesc;
     private boolean isTwitterCustomer;
     private String twitterBaseUrl;
     private String financialInfoUrl;
+    private boolean distributionStatus;
+    private boolean homeAdvisorManager;
+
+    public UserBean getEmployeeDto() {
+        return employeeDto;
+    }
+
+    public void setEmployeeDto(UserBean employeeDto) {
+        this.employeeDto = employeeDto;
+    }
+
+    public boolean isDistributionStatus() {
+        return distributionStatus;
+    }
+
+    public void setDistributionStatus(boolean distributionStatus) {
+        this.distributionStatus = distributionStatus;
+    }
+
+    public boolean isHomeAdvisorManager() {
+        return homeAdvisorManager;
+    }
+
+    public void setHomeAdvisorManager(boolean homeAdvisorManager) {
+        this.homeAdvisorManager = homeAdvisorManager;
+    }
 
     public boolean isTwitterCustomer() {
         return isTwitterCustomer;

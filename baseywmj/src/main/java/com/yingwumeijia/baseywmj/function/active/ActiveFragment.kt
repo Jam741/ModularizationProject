@@ -30,7 +30,7 @@ class ActiveFragment : JBaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getActivityUrl(), object : SimpleSubscriber<String>(activity) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getActivityUrl(), object : SimpleSubscriber<String>(getContext()) {
             override fun _onNext(t: String?) {
                 initContent(t!!)
             }

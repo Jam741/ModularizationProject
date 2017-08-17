@@ -41,6 +41,7 @@
     <dimen name="font5_sp">13sp</dimen>
     <dimen name="font6_sp">12sp</dimen>
     <dimen name="font7_sp">11sp</dimen>
+    <dimen name="font8_sp">16sp</dimen>
 
     <dimen name="font1_dp">18dp</dimen>
     <dimen name="font2_dp">17dp</dimen>

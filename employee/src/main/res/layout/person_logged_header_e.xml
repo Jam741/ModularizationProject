@@ -48,46 +48,28 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="21dp"
         android:textColor="@color/bg_whide"
         android:textSize="@dimen/text_title_lag"
         app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
         app:layout_constraintTop_toTopOf="@+id/portraitLayout"
         tools:text="TextView" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch1"
+        style="@style/MySwitchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
-        android:text="线上支付首款 即享会员权益"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="9dp"
+        android:text="接受派单 "
         android:textColor="@color/bg_whide"
-        android:textSize="@dimen/font6_sp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/mine_vip_stroke"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawableLeft="@mipmap/mine_vip_ico"
-            android:drawablePadding="4dp"
-            android:gravity="center"
-            android:text="查看会员权益"
-            android:textColor="#E4D1A9"
-            android:textSize="@dimen/font6_sp" />
-    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -21,12 +22,13 @@ import com.yingwumeijia.baseywmj.function.user.UserPresenter
 import com.yingwumeijia.baseywmj.function.user.UserResponseCallBack
 import com.yingwumeijia.baseywmj.function.user.findpwd.FindPwdActivity
 import com.yingwumeijia.baseywmj.function.user.register.RegisterActivity
+import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.login_layout.*
 
 /**
  * Created by jamisonline on 2017/6/15.
  */
-class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallBack {
+open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallBack {
 
 
     val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
@@ -54,7 +56,18 @@ class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallB
     override fun completed() {
         close()
         if (!currentLogin) {
-            MainActivity.start(context)
+//            if (AppTypeManager.isAppC()) {
+//                val activityName = "ECustomerMainActivity"
+//                val clazz = Class.forName(activityName)
+//                val intent = Intent(this, clazz)
+//                startActivity(intent)
+//            } else {
+//                val activityName = "EmployeeMainActivity"
+//                val clazz = Class.forName(activityName)
+//                val intent = Intent(this, clazz)
+//                startActivity(intent)
+//            }
+            RongIM.getInstance().startConversationList(context, null)
         }
     }
 

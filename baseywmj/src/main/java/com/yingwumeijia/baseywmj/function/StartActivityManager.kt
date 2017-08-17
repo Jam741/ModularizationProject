@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
+import io.rong.imkit.RongIM
+import io.rong.imlib.model.Conversation
 
 /**
  * Created by jamisonline on 2017/6/27.
@@ -40,6 +42,19 @@ object StartActivityManager {
      */
     fun startVipInfoPage(context: Context) {
         WebViewManager.startHasTitle(context, "https://mobile.yingwumeijia.com/template/memberRights.html", null)
+    }
+
+    /**
+     * 跳转到美家保障协议
+     */
+    fun startMjProjectInfoPage(context: Context) {
+        WebViewManager.startHasTitle(context, "https://mobile.yingwumeijia.com/template/memberRights.html", null)
+    }
+
+    fun startConversation(context: Context, sessionId: String) {
+        if (RongIM.getInstance() != null) {
+            RongIM.getInstance().startConversation(context, Conversation.ConversationType.GROUP, sessionId, null)
+        }
     }
 
 

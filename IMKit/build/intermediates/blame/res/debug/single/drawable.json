@@ -208,6 +208,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_btn_send.xml"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable/rc_message_checkbox.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_message_checkbox.xml"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable/rc_bg_item.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_bg_item.xml"
     },
@@ -222,6 +226,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_submit_comment.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_cs_submit_comment.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable/rc_unread_msg_bg_style.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_unread_msg_bg_style.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable/rc_cs_ratingbar.xml",

@@ -44,9 +44,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
-    annotationProcessor 'com.github.mzule.activityrouter:compiler:1.1.7'
-
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.kaopiz:kprogresshud:1.0.5'
 
 //

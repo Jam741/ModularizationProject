@@ -19,7 +19,6 @@ open class BaseFragment : Fragment() {
     private var toast: Toast? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        context = this
         super.onActivityCreated(savedInstanceState)
     }
 
@@ -31,9 +30,14 @@ open class BaseFragment : Fragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        context = this
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     fun toastWith(msg: String) {
         if (toast == null)
-            toast = Toast.makeText(activity, msg, Toast.LENGTH_SHORT)
+            toast = Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT)
         else
             toast!!.setText(msg)
         toast!!.show()

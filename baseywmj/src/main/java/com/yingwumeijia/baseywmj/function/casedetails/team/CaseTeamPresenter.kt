@@ -1,8 +1,11 @@
 package com.yingwumeijia.baseywmj.function.casedetails.team
 
+import android.net.Uri
 import android.support.v4.app.Fragment
+import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
@@ -10,7 +13,9 @@ import com.yingwumeijia.baseywmj.function.introduction.company.CompanyActivity
 import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeActivity
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
+import com.yingwumeijia.commonlibrary.utils.FromartDateUtil
 import com.yingwumeijia.commonlibrary.utils.ListUtil
+import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
@@ -50,9 +55,11 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                 companyDecorateTypes += s
             }
 
+        teamData!!.employees.add(ProductionTeamBean.EmployeesBean())
+
         return object : CommonRecyclerAdapter<ProductionTeamBean.EmployeesBean>(null, fragment, teamData!!.employees as ArrayList<ProductionTeamBean.EmployeesBean>, R.layout.item_production_team) {
             override fun convert(holder: RecyclerViewHolder, t: ProductionTeamBean.EmployeesBean, position: Int) {
-                val isLast: Boolean = position == getItemCount() - 1
+                val isLast: Boolean = position == itemCount - 1
                 val companyBean = teamData!!.company
 
                 holder.run {
@@ -92,11 +99,26 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
         if (teamData!!.surroundingMaterials.endCeremony != null) ceremonyBeanList.add(teamData!!.surroundingMaterials.endCeremony)
         return object : CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(null, fragment, ceremonyBeanList, R.layout.item_ceremony) {
             override fun convert(holder: RecyclerViewHolder, ceremonyBean: ProductionTeamBean.SurroundingMaterials.CeremonyBean, position: Int) {
+                var itemView = holder.getViewWith(R.id.item_layout) as RelativeLayout
+                var imgWidth = Uri.parse(ceremonyBean.pics[0]).getQueryParameter("width").toInt()
+                var imgHeight = Uri.parse(ceremonyBean.pics[0]).getQueryParameter("height").toInt()
+                var lp = itemView.layoutParams
+                lp.width = ScreenUtils.screenWidth
+                lp.height = ScreenUtils.screenWidth * (imgHeight / imgWidth)
+                itemView.layoutParams = lp
+                var date: String = ""
+                if (position == 0) {
+                    if (!TextUtils.isEmpty(teamData!!.surroundingMaterials.startDate))
+                        date = FromartDateUtil.fromartDateYMd(teamData!!.surroundingMaterials.startDate)
+                } else {
+                    if (!TextUtils.isEmpty(teamData!!.surroundingMaterials.endDate))
+                        date = FromartDateUtil.fromartDateYMd(teamData!!.surroundingMaterials.endDate)
+                }
+
                 holder
                         .run {
-                            setVisible(R.id.bottomPadding, position == itemCount - 1)
-                            setVisible(R.id.line, position == 0)
                             setTextWith(R.id.tv_title, ceremonyBean.title)
+                            setTextWith(R.id.tv_date, date)
                             setImageUrl480(fragment!!, R.id.iv_img, ceremonyBean.pics[0])
                         }
             }
@@ -104,9 +126,10 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
     }
 
     override fun start() {
-        var ob: Observable<ProductionTeamBean>? = null
+        var ob: Observable<ProductionTeamBean>
         if (isAppc) ob = Api.service.getProductionTeamData_C(caseId)
-        else Api.service.getProductionTeamData_E(caseId)
+        else
+            ob = Api.service.getProductionTeamData_E(caseId)
 
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : SimpleSubscriber<ProductionTeamBean>(fragment.context) {
             override fun _onNext(t: ProductionTeamBean?) {
@@ -122,6 +145,7 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                         ceremonyBeanList.add(t.surroundingMaterials.endCeremony)
                     if (!ListUtil.isEmpty(ceremonyBeanList))
                         view.showCeremonyPic(ceremonyBeanList)
+                    view.supportMJProject(t.company.isSupportedSupervisor)
                 }
             }
 

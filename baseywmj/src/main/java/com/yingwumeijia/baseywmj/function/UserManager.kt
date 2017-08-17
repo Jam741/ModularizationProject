@@ -17,6 +17,47 @@ object UserManager {
     val KEY_USER_CACHE_DATA = "KEY_USER_CACHE_DATA"
     val KEY_TWITTER_CACHE_DATA = "KEY_TWITTER_CACHE_DATA"
 
+    val KEY_IS_FIRST_LOGIN = "KEY_IS_FIRST_LOGIN"
+
+    val KEY_GUIDANCE_CASE_DETAILS = "KEY_GUIDANCE_CASE_DETAILS"
+
+    val KEY_ADVERTS_ID = "KEY_ADVERTS_ID"
+//    val KEY_ADVERTS_VIEWED = "KEY_ADVERTS_VIEWED"
+
+    fun advertsId(context: Context): Int {
+        return SPUtils.get(context, KEY_ADVERTS_ID, 0) as Int
+    }
+
+    fun setAdversId(context: Context, id: Int) {
+        SPUtils.put(context, KEY_ADVERTS_ID, id)
+    }
+//
+//    fun setAdversView(context: Context, viewed: Boolean) {
+//        SPUtils.put(context, KEY_ADVERTS_VIEWED, true)
+//    }
+//
+//    fun adversViewed(context: Context): Boolean {
+//        return SPUtils.get(context, KEY_ADVERTS_VIEWED, false) as Boolean
+//    }
+
+
+    fun guidanceCaseDetailsNeedShow(context: Context): Boolean {
+        return SPUtils.get(context, KEY_GUIDANCE_CASE_DETAILS, true) as Boolean
+    }
+
+
+    fun setNotGuidanceCaseDetailsNeedShow(context: Context) {
+        SPUtils.put(context, KEY_GUIDANCE_CASE_DETAILS, false)
+    }
+
+    fun isFirst(context: Context): Boolean {
+        return SPUtils.get(context, KEY_IS_FIRST_LOGIN, true) as Boolean
+    }
+
+    fun setNotFirst(context: Context) {
+        SPUtils.put(context, KEY_IS_FIRST_LOGIN, false)
+    }
+
     fun isLogin(context: Context): Boolean {
         return SPUtils.get(context, "KEY_LOGIN_STATUS", false) as Boolean
     }

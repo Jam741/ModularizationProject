@@ -87,4 +87,8 @@
         <item name="android:windowExitAnimation">@anim/out</item>
     </style>
 
+    <style name="MySwitchButton" parent="AppTheme">
+
+        <item name="colorControlNormal">@color/bg_whide</item>
+    </style>
 </resources>

@@ -18,6 +18,7 @@ import com.yingwumeijia.baseywmj.function.user.UserContract
 import com.yingwumeijia.baseywmj.function.user.UserPresenter
 import com.yingwumeijia.baseywmj.function.user.UserResponseCallBack
 import kotlinx.android.synthetic.main.findpassword_frag.*
+import kotlinx.android.synthetic.main.toolbr_layout.*
 
 /**
  * Created by jamisonline on 2017/6/19.
@@ -105,7 +106,7 @@ class FindPwdActivity : JBaseActivity(), UserContract.FindPasswordView, UserResp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.findpassword_frag)
-
+        topTitle.text = "找回密码"
         ed_password.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
                 hideSoftInput(v)
@@ -128,6 +129,8 @@ class FindPwdActivity : JBaseActivity(), UserContract.FindPasswordView, UserResp
             }
 
         })
+
+        topLeft.setOnClickListener { close() }
 
     }
 

@@ -70,7 +70,16 @@ public class UserBean {
     private String userTitle;
     private String imUid;
     private UserSession userSession;
+    /*用户类型扩展，用于本地管理用户细分类型*/
+    private int userTypeExtension;
 
+    public int getUserTypeExtension() {
+        return userTypeExtension;
+    }
+
+    public void setUserTypeExtension(int userTypeExtension) {
+        this.userTypeExtension = userTypeExtension;
+    }
 
     public int getUserDetailType() {
         return userDetailType;

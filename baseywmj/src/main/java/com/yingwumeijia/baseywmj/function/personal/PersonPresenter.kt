@@ -4,11 +4,13 @@ import android.support.v4.app.Fragment
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CustomerDetailBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.commonlibrary.utils.SPUtils
 import rx.Observable
 import rx.subjects.PublishSubject
 import java.util.ArrayList
@@ -21,16 +23,36 @@ class PersonPresenter(var fragment: Fragment, var view: PersonContract.View, var
     val context = fragment.activity
 
 
+    val isAppC = AppTypeManager.isAppC()
+
+
     override fun initPersonInfo() {
         if (!UserManager.isLogin(context)) return Unit
         var ob: Observable<CustomerDetailBean>
-        if (AppTypeManager.isAppC())
+        if (isAppC)
             ob = Api.service.getCustomerDetail_C()
         else
             ob = Api.service.getCustomerDetail_E()
         HttpUtil.getInstance().toSubscribe(ob, object : ProgressSubscriber<CustomerDetailBean>(context) {
             override fun _onNext(bean: CustomerDetailBean) {
-                UserManager.cacheUserData(bean.customerDto)
+                if (isAppC) {
+                    if (bean.twitterStatus != -1) {
+                        SPUtils.put(context, Constant.KEY_TWITTER_URL, bean.twitterBaseUrl)
+                        bean.customerDto.userTypeExtension = PersonalFragment.USER_TYPE_C_TWITTER
+                    } else {
+                        bean.customerDto.userTypeExtension = PersonalFragment.USER_TYPE_C_NORMAL
+                    }
+                    UserManager.cacheUserData(bean.customerDto)
+                } else {
+                    when (bean.employeeDto.userDetailType) {
+                        10 -> {
+                            if (bean.isHomeAdvisorManager) bean.employeeDto.userTypeExtension = PersonalFragment.USER_TYPE_E_KFJL else PersonalFragment.USER_TYPE_E_JJGW
+                        }
+                        1 -> bean.employeeDto.userTypeExtension = PersonalFragment.USER_TYPE_E_DESIGNER
+                        else -> bean.employeeDto.userTypeExtension = PersonalFragment.USER_TYPE_E_NORMAL
+                    }
+                    UserManager.cacheUserData(bean.employeeDto)
+                }
                 UserManager.cacheTwitterStatus(bean.twitterStatus)
                 view.didUpDateUserData()
             }

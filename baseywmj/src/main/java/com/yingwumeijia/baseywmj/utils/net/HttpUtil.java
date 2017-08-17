@@ -99,6 +99,10 @@ public class HttpUtil {
     }
 
 
+    public <T> void toNolifeSubscribe(Observable<T> ob, Subscriber<T> subscriber) {
+        ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
+    }
+
     public <T> void toNolifeSubscribe(Observable<T> ob, SimpleSubscriber<T> subscriber) {
         ob.compose(HttpUtil.<T>applySchedulers()).subscribe(subscriber);
     }

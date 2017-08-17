@@ -12,4 +12,7 @@ abstract class BaseLoggedFragment : JBaseFragment() {
      */
     abstract fun onUserDataChanged()
 
+
+    abstract fun showDistributionStatus(show:Boolean)
+
 }

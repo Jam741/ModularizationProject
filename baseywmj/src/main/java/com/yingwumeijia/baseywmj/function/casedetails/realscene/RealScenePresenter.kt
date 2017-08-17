@@ -10,6 +10,7 @@ import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
+import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeIntroductionBean
 import com.yingwumeijia.baseywmj.function.previewPic.PreViewActivity
 import com.yingwumeijia.baseywmj.function.previewPic.PreviewModel
 import com.yingwumeijia.baseywmj.utils.MoneyFormatUtils
@@ -17,8 +18,11 @@ import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
+import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter
+import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
+import com.yingwumeijia.commonlibrary.widget.SpannableTextView
 import rx.Observable
 
 /**
@@ -74,13 +78,15 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
                     realSceneBena = t
                     view.init720Layout(!TextUtils.isEmpty(t.pathOf720), t.caseCover)
                     val baseInfo: String = t.cityName + " / " + t.decorateStyle + " / " + t.houseType + " / " + t.houseArea + "m² / " + t.decorateType + MoneyFormatUtils.fromatWan(t.totalCost) + "万 / " + t.buildingName
-                    view.initBaseInfoLayout(baseInfo, t.caseStory)
+                    view.initBaseInfoLayout(baseInfo, t.caseName, t.caseStory)
                     if (!ListUtil.isEmpty(t.scenes))
                         view.initRealPhotoLayout(t.scenes)
                     if (t.designVideo != null)
                         view.initVideoLayout(t.designVideo)
                     if (!ListUtil.isEmpty(t.relativeCases))
                         view.initCaseListLayout(t.relativeCases)
+
+                    view.initBaseInfoExtra(t.designPriceRangeDtos, t.viewCount, t.collectionCount)
                 }
             }
         })
@@ -123,5 +129,16 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
 
         }
     }
+
+
+    fun createServiceStandardAdapter(designerPrices: List<RealSceneBean.DesignPriceRangeDto>): CommonAdapter<RealSceneBean.DesignPriceRangeDto> {
+        return object : CommonAdapter<RealSceneBean.DesignPriceRangeDto>(context, designerPrices as java.util.ArrayList<RealSceneBean.DesignPriceRangeDto>, R.layout.item_design_price) {
+            override fun conver(helper: ViewHolder?, item: RealSceneBean.DesignPriceRangeDto?, position: Int) {
+                helper!!.setText(R.id.tv_extra_price, "￥ " + item!!.priceStart + "-" + item.priceEnd + "元")
+                        .setText(R.id.tv_severname, item.name)
+            }
+        }
+    }
+
 
 }

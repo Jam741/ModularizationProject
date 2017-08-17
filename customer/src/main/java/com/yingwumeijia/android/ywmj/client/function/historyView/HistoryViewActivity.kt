@@ -53,7 +53,7 @@ class HistoryViewActivity : JBaseActivity(), HistoryViewContract.View {
 
 
     override fun showHistoryNum(mun: Int) {
-        tv_historyNum.text = mun.toString()
+        tv_historyNum.text = "最近" + mun + "条"
     }
 
     override fun showHistoryList(caseBeen: List<CaseBean>) {

@@ -44,6 +44,51 @@ public class RealSceneBean {
     private String caseStory;
     private List<ScenesBean> scenes;
     private List<CaseBean> relativeCases;
+    private List<DesignPriceRangeDto> designPriceRangeDtos;
+    private String hardPrice;
+    private String softPrice;
+    private int viewCount;
+    private int collectionCount;
+
+    public List<DesignPriceRangeDto> getDesignPriceRangeDtos() {
+        return designPriceRangeDtos;
+    }
+
+    public void setDesignPriceRangeDtos(List<DesignPriceRangeDto> designPriceRangeDtos) {
+        this.designPriceRangeDtos = designPriceRangeDtos;
+    }
+
+    public String getHardPrice() {
+        return hardPrice;
+    }
+
+    public void setHardPrice(String hardPrice) {
+        this.hardPrice = hardPrice;
+    }
+
+    public String getSoftPrice() {
+        return softPrice;
+    }
+
+    public void setSoftPrice(String softPrice) {
+        this.softPrice = softPrice;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public int getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(int collectionCount) {
+        this.collectionCount = collectionCount;
+    }
 
     public String getCaseCover() {
         return caseCover;
@@ -155,6 +200,47 @@ public class RealSceneBean {
 
     public void setRelativeCases(List<CaseBean> relativeCases) {
         this.relativeCases = relativeCases;
+    }
+
+
+    public static class DesignPriceRangeDto {
+
+        private int type;
+        private String name;
+        int priceStart;
+        int priceEnd;
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getPriceStart() {
+            return priceStart;
+        }
+
+        public void setPriceStart(int priceStart) {
+            this.priceStart = priceStart;
+        }
+
+        public int getPriceEnd() {
+            return priceEnd;
+        }
+
+        public void setPriceEnd(int priceEnd) {
+            this.priceEnd = priceEnd;
+        }
     }
 
     public static class DesignVideoBean {

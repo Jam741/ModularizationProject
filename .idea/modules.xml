@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/employee/employee.iml" filepath="$PROJECT_DIR$/employee/employee.iml" />
       <module fileurl="file://$PROJECT_DIR$/flowlayout-lib/flowlayout-lib.iml" filepath="$PROJECT_DIR$/flowlayout-lib/flowlayout-lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/oneweb/oneweb.iml" filepath="$PROJECT_DIR$/oneweb/oneweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pdfviewlibrary/pdfviewlibrary.iml" filepath="$PROJECT_DIR$/pdfviewlibrary/pdfviewlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/reslibrary/reslibrary.iml" filepath="$PROJECT_DIR$/reslibrary/reslibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/scanlibrary/scanlibrary.iml" filepath="$PROJECT_DIR$/scanlibrary/scanlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharelibrary/sharelibrary.iml" filepath="$PROJECT_DIR$/sharelibrary/sharelibrary.iml" />

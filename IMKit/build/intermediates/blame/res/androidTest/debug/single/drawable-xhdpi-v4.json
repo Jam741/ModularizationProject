@@ -76,6 +76,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_resolved.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_unread_msg_arrow.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_unread_msg_arrow.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_volume_6.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_volume_6.png"
     },
@@ -476,12 +480,20 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f6bf.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_checkbox_full.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_checkbox_full.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f36b.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f36b.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_back_icon.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_back_icon.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_checkbox_none.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_checkbox_none.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ic_voice_sent_play3.png",
@@ -700,10 +712,6 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f377.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_unread_message_count.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_unread_message_count.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_bg_toast.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_bg_toast.9.png"
     },
@@ -744,12 +752,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f680.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_menu_keyboard.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_menu_keyboard.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_edit_text_background_hover.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_edit_text_background_hover.9.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_menu_keyboard.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_menu_keyboard.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_selector_title_pic_back_press.9.png",
@@ -956,6 +964,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ad_list_folder_icon.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_default_portrait.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_default_portrait.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_rt_loc_myself.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_rt_loc_myself.png"
     },
@@ -1080,16 +1092,16 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ic_location_pressed.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_comment_bg.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_comment_bg.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f60f.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f60f.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u270f.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u270f.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_cs_comment_bg.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_cs_comment_bg.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_plugin_toggle_hover.png",
@@ -1112,6 +1124,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_praise.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ad_list_ppt_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ad_list_ppt_icon.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ext_voice_btn_normal.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ext_voice_btn_normal.9.png"
     },
@@ -1130,6 +1146,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f393.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f393.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_file_icon_pdf.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_file_icon_pdf.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u1f615.png",
@@ -1208,6 +1228,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f630.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_ad_list_pdf_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_ad_list_pdf_icon.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_radio_button_on.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_radio_button_on.png"
     },
@@ -1228,12 +1252,16 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/u1f44e.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_loading.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_loading.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_file_icon_ppt.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_file_icon_ppt.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_file_icon_word.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_file_icon_word.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/rc_loading.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/rc_loading.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/u26bd.png",

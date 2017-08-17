@@ -54,6 +54,15 @@ public class ProductionTeamBean {
         private String companyName;
         private String companyHeadImage;
         private List<String> decorateTypes;
+        private boolean supportedSupervisor;
+
+        public boolean isSupportedSupervisor() {
+            return supportedSupervisor;
+        }
+
+        public void setSupportedSupervisor(boolean supportedSupervisor) {
+            this.supportedSupervisor = supportedSupervisor;
+        }
 
         public int getCompanyId() {
             return companyId;
@@ -175,6 +184,24 @@ public class ProductionTeamBean {
 
         private CeremonyBean startCeremony;
         private CeremonyBean endCeremony;
+        private String startDate;
+        private String endDate;
+
+        public String getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(String startDate) {
+            this.startDate = startDate;
+        }
+
+        public String getEndDate() {
+            return endDate;
+        }
+
+        public void setEndDate(String endDate) {
+            this.endDate = endDate;
+        }
 
         public CeremonyBean getStartCeremony() {
             return startCeremony;

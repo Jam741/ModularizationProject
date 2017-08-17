@@ -4,6 +4,7 @@ import android.app.Activity
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.DataCleanManager
@@ -46,6 +47,7 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
         val ob = Api.service.setLogout()
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(activity) {
             override fun _onNext(t: String?) {
+                IMManager.loginOut()
                 view.showLoginOutButton(false)
                 UserManager.setLoginStatus(activity, false)
                 LoginActivity.startCurrent(activity)
@@ -56,7 +58,7 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
 
     fun getCacheSize(): String {
         try {
-            return "当前缓存 " + DataCleanManager.getCacheSize(activity.getCacheDir())
+            return "当前缓存 " + DataCleanManager.getCacheSize(activity.cacheDir)
         } catch (e: Exception) {
             e.printStackTrace()
         }

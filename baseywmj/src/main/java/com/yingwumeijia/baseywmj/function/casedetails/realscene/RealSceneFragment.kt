@@ -1,8 +1,12 @@
 package com.yingwumeijia.baseywmj.function.casedetails.realscene
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +14,12 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
+import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.realscene_720.*
 import kotlinx.android.synthetic.main.realscene_base_info.*
+import kotlinx.android.synthetic.main.realscene_extra.*
 import kotlinx.android.synthetic.main.realscene_frag.*
 import kotlinx.android.synthetic.main.realscene_photo.*
 import kotlinx.android.synthetic.main.realscene_video.*
@@ -22,6 +28,22 @@ import kotlinx.android.synthetic.main.realscene_video.*
  * Created by jamisonline on 2017/6/26.
  */
 class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
+    override fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int) {
+        realscene_extra_layout.visibility = View.VISIBLE
+
+        if (ListUtil.isEmpty(priceList)) {
+            lv_serviceStandard.visibility = View.GONE
+        } else {
+            lv_serviceStandard.run {
+                visibility = View.VISIBLE
+                adapter = presenter.createServiceStandardAdapter(priceList!!)
+            }
+        }
+
+        tv_extra_viewCount.text = viewCount.toString() + "次"
+        tv_extra_collectCount.text = collectCount.toString() + "次"
+    }
+
 
     val presenter by lazy { RealScenePresenter(activity, caseId, this) }
 
@@ -39,9 +61,9 @@ class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
         JImageLolder.load720(context, iv_preview_of_720, caseCoverUrl)
     }
 
-    override fun initBaseInfoLayout(baseInfo: String, caseStory: String) {
+    override fun initBaseInfoLayout(baseInfo: String, caseName: String, caseStory: String) {
         tv_base_info.text = baseInfo
-
+        tv_caseName.text = caseName
         tv_all_text.text = caseStory
         tv_all_text.post {
             var lineCount: Int = tv_all_text.lineCount
@@ -70,6 +92,11 @@ class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
     override fun initVideoLayout(videoBean: RealSceneBean.DesignVideoBean) {
         clippingLayoutOfVideo()
         video_layout.visibility = View.VISIBLE
+        video_layout.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.setDataAndType(Uri.parse(videoBean.url), "video/mp4")
+            ActivityCompat.startActivity(activity, intent, Bundle.EMPTY)
+        }
         JImageLolder.load720(context, iv_video_preview, videoBean.url + "?vframe/jpg/offset/" + videoBean.second + "/w/750/h/500")
     }
 

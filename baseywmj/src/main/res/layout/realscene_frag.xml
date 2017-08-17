@@ -19,6 +19,8 @@
 
         <include layout="@layout/realscene_photo" />
 
+        <include layout="@layout/realscene_extra"/>
+
 
         <TextView
             android:id="@+id/tv_other_case"

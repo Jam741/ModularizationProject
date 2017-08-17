@@ -3,12 +3,13 @@ package com.yingwumeijia.commonlibrary.base
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import android.support.multidex.MultiDexApplication
 import com.orhanobut.hawk.Hawk
 
 /**
  * Created by jamisonline on 2017/5/31.
  */
-open class BaseApplication : Application() {
+open class BaseApplication : MultiDexApplication() {
 
 
     override fun onCreate() {

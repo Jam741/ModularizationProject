@@ -11,7 +11,7 @@ abstract class PersonMenuFragment : JBaseFragment(), PersonGroupMenuAdapter.Menu
 
 
     val personGroupMenuAdapter: PersonGroupMenuAdapter by lazy {
-        PersonGroupMenuAdapter(getContext(), this, this)
+        PersonGroupMenuAdapter(activity, this, this)
     }
 
 

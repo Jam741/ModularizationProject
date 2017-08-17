@@ -1,5 +1,8 @@
 package com.yingwumeijia.baseywmj.im
 
+import android.content.Context
+import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.commonlibrary.utils.SPUtils
 import io.rong.imkit.RongIM
 import io.rong.imlib.IRongCallback
 import io.rong.imlib.RongIMClient
@@ -12,6 +15,14 @@ import io.rong.message.TextMessage
  */
 object IMManager {
 
+
+    fun token(context: Context): String {
+        return SPUtils.get(context, Constant.KEY_IM_TOKEN, "") as String
+    }
+
+    fun tokenPut(context: Context, token: String) {
+        SPUtils.put(context, Constant.KEY_IM_TOKEN, token)
+    }
 
     /**
      * 发送文本消息
@@ -68,6 +79,12 @@ object IMManager {
 
                 }
             })
+    }
+
+    fun loginOut() {
+        if (RongIM.getInstance() != null) {
+            RongIM.getInstance().logout()
+        }
     }
 
 

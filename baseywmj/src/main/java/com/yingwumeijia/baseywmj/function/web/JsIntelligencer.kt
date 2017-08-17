@@ -21,6 +21,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.muzhi.camerasdk.model.CameraSdkParameterInfo
+import com.orhanobut.logger.Logger
 import com.sina.weibo.sdk.share.WbShareCallback
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
@@ -142,7 +143,10 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
                 .map { s: String -> UserSession(AccountManager.sessionId(), AccountManager.accessToken(), s) }
                 .map { t: UserSession -> gson.toJson(t) }
                 .map { t: String -> Base64Utils.encryptBASE64(t.toByteArray()) }
-                .subscribe({ t: String -> webView.post { webView.loadUrl("javascript:getAccountTokenReturn('$t')") } })
+                .subscribe({ t: String ->
+                    Logger.d(t)
+                    webView.post { webView.loadUrl("javascript:getAccountTokenReturn('$t')") }
+                })
     }
 
     @JavascriptInterface
@@ -161,9 +165,12 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
 
     @JavascriptInterface
-    fun toPay(message: String) {
-        //YWMJCashierActivity.start(activity, message);
-        TODO("去收银台")
+    fun toPay(billId: String) {
+        val activityName = "CashierForActiveActivity"
+        val clazz = Class.forName(activityName)
+        val intent = Intent(activity, clazz)
+        intent.putExtra(Constant.KEY_BILL_ID, billId)
+        activity.startActivity(intent)
     }
 
     @JavascriptInterface
@@ -215,7 +222,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             Config.CODE_LOGIN -> LoginActivity.startCurrent(activity)
             Config.CODE_SHARE -> shareActivity(data!!)
             Config.CODE_PAY -> toPay(data!!)
-            Config.CODE_OPEN -> openWebview(data!!)
+            Config.CODE_OPEN -> openPage(data!!)
             Config.CODE_PAY_RESULT -> payResult(data!!)
             Config.CODE_GET_SINGLE_PHOTO -> getSinglePhoto()
             Config.CODE_OPEN_CASE_DETIAL -> StartActivityManager.startCaseDetailActivity(activity, currentJsbridgeInfo!!.data as Int)
@@ -223,13 +230,23 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             Config.CODE_GET_CONTACT_INFO -> getContactInfo()
             Config.CODE_PICK_SINGLE_STING -> singleChoosePick(data as String)
             Config.CODE_CALL_PHONE_NUMBER -> if (data != null && VerifyUtils.verifyMobilePhoneNumber(data)) CallUtils.callPhone(data, activity)
-            Config.CODE_ORDER_BILL_PAY -> TODO("支付账单")
+            Config.CODE_ORDER_BILL_PAY -> {
+                val activityName = "CashierForOrderActivity"
+                val clazz = Class.forName(activityName)
+                val intent = Intent(activity, clazz)
+                intent.putExtra(Constant.KEY_BILL_ID, data)
+                activity.startActivity(intent)
+            }
             Config.CODE_GET_BILL_ID -> {
                 currentJsbridgeInfo!!.data = SPUtils.get(activity, "KEY_CURRENT_BILL_ID", "")
                 invokeH5(currentJsbridgeInfo!!)
             }
         }
 
+
+    }
+
+    private fun openPage(data: String) {
 
     }
 

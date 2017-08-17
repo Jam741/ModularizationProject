@@ -12,6 +12,8 @@ interface ConversationControact {
 
     interface View : JBaseView {
 
+        fun showConversationTitle(title: String)
+
         fun showBeginnerGuidance(show: Boolean)
 
         fun showQuickInputPop(show: Boolean)

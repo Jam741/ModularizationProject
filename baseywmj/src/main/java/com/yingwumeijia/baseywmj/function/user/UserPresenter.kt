@@ -3,7 +3,12 @@ package com.yingwumeijia.baseywmj.function.user
 import android.content.Context
 import android.os.Build
 import android.os.CountDownTimer
+import android.os.Handler
 import android.support.v7.app.AlertDialog
+import android.text.TextUtils
+import android.widget.TextView
+import android.widget.Toast
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.RegisterResultBean
@@ -11,15 +16,19 @@ import com.yingwumeijia.baseywmj.entity.bean.TokenBean
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.utils.RSAUtils
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
 import com.yingwumeijia.baseywmj.utils.net.AccountManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.utils.AppInfo
 import com.yingwumeijia.commonlibrary.utils.NetworkUtils
 import com.yingwumeijia.commonlibrary.utils.T
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
 import rx.subjects.PublishSubject
 
 /**
@@ -77,7 +86,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         var ob = Api.service.login(LoginBean(identityInfoBean, userExtensionInfoBean))
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccess(t!!)
+                didLoginSuccessBefor(t!!)
             }
         })
     }
@@ -108,7 +117,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
                             .setNegativeButton(R.string.btn_cancel, { dialog, which -> T.showShort(context, "已取消") })
                             .show()
                 } else {
-                    didLoginSuccess(t!!.customerDto)
+                    didLoginSuccessBefor(t!!.customerDto)
                 }
             }
         }, publishSubject, true)
@@ -128,7 +137,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         val ob = Api.service.findPassword(LoginBean(identityInfoBean, userExtensionInfoBean))
         HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccess(t!!)
+                didLoginSuccessBefor(t!!)
             }
         }, publishSubject, true)
     }
@@ -143,7 +152,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         var ob = Api.service.confirm(LoginBean(identityInfoBean, userExtensionInfoBean))
         HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccess(t!!)
+                didLoginSuccessBefor(t!!)
             }
         }, publishSubject, false)
 
@@ -164,14 +173,28 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         })
     }
 
-    fun getIMToken(userBean: UserBean) {
-        var ob = Api.service.getIMToken()
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<TokenBean>(context) {
-            override fun _onNext(t: TokenBean?) {
 
+    /**
+     * 登录成功前的操作，链接融云
+     */
+    fun didLoginSuccessBefor(userBean: UserBean) {
+        AccountManager.refreshAccount(userBean.userSession)
+        Logger.d("1")
+        if (TextUtils.isEmpty(IMManager.token(context))) {
+            Logger.d("2")
+            getIMToken(userBean)
+        } else
+            connectRong(userBean)
+    }
+
+    fun getIMToken(userBean: UserBean) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(), object : SimpleSubscriber<TokenBean>(context) {
+            override fun _onNext(t: TokenBean?) {
+                IMManager.tokenPut(context, t!!.token)
+                connectRong(userBean)
             }
 
-        }, publishSubject, true)
+        })
     }
 
 
@@ -179,7 +202,6 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      * 登录成功
      */
     fun didLoginSuccess(userBean: UserBean) {
-        AccountManager.refreshAccount(userBean.userSession)
         UserManager.cacheUserData(userBean)
         UserManager.setLoginStatus(context, true)
         if (userResponseCallBack != null) {
@@ -191,8 +213,25 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
     /**
      * 链接融云
      */
-    fun connectRong(token: String, userBean: UserBean) {
+    fun connectRong(userBean: UserBean) {
+        Handler().post {
+            RongIM.connect(IMManager.token(context), object : RongIMClient.ConnectCallback() {
+                override fun onSuccess(p0: String?) {
+                    Logger.d("onSuccess")
+                    didLoginSuccess(userBean)
+                }
 
+                override fun onError(p0: RongIMClient.ErrorCode?) {
+                    Logger.d("LoginError", p0!!.message)
+                    T.showShort(context, "登录失败")
+                }
+
+                override fun onTokenIncorrect() {
+                    Logger.d("onTokenIncorrect")
+                    getIMToken(userBean)
+                }
+            })
+        }
 
     }
 

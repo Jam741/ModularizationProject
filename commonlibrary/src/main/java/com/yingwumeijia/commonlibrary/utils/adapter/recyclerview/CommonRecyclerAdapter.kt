@@ -1,7 +1,6 @@
 package com.yingwumeijia.commonlibrary.utils.adapter.recyclerview
 
 import android.app.Activity
-import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import android.view.ViewGroup
  * Created by jamisonline on 2017/5/31.
  */
 abstract class CommonRecyclerAdapter<T> constructor(var activity: Activity?, var fragment: Fragment?, var data: ArrayList<T>?, var layoutId: Int) : RecyclerView.Adapter<RecyclerViewHolder>() {
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerViewHolder {
@@ -46,8 +44,14 @@ abstract class CommonRecyclerAdapter<T> constructor(var activity: Activity?, var
 
 
     open fun clearnData() {
+        if (data == null) return
         data!!.clear()
     }
+
+    fun isLastOne(position: Int): Boolean {
+        return position == itemCount - 1
+    }
+
 
     fun refresh(dataArray: ArrayList<T>) {
         if (data == null) {

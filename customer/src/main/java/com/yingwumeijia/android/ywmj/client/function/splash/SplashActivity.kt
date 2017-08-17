@@ -1,7 +1,9 @@
 package com.yingwumeijia.android.ywmj.client.function.splash
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
@@ -9,22 +11,34 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.android.ywmj.client.Constant
 import com.yingwumeijia.android.ywmj.client.R
+import com.yingwumeijia.android.ywmj.client.function.adverts.AdvertsActivity
+import com.yingwumeijia.android.ywmj.client.function.guidance.CustomerGuidanceActivity
 import com.yingwumeijia.android.ywmj.client.function.home.CustomerMainActivity
+import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.entity.bean.AdvertsBean
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.main.MainActivity
+import com.yingwumeijia.baseywmj.im.IMEventManager
+import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.AccountManager
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.baseywmj.utils.net.interceptor.ProgressResponseBody
+import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.base.BaseApplication
 import com.yingwumeijia.commonlibrary.utils.AppUtils
 import io.rong.imkit.RongIM
+import io.rong.push.RongPushClient
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -48,7 +62,7 @@ class SplashActivity : JBaseActivity() {
 
     var severBean: SeverBean? = null
 
-    val Api by lazy {
+    val mApi by lazy {
         Logger.d(PATHUrlConfig.severUrl())
         Retrofit.Builder()
                 .baseUrl(PATHUrlConfig.severUrl())
@@ -59,6 +73,15 @@ class SplashActivity : JBaseActivity() {
                 .create(Service::class.java)
     }
 
+
+    val defaultSeverBean by lazy {
+        SeverBean().apply {
+            serverUrl = PATHUrlConfig.DEFAULT_URL_C
+            webUrl = PATHUrlConfig.BASE_URL_H5_RELEASE
+        }
+    }
+
+
     val downloaderProgressDialog: ProgressDialog by lazy {
         ProgressDialog(context).apply {
             setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
@@ -67,6 +90,7 @@ class SplashActivity : JBaseActivity() {
             create()
         }
     }
+
 
     private fun defaultClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
@@ -79,17 +103,28 @@ class SplashActivity : JBaseActivity() {
 
 
     fun loadBaseUrl() {
-        Api
+        mApi
                 .getService("c", AppUtils.getVersionName(this))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : Subscriber<SeverBean>() {
                     override fun onNext(t: SeverBean?) {
-                        didSuccess(t!!)
+                        if (t == null) {
+                            didSuccessBefor(defaultSeverBean)
+                        } else {
+                            severBean = t!!
+                            if (t!!.isUpgrade) {//强制更新
+                                showMustUpDateDialog()
+                            } else if (t!!.isNewVersion) {//非强制更新
+                                showHasNewVersionDialog()
+                            } else {
+                                didSuccessBefor(t!!)
+                            }
+                        }
                     }
 
                     override fun onError(e: Throwable?) {
-
+                        didSuccessBefor(defaultSeverBean)
                     }
 
                     override fun onCompleted() {
@@ -101,19 +136,104 @@ class SplashActivity : JBaseActivity() {
     }
 
     /**
+     * 显示强制更新对话框
+
+     * @return 是否下载更新
+     */
+    private fun showMustUpDateDialog() {
+        AlertDialog.Builder(context)
+                .setTitle(R.string.dialog_title)
+                .setMessage("抱歉！由于本次更新不再兼容低版本，请升级最新版本")
+                .setNegativeButton("取消") { dialog, which -> close() }
+                .setPositiveButton("下载") { dialog, which -> startUpDownloader() }
+                .show()
+    }
+
+    /**
+     * 显示有新版本的弹窗
+     */
+    private fun showHasNewVersionDialog() {
+        AlertDialog.Builder(context)
+                .setTitle("提示")
+                .setMessage("有新的版本可以更新")
+                .setNegativeButton("取消") { dialog, which -> didSuccessBefor(severBean!!) }
+                .setPositiveButton("下载") { dialog, which -> startUpDownloader() }
+                .show()
+
+    }
+
+
+    private fun didSuccessBefor(severBean: SeverBean) {
+        SeverUrlManager.refreshBaseUrl(severBean.serverUrl)
+        SeverUrlManager.refreshWebBaseUrl(severBean.webUrl)
+        SeverUrlManager.refreshIMKey(severBean.appImkey)
+
+        RongPushClient.registerHWPush(this)
+        RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
+
+        if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
+            RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
+            IMEventManager(BaseApplication.appContext())
+        }
+
+
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getAdverts(), object : Subscriber<AdvertsBean>() {
+            override fun onNext(t: AdvertsBean?) {
+                if (t == null) {
+                    didSuccess(severBean)
+                } else {
+                    if (UserManager.advertsId(context) == t.id) {
+                        didSuccess(severBean)
+                    } else {
+                        didAdvertsSuccess(t)
+                    }
+                }
+
+            }
+
+            override fun onCompleted() {
+
+            }
+
+            override fun onError(e: Throwable?) {
+                didSuccess(severBean)
+            }
+        })
+    }
+
+    private fun getCurProcessName(context: Context): String? {
+
+        val pid = android.os.Process.myPid()
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+
+        return activityManager.runningAppProcesses
+                .firstOrNull { it.pid == pid }
+                ?.processName
+    }
+
+    /**
      *  加载完成
      */
-    private fun didSuccess(t: SeverBean) {
-        severBean = t
-        SeverUrlManager.refreshBaseUrl(t!!.serverUrl)
-        SeverUrlManager.refreshIMKey(t!!.appImkey)
-        RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
+    private fun didSuccess(severBean: SeverBean) {
         close()
-        CustomerMainActivity.start(context)
+        if (UserManager.isFirst(context)) {
+            CustomerGuidanceActivity.start(context)
+        } else {
+            CustomerMainActivity.start(context)
+        }
+    }
+
+
+    private fun didAdvertsSuccess(t: AdvertsBean) {
+        close()
+        AdvertsActivity.start(context, t)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        /*set it to be full screen*/
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
         if (!UserManager.isLogin(context)) AccountManager.clearnAccount()
         loadBaseUrl()

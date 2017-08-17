@@ -6,10 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.yingwumeijia.android.worker.R
+import com.yingwumeijia.android.worker.function.minecase.MineCaseActivity
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.WebViewManager
+import com.yingwumeijia.baseywmj.function.collect.CollectActivity
+import com.yingwumeijia.baseywmj.function.opinion.OpinionActivity
 import com.yingwumeijia.baseywmj.function.personal.MenuAction
 import com.yingwumeijia.baseywmj.function.personal.MenuInfo
 import com.yingwumeijia.baseywmj.function.personal.PersonMenuFragment
+import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
+import com.yingwumeijia.baseywmj.option.PATHUrlConfig
+import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import kotlinx.android.synthetic.main.person_menu.*
 import java.util.ArrayList
 
@@ -18,24 +25,77 @@ import java.util.ArrayList
  */
 class MenuFragment : PersonMenuFragment() {
 
-    val menusForNormal by lazy { createMenuInfoListTwirrer() }
+    val menusForNormal by lazy { createMenuInfoListNormal() }
 
-    private fun createMenuInfoListTwirrer(): ArrayList<ArrayList<MenuInfo>> {
+    val menusForJJGW by lazy { createMenuInfoListJJGW() }
+    val menusForKFJL by lazy { createMenuInfoListKFJL() }
+    val menusForDesigner by lazy { createMenuInfoListDesigner() }
+
+    private fun createMenuInfoListNormal(): ArrayList<ArrayList<MenuInfo>> {
         val groupList = ArrayList<ArrayList<MenuInfo>>()
         groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.bill, R.mipmap.mine_bill_ico, "我的账单"),
-                MenuInfo(MenuAction.favourable, R.mipmap.mine_ticket_ico, "我的优惠")))
+                MenuInfo(MenuAction.order, R.mipmap.mine_booking_ico, "我的订单")))
+
         groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.collect, R.mipmap.mine_save_ico, "我的收藏"),
-                MenuInfo(MenuAction.history, R.mipmap.mine_view_history_ico, "历史浏览")))
+                MenuInfo(MenuAction.mineWorker, R.mipmap.mine_my_work_ico, "我的作品"),
+                MenuInfo(MenuAction.collect, R.mipmap.mine_save_ico, "我的收藏")))
+
         groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.apply, R.mipmap.mine_apply_ico, "我要入驻", R.color.color_6)))
-        groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "我的建议")))
-        groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.invite, R.mipmap.mine_invite_friends_ico, "推荐给朋友")))
+                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "意见反馈")))
         return groupList
     }
+
+    private fun createMenuInfoListJJGW(): ArrayList<ArrayList<MenuInfo>> {
+        val groupList = ArrayList<ArrayList<MenuInfo>>()
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.order, R.mipmap.mine_booking_ico, "我的订单")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.mineCustomer, R.mipmap.mine_my_customer_ic, "我的客户")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.collect, R.mipmap.mine_save_ico, "我的收藏")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "意见反馈")))
+        return groupList
+    }
+
+    private fun createMenuInfoListKFJL(): ArrayList<ArrayList<MenuInfo>> {
+        val groupList = ArrayList<ArrayList<MenuInfo>>()
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.order, R.mipmap.mine_booking_ico, "我的订单"),
+                MenuInfo(MenuAction.mineCustomer, R.mipmap.mine_my_customer_ic, "我的客户")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.mineTeam, R.mipmap.mine_my_team_ic, "我的团队")))
+
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.collect, R.mipmap.mine_save_ico, "我的收藏")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "意见反馈")))
+        return groupList
+    }
+
+    private fun createMenuInfoListDesigner(): ArrayList<ArrayList<MenuInfo>> {
+        val groupList = ArrayList<ArrayList<MenuInfo>>()
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.material, R.mipmap.mine_zcbt_ic, "主材补贴")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.order, R.mipmap.mine_booking_ico, "我的订单")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.mineWorker, R.mipmap.mine_my_work_ico, "我的作品"),
+                MenuInfo(MenuAction.collect, R.mipmap.mine_save_ico, "我的收藏")))
+
+        groupList.add(createMenuGroup(
+                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "意见反馈")))
+        return groupList
+    }
+
 
     private fun createMenuGroup(vararg menuInfos: MenuInfo): ArrayList<MenuInfo> {
         val group = ArrayList<MenuInfo>()
@@ -62,25 +122,35 @@ class MenuFragment : PersonMenuFragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = personGroupMenuAdapter
         }
-        refreshMenusForUserStatus()
-    }
-
-    override fun initMenuForUserDetailType(userDetailType: Int) {
-        refreshMenusForUserStatus()
-    }
-
-
-    fun refreshMenusForUserStatus() {
-        val twitterStatus = UserManager.getTwitterStatus()
         refreshMenu(menusForNormal)
     }
 
+    override fun initMenuForUserDetailType(userTypeExtension: Int) {
+        when (userTypeExtension) {
+            PersonalFragment.USER_TYPE_E_NORMAL -> refreshMenu(menusForNormal)
+            PersonalFragment.USER_TYPE_E_JJGW -> refreshMenu(menusForJJGW)
+            PersonalFragment.USER_TYPE_E_KFJL -> refreshMenu(menusForKFJL)
+            PersonalFragment.USER_TYPE_E_DESIGNER -> refreshMenu(menusForDesigner)
+        }
+    }
+
+
     override fun itemClick(action: MenuAction) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        when (action) {
+            MenuAction.order -> WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() + "#/supervisionContractForEmployee")
+//            MenuAction.order -> WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() + "#/orderListE")
+            MenuAction.material -> WebViewManager.startFullScreen(activity, SeverUrlManager.baseWebUrl() + "#/materialSubsidyE")
+            MenuAction.collect -> CollectActivity.start(activity)
+            MenuAction.mineWorker -> MineCaseActivity.start(activity)
+            MenuAction.advice -> OpinionActivity.start(activity)
+            MenuAction.mineCustomer -> WebViewManager.startFullScreen(activity, SeverUrlManager.baseWebUrl() + "#/mineCustomer")
+            MenuAction.mineTeam -> WebViewManager.startFullScreen(activity, SeverUrlManager.baseWebUrl() + "#/consultantList")
+        }
     }
 
     override fun itemLongClick(action: MenuAction) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
 }

@@ -11,10 +11,12 @@ import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.adapter.TabWithPagerAdapter
 import com.yingwumeijia.baseywmj.function.casedetails.realscene.RealSceneFragment
 import com.yingwumeijia.baseywmj.function.casedetails.team.CaseTeamFragment
 import com.yingwumeijia.baseywmj.function.casedetails.team.MaterialFragment
+import com.yingwumeijia.baseywmj.function.comment.CommentActivity
 import com.yingwumeijia.commonlibrary.utils.TextViewUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.case_details_act.*
@@ -43,6 +45,8 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
         arrayListOf(RealSceneFragment.newInstance(caseId), CaseTeamFragment.newInstance(caseId), MaterialFragment.newInstance(caseId))
     }
 
+    val guidanceFragment by lazy { GuidanceFragment() }
+
     val pageAdapter by lazy { TabWithPagerAdapter(supportFragmentManager, mTitles, mFragments as List<Fragment>) }
 
     override fun onClick(v: View?) {
@@ -52,7 +56,7 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
             R.id.btnShare -> presenter.share()
             R.id.btnCollect -> if (isCollect) presenter.cancelCollect() else presenter.collect()
             R.id.btnConnectTeam -> if (forGoBack) close() else presenter.connectTeam()
-            R.id.btnComment -> TODO("去评论页面")
+            R.id.btnComment -> CommentActivity.start(context, caseId)
             R.id.topRight -> if (isCollect) presenter.cancelCollect() else presenter.collect()
         }
     }
@@ -72,8 +76,9 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
         }
     }
 
+
     override fun showDesignerPortrait(portraitUrl: String) {
-        JImageLolder.loadPortrait100(context, iv_designerPortrait, portraitUrl)
+//        JImageLolder.loadPortrait100(context, iv_designerPortrait, portraitUrl)
     }
 
     override fun CommentCount(count: Int) {
@@ -119,5 +124,18 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
         btnCollect.setOnClickListener(this)
         btnConnectTeam.setOnClickListener(this)
         btnComment.setOnClickListener(this)
+
+        if (UserManager.guidanceCaseDetailsNeedShow(context))
+            showGuidanceFragment()
+    }
+
+    fun removeGuidanceFragment() {
+        supportFragmentManager.beginTransaction().remove(guidanceFragment).commit()
+
+    }
+
+
+    fun showGuidanceFragment() {
+        supportFragmentManager.beginTransaction().add(R.id.guidance_fragment, guidanceFragment).commit()
     }
 }

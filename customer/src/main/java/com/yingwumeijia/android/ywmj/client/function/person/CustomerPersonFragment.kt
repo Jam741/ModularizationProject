@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.zxing.integration.android.IntentIntegrator
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.ywmj.client.function.coupon.details.SiginInfo
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.WebViewManager
@@ -42,6 +43,7 @@ class CustomerPersonFragment : PersonalFragment() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        Logger.d("CustomerPersonFragment onActivityResult")
         super.onActivityResult(requestCode, resultCode, data)
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         var contentStr: String? = null

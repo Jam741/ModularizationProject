@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.widget.Toast
-import com.qiniu.android.storage.UpCompletionHandler
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.qiniu.android.storage.UploadManager
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.option.Config
@@ -14,9 +14,6 @@ import com.yingwumeijia.commonlibrary.utils.ImageTools
 import com.yingwumeijia.commonlibrary.utils.ListUtil
 import org.json.JSONObject
 import rx.Observable
-import rx.Subscriber
-import rx.functions.Action1
-import rx.functions.Func1
 import rx.schedulers.Schedulers
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -26,6 +23,8 @@ import java.io.File
  * Created by jamisonline on 2017/7/4.
  */
 object UploadPictureHelper {
+
+//    val dialogHandler = KProgressHUD.create(context)
 
 
     fun uploadSinglePicture(context: Context, filePath: String, singleLoadListener: OnSingleLoadListener) {
@@ -48,29 +47,32 @@ object UploadPictureHelper {
         HttpUtil
                 .getInstance()
                 .toNolifeSubscribe(
-                        Api.service.getUpLoadToken().flatMap { s ->
-                            token = s
-                            zooImages(filePaths)
-                        }
+                        Api.service.getUpLoadToken()
+                                .flatMap { s ->
+                                    token = s
+                                    zooImages(filePaths)
+                                }
                         ,
                         object : ProgressSubscriber<ArrayList<Bitmap>>(context) {
                             override fun _onNext(bitmaps: ArrayList<Bitmap>?) {
                                 if (ListUtil.isEmpty(bitmaps)) {
                                     Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    upLoadMultinPictureToQiniu(0, token!!, bitmaps!!, filePaths, multinLoadListener, ArrayList())
+                                    val dialog = KProgressHUD.create(context)
+                                    upLoadMultinPictureToQiniu(0, token!!, bitmaps!!, filePaths, multinLoadListener, ArrayList(), dialog)
                                 }
                             }
                         })
     }
 
-    private fun upLoadMultinPictureToQiniu(position: Int, token: String, bitmaps: ArrayList<Bitmap>, filePaths: ArrayList<String>, multinLoadListener: OnMultinLoadListener, urls: ArrayList<String>) {
+    private fun upLoadMultinPictureToQiniu(position: Int, token: String, bitmaps: ArrayList<Bitmap>, filePaths: ArrayList<String>, multinLoadListener: OnMultinLoadListener, urls: ArrayList<String>, dialog: KProgressHUD) {
         var index = position
         UploadManager().put(Bitmap2Bytes(bitmaps[index]), null, token, { key, info, response ->
+            dialog.dismiss()
             urls.add(assmibleUrl(response, filePaths[index]))
             index++
             if (index == bitmaps.size) multinLoadListener.success(urls)
-            else upLoadMultinPictureToQiniu(index, token, bitmaps, filePaths, multinLoadListener, urls)
+            else upLoadMultinPictureToQiniu(index, token, bitmaps, filePaths, multinLoadListener, urls, dialog)
         }, null)
     }
 

@@ -21,6 +21,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 import rx.Observable
+import java.math.BigDecimal
 
 /**
  * Created by jamisonline on 2017/6/8.
@@ -81,6 +82,20 @@ interface Service {
                     @Path("pageSize") pageSize: Int,
                     @Body caseFilterOptionBody: CaseFilterOptionBody): Observable<List<CaseBean>>
 
+    /**
+     * 首页作品列表
+
+     * @param pageNum  页码
+     * *
+     * @param pageSize 每页有多少项
+     * *
+     * @return
+     */
+    @POST("case/employee/list/{pageNum}/{pageSize}")
+    fun getCaseList_E(@Path("pageNum") pageNum: Int,
+                      @Path("pageSize") pageSize: Int,
+                      @Body caseFilterOptionBody: CaseFilterOptionBody): Observable<List<CaseBean>>
+
 
     /**
      * 获取用户详细信息接口
@@ -103,6 +118,14 @@ interface Service {
     @GET("case/app/types")
     fun getCaseTypeSet(): Observable<CaseTypeSetBean>
 
+    /**
+     * 作品筛选枚举集合
+
+     * @return
+     */
+    @GET("case/employee/types")
+    fun getCaseTypeSet_E(): Observable<CaseTypeSetBean>
+
 
     /**
      * 获取融云token
@@ -110,7 +133,7 @@ interface Service {
      * @return
      */
     @GET("im/getToken")
-    abstract fun getIMToken(): Observable<TokenBean>
+    fun getIMToken(): Observable<TokenBean>
 
 
     /**
@@ -824,5 +847,181 @@ interface Service {
     fun renameSession(@Path("sessionId") sessionId: String,
                       @Query("newSessionName") newSessionName: String): Observable<String>
 
+
+    /**
+     * 获取评论列表
+
+     * @param caseId
+     * *
+     * @param pageNum
+     * *
+     * @param pageSize
+     * *
+     * @return
+     */
+    @GET("case/comment")
+    fun getCommentData(@Query("caseId") caseId: Int,
+                       @Query("pageNum") pageNum: Int,
+                       @Query("pageSize") pageSize: Int): Observable<CommentResultBean>
+
+    @GET("case/comment/all")
+    fun getCommentAllData(@Query("pageNum") pageNum: Int,
+                          @Query("pageSize") pageSize: Int): Observable<CommentResultBean>
+
+
+    /**
+     * 发送评论
+
+     * @param caseId
+     * *
+     * @param content
+     * *
+     * @return
+     */
+    @POST("case/comment/action")
+    fun commnetAction(@Query("caseId") caseId: Int,
+                      @Query("content") content: String): Observable<CommentResultBean.ResultBean>
+
+
+    /**
+     * 我的作品
+
+     * @param pageNum
+     * *
+     * @param pageSize
+     * *
+     * @return
+     */
+    @GET("case/employee")
+    fun mineCaseData(@Query("pageNum") pageNum: Int,
+                     @Query("pageSize") pageSize: Int): Observable<MineCaseResultBean>
+
+
+    /**
+     * 回复
+
+     * @param content
+     * *
+     * @return
+     */
+    @POST("case/comment/{commentId}/reply")
+    fun commentReplay(@Path("commentId") commentId: Int,
+                      @Query("content") content: String): Observable<CommentResultBean.ResultBean>
+
+
+    @GET("collection/case/others")
+    fun getCollectUnreadData(@Query("pageNum") pageNum: Int,
+                             @Query("pageSize") pageSize: Int): Observable<CollectUnreadResultBean>
+
+
+    @GET("bill/toPayItems")
+    fun getBillPaymentList(): Observable<List<BillIPaymentBean>>
+
+    @GET("bill/payedItems")
+    fun getBillPayedList(): Observable<List<BillItemBean>>
+
+    /**
+     * 查询账单简要信息
+
+     * @param billId
+     * *
+     * @return
+     */
+    @GET("bill/brief/{billId}")
+    fun checkBillSimpleInfo(@Path("billId") billId: String): Observable<BillSimpleInfo>
+
+    /**
+     * 是否接受分配
+
+     * @param distributionStatus
+     * *
+     * @return
+     */
+    @POST("advisor/distribution")
+    fun distribution(@Query("distributionStatus") distributionStatus: Boolean): Observable<Boolean>
+
+
+    /**
+     * 查询查看消息的权限
+
+     * @param billId
+     * *
+     * @return
+     */
+    @GET("bill/{billId}/permission")
+    fun checkBillPermission(@Path("billId") billId: String): Observable<OrderBillPermissionDto>
+
+
+    /**
+     * 标记第一条会话
+
+     * @param sessionId
+     * *
+     * @param senderId  成员ID（注意是用户在第三方IM平台的UID）
+     * *
+     * @return
+     */
+    @POST("im/session/{sessionId}/first")
+    fun isFirstSession(@Path("sessionId") sessionId: String,
+                       @Query("senderId") senderId: String): Observable<Boolean>
+
+    /**
+     * 获取广告
+     * *
+     * @return
+     */
+    @GET("adverts/advertsInfo")
+    fun getAdverts(): Observable<AdvertsBean>
+
+
+    /**
+     * 获取支付宝订单信息
+
+     * @return
+     */
+    @POST("bill/pay/alipay/{billId}")
+    fun getALPayOrderInfo(@Path("billId") billId: String): Observable<ALPayOrderInfo>
+
+    /**
+     * 获取支付宝订单信息 分批支付
+
+     * @return
+     */
+    @POST("bill/pay/alipay/{billId}/part")
+    fun getALPayOrderInfoPart(@Path("billId") billId: String, @Query("amount") amount: BigDecimal): Observable<ALPayOrderInfo>
+
+    /**
+     * 获取微信订单信息
+
+     * @return
+     */
+    @POST("bill/pay/wechat/{billId}")
+    fun getWXPayOrderInfo(@Path("billId") billId: String): Observable<WxPayOrderInfo>
+
+    /**
+     * 获取微信订单信息 分批支付
+
+     * @return
+     */
+    @POST("bill/pay/wechat/{billId}/part")
+    fun getWXPayOrderInfoPart(@Path("billId") billId: String, @Query("amount") amount: BigDecimal): Observable<WxPayOrderInfo>
+
+
+    /**
+     * 获取易宝支付接口
+
+     * @return
+     */
+    @POST("bill/pay/shortcut/{billId}")
+    fun getYBPayOrderInfo(@Path("billId") billId: String): Observable<String>
+
+
+    /**
+     * 获取易宝支付接口 分批支付
+
+     * @return
+     */
+    @POST("bill/pay/shortcut/{billId}/part")
+    fun getYBPayOrderInfoPart(@Path("billId") billId: String, @Query("amount") amount: BigDecimal): Observable<String>
 
 }

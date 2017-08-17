@@ -18,6 +18,9 @@ enum class MenuAction {
     invite, //邀请
     help, //我要帮助
     material, //主材补贴
+    mineWorker, //我的作品
+    mineCustomer, //我的客户
+    mineTeam,//我的团队
 
 
 

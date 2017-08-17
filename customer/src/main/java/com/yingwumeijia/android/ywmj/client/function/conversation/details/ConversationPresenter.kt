@@ -30,6 +30,8 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfo(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
             override fun _onNext(t: SessionDetailBean?) {
                 sessionInfo = t
+                if (t != null)
+                    view.showConversationTitle(t.sessionInfo.name + "(" + t.sessionInfo.members.size + ")")
             }
         })
     }
@@ -69,6 +71,7 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
                 Toast.makeText(context, "操作成功", Toast.LENGTH_SHORT).show()
                 if (t != null)
                     inputQuickAdapter.insert(t)
+                view.showAddInputQuickDialog(false)
             }
         })
     }

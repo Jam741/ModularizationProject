@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -19,6 +20,9 @@ import com.yingwumeijia.baseywmj.function.search.SearchActivity
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
+import io.rong.imkit.RongIM
+import io.rong.imkit.manager.IUnReadMessageObserver
+import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.case_list_frag.*
 import kotlinx.android.synthetic.main.empty_layout.*
 import kotlinx.android.synthetic.main.nav_layout.*
@@ -37,6 +41,8 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
     val mCaseFilterOptionBody: CaseFilterOptionBody = CaseFilterOptionBody()
 
     val navLayoutHeight = 160f
+
+    val isAppc by lazy { AppTypeManager.isAppC() }
 
     val caseListAdapter: CaseListAdapter by lazy {
         CaseListAdapter(this, null)
@@ -353,6 +359,10 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (isAppc) {
+            setSystemMessageListener()
+            btn_message.visibility = View.VISIBLE
+        }
         tv_empty.text = "抱歉，没有匹配的作品\n请选择其他类型或搜索"
         iv_empty.setImageResource(R.mipmap.work_search_no_result_ico)
         btn_classify.setOnClickListener(this@CaseListFragment)
@@ -365,7 +375,7 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
         rv_case.run {
             layoutManager = LinearLayoutManager(context)
             setLoadingListener(this@CaseListFragment)
-            setAdapter(caseListAdapter)
+            adapter = caseListAdapter
             addFootView(LoadingMoreFooter(context, getString(R.string.no_more_case_load)))
             addOnScrollListener(caseListScrollListener)
             loadMoreComplete()
@@ -377,6 +387,19 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
             showTitleLayout(true)
             presenter.loadCaseList(pageNum, mCaseFilterOptionBody)
         }
+    }
+
+
+    fun setSystemMessageListener() {
+        RongIM.getInstance()
+                .addUnReadMessageCountChangedObserver(
+                        IUnReadMessageObserver { i ->
+                            if (i > 0) {
+                                iv_messagePoint.visibility = View.VISIBLE
+                            } else {
+                                iv_messagePoint.visibility = View.GONE
+                            }
+                        }, *arrayOf(Conversation.ConversationType.SYSTEM))
     }
 
 }

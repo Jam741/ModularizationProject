@@ -1,6 +1,7 @@
 package com.yingwumeijia.baseywmj.function.main
 
 import android.content.Context
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeSetBean
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
@@ -26,7 +27,12 @@ open class MainController(var context: Context, var publishSubject: PublishSubje
 
 
     fun didCaseFilterSet() {
-        var ob: Observable<CaseTypeSetBean> = Api.service.getCaseTypeSet()
+        var ob: Observable<CaseTypeSetBean>
+        if (AppTypeManager.isAppC()) {
+            ob = Api.service.getCaseTypeSet()
+        } else {
+            ob = Api.service.getCaseTypeSet_E()
+        }
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<CaseTypeSetBean>(context) {
             override fun _onNext(t: CaseTypeSetBean?) {
                 if (t != null) {

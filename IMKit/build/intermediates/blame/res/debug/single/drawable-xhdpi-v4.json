@@ -8,16 +8,20 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ic_message_block.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f381.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u1f381.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_voice_input_toggle.9.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_voice_input_toggle.9.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_group_ok_pressed.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_cs_group_ok_pressed.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_voice_input_toggle.9.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_voice_input_toggle.9.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f381.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u1f381.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ad_list_ppt_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ad_list_ppt_icon.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_complete.png",
@@ -104,6 +108,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_cs_back_icon.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ad_list_pdf_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ad_list_pdf_icon.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f629.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u1f629.png"
     },
@@ -174,6 +182,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ext_indicator_hover.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ext_indicator_hover.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_checkbox_full.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ic_checkbox_full.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_fr_file_list_ad_icon_file.png",
@@ -288,6 +300,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u1f61e.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_default_portrait.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_cs_default_portrait.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_keyboard.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_keyboard.png"
     },
@@ -384,6 +400,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_unread_count_bg.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_file_icon_pdf.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_pdf.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_bubble_no_left.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ic_bubble_no_left.9.png"
     },
@@ -472,6 +492,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ic_voice_receive_play3.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_unread_msg_arrow.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_unread_msg_arrow.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u26a1.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u26a1.png"
     },
@@ -536,6 +560,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ext_plugin_toggle.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ic_checkbox_none.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ic_checkbox_none.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/u1f52b.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/u1f52b.png"
     },
@@ -576,10 +604,6 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_else.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_unread_message_count.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_unread_message_count.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_ed_pub_service_search_hover.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_ed_pub_service_search_hover.9.png"
     },
@@ -594,6 +618,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_leave_message_bg.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_cs_leave_message_bg.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_file_icon_ppt.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable-xhdpi/rc_file_icon_ppt.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/debug/drawable-xhdpi-v4/rc_cs_close.png",

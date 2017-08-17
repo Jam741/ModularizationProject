@@ -36,7 +36,6 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
 
     var isOnwer = false
 
-    lateinit var teamAdapter: TeamAdapter
 
     private val REQUST_CODE_RENAME = 1
     private val REQUST_CODE_ADDMEMBER = 2
@@ -61,24 +60,20 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
 
 
     override fun showMemberList(teamListItemBeanList: Map<String, List<MemberBean>>) {
-        if (teamAdapter == null) {
-            teamAdapter = TeamAdapter(teamListItemBeanList, this@ConversationDetailsActivity, sessionId)
-            teamAdapter.run {
-                setOnChildClickListener { groupPosition, childPosition -> if (groupPosition != null) EmployeeActivity.start(context, getChild(groupPosition, childPosition).userId, 0) }
-                setOnChildLongClickListener { groupPosition, childPosition -> showRemoveMemberDialog(getChild(groupPosition, childPosition)) }
-            }
-            listTeam.run {
-                setAdapter(teamAdapter)
-                setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
-                    if (groupPosition == 0)
-                        AddCustomerActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
-                    else
-                        AddEmployeeActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
-                    return@OnGroupClickListener true
-                })
-            }
-        } else {
-            teamAdapter.refresh(teamListItemBeanList)
+        val teamAdapter = TeamAdapter(teamListItemBeanList, this@ConversationDetailsActivity, sessionId)
+        teamAdapter.run {
+            setOnChildClickListener { groupPosition, childPosition -> if (groupPosition != null) EmployeeActivity.start(context, getChild(groupPosition, childPosition).userId, 0) }
+            setOnChildLongClickListener { groupPosition, childPosition -> showRemoveMemberDialog(getChild(groupPosition, childPosition)) }
+        }
+        listTeam.run {
+            setAdapter(teamAdapter)
+            setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
+                if (groupPosition == 0)
+                    AddCustomerActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
+                else
+                    AddEmployeeActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
+                return@OnGroupClickListener true
+            })
         }
 
         for (i in 0..teamListItemBeanList.size - 1) {

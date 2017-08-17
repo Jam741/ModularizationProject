@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
@@ -14,7 +15,7 @@ import android.view.View.VISIBLE
 import android.widget.AdapterView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
-import com.github.mzule.activityrouter.annotation.Router
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.base.JBaseFragment
@@ -32,7 +33,6 @@ import kotlinx.android.synthetic.main.main_page.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-@Router("main")
 abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener {
 
     companion object {
@@ -60,6 +60,7 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
      */
     override fun onTabSelect(position: Int) {
         viewpager.setCurrentItem(position, false)
+        currentFragment = mFragments[position]
     }
 
     override fun onTabReselect(position: Int) {
@@ -71,24 +72,38 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
 
     var drawableIndex: Int = 0
 
-    val mTitles = arrayOf("作品", "优惠", "聊天", "我的")
+    val mTitles by lazy { getTitles() }
 
-    val mIconUnselectIds = intArrayOf(R.mipmap.tab_work_ico, R.mipmap.tab_favourable_ico, R.mipmap.tab_messgae_ico, R.mipmap.tab_mine_ico)
+    val mIconUnselectIds by lazy { getIconUnselectIds() }
 
-    val mIconSelectIds = intArrayOf(R.mipmap.tab_work_light_ico, R.mipmap.tab_favourable_light_ico, R.mipmap.tab_message_light_ico, R.mipmap.tab_mine_light_ico)
+    val mIconSelectIds by lazy { getIconSelectIds() }
 
     val mTabEntities by lazy { initTabEntities() }
 
-    val mFragments = getFragments()
+    val mFragments by lazy { getFragments() }
+
+    lateinit var currentFragment: Fragment
 
     abstract fun getFragments(): ArrayList<JBaseFragment>
+
+    abstract fun getTitles(): Array<String>
+
+    abstract fun getIconUnselectIds(): IntArray
+
+    abstract fun getIconSelectIds(): IntArray
 
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 
 
+    override fun onResume() {
+        super.onResume()
+        hideSoftInput(tl_main)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_act)
+        Logger.d("Main","MainActivity onCreated")
 
         controller.didCaseFilterSet()
 
@@ -97,6 +112,8 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
             adapter = mPageAdapter
             addOnPageChangeListener(this@MainActivity)
         }
+
+        currentFragment = mFragments[0]
 
         tl_main.run {
             setTabData(mTabEntities)
@@ -256,9 +273,14 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
             }, 2000) // 如果2秒钟内没有按下返回键，则启动定时器取消掉刚才执行的任务
 
         } else {
-            ActivityCompat.finishAfterTransition(context)
+            android.os.Process.killProcess(android.os.Process.myPid())
             System.exit(0)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (currentFragment != null) currentFragment.onActivityResult(requestCode, resultCode, data)
     }
 
 }

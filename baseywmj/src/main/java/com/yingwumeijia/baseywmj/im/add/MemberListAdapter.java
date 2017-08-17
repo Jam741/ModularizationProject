@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.yingwumeijia.baseywmj.R;
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean;
+import com.yingwumeijia.commonlibrary.utils.ListUtil;
 import com.yingwumeijia.commonlibrary.utils.TextViewUtils;
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter;
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder;
@@ -84,9 +85,10 @@ public class MemberListAdapter extends CommonRecyclerAdapter<MemberBean> {
 
     public List<String> getSelectedMembers() {
         List<String> selsetedMembers = new ArrayList<>();
-        for (MemberBean m : getData()) {
-            if (m.isSelected()) selsetedMembers.add(m.getImUid());
-        }
+        if (!ListUtil.INSTANCE.isEmpty(getData()))
+            for (MemberBean m : getData()) {
+                if (m.isSelected()) selsetedMembers.add(m.getImUid());
+            }
         return selsetedMembers;
     }
 }

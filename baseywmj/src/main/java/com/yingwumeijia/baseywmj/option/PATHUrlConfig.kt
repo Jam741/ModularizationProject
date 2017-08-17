@@ -12,7 +12,7 @@ import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 object PATHUrlConfig {
 
     /*编译环境配置，安全起见只对  debug包生效*/
-    val buildPath = 0   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,main_pc = 4
+    val buildPath = 4   //dev = 0 ,pre = 1 ,release = 2, test = 3 ,my_pc = 4, sever =-1
 
     val DEFAULT_URL_C = "https://customer.yingwumeijia.com/"
 
@@ -21,7 +21,7 @@ object PATHUrlConfig {
 
     /*写死本机的环境*/
     val BASE_URL_DEFAULT = "https://devgate.yingwumeijia.com"
-    val BASE_URL_H5_DEFAULT = "https://testmobile.yingwumeijia.com/appv/"
+    val BASE_URL_H5_DEFAULT = "http://192.168.28.50:8090/"
 
     /*生产环境*/
     val BASE_URL_RELEASE = "https://gate.yingwumeijia.com/"

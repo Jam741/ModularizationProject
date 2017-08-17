@@ -9,6 +9,7 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean
+import com.yingwumeijia.commonlibrary.utils.ListUtil
 import kotlinx.android.synthetic.main.search_member_frag.*
 
 /**
@@ -24,7 +25,7 @@ class MemberListFragment : JBaseFragment() {
 
     val searchType by lazy { arguments.getSerializable(Constant.KEY_SEARCH_TYPE) }
 
-    val memberListAdapter by lazy { MemberListAdapter(context) }
+    val memberListAdapter by lazy { MemberListAdapter(this) }
 
 
     companion object {
@@ -58,7 +59,8 @@ class MemberListFragment : JBaseFragment() {
     }
 
     fun showEmptyLayout(isEmpty: Boolean) {
-        memberListAdapter.clearnData()
+        if (!ListUtil.isEmpty(memberListAdapter.data))
+            memberListAdapter.clearnData()
         empty_layout.visibility = if (isEmpty) View.VISIBLE else View.GONE
     }
 

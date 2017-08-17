@@ -3,6 +3,7 @@ package com.yingwumeijia.baseywmj.function.casedetails
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.text.TextUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
@@ -11,6 +12,7 @@ import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.api.Api
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.casedetails.model.CaseDetailBannerBean
 import com.yingwumeijia.baseywmj.function.casedetails.model.CreateSessionBean
@@ -57,7 +59,8 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
         view.run {
             setCollectStatus(caseSimpleData!!.isCollected)
             CommentCount(caseSimpleData!!.commentTotalCount)
-            showDesignerPortrait(caseSimpleData!!.designerImage)
+//            if (!TextUtils.isEmpty(caseSimpleData!!.designerImage))
+//                showDesignerPortrait(caseSimpleData!!.designerImage)
         }
     }
 
@@ -111,16 +114,16 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
     override fun connectTeam() {
         if (!UserManager.precedent(context)) return Unit
         if (caseSimpleData == null) return Unit
-        if (caseSimpleData!!.chatId != 0L) {
-            TODO("去回话页面")
+        if (!TextUtils.isEmpty(caseSimpleData!!.chatId)) {
+            StartActivityManager.startConversation(context, caseSimpleData!!.chatId)
         } else {
             val ob = Api.service.createSession(caseId)
             HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<CreateSessionBean>(context) {
                 override fun _onNext(t: CreateSessionBean?) {
                     if (t == null) return Unit
                     if (caseSimpleData != null)
-                        caseSimpleData!!.setChatId(t!!.id)
-                    TODO("去回话页面")
+                        caseSimpleData!!.chatId = t!!.id
+                    StartActivityManager.startConversation(context, t!!.id)
                 }
             })
         }

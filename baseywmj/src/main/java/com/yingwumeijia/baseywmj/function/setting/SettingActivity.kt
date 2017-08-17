@@ -10,6 +10,7 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.setting.about.AboutUsActivity
+import com.yingwumeijia.baseywmj.function.setting.pwd.SetPasswordActivity
 import kotlinx.android.synthetic.main.setting_frag.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 
@@ -33,7 +34,7 @@ class SettingActivity : JBaseActivity(), SettingContract.View {
         topLeft.setOnClickListener { close() }
         topTitle.text = "设置"
 
-        btn_set_pwd.setOnClickListener { TODO("设置密码页面") }
+        btn_set_pwd.setOnClickListener { SetPasswordActivity.start(context) }
         btn_clear_cache.setOnClickListener {
             AlertDialog
                     .Builder(context)

@@ -15,6 +15,7 @@ import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import com.yingwumeijia.baseywmj.R
+import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.commonlibrary.base.BaseActivity
 import com.yingwumeijia.commonlibrary.base.BaseFragment
@@ -24,12 +25,11 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
 /**
  * Created by jamisonline on 2017/7/10.
  */
-class OneWebFragment : BaseFragment() {
+class OneWebFragment : JBaseFragment() {
 
     val urlStr by lazy { arguments.getString(Constant.KEY_URL) }
-    val webView: WebView by lazy { WebView(activity) }
     val webSettings by lazy { webView.settings }
-
+    val webView by lazy { WebView(getContext()) }
     val jsBradge by lazy { JsIntelligencer(activity as BaseActivity) }
 
     companion object {
@@ -57,13 +57,15 @@ class OneWebFragment : BaseFragment() {
         activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         toolbar.visibility = View.GONE
 
-        progressDialog.show()
+//        progressDialog.show()
 
         webviewContainerView.addView(webView, FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT))
 
         webSettings.domStorageEnabled = true
+        webSettings.setSupportZoom(false)
+        webSettings.builtInZoomControls = false
         webSettings.setAppCacheMaxSize((1024 * 1024 * 8).toLong())
         webSettings.databaseEnabled = true
         val appCachePath = activity.applicationContext.cacheDir.absolutePath
@@ -85,7 +87,7 @@ class OneWebFragment : BaseFragment() {
 
             override fun onReceivedError(p0: WebView?, p1: Int, p2: String?, p3: String?) {
                 super.onReceivedError(p0, p1, p2, p3)
-                progressDialog.dismiss()
+//                progressDialog.dismiss()
             }
 
         })
@@ -94,7 +96,7 @@ class OneWebFragment : BaseFragment() {
 
             override fun onProgressChanged(p0: WebView?, p1: Int) {
                 super.onProgressChanged(p0, p1)
-                if (p1 > 95) progressDialog.dismiss()
+//                if (p1 > 95) progressDialog.dismiss()
             }
         })
 

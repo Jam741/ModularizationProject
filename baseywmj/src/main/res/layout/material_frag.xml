@@ -12,8 +12,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:descendantFocusability="blocksDescendants"
             android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
             <include layout="@layout/infomation_cost" />
@@ -21,11 +21,11 @@
             <!--品牌造价-->
             <include layout="@layout/infomation_brand" />
 
-            <!--软装陈列-->
-            <include layout="@layout/infomation_design_display" />
-
             <!--户型改造-->
             <include layout="@layout/infomation_design_house" />
+
+            <!--软装陈列-->
+            <include layout="@layout/infomation_design_display" />
 
             <!--施工-->
             <include layout="@layout/infomation_checks" />

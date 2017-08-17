@@ -15,6 +15,8 @@ interface CaseTeamContract {
 
         fun showCeremonyPic(ceremonyBeanList: List<ProductionTeamBean.SurroundingMaterials.CeremonyBean>)
 
+        fun supportMJProject(support: Boolean)
+
     }
 
 

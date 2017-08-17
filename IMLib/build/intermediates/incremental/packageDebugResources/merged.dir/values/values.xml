@@ -5,6 +5,7 @@
     <integer name="rc_audio_encoding_bit_rate">7950</integer>
     <integer name="rc_image_quality">85</integer>
     <integer name="rc_image_size">960</integer>
+    <string name="rc_heartbeat_timer">150000</string>
     <string name="rc_init_failed">连接客服失败</string>
     <string name="rc_location_sharing_ended">位置共享已结束</string>
     <string name="rc_media_message_default_save_path">/RongCloud/Media/</string>

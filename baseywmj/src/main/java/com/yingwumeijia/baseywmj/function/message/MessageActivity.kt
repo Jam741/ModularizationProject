@@ -1,9 +1,14 @@
 package com.yingwumeijia.baseywmj.function.message
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
@@ -11,23 +16,42 @@ import android.widget.TextView
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.function.WebViewManager
 import com.yingwumeijia.baseywmj.function.db.DBManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
+import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
+import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
+import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.message_act.*
+import kotlinx.android.synthetic.main.toolbr_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by jamisonline on 2017/7/5.
  */
-class MessageActivity : JBaseActivity() {
+class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
+    override fun onRefresh() {
+        rv_conten.loadMoreComplete()
+        page_num = 0
+        getData(true)
+    }
+
+    override fun onLoadMore() {
+        page_num++
+        getData(false)
+    }
 
     val MSG_TYPE_COMMON = 1
     val MSG_TYPE_CONVERSATION = 2
@@ -35,12 +59,39 @@ class MessageActivity : JBaseActivity() {
     val MSG_TYPE_TWITTER = 4
     val MSG_TYPE_ORDER = 5
 
+
+    val RECEIVE_MSG = 1
+    private var mRecivedMessageBean: MessageBean? = null
+
+
     var page = Config.page
 
+    internal var page_num = 0
+    internal var page_size = 20
+    internal var lastPosition = 0
+
+    internal var messageBeanList: MutableList<MessageBean> = ArrayList()
+
     val messageAdapter by lazy { createMessageAdapter() }
+    private val allData: List<MessageBean>? by lazy { MessageManager.getMessageList(context) }
+
+    val mHandler: Handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                RECEIVE_MSG ->
+                    //TODO ：处理当前广播接收道德消息
+                    if (mRecivedMessageBean != null)
+                        insertMessage(mRecivedMessageBean!!)
+            }
+        }
+    }
+
+    companion object {
 
 
-    companion object{
+        val ACTION_MESSAGE = "com.yingwumeijia.client.message"
+        val KEY_MESSAGE = "KEY_MESSAGE"
+
         fun start(context: Context) {
             val starter = Intent(context, MessageActivity::class.java)
             context.startActivity(starter)
@@ -50,6 +101,61 @@ class MessageActivity : JBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.message_act)
+        topTitle.text = "消息"
+        registerBoradcastReceiver()
+
+
+        rv_conten.run {
+            layoutManager = LinearLayoutManager(context)
+            setLoadingListener(this@MessageActivity)
+            addFootView(LoadingMoreFooter(context, "没有更多了"))
+            refreshComplete()
+            loadMoreComplete()
+            adapter = messageAdapter
+        }
+        topLeft.setOnClickListener { close() }
+
+        getData(true)
+    }
+
+
+    private fun getData(isRefresh: Boolean) {
+
+        if (ListUtil.isEmpty(allData)) {
+            showEmptyLayout(true)
+            return
+        }
+
+        if (isRefresh) {
+            lastPosition = 0
+        }
+
+        messageBeanList.clear()
+
+
+        if (allData!!.size <= page_size) {
+            messageBeanList.addAll(allData!!)
+        } else {
+            for (i in 0..page_size - 1) {
+                if (lastPosition < allData!!.size) {
+                    messageBeanList.add(allData!!.get(lastPosition))
+                    lastPosition++
+                }
+            }
+        }
+
+
+        if (isRefresh) {
+            showEmptyLayout(messageBeanList.size == 0)
+            messageAdapter.refresh(messageBeanList as ArrayList<MessageBean>)
+            rv_conten.setIsnomore(false)
+            rv_conten.refreshComplete()
+        } else {
+            rv_conten.loadMoreComplete()
+            rv_conten.setIsnomore(messageBeanList.size == 0)
+            messageAdapter.addRange(messageBeanList as ArrayList<MessageBean>)
+        }
+
     }
 
 
@@ -81,6 +187,12 @@ class MessageActivity : JBaseActivity() {
                         btn.visibility = View.VISIBLE
                         btn.text = "查看聊天"
                         btn.setOnClickListener { TODO("去回话详情") }
+                    }
+                    MSG_TYPE_APPOINTMENT -> {
+                        btn.visibility = View.VISIBLE
+                        imageView.setImageResource(R.mipmap.notice_list_notice_ico)
+                        btn.text = "查看详情"
+                        btn.setOnClickListener { internalMessage(messageBean.getMessageId()) }
                     }
                     MSG_TYPE_TWITTER -> {
                         btn.visibility = View.VISIBLE
@@ -151,5 +263,51 @@ class MessageActivity : JBaseActivity() {
 
     private fun showEmptyLayout(empty: Boolean) {
         empty_layout.visibility = if (empty) View.VISIBLE else View.GONE
+    }
+
+    internal var mBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            if (action == ACTION_MESSAGE) {
+                mRecivedMessageBean = intent.getSerializableExtra(KEY_MESSAGE) as MessageBean
+                mHandler.sendEmptyMessage(RECEIVE_MSG)
+            }
+        }
+    }
+
+    /**
+     * 插入一条消息到裂变
+
+     * @param mCurrentMessageBean
+     */
+    private fun insertMessage(mCurrentMessageBean: MessageBean) {
+        if (messageAdapter != null) {
+            messageAdapter.insert(messageAdapter.itemCount, mCurrentMessageBean)
+            if (RongIM.getInstance() != null) {
+                RongIM.getInstance().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, Constant.SYSTEM_TARGET_ID, object : RongIMClient.ResultCallback<Boolean>() {
+                    override fun onSuccess(aBoolean: Boolean?) {
+
+                    }
+
+                    override fun onError(errorCode: RongIMClient.ErrorCode) {
+
+                    }
+                })
+            }
+        }
+    }
+
+
+    fun registerBoradcastReceiver() {
+        val myIntentFilter = IntentFilter()
+        myIntentFilter.addAction(ACTION_MESSAGE)
+        //注册广播
+        registerReceiver(mBroadcastReceiver, myIntentFilter)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(mBroadcastReceiver)
     }
 }

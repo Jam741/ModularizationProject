@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.person.info.PersonInfoActivity
+import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.BaseLoggedFragment
+import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.utils.PhoneNumberUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.person_logged_header_e.*
@@ -18,6 +22,13 @@ import kotlinx.android.synthetic.main.person_logged_header_e.*
  * Created by jamisonline on 2017/6/30.
  */
 class LoggedFragment : BaseLoggedFragment() {
+
+    /**
+     * 是否接受派单
+     */
+    override fun showDistributionStatus(show: Boolean) {
+        switch1.isChecked = show
+    }
 
     override fun onUserDataChanged() {
         userBean = UserManager.getUserData()
@@ -44,15 +55,33 @@ class LoggedFragment : BaseLoggedFragment() {
         imageView.setOnClickListener {
             imageView.setOnClickListener { PersonInfoActivity.start(activity, userBean!!.showHead, userBean!!.showName, PhoneNumberUtils.getCryptographicPhone(userBean!!.userPhone), userBean!!.userDetailTypeDesc) }
         }
+        switch1.setOnCheckedChangeListener { _, isChecked -> distribution(isChecked) }
 
+    }
+
+    /**
+     * 设置是否接受分配
+     */
+    private fun distribution(checked: Boolean) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.distribution(checked), object : SimpleSubscriber<Boolean>(activity) {
+            override fun _onNext(t: Boolean?) {
+                if (t != null) showDistributionStatus(t)
+            }
+
+        })
     }
 
     private fun initView() {
         if (userBean == null) return Unit
+        when (userBean!!.userTypeExtension) {
+            PersonalFragment.USER_TYPE_E_JJGW -> switch1.visibility = View.VISIBLE
+            PersonalFragment.USER_TYPE_E_KFJL -> switch1.visibility = View.VISIBLE
+        }
+
         tv_name.text = userBean!!.showName
         if (TextUtils.isEmpty(userBean!!.showHead))
-            JImageLolder.load(getContext(), iv_portrait, R.mipmap.mine_user_ywmj_circle)
+            JImageLolder.loadPortrait256(getContext(), iv_portrait, R.mipmap.mine_user_ywmj_circle)
         else
-            JImageLolder.load(context, iv_portrait, userBean!!.showHead)
+            JImageLolder.loadPortrait256(getContext(), iv_portrait, userBean!!.showHead)
     }
 }

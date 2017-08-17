@@ -1,8 +1,10 @@
 package com.yingwumeijia.baseywmj.function.web
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -12,15 +14,23 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import com.tencent.smtt.export.external.interfaces.SslError
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler
-import com.tencent.smtt.sdk.WebChromeClient
-import com.tencent.smtt.sdk.WebSettings
-import com.tencent.smtt.sdk.WebView
-import com.tencent.smtt.sdk.WebViewClient
+import com.tencent.smtt.sdk.*
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import kotlinx.android.synthetic.main.super_web_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import android.widget.Toast
+import android.app.Activity.RESULT_OK
+import android.os.Build
+import android.os.Build.VERSION_CODES
+import android.os.Build.VERSION_CODES.LOLLIPOP
+import android.os.Build.VERSION
+import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
+import com.orhanobut.logger.Logger
 
 
 /**
@@ -32,6 +42,11 @@ class OneWebActivity : JBaseActivity() {
     val hasTitle by lazy { intent.getBooleanExtra(Constant.KEY_HAS_TITLE, false) }
     val jsBradge by lazy { JsIntelligencer(this) }
     var titleStr: String? = null
+
+    private var mUploadMessage: ValueCallback<Uri>? = null
+    var uploadMessage: ValueCallback<Array<Uri>>? = null
+    val REQUEST_SELECT_FILE = 100
+    private val FILECHOOSER_RESULTCODE = 1
 
 
     val webView: WebView by lazy { WebView(context) }
@@ -71,6 +86,7 @@ class OneWebActivity : JBaseActivity() {
         val appCachePath = context.applicationContext.cacheDir.absolutePath
         webSettings.setAppCachePath(appCachePath)
         webSettings.allowContentAccess = true
+        webSettings.allowFileAccess = true
         webSettings.setAppCacheEnabled(true)
         webSettings.javaScriptEnabled = true
         webSettings.cacheMode = WebSettings.LOAD_NO_CACHE
@@ -105,6 +121,40 @@ class OneWebActivity : JBaseActivity() {
                 if (hasTitle && TextUtils.isEmpty(titleStr) && !TextUtils.isEmpty(p1))
                     topTitle.text = p1
             }
+
+
+            // For Lollipop 5.0+ Devices
+            override fun onShowFileChooser(mWebView: WebView?, filePathCallback: ValueCallback<Array<Uri>>?, fileChooserParams: FileChooserParams?): Boolean {
+                Logger.d("onShowFileChooser")
+
+                if (uploadMessage != null) {
+                    uploadMessage!!.onReceiveValue(null)
+                    uploadMessage = null
+                }
+
+                uploadMessage = filePathCallback
+
+                val intent = fileChooserParams!!.createIntent()
+                try {
+                    startActivityForResult(intent, REQUEST_SELECT_FILE)
+                } catch (e: ActivityNotFoundException) {
+                    uploadMessage = null
+                    toastWith("Cannot Open File Chooser")
+                    return false
+                }
+
+                return true
+            }
+//
+
+            //For Android 4.1 only
+            override fun openFileChooser(uploadMsg: ValueCallback<Uri>?, acceptType: String?, capture: String?) {
+                mUploadMessage = uploadMsg
+                val intent = Intent(Intent.ACTION_GET_CONTENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "image/*"
+                startActivityForResult(Intent.createChooser(intent, "File Browser"), FILECHOOSER_RESULTCODE)
+            }
         })
 
         webView.addJavascriptInterface(jsBradge, "jsIntelligencer")
@@ -130,9 +180,28 @@ class OneWebActivity : JBaseActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (jsBradge != null)
-            jsBradge!!.onActivityResult(requestCode, resultCode, data)
+        if (requestCode === REQUEST_SELECT_FILE || requestCode === FILECHOOSER_RESULTCODE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (requestCode === REQUEST_SELECT_FILE) {
+                    if (uploadMessage == null)
+                        return
+                    uploadMessage!!.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent))
+                    uploadMessage = null
+                }
+            } else if (requestCode === FILECHOOSER_RESULTCODE) {
+                if (null == mUploadMessage)
+                    return
+                // Use MainActivity.RESULT_OK if you're implementing WebView inside Fragment
+                // Use RESULT_OK only if you're implementing WebView inside an Activity
+                val result = if (intent == null || resultCode !== Activity.RESULT_OK) null else intent.data
+                mUploadMessage!!.onReceiveValue(result)
+                mUploadMessage = null
+            } else
+                toastWith("Failed to Upload Image")
+        } else {
+            if (jsBradge != null)
+                jsBradge!!.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
     override fun onResume() {
@@ -155,6 +224,9 @@ class OneWebActivity : JBaseActivity() {
 
     override fun onDestroy() {
         if (webView != null) {
+            WebStorage.getInstance().deleteAllData()
+            webView.clearCache(true)
+            webView.clearFormData()
             webView.stopLoading()
             webviewContainerView.removeView(webView)
             webView.destroy()

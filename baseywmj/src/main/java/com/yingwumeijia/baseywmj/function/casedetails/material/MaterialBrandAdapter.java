@@ -113,14 +113,14 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
 
         if (!isEmpty(data.get(groupPosition).getBrands())) {
 
-            List<CaseInfomationBean.CostBrandsBean.BrandsBean> brands;
+            ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean> brands = new ArrayList<>();
 
             if (data.get(groupPosition).getBrands().size() > 3) {
-                brands = data.get(groupPosition).getBrands().subList(0, 3);
+                brands.addAll(data.get(groupPosition).getBrands().subList(0, 3));
             } else {
-                brands = data.get(groupPosition).getBrands();
+                brands.addAll(data.get(groupPosition).getBrands());
             }
-            groupViewHolder.gv_pics.setAdapter(createBrandThumbAdapter(convertView.getContext(), (ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean>) brands));
+            groupViewHolder.gv_pics.setAdapter(createBrandThumbAdapter(convertView.getContext(), brands));
             //    initTumber(convertView.getContext(), groupViewHolder.ll_pics, brands);
 
         }
@@ -159,7 +159,7 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
 
 
     private CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean> createBrandThumbAdapter(final Context context, ArrayList<CaseInfomationBean.CostBrandsBean.BrandsBean> brands) {
-        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, brands , R.layout.item_infomation_brands_thumb) {
+        return new CommonAdapter<CaseInfomationBean.CostBrandsBean.BrandsBean>(context, brands, R.layout.item_infomation_brands_thumb) {
             @Override
             public void conver(ViewHolder helper, CaseInfomationBean.CostBrandsBean.BrandsBean item, int position) {
                 helper

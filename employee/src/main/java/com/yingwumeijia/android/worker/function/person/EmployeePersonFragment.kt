@@ -9,6 +9,8 @@ import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
  */
 class EmployeePersonFragment : PersonalFragment() {
 
+    val employeeLoggedHeaderFragment by lazy { LoggedFragment.newInstance() }
+
     override fun getMenuFragment(): PersonMenuFragment {
         return MenuFragment.newInstance()
     }
@@ -21,7 +23,11 @@ class EmployeePersonFragment : PersonalFragment() {
     }
 
     override fun getLoggedHeaderFragment(): BaseLoggedFragment {
-        return LoggedFragment.newInstance()
+        return employeeLoggedHeaderFragment
+    }
+
+    override fun showDistributionStatus(show: Boolean) {
+        super.showDistributionStatus(show)
     }
 
 }

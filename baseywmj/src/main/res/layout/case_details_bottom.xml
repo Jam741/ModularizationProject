@@ -44,10 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/btnComment"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="11.5sp"
-            android:visibility="gone"
+            android:visibility="visible"
             mv:mv_backgroundColor="#FD481F"
             mv:mv_isRadiusHalfHeight="true"
             mv:mv_strokeColor="#ffffff"
@@ -74,19 +75,19 @@
 
     <LinearLayout
         android:id="@+id/btnConnectTeam"
-        android:layout_width="130dp"
+        android:layout_width="163dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/horizontal_margin"
-        android:layout_marginRight="@dimen/horizontal_margin"
-        android:gravity="center_vertical|right">
+        android:background="@color/color_6"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/iv_designerPortrait"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"
-            tools:src="@mipmap/ic_launcher" />
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_designerPortrait"-->
+        <!--android:layout_width="30dp"-->
+        <!--android:layout_height="30dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginRight="7dp"-->
+        <!--tools:src="@mipmap/ic_launcher" />-->
 
 
         <TextView
@@ -94,13 +95,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:drawablePadding="5dp"
-            android:drawableRight="@mipmap/black_ico"
             android:gravity="center"
-            android:text="咨询"
-            android:textColor="@color/color_1"
-            android:textSize="@dimen/font3_sp"
-            android:textStyle="bold" />
+            android:text="咨询团队"
+            android:textColor="@color/bg_whide"
+            android:textSize="@dimen/font8_sp" />
 
     </LinearLayout>
 

@@ -8,17 +8,23 @@ import android.view.ViewGroup
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import kotlinx.android.synthetic.main.case_team_frag.*
 
 /**
  * Created by jamisonline on 2017/6/26.
  */
-class CaseTeamFragment : JBaseFragment(),CaseTeamContract.View {
+class CaseTeamFragment : JBaseFragment(), CaseTeamContract.View {
 
 
     val caseId by lazy { arguments.getInt(Constant.KEY_CASE_DETAIL_ID, Constant.DEFAULT_INT_VALUE) }
 
-    val presenter by lazy { CaseTeamPresenter(this,caseId,this) }
+    val presenter by lazy { CaseTeamPresenter(this, caseId, this) }
+
+    override fun supportMJProject(support: Boolean) {
+        image_mjProject.setImageResource(if (support) R.mipmap.mj_protect_pic else R.mipmap.mj_no_protect_pic)
+        image_mjProject.setOnClickListener { if (support) StartActivityManager.startMjProjectInfoPage(activity) }
+    }
 
     override fun showTeamList(teamData: ProductionTeamBean) {
         rv_Team.run {

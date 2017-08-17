@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/drawable/rc_message_checkbox.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_message_checkbox.xml"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/drawable/rc_bg_sidebar.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_bg_sidebar.xml"
     },
@@ -154,6 +158,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/drawable/rc_btn_public_service_enter_selector.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_btn_public_service_enter_selector.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/drawable/rc_unread_msg_bg_style.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/drawable/rc_unread_msg_bg_style.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/drawable/rc_cs_list_divider_style.xml",

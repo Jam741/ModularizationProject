@@ -18,13 +18,15 @@ interface RealSceneContract {
 
         fun init720Layout(has720: Boolean, caseCoverUrl: String)
 
-        fun initBaseInfoLayout(baseInfo: String, caseStory: String)
+        fun initBaseInfoLayout(baseInfo: String, caseName: String, caseStory: String)
 
         fun initRealPhotoLayout(scenes: List<RealSceneBean.ScenesBean>)
 
         fun initVideoLayout(videoBean: RealSceneBean.DesignVideoBean)
 
         fun initCaseListLayout(caseList: List<CaseBean>)
+
+        fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int)
     }
 
     interface Presenter : JBasePresenter {

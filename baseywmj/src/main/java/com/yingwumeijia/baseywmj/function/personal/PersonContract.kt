@@ -16,6 +16,8 @@ interface PersonContract {
         fun showMenus()
 
         fun showLoginView(logIn: Boolean)
+
+        fun showDistributionStatus(show: Boolean)
     }
 
 

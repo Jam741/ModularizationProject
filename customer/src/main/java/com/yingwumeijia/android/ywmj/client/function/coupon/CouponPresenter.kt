@@ -92,7 +92,7 @@ class CouponPresenter(var context: Activity, var view: CouponContract.View, var 
 
         // Add the second piece
         tv.addPiece(SpannableTextView.Piece.Builder(content).textColor(context.resources.getColor(R.color.bg_whide))
-                .style(Typeface.BOLD).textSize(context.resources.getDimension(R.dimen.font_coupon_item_price2) as Int).build())
+                .style(Typeface.BOLD).textSize(context.resources.getDimension(R.dimen.font_coupon_item_price2).toInt()).build())
 
         // Display the final, styled text
         tv.display()

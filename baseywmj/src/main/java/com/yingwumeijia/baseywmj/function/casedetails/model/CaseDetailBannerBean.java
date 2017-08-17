@@ -23,7 +23,7 @@ public class CaseDetailBannerBean {
     private int bookingOrderId;//v1.3.0 预约订单id,
 
     private boolean collected;
-    private long chatId = 0L;
+    private String chatId;
     /**
      * url :
      * caseName :
@@ -71,11 +71,11 @@ public class CaseDetailBannerBean {
         this.collected = collected;
     }
 
-    public long getChatId() {
+    public String getChatId() {
         return chatId;
     }
 
-    public void setChatId(int chatId) {
+    public void setChatId(String chatId) {
         this.chatId = chatId;
     }
 

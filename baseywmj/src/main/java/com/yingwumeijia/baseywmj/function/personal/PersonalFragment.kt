@@ -1,5 +1,6 @@
 package com.yingwumeijia.baseywmj.function.personal
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,18 @@ import kotlinx.android.synthetic.main.person_title_layout.*
 
 
 abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
+
+    companion object {
+        /*E端角色*/
+        val USER_TYPE_E_NORMAL = 0
+        val USER_TYPE_E_KFJL = 1
+        val USER_TYPE_E_JJGW = 2
+        val USER_TYPE_E_DESIGNER = 3
+
+        /*C端角色*/
+        val USER_TYPE_C_NORMAL = 4
+        val USER_TYPE_C_TWITTER = 5
+    }
 
     val presenter: PersonContract.Presenter by lazy {
         PersonPresenter(this, this, lifecycleSubject)
@@ -81,6 +94,18 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
         btn_message.setOnClickListener { startMessage() }
         btn_scan.setOnClickListener { startScan() }
         showMenus()
+        if (UserManager.isLogin(activity)) {
+            inited = true
+            presenter.initPersonInfo()
+        }
+
+        if (isAppC) {
+            btn_scan.visibility = View.VISIBLE
+            btn_message.visibility = View.VISIBLE
+        } else {
+            btn_scan.visibility = View.GONE
+            btn_message.visibility = View.GONE
+        }
     }
 
     /**
@@ -88,23 +113,38 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
      */
     open fun startScan() {}
 
-    fun startMessage(){StartActivityManager.startMessageActivity(activity)}
+    fun startMessage() {
+        StartActivityManager.startMessageActivity(activity)
+    }
 
-    fun startSetting(){SettingActivity.start(activity)}
+    fun startSetting() {
+        SettingActivity.start(activity)
+    }
 
 
     override fun onResume() {
         super.onResume()
-        if (UserManager.isLogin(activity))
+        if (UserManager.isLogin(activity)) {
+            inited = false
             presenter.initPersonInfo()
+        }
         showLoginView(UserManager.isLogin(activity))
     }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    var isVisibleToUser = true
+    var inited = false
 
     /**
      * 界面是否对用户可见状态回调
      */
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
+        this.isVisibleToUser = isVisibleToUser
         if (isVisibleToUser) {
             showLoginView(UserManager.isLogin(activity))
         } else {
@@ -115,9 +155,14 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
     override fun didUpDateUserData() {
         if (UserManager.isLogin(activity)) {
             loggedFragment.onUserDataChanged()
-            personMenuFragment.initMenuForUserDetailType(UserManager.getUserData()!!.userDetailType)
+            personMenuFragment.initMenuForUserDetailType(UserManager.getUserData()!!.userTypeExtension)
         }
 
+    }
+
+
+    override fun showDistributionStatus(show: Boolean) {
+        loggedFragment.showDistributionStatus(show)
     }
 
 }
