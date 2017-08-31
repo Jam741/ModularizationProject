@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.flyco.tablayout.listener.OnTabSelectListener
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
@@ -28,11 +29,13 @@ class GuidanceFragment : JBaseFragment() {
 
     val views = ArrayList<View>()
 
+    val images = arrayOf(R.mipmap.work_details_guild_1, R.mipmap.work_details_guild_2, R.mipmap.work_details_guild_3)
+
     private fun createViews(): ArrayList<View> {
         return ArrayList<View>().apply {
-            add(GuidanceView(getContext(), R.mipmap.work_details_guild_1))
-            add(GuidanceView(getContext(), R.mipmap.work_details_guild_2))
-            add(GuidanceView(getContext(), R.mipmap.work_details_guild_3))
+            add(GuidanceView(getContext(), images[0]))
+            add(GuidanceView(getContext(), images[1]))
+            add(GuidanceView(getContext(), images[2]))
         }
     }
 
@@ -44,6 +47,7 @@ class GuidanceFragment : JBaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         views.addAll(createViews())
+        vp_guidance.setNoScroll(true)
         vp_guidance.adapter = MyPageAdapter()
         vp_guidance.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -54,18 +58,33 @@ class GuidanceFragment : JBaseFragment() {
                 if (isLastPage && isDragPage && positionOffsetPixels == 0) {   //当前页是最后一页，并且是拖动状态，并且像素偏移量为0
                     if (canJumpPage) {
                         canJumpPage = false
-                        close(false)
+                        close(true)
                     }
                 }
             }
 
             override fun onPageSelected(position: Int) {
                 isLastPage = position == views.size - 1
+                btn_next.text = if (isLastPage) "完成" else "下一步"
             }
         })
+        rootView.setOnClickListener {  }
         tl_title.setViewPager(vp_guidance, mTitles)
-        btn_dontShow.setOnClickListener { close(true) }
-        btn_know.setOnClickListener { close(false) }
+//        for (title in mTitles)
+//            tl_title.addNewTab(title)
+        tl_title.setOnTabSelectListener(object : OnTabSelectListener {
+            override fun onTabSelect(position: Int) {
+//                iv_img.setImageResource(images[position])
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onTabReselect(position: Int) {
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
+        btn_close.setOnClickListener { close(true) }
+        btn_next.setOnClickListener { if (vp_guidance.currentItem == views.size - 1) close(true) else vp_guidance.setCurrentItem(vp_guidance.currentItem + 1, true) }
     }
 
     fun close(dontShow: Boolean) {

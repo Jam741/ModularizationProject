@@ -66,6 +66,21 @@ object IMManager {
     }
 
     /**
+     * 清除未读系统信息
+     */
+    fun cleanUnreadSystemMessage() {
+        if (RongIM.getInstance() != null)
+            RongIM.getInstance().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, Constant.SYSTEM_TARGET_ID, object : RongIMClient.ResultCallback<Boolean>() {
+                override fun onError(p0: RongIMClient.ErrorCode?) {
+
+                }
+
+                override fun onSuccess(p0: Boolean?) {
+                }
+            })
+    }
+
+    /**
      * 删除会话
      */
     fun removeConversation(conversationType: Conversation.ConversationType, sessionId: String) {

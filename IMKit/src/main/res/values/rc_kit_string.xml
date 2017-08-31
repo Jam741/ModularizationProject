@@ -28,7 +28,7 @@
     <string name="rc_conversation_list_popup_cancel_top">取消置顶</string>
     <string name="rc_conversation_List_operation_failure">操作失败</string>
     <string name="rc_conversation_list_default_discussion_name">"讨论组"</string>
-    <string name="rc_conversation_list_empty_prompt">"暂无聊天信息"</string>
+    <string name="rc_conversation_list_empty_prompt">"哎呀，什么都没有呢，快去查看作品吧"</string>
     <string name="rc_conversation_list_not_connected">"尚未连接!"</string>
 
     <string name="rc_message_content_image">[图片]</string>
@@ -73,7 +73,6 @@
     <string name="rc_voice_cancel">松开手指，取消发送</string>
     <string name="rc_voice_short">录音时间太短</string>
     <string name="rc_voice_failure">录音失败！</string>
-    <string name="rc_voice_too_long">录制时间超长</string>
 
 
     <string name="rc_pub_service_info_description">功能介绍</string>
@@ -82,7 +81,7 @@
     <string name="rc_pub_service_info_unfollow">取消关注</string>
     <string name="rc_pub_service_info_account">公众号：%s</string>
 
-    <string name="rc_notice_network_unavailable">当前网络不可用，请检查你的网络设置</string>
+    <string name="rc_notice_network_unavailable">网络连接不可用</string>
     <string name="rc_notice_disconnect">无法连接到服务器</string>
     <string name="rc_notice_tick">该帐号已经在其他设备登录</string>
     <string name="rc_notice_connecting">正在连接服务器</string>
@@ -98,7 +97,7 @@
     <string name="rc_message_unknown">当前版本暂不支持查看此消息</string>
     <string name="rc_new_messages">条新消息</string>
     <string name="rc_info_not_in_discussion">你不在该讨论组</string>
-    <string name="rc_info_not_in_group">你不在该群</string>
+    <string name="rc_info_not_in_group">您与本案实施团队聊天已结束</string>
     <string name="rc_info_not_in_chatroom">你不在该聊天室</string>
     <string name="rc_rejected_by_blacklist_prompt">您的消息已经发出，但被对方拒收</string>
     <string name="rc_info_forbidden_to_talk">您当前在群组中被禁言</string>
@@ -205,7 +204,6 @@
     <string name="rc_item_create_group">创建群组</string>
     <string name="rc_item_created_group">%1$s创建了群组</string>
     <string name="rc_item_invitation">%1$s邀请%2$s加入了群组</string>
-    <string name="rc_item_etc">等</string>
     <string name="rc_item_remove_group_member">%1$s将%2$s移出了群组</string>
     <string name="rc_item_remove_self">%1$s被%2$s移出了群组</string>
     <string name="rc_item_change_group_name">%1$s修改群名称为%2$s</string>
@@ -226,19 +224,4 @@
     <string name="rc_dialog_button_clear">清空</string>
 
     <string name="rc_user_recalled_message">%s撤回了一条消息</string>
-
-    <string name="rc_cs_evaluate">评价</string>
-    <string name="rc_cs_evaluate_title">请对我们本次的服务进行评价</string>
-    <string name="rc_cs_very_satisfactory">非常满意</string>
-    <string name="rc_cs_satisfactory">满意</string>
-    <string name="rc_cs_average">一般</string>
-    <string name="rc_cs_unsatisfactory">不满意</string>
-    <string name="rc_cs_very_unsatisfactory">非常不满意</string>
-    <string name="rc_cs_resolved_or_not">是否解决了您的问题 ?</string>
-    <string name="rc_cs_submit_evaluate_content">提交评价</string>
-    <string name="rc_cs_please_comment">欢迎给我们的服务提建议~</string>
-    <string name="rc_cs_please_leave_message">请您留言, 我们会尽快回复您。</string>
-    <string name="rc_cs_leave_message">留言</string>
-    <string name="rc_cs_submit_message">提交留言</string>
-    <string name="rc_cs_message_submited">您的留言已提交</string>
 </resources>

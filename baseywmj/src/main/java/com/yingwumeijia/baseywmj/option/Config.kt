@@ -66,6 +66,8 @@ object Config {
     val CODE_CALL_PHONE_NUMBER = 1015//获取联系人信息
     val CODE_ORDER_BILL_PAY = 1017//到收银台支付订单账单
     val CODE_GET_BILL_ID = 1018//获取账单ID
+    val CODE_COPY = 1019//复制到粘贴板
+    val CODE_GET_LOGIN_STATUS = 1020//用户是否登录
 
     val BASE_QINIU_URL = "http://o8nljewkg.bkt.clouddn.com/"
 }

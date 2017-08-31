@@ -164,11 +164,9 @@ class MenuFragment : PersonMenuFragment() {
             MenuAction.collect -> if (UserManager.precedent(activity)) CollectActivity.start(activity)
             MenuAction.history -> if (UserManager.precedent(activity)) HistoryViewActivity.start(activity)
             MenuAction.apply -> EnterActivity.start(activity)
-            MenuAction.twitter -> if (UserManager.precedent(activity)) WebViewManager.startFullScreen(activity, SPUtils.get(activity, Constant.KEY_TWITTER_URL, "") as String)
+            MenuAction.twitter -> if (UserManager.precedent(activity)) WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() +"#/twitterInfo")
             MenuAction.advice -> OpinionActivity.start(activity)
-//            MenuAction.invite -> InviteActivity.start(activity)
-            MenuAction.invite -> PDFViewManager.openPDF(activity,"实时","http://o8nljewkg.bkt.clouddn.com/o_1bmtiu6n31g24g0l95shng1u8r1f.pdf")
-
+            MenuAction.invite -> InviteActivity.start(activity)
 
         }
     }

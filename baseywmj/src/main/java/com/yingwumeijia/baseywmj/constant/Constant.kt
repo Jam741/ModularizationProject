@@ -47,5 +47,8 @@ object Constant {
 
     val SYSTEM_TARGET_ID = "ywmj-sys-user"
     val REQUEST_CODE_GET_CONTACT_INFO = 10001
+    val REQUEST_CODE_FOR_PAY = 103
+
+    val WX_PAY_BORAD_COST_ACTION = "ywmj.com.client.wxpay.broadcost"
 
 }

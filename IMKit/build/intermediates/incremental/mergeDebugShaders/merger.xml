@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/jamisonline/Documents/ModularizationProject/IMKit/src/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/jamisonline/Desktop/MvpCliect/IMKit/src/debug/shaders"/></dataSet></merger>

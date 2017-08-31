@@ -52,7 +52,7 @@ class LoggedFragment : BaseLoggedFragment() {
 
     private fun initView() {
         if (userBean == null) return Unit
-        if (TextUtils.isEmpty(userBean!!.name)) return
+        if (TextUtils.isEmpty(userBean!!.showName)) return
         tv_name.text = userBean!!.showName
         if (TextUtils.isEmpty(userBean!!.showHead))
             JImageLolder.loadPortrait256(context.context, iv_portrait, R.mipmap.mine_user_ywmj_circle)

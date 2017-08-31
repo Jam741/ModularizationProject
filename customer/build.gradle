@@ -18,9 +18,11 @@ android {
 
         ndk {
 
-            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+            abiFilters"armeabi"
 
         }
+
+
     }
 
     signingConfigs {
@@ -31,6 +33,7 @@ android {
                 keyPassword KEY_PASSWORD
                 storePassword KEY_PASSWORD
                 storeFile file(STORE_FILE_APTH_CLIECT)
+                v1SigningEnabled true
                 v2SigningEnabled true
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())
@@ -91,15 +94,15 @@ android {
     }
 
     sourceSets {
-        main {
-            java.srcDirs = ['src/main/java']
-            resources.srcDirs = ['src/main/java']
-            renderscript.srcDirs = ['src/main/java']
-            res.srcDirs = ['src/main/res']
-            assets.srcDirs = ['src/main/assets']
-            jni.srcDirs = []
-            jniLibs.srcDirs = ['src/libs']
-        }
+//        main {
+//            java.srcDirs = ['src/main/java']
+//            resources.srcDirs = ['src/main/java']
+//            renderscript.srcDirs = ['src/main/java']
+//            res.srcDirs = ['src/main/res']
+//            assets.srcDirs = ['src/main/assets']
+//            jni.srcDirs = []
+//            jniLibs.srcDirs = ['src/libs']
+//        }
     }
 }
 
@@ -127,7 +130,6 @@ dependencies {
     compile project(':scanlibrary')
     compile(name: 'HMS-SDK-2.4.0.300', ext: 'aar')
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.8'
-    compile files('libs/alipaySingle-20161222.jar')
     compile files('libs/UPPayAssistEx.jar')
     compile files('libs/UPPayPluginExPro.jar')
 }

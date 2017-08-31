@@ -168,13 +168,18 @@ class SplashActivity : JBaseActivity() {
         SeverUrlManager.refreshWebBaseUrl(severBean.webUrl)
         SeverUrlManager.refreshIMKey(severBean.appImkey)
 
-        RongPushClient.registerHWPush(this)
-        RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
+        try {
+//            RongPushClient.registerHWPush(this)
+//            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
 
-        if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
-            RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
-            IMEventManager(BaseApplication.appContext())
+            if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
+                RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
+                IMEventManager(BaseApplication.appContext())
+            }
+        }catch (e :Exception){
+            e.printStackTrace()
         }
+
 
 
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getAdverts(), object : Subscriber<AdvertsBean>() {

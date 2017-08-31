@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@mipmap/mine_nav_bar_notice_ico" />
+                    android:drawableLeft="@mipmap/nav_notice_ico" />
 
                 <ImageView
                     android:id="@+id/iv_messagePoint"

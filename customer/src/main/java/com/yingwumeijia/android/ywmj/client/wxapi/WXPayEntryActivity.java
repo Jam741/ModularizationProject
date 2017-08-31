@@ -23,8 +23,6 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     private IWXAPI api;
 
 
-    public static final String WX_PAY_BORAD_COST_ACTION = "ywmj.com.client.wxpay.broadcost";
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +72,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     private void payResult(boolean success) {
         Intent intent = new Intent();
-        intent.setAction(WX_PAY_BORAD_COST_ACTION);
+        intent.setAction(Constant.INSTANCE.getWX_PAY_BORAD_COST_ACTION());
         intent.putExtra(Constant.INSTANCE.getPAY_SUCCESS_KEY(), success);
         sendBroadcast(intent);
         finish();

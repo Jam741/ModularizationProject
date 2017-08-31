@@ -1,9 +1,13 @@
 package com.yingwumeijia.baseywmj.function.web
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import android.provider.ContactsContract
 import android.support.v4.app.ActivityCompat
 import android.text.TextUtils
@@ -17,6 +21,7 @@ import cn.qqtheme.framework.util.ConvertUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+import com.camitor.pdfviewlibrary.PDFViewManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.kaopiz.kprogresshud.KProgressHUD
@@ -32,6 +37,8 @@ import com.yingwumeijia.baseywmj.entity.UserSession
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
+import com.yingwumeijia.baseywmj.function.cashier.CashierForOrderActivity
+import com.yingwumeijia.baseywmj.function.cashier.CashierPresenter
 import com.yingwumeijia.baseywmj.function.upload.UploadPictureHelper
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.function.web.jsbean.*
@@ -106,24 +113,41 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
     @JavascriptInterface
     fun shareActivity(json: String) {
         var shareModel = gson.fromJson(json, ShareModel::class.java)
-        Glide.with(activity).load(shareModel.img + "?imageView2/1/w/100").asBitmap().into(object : SimpleTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                val shareData = ShareData(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), resource, shareModel.img + "?imageView2/1/w/100", 0)
-                ShareDialog(ShareManager(activity, shareData, object : WbShareCallback {
-                    override fun onWbShareFail() {}
+        Observable.create<Boolean> {
+            Glide.with(activity).load(shareModel.img).asBitmap().into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                    val shareData = ShareData(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), resource, shareModel.img, 0)
+                    ShareDialog(ShareManager(activity, shareData, object : WbShareCallback {
+                        override fun onWbShareFail() {}
 
-                    override fun onWbShareCancel() {}
+                        override fun onWbShareCancel() {}
 
-                    override fun onWbShareSuccess() {}
-                }, object : IUiListener {
-                    override fun onComplete(p0: Any?) {}
+                        override fun onWbShareSuccess() {}
+                    }, object : IUiListener {
+                        override fun onComplete(p0: Any?) {}
 
-                    override fun onCancel() {}
+                        override fun onCancel() {}
 
-                    override fun onError(p0: UiError?) {}
-                })).show()
-            }
-        })
+                        override fun onError(p0: UiError?) {}
+                    })).show()
+                }
+            })
+        }.subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Subscriber<Boolean>() {
+                    override fun onNext(t: Boolean?) {
+//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onError(e: Throwable?) {
+//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onCompleted() {
+//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+                })
+
+
     }
 
 
@@ -231,14 +255,24 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             Config.CODE_PICK_SINGLE_STING -> singleChoosePick(data as String)
             Config.CODE_CALL_PHONE_NUMBER -> if (data != null && VerifyUtils.verifyMobilePhoneNumber(data)) CallUtils.callPhone(data, activity)
             Config.CODE_ORDER_BILL_PAY -> {
-                val activityName = "CashierForOrderActivity"
-                val clazz = Class.forName(activityName)
-                val intent = Intent(activity, clazz)
-                intent.putExtra(Constant.KEY_BILL_ID, data)
-                activity.startActivity(intent)
+                CashierForOrderActivity.start(activity, data!!)
+//                val activityName = "CashierForOrderActivity"
+//                val clazz = Class.forName(activityName)
+//                val intent = Intent(activity, clazz)
+//                intent.putExtra(Constant.KEY_BILL_ID, data)
+//                activity.startActivity(intent)
             }
             Config.CODE_GET_BILL_ID -> {
                 currentJsbridgeInfo!!.data = SPUtils.get(activity, "KEY_CURRENT_BILL_ID", "")
+                invokeH5(currentJsbridgeInfo!!)
+            }
+            Config.CODE_COPY -> {
+                val cm = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData = ClipData.newPlainText("text", data)
+                cm.primaryClip = clipData
+            }
+            Config.CODE_GET_LOGIN_STATUS -> {
+                currentJsbridgeInfo!!.data = UserManager.isLogin(activity)
                 invokeH5(currentJsbridgeInfo!!)
             }
         }
@@ -247,6 +281,18 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
     }
 
     private fun openPage(data: String) {
+        var openBean = Gson().fromJson(data, JsOpenBean::class.java)
+        Logger.d("befo==" + openBean.url)
+        if (openBean.url.toLowerCase().endsWith(".pdf")) {
+            Logger.d(openBean.url)
+            PDFViewManager.openPDF(activity, openBean.title, openBean.url)
+        } else {
+            if (openBean.title == null) {
+                WebViewManager.startFullScreen(activity, openBean.url)
+            } else {
+                WebViewManager.startHasTitle(activity, openBean.url, openBean.title)
+            }
+        }
 
     }
 
@@ -379,6 +425,17 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
         when (requestCode) {
             single_pic_choose_requestcode -> getBundle(data!!.extras)
             contract_info_requestcode -> getUserContactFroData(data)
+            Constant.REQUEST_CODE_FOR_PAY -> {
+                Log.d("jam", "==========ybao_resquest -经来了==========")
+                val isPaySuccess = data!!.getBooleanExtra(Constant.PAY_SUCCESS_KEY, false)
+                if (isPaySuccess) {
+                    Log.d("jam", "==========isPaySuccess -经来了==========")
+                    if (webView != null)
+                        webView.post(Runnable {
+                            webView.loadUrl("javascript:paySuccReturn()")
+                        })
+                }
+            }
         }
     }
 

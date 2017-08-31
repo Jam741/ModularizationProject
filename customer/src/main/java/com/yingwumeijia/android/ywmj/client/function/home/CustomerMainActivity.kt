@@ -56,7 +56,9 @@ class CustomerMainActivity : MainActivity() {
     }
 
     override fun getFragments(): ArrayList<JBaseFragment> {
-        return arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), OneWebFragment.newInstance("http://192.168.28.50:8083/src/template/safeguard/safeguard.html"), CustomerConversationListFragment.newInstance(), CustomerPersonFragment.newInstance())
+        val url = PATHUrlConfig.baseH5Url().replace("appv/","")
+        return arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), OneWebFragment.newInstance("http://192.168.28.50:8089/src/template/safeguard/safeguard.html"), CustomerConversationListFragment.newInstance(), CustomerPersonFragment.newInstance())
+//        return arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), OneWebFragment.newInstance(url + "template/safeguard/safeguard.html"), CustomerConversationListFragment.newInstance(), CustomerPersonFragment.newInstance())
 
     }
 

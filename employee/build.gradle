@@ -31,6 +31,7 @@ android {
                 keyPassword KEY_PASSWORD
                 storePassword KEY_PASSWORD
                 storeFile file(STORE_FILE_APTH_WORKER)
+                v1SigningEnabled true
                 v2SigningEnabled true
             } catch (ex) {
                 throw new InvalidUserDataException(ex.toString())

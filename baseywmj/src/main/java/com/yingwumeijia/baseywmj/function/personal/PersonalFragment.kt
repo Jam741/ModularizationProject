@@ -13,6 +13,7 @@ import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.c.NotLoggedFragment
 import com.yingwumeijia.baseywmj.function.setting.SettingActivity
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
+import com.yingwumeijia.baseywmj.im.IMManager
 import kotlinx.android.synthetic.main.person_title_layout.*
 
 /**
@@ -114,6 +115,7 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
     open fun startScan() {}
 
     fun startMessage() {
+        IMManager.cleanUnreadSystemMessage()
         StartActivityManager.startMessageActivity(activity)
     }
 

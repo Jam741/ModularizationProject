@@ -44,22 +44,22 @@ object PATHUrlConfig {
         Logger.d(BuildConfig.DEBUG)
         var url = ""
         when (buildPath) {
-            0 -> url = BASE_URL_DEV
-            1 -> url = BASE_URL_PRE
-            2 -> url = BASE_URL_RELEASE
-            3 -> url = BASE_URL_TEST
-            4 -> url = BASE_URL_DEFAULT
+            -1 -> return BASE_URL_RELEASE
+            0 -> return BASE_URL_DEV
+            1 -> return BASE_URL_PRE
+            2 -> return BASE_URL_RELEASE
+            3 -> return BASE_URL_TEST
+            4 -> return BASE_URL_DEFAULT
         }
-        return url
-
+        return SeverUrlManager.baseUrl()
     }
 
     fun baseH5Url(): String {
         when (buildPath) {
-            0 -> return BASE_URL_H5_DEV
-            1 -> return BASE_URL_H5_PRE
-            2 -> return BASE_URL_H5_RELEASE
-            3 -> return BASE_URL_H5_TEST
+            0 -> return SeverUrlManager.baseWebUrl()
+            1 -> return SeverUrlManager.baseWebUrl()
+            2 -> return SeverUrlManager.baseWebUrl()
+            3 -> return SeverUrlManager.baseWebUrl()
             4 -> return BASE_URL_H5_DEFAULT
         }
         return SeverUrlManager.baseWebUrl()

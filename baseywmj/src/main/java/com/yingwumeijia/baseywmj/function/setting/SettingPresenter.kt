@@ -1,6 +1,7 @@
 package com.yingwumeijia.baseywmj.function.setting
 
 import android.app.Activity
+import com.tencent.smtt.sdk.WebStorage
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
@@ -48,6 +49,7 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(activity) {
             override fun _onNext(t: String?) {
                 IMManager.loginOut()
+                WebStorage.getInstance().deleteAllData()
                 view.showLoginOutButton(false)
                 UserManager.setLoginStatus(activity, false)
                 LoginActivity.startCurrent(activity)

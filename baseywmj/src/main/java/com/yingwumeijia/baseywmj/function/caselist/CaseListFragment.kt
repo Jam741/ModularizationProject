@@ -16,7 +16,9 @@ import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
 import com.yingwumeijia.baseywmj.entity.bean.CaseTypeEnum
 import com.yingwumeijia.baseywmj.function.main.MainActivity
+import com.yingwumeijia.baseywmj.function.message.MessageActivity
 import com.yingwumeijia.baseywmj.function.search.SearchActivity
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
@@ -362,6 +364,10 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
         if (isAppc) {
             setSystemMessageListener()
             btn_message.visibility = View.VISIBLE
+            btn_message.setOnClickListener {
+                IMManager.cleanUnreadSystemMessage()
+                MessageActivity.start(activity)
+            }
         }
         tv_empty.text = "抱歉，没有匹配的作品\n请选择其他类型或搜索"
         iv_empty.setImageResource(R.mipmap.work_search_no_result_ico)
