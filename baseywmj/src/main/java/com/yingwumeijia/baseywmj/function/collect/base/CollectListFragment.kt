@@ -3,6 +3,7 @@ package com.yingwumeijia.baseywmj.function.collect.base
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,9 +38,14 @@ abstract open class CollectListFragment<T> : JBaseFragment(), CollectListContrac
         super.onViewCreated(view, savedInstanceState)
         tv_empty_layout.text = emptyText()
         rv_content.run {
-
+            adapter = listAdapter
+            setLoadingListener(this@CollectListFragment)
+            layoutManager = layoutManager()
         }
+        presenter.loadData(page,Config.size)
     }
+
+    abstract fun layoutManager():RecyclerView.LayoutManager
 
     abstract fun emptyText(): String
 

@@ -14,6 +14,7 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CaseBean
+import com.yingwumeijia.baseywmj.function.WebViewManager
 import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
@@ -55,10 +56,12 @@ class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
         ScreenUtils.setLayoutScaleByWidth(iv_video_preview, ScreenUtils.screenWidth, 2f / 3f)
     }
 
-    override fun init720Layout(has720: Boolean, caseCoverUrl: String) {
+    override fun init720Layout(has720: Boolean, caseCoverUrl: String, urlOf720: String?) {
         clippingLayoutOf720()
         if (has720) btn_play_720.visibility = View.VISIBLE else btn_play_720.visibility = View.GONE
         JImageLolder.load720(context, iv_preview_of_720, caseCoverUrl)
+        if (!TextUtils.isEmpty(urlOf720))
+            layout_of_720.setOnClickListener { WebViewManager.startHasTitle(activity, urlOf720!!, null) }
     }
 
     override fun initBaseInfoLayout(baseInfo: String, caseName: String, caseStory: String) {

@@ -2,12 +2,18 @@ package com.yingwumeijia.android.ywmj.client.function.coupon.details
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
 import com.camitor.scanlibrary.ScanSDKManager
 import com.google.gson.Gson
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
 import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
@@ -29,6 +35,9 @@ class CouponDetailActivity : JBaseActivity() {
     val couponId by lazy { intent.getIntExtra(Constant.KEY_COUPON_CODE, Constant.DEFAULT_INT_VALUE) }
 
     lateinit var couponCode: String
+
+    val CONPON_COED_STR = "promotion.coupon.code.yingwumeijia.com"
+
 
     companion object {
         fun start(context: Context, couponCode: Int) {
@@ -68,6 +77,9 @@ class CouponDetailActivity : JBaseActivity() {
         var endTime = FromartDateUtil.fromartDateYMdHm(t.endTime)
         tv_date.text = startTime + " - " + endTime
         createSpannableTextViewForCode(tv_code, "券码：", couponCode)
+
+        iv_code.setImageBitmap(encodeAsBitmap(CONPON_COED_STR + t.couponCode))
+
     }
 
 
@@ -146,4 +158,22 @@ class CouponDetailActivity : JBaseActivity() {
 
         })
     }
+
+    internal fun encodeAsBitmap(str: String): Bitmap? {
+        var bitmap: Bitmap? = null
+        var result: BitMatrix? = null
+        val multiFormatWriter = MultiFormatWriter()
+        try {
+            result = multiFormatWriter.encode(str, BarcodeFormat.QR_CODE, 200, 200)
+            // 使用 ZXing Android Embedded 要写的代码
+            val barcodeEncoder = BarcodeEncoder()
+            bitmap = barcodeEncoder.createBitmap(result!!)
+        } catch (e: WriterException) {
+            e.printStackTrace()
+        } catch (iae: IllegalArgumentException) { // ?
+            return null
+        }
+        return bitmap
+    }
+
 }

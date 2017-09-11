@@ -5,6 +5,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
+import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -22,22 +25,29 @@ class CaseTeamFragment : JBaseFragment(), CaseTeamContract.View {
     val presenter by lazy { CaseTeamPresenter(this, caseId, this) }
 
     override fun supportMJProject(support: Boolean) {
-        image_mjProject.setImageResource(if (support) R.mipmap.mj_protect_pic else R.mipmap.mj_no_protect_pic)
-        image_mjProject.setOnClickListener { if (support) StartActivityManager.startMjProjectInfoPage(activity) }
+        Logger.d(support)
+        image_mjProject.setImageResource(if (support) {
+            if (AppTypeManager.isAppC()) R.mipmap.mj_protect_pic_more else R.mipmap.mj_protect_pic
+        } else {
+            R.mipmap.mj_no_protect_pic
+        })
+        image_mjProject.setOnClickListener { if (support && AppTypeManager.isAppC()) StartActivityManager.startMjProjectInfoPage(activity) }
     }
 
     override fun showTeamList(teamData: ProductionTeamBean) {
         rv_Team.run {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(activity)
             adapter = presenter.teamAdapter
         }
     }
 
     override fun showCeremonyPic(ceremonyBeanList: List<ProductionTeamBean.SurroundingMaterials.CeremonyBean>) {
+        Logger.d(Gson().toJson(ceremonyBeanList))
         rv_ceremony.run {
-            layoutManager = LinearLayoutManager(context)
             adapter = presenter.ceremonyAdapter
         }
+        presenter.ceremonyAdapter.refresh(ceremonyBeanList as ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>)
+
     }
 
     companion object {

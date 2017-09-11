@@ -26,6 +26,15 @@ public class CustomerDetailBean {
     private String financialInfoUrl;
     private boolean distributionStatus;
     private boolean homeAdvisorManager;
+    private int commentNum;
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
 
     public UserBean getEmployeeDto() {
         return employeeDto;

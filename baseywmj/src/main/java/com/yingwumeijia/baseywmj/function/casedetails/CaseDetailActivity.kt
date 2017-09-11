@@ -22,7 +22,6 @@ import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import kotlinx.android.synthetic.main.case_details_act.*
 import kotlinx.android.synthetic.main.case_details_bottom.*
 import kotlinx.android.synthetic.main.common_sliding_tab_layout.*
-import kotlinx.android.synthetic.main.toolbr_layout.*
 
 /**
  * Created by Jam on 2017/6/25.
@@ -82,7 +81,7 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
     }
 
     override fun CommentCount(count: Int) {
-        UnreadMsgUtils.show(tv_messageNum, count)
+        UnreadMsgUtils.show(tv_messageNum, count, false)
     }
 
 
@@ -110,10 +109,13 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
             TextViewUtils.setDrawableToLeft(context, topRight, R.mipmap.bottom_collect_ico)
             bottom_layout.visibility = View.VISIBLE
             topRight.visibility = View.GONE
+            topRight_second.visibility = View.GONE
         } else {
             topRight.isEnabled = false
             bottom_layout.visibility = View.GONE
             topRight.setOnClickListener(this)
+            topRight_second.visibility = View.VISIBLE
+            topRight_second.setOnClickListener { presenter.share() }
         }
 
         vp_content.run { adapter = pageAdapter }
@@ -127,6 +129,11 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
 
         if (UserManager.guidanceCaseDetailsNeedShow(context))
             showGuidanceFragment()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
     }
 
     fun removeGuidanceFragment() {

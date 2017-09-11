@@ -1,11 +1,13 @@
 package com.yingwumeijia.baseywmj.entity.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Jam on 2016/12/8 下午12:00.
  * Describe:
  */
 
-public class MemberBean {
+public class MemberBean implements Serializable{
 
 
     /**

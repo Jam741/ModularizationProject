@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import com.orhanobut.logger.Logger
 import com.tencent.smtt.export.external.interfaces.SslError
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler
 import com.tencent.smtt.sdk.WebChromeClient
@@ -122,6 +123,9 @@ class OneWebFragment : JBaseFragment() {
 
 
     override fun onResume() {
+        webView.post {
+            webView.loadUrl("javascript:reloadList()")
+        }
         super.onResume()
         if (jsBradge != null)
             jsBradge!!.onResume()

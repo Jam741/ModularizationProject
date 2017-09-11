@@ -30,7 +30,13 @@ import android.os.Build.VERSION_CODES.LOLLIPOP
 import android.os.Build.VERSION
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
+import android.provider.MediaStore
 import com.orhanobut.logger.Logger
+import android.support.v4.app.ActivityCompat.startActivityForResult
+import android.provider.MediaStore.EXTRA_OUTPUT
+import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
+import java.io.File
+import java.io.IOException
 
 
 /**
@@ -43,10 +49,16 @@ class OneWebActivity : JBaseActivity() {
     val jsBradge by lazy { JsIntelligencer(this) }
     var titleStr: String? = null
 
+
+    val INPUT_FILE_REQUEST_CODE = 1
     private var mUploadMessage: ValueCallback<Uri>? = null
-    var uploadMessage: ValueCallback<Array<Uri>>? = null
-    val REQUEST_SELECT_FILE = 100
-    private val FILECHOOSER_RESULTCODE = 1
+    private val FILECHOOSER_RESULTCODE = 2
+    private var mFilePathCallback: ValueCallback<Array<Uri>>? = null
+
+//    private var mUploadMessage: ValueCallback<Uri>? = null
+//    var uploadMessage: ValueCallback<Array<Uri>>? = null
+//    val REQUEST_SELECT_FILE = 100
+//    private val FILECHOOSER_RESULTCODE = 1
 
 
     val webView: WebView by lazy { WebView(context) }
@@ -121,40 +133,9 @@ class OneWebActivity : JBaseActivity() {
                 if (hasTitle && TextUtils.isEmpty(titleStr) && !TextUtils.isEmpty(p1))
                     topTitle.text = p1
             }
-
-
-            // For Lollipop 5.0+ Devices
-            override fun onShowFileChooser(mWebView: WebView?, filePathCallback: ValueCallback<Array<Uri>>?, fileChooserParams: FileChooserParams?): Boolean {
-                Logger.d("onShowFileChooser")
-
-                if (uploadMessage != null) {
-                    uploadMessage!!.onReceiveValue(null)
-                    uploadMessage = null
-                }
-
-                uploadMessage = filePathCallback
-
-                val intent = fileChooserParams!!.createIntent()
-                try {
-                    startActivityForResult(intent, REQUEST_SELECT_FILE)
-                } catch (e: ActivityNotFoundException) {
-                    uploadMessage = null
-                    toastWith("Cannot Open File Chooser")
-                    return false
-                }
-
-                return true
-            }
 //
 
-            //For Android 4.1 only
-            override fun openFileChooser(uploadMsg: ValueCallback<Uri>?, acceptType: String?, capture: String?) {
-                mUploadMessage = uploadMsg
-                val intent = Intent(Intent.ACTION_GET_CONTENT)
-                intent.addCategory(Intent.CATEGORY_OPENABLE)
-                intent.type = "image/*"
-                startActivityForResult(Intent.createChooser(intent, "File Browser"), FILECHOOSER_RESULTCODE)
-            }
+
         })
 
         webView.addJavascriptInterface(jsBradge, "jsIntelligencer")
@@ -180,28 +161,8 @@ class OneWebActivity : JBaseActivity() {
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode === REQUEST_SELECT_FILE || requestCode === FILECHOOSER_RESULTCODE) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                if (requestCode === REQUEST_SELECT_FILE) {
-                    if (uploadMessage == null)
-                        return
-                    uploadMessage!!.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent))
-                    uploadMessage = null
-                }
-            } else if (requestCode === FILECHOOSER_RESULTCODE) {
-                if (null == mUploadMessage)
-                    return
-                // Use MainActivity.RESULT_OK if you're implementing WebView inside Fragment
-                // Use RESULT_OK only if you're implementing WebView inside an Activity
-                val result = if (intent == null || resultCode !== Activity.RESULT_OK) null else intent.data
-                mUploadMessage!!.onReceiveValue(result)
-                mUploadMessage = null
-            } else
-                toastWith("Failed to Upload Image")
-        } else {
             if (jsBradge != null)
                 jsBradge!!.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
     override fun onResume() {

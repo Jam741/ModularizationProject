@@ -96,6 +96,10 @@ class IMEventManager(var context: Context) {
 
 
     val receiveMessageListener = RongIMClient.OnReceiveMessageListener { message, i ->
+
+
+
+
         if (message.content is InformationNotificationMessage) {
             if ((message.content as InformationNotificationMessage).extra != null && (message.content as InformationNotificationMessage).extra == "GROUP_RENAME") {
                 //修改群名称
@@ -124,8 +128,7 @@ class IMEventManager(var context: Context) {
     }
 
     private fun assembleMessageBean(message: io.rong.imlib.model.Message): MessageBean {
-        val gson = Gson()
-        val bean = gson.fromJson<MessageBean>((message.content as TextMessage).content, MessageBean::class.java!!)
+        val bean = Gson().fromJson<MessageBean>((message.content as TextMessage).content, MessageBean::class.java!!)
         bean.messageSendId = message.senderUserId
         bean.messageUserId = "" + UserManager.getUserData()!!.id
         return bean
@@ -179,7 +182,11 @@ class IMEventManager(var context: Context) {
             }
             if (defaultModule != null) {
                 RongExtensionManager.getInstance().unregisterExtensionModule(defaultModule)
-                RongExtensionManager.getInstance().registerExtensionModule(CustomerExtensionModule())
+                if (AppTypeManager.isAppC())
+                    RongExtensionManager.getInstance().registerExtensionModule(CustomerExtensionModule())
+                else
+                    RongExtensionManager.getInstance().registerExtensionModule(EmployeeExtensionModule())
+
             }
         }
     }

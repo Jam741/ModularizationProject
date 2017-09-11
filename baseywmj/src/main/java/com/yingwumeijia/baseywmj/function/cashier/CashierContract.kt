@@ -18,6 +18,7 @@ interface CashierContract {
         fun didPayFailure()
 
         fun initBillSimple(billSimpleInfo: BillSimpleInfo)
+
     }
 
     interface Presenter : JBasePresenter {

@@ -3,6 +3,7 @@ package com.yingwumeijia.sharelibrary
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import com.sina.weibo.sdk.api.TextObject
 import com.sina.weibo.sdk.api.WebpageObject
@@ -23,10 +24,8 @@ import com.tencent.tauth.Tencent
  */
 class ShareManager(var context: Activity, var shareData: ShareData, var wbShareCallback: WbShareCallback, var iUiListener: IUiListener?) {
 
-    companion object{
-        val WB_APP_KEY = "2293291411"
-        var WX_APP_ID = "wxa57345f69f5a674d"
-    }
+    val WB_APP_KEY by lazy { getMetaData(context, "WB_APP_KEY") }
+    val WX_APP_ID by lazy { getMetaData(context, "WX_APP_ID") }
 
     //微博
     val wbShareHandler by lazy { WbShareHandler(context) }
@@ -132,6 +131,37 @@ class ShareManager(var context: Activity, var shareData: ShareData, var wbShareC
         val textObject = TextObject()
         textObject.text = text
         return textObject
+    }
+
+    /**
+     * 获取AndroidManifest中配置的meta-data
+
+     * @param context Context
+     * *
+     * @param key     String
+     * *
+     * @return String
+     */
+    fun getMetaData(context: Context?, key: String?): String? {
+        var metaData: Bundle? = null
+        var value: String? = null
+        if (context == null || key == null) {
+            return null
+        }
+        try {
+            val ai = context.packageManager.getApplicationInfo(
+                    context.packageName, PackageManager.GET_META_DATA)
+            if (null != ai) {
+                metaData = ai.metaData
+            }
+            if (null != metaData) {
+                value = metaData.getString(key)
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            // Nothing to do
+        }
+
+        return value
     }
 
 }

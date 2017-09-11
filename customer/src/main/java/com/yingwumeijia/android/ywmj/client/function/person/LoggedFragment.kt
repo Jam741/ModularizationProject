@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.android.ywmj.client.function.person.info.PersonInfoActivity
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.personal.BaseLoggedFragment
 import com.yingwumeijia.commonlibrary.utils.PhoneNumberUtils
@@ -51,6 +52,7 @@ class LoggedFragment : BaseLoggedFragment() {
     }
 
     private fun initView() {
+        btn_vip.setOnClickListener { StartActivityManager.startVipInfoPage(context.context) }
         if (userBean == null) return Unit
         if (TextUtils.isEmpty(userBean!!.showName)) return
         tv_name.text = userBean!!.showName

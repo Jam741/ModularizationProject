@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -24,6 +25,14 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
  * Created by jamisonline on 2017/7/25.
  */
 class CommentActivity : JBaseActivity(), CommentContract.View, XRecyclerView.LoadingListener {
+
+    override fun showEdittextbody(show: Boolean) {
+        if (show) editTextBodyLl.visibility = View.VISIBLE else View.GONE
+    }
+
+    override fun setInputHint(hint: String) {
+        circleEt.hint = hint
+    }
 
 
     val caseId by lazy { intent.getIntExtra(Constant.KEY_CASE_DETAIL_ID, Constant.DEFAULT_INT_VALUE) }
@@ -59,11 +68,23 @@ class CommentActivity : JBaseActivity(), CommentContract.View, XRecyclerView.Loa
             if (UserManager.precedent(context))
                 if (!TextUtils.isEmpty(circleEt.text.toString().trim())) {
                     val str = circleEt.text.toString()
-                    presenter.commnetAction(trimInnerSpaceStr(str))
+
+                    if (presenter.isRepaly) {
+                        presenter.commentReplay(presenter.mCurrentCommentId, trimInnerSpaceStr(str))
+                    } else {
+                        presenter.commnetAction(trimInnerSpaceStr(str))
+
+                    }
                     circleEt.setText("")
                     hideSoftInput(sendIv)
                 }
         }
+
+
+        editTextBodyLl.visibility = if (AppTypeManager.isAppC()) View.VISIBLE else View.GONE
+
+
+        presenter.getCommnetList(page)
     }
 
     override fun showEmpty(empty: Boolean) {
@@ -96,6 +117,7 @@ class CommentActivity : JBaseActivity(), CommentContract.View, XRecyclerView.Loa
     override fun showReplaySucc(resultBean: CommentResultBean.ResultBean) {
         toastWith("回复成功")
         onRefresh()
+        showEdittextbody(false)
     }
 
     override fun onRefresh() {

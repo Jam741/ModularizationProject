@@ -34,14 +34,18 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.UserSession
+import com.yingwumeijia.baseywmj.entity.bean.ApplyPayMessageBean
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
+import com.yingwumeijia.baseywmj.function.cashier.CashierForActiveActivity
 import com.yingwumeijia.baseywmj.function.cashier.CashierForOrderActivity
 import com.yingwumeijia.baseywmj.function.cashier.CashierPresenter
 import com.yingwumeijia.baseywmj.function.upload.UploadPictureHelper
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.function.web.jsbean.*
+import com.yingwumeijia.baseywmj.im.IMManager
+import com.yingwumeijia.baseywmj.im.message.PayOrderMessageContent
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.utils.Base64Utils
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
@@ -55,6 +59,11 @@ import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.sharelibrary.ShareData
 import com.yingwumeijia.sharelibrary.ShareDialog
 import com.yingwumeijia.sharelibrary.ShareManager
+import io.rong.imkit.RongIM
+import io.rong.imlib.IRongCallback
+import io.rong.imlib.RongIMClient
+import io.rong.imlib.model.Conversation
+import io.rong.imlib.model.Message
 import org.json.JSONException
 import org.json.JSONObject
 import rx.Observable
@@ -113,6 +122,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
     @JavascriptInterface
     fun shareActivity(json: String) {
         var shareModel = gson.fromJson(json, ShareModel::class.java)
+        Logger.d(Gson().toJson(shareModel))
         Observable.create<Boolean> {
             Glide.with(activity).load(shareModel.img).asBitmap().into(object : SimpleTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
@@ -190,11 +200,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
     @JavascriptInterface
     fun toPay(billId: String) {
-        val activityName = "CashierForActiveActivity"
-        val clazz = Class.forName(activityName)
-        val intent = Intent(activity, clazz)
-        intent.putExtra(Constant.KEY_BILL_ID, billId)
-        activity.startActivity(intent)
+        CashierForActiveActivity.start(activity,billId)
     }
 
     @JavascriptInterface
@@ -250,17 +256,12 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             Config.CODE_PAY_RESULT -> payResult(data!!)
             Config.CODE_GET_SINGLE_PHOTO -> getSinglePhoto()
             Config.CODE_OPEN_CASE_DETIAL -> StartActivityManager.startCaseDetailActivity(activity, currentJsbridgeInfo!!.data as Int)
-            Config.CODE_CHOOSE_ADRESS -> showChooseAddress(data as String)
+            Config.CODE_CHOOSE_ADRESS -> showChooseAddress(data)
             Config.CODE_GET_CONTACT_INFO -> getContactInfo()
             Config.CODE_PICK_SINGLE_STING -> singleChoosePick(data as String)
-            Config.CODE_CALL_PHONE_NUMBER -> if (data != null && VerifyUtils.verifyMobilePhoneNumber(data)) CallUtils.callPhone(data, activity)
+            Config.CODE_CALL_PHONE_NUMBER -> if (data != null)  CallUtils.callPhone(data, activity)
             Config.CODE_ORDER_BILL_PAY -> {
                 CashierForOrderActivity.start(activity, data!!)
-//                val activityName = "CashierForOrderActivity"
-//                val clazz = Class.forName(activityName)
-//                val intent = Intent(activity, clazz)
-//                intent.putExtra(Constant.KEY_BILL_ID, data)
-//                activity.startActivity(intent)
             }
             Config.CODE_GET_BILL_ID -> {
                 currentJsbridgeInfo!!.data = SPUtils.get(activity, "KEY_CURRENT_BILL_ID", "")
@@ -271,14 +272,49 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
                 val clipData = ClipData.newPlainText("text", data)
                 cm.primaryClip = clipData
             }
+            Config.CODE_ORDER_PAY_MESSAGE -> sendApplyPayMessage(data!!)
             Config.CODE_GET_LOGIN_STATUS -> {
                 currentJsbridgeInfo!!.data = UserManager.isLogin(activity)
                 invokeH5(currentJsbridgeInfo!!)
+            }
+            Config.CODE_OPEN_UPLOAD -> {
+                openPageNative(data!!)
             }
         }
 
 
     }
+
+
+    private fun sendApplyPayMessage(data: String) {
+
+
+        val payMessageBean = Gson().fromJson<ApplyPayMessageBean>(data, ApplyPayMessageBean::class.java)
+        val payOrderMessageContent = PayOrderMessageContent.obtain(payMessageBean.content, payMessageBean.billAmount, payMessageBean.billTypeStr, payMessageBean.billId.toString(), "1")
+        val myMessage = Message.obtain(IMManager.currentSessionId(activity), Conversation.ConversationType.GROUP, payOrderMessageContent)
+        RongIM.getInstance().sendMessage(myMessage, "支付款项", "支付款项", object : IRongCallback.ISendMediaMessageCallback {
+            override fun onProgress(message: Message, i: Int) {
+
+            }
+
+            override fun onCanceled(message: Message) {
+
+            }
+
+            override fun onAttached(message: Message) {
+
+            }
+
+            override fun onSuccess(message: Message) {
+                ActivityCompat.finishAfterTransition(activity)
+            }
+
+            override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
+                ActivityCompat.finishAfterTransition(activity)
+            }
+        })
+    }
+
 
     private fun openPage(data: String) {
         var openBean = Gson().fromJson(data, JsOpenBean::class.java)
@@ -295,6 +331,25 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
         }
 
     }
+
+
+    private fun openPageNative(data: String) {
+        var openBean = Gson().fromJson(data, JsOpenBean::class.java)
+        Logger.d("befo==" + openBean.url)
+        if (openBean.url.toLowerCase().endsWith(".pdf")) {
+            Logger.d(openBean.url)
+            PDFViewManager.openPDF(activity, openBean.title, openBean.url)
+        } else {
+            if (openBean.title == null) {
+                Logger.d("befo==" + openBean.url)
+                NativeWebActivity.start(activity, openBean.url,null,false)
+            } else {
+                NativeWebActivity.start(activity, openBean.url,openBean.title,true)
+            }
+        }
+
+    }
+
 
 
     fun singleChoosePick(data: String) {
@@ -328,8 +383,8 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
     }
 
-    fun showChooseAddress(data: String) {
-        if (!TextUtils.isEmpty(data)) {
+    fun showChooseAddress(data: String?) {
+        if (!TextUtils.isEmpty(data) && !data.equals("null")) {
             val jsAreaCallbackBean = gson.fromJson<JsAreaCallbackBean>(data, JsAreaCallbackBean::class.java)
             addressPicker.setSelectedItem(jsAreaCallbackBean.province.name, jsAreaCallbackBean.city.name, jsAreaCallbackBean.area.name)
         }
@@ -426,6 +481,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             single_pic_choose_requestcode -> getBundle(data!!.extras)
             contract_info_requestcode -> getUserContactFroData(data)
             Constant.REQUEST_CODE_FOR_PAY -> {
+                if (data==null)return
                 Log.d("jam", "==========ybao_resquest -经来了==========")
                 val isPaySuccess = data!!.getBooleanExtra(Constant.PAY_SUCCESS_KEY, false)
                 if (isPaySuccess) {

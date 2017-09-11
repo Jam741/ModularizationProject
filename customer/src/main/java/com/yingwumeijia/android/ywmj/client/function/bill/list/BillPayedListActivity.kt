@@ -40,7 +40,7 @@ class BillPayedListActivity : JBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bill_list_act)
-        topTitle.text = "等待支付"
+        topTitle.text = "账单明细"
 
         rv_content.run {
             layoutManager = LinearLayoutManager(context)
@@ -48,6 +48,7 @@ class BillPayedListActivity : JBaseActivity() {
         }
 
         topLeft.setOnClickListener { close() }
+        loadData()
     }
 
     fun loadData() {
@@ -70,13 +71,12 @@ class BillPayedListActivity : JBaseActivity() {
 
                 holder.run {
                     setVisible(R.id.line, !isLastOne(position))
-                    setTextWith(R.id.tv_price, shouZhi + billItemBean.amount.intValueExact())
+                    setTextWith(R.id.tv_price, shouZhi + billItemBean.amount.toInt())
                     setTextWith(R.id.tv_name, billItemBean.name)
                     setTextWith(R.id.tv_date, if (billItemBean.payTime == null) "" else FromartDateUtil.fromartDateYMd(billItemBean.payTime))
                     setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
                         override fun itemClick(itemView: View, position: Int) {
-                            TODO("创建订单页面")
-                            BillPayedDetailActivity.start(context, billItemBean.billId.toString())                        }
+                            BillPayedDetailActivity.start(context, billItemBean.billId)                        }
                     })
                 }
 

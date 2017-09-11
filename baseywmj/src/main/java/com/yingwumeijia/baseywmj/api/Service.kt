@@ -186,9 +186,23 @@ interface Service {
      * *
      * @return
      */
-    @PUT("user/setPassword")
+    @PUT("user/changePassword")
     fun setPassword(@Query("oldPassword") oldPassword: String,
                     @Query("newPassword") newPassword: String): Observable<String>
+
+
+    /**
+     * 密码设置
+
+     * @param oldPassword
+     * *
+     * @param newPassword
+     * *
+     * @return
+     */
+    @PUT("user/setPassword")
+    fun setPassword_E(@Query("oldPassword") oldPassword: String,
+                      @Query("newPassword") newPassword: String): Observable<String>
 
 
     /**
@@ -229,6 +243,19 @@ interface Service {
      */
     @GET("case/app/hotkeys")
     fun getHotKeys(): Observable<List<String>>
+
+
+    /**
+     * 获取搜索热词列表
+
+     * @return
+     */
+    @GET("case/employee/hotkeys")
+    fun getHotKeys_E(): Observable<List<String>>
+
+
+    @GET("employee/unread")
+    abstract fun getUnreadBean(): Observable<UnreadBean>
 
 
     /**
@@ -318,6 +345,9 @@ interface Service {
     @GET("case/employee/detail/banner/{caseId}")
     fun getCaseDetailBannerBean_E(@Path("caseId") caseId: Int): Observable<CaseDetailBannerBean>
 
+
+    @GET("activity/last")
+    fun activeLast(): Observable<Int>
 
     /**
      * 创建会话
@@ -730,6 +760,26 @@ interface Service {
 
 
     /**
+     * 获取问候语
+
+     * @return
+     */
+    @GET("im/greetingLanguage")
+    fun getGreetingLanguage(): Observable<GreetingLanguage>
+
+
+    /**
+     * 修改问候语
+
+     * @param greetingLanguage
+     * *
+     * @return
+     */
+    @PUT("im/greetingLanguage")
+    fun putGreetingLanguage(@Body greetingLanguage: GreetingLanguage): Observable<String>
+
+
+    /**
      * 获取会话信息
 
      * @param sessionId
@@ -929,6 +979,22 @@ interface Service {
      */
     @GET("bill/brief/{billId}")
     fun checkBillSimpleInfo(@Path("billId") billId: String): Observable<BillSimpleInfo>
+
+
+    @GET("im/session/{sessionId}/bill/service")
+    fun getBillServiceInfo(@Path("sessionId") sessionId: String): Observable<BillServiceInfo>
+
+
+    /**
+     * 创建账单
+
+     * @param payBillInfo
+     * *
+     * @return
+     */
+    @POST("bill/contract/invitation")
+    abstract fun createPayBill(@Body payBillInfo: PayBillInfo): Observable<String>
+
 
     /**
      * 是否接受分配

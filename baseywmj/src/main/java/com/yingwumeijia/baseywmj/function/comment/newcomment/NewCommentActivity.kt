@@ -30,6 +30,14 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
  */
 class NewCommentActivity : JBaseActivity(), CommentContract.View, XRecyclerView.LoadingListener {
 
+    override fun showEdittextbody(show: Boolean) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setInputHint(hint: String) {
+//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     val presenter by lazy { NewCommenetPresenter(context, this) }
 
     val commentAdapter by lazy { createCommentAdapter() }

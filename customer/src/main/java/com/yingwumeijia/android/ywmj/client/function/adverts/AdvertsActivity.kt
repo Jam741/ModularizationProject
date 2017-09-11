@@ -24,7 +24,7 @@ class AdvertsActivity : JBaseActivity() {
 
     val cycles_time: Long = 1000
 
-    val total_time: Long by lazy { (advertsBean.playTime * 1000).toLong() }
+    val total_time: Long by lazy { ((advertsBean.playTime + 1) * 1000).toLong() }
 
     val countDownTimer: CountDownTimer by lazy {
         object : CountDownTimer(total_time, cycles_time) {
@@ -33,7 +33,11 @@ class AdvertsActivity : JBaseActivity() {
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                tv_time.text = (millisUntilFinished / cycles_time).toString() + "s"
+                if ((millisUntilFinished / cycles_time).toInt() == (advertsBean.playTime + 1)) {
+
+                } else {
+                    tv_time.text = (millisUntilFinished / cycles_time).toString() + "s"
+                }
             }
         }
     }
@@ -59,6 +63,7 @@ class AdvertsActivity : JBaseActivity() {
 
         btn_skip.setOnClickListener {
             countDownTimer.onFinish()
+            countDownTimer.cancel()
         }
     }
 

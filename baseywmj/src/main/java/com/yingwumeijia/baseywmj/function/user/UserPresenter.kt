@@ -86,7 +86,8 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         var ob = Api.service.login(LoginBean(identityInfoBean, userExtensionInfoBean))
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccessBefor(t!!)
+                AccountManager.refreshAccount(t!!.userSession)
+                getIMToken(t!!)
             }
         })
     }
@@ -105,8 +106,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         identityInfoBean.password = RSAUtils.encryptByPublicKey(password)
         identityInfoBean.smsCode = smsCode
 
-        val ob = Api.service.register(LoginBean(identityInfoBean, userExtensionInfoBean, invaCode))
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<RegisterResultBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.register(LoginBean(identityInfoBean, userExtensionInfoBean, invaCode)), object : ProgressSubscriber<RegisterResultBean>(context) {
             override fun _onNext(t: RegisterResultBean?) {
                 if (t!!.isNeedConfirm) {
                     AlertDialog
@@ -117,10 +117,11 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
                             .setNegativeButton(R.string.btn_cancel, { dialog, which -> T.showShort(context, "已取消") })
                             .show()
                 } else {
-                    didLoginSuccessBefor(t!!.customerDto)
+                    AccountManager.refreshAccount(t!!.customerDto.userSession)
+                    getIMToken(t!!.customerDto)
                 }
             }
-        }, publishSubject, true)
+        })
     }
 
 
@@ -134,12 +135,12 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         identityInfoBean.password = RSAUtils.encryptByPublicKey(password)
         identityInfoBean.smsCode = smsCode
 
-        val ob = Api.service.findPassword(LoginBean(identityInfoBean, userExtensionInfoBean))
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.findPassword(LoginBean(identityInfoBean, userExtensionInfoBean)), object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccessBefor(t!!)
+                AccountManager.refreshAccount(t!!.userSession)
+                getIMToken(t!!)
             }
-        }, publishSubject, true)
+        })
     }
 
     /**
@@ -152,7 +153,8 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         var ob = Api.service.confirm(LoginBean(identityInfoBean, userExtensionInfoBean))
         HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<UserBean>(context) {
             override fun _onNext(t: UserBean?) {
-                didLoginSuccessBefor(t!!)
+                AccountManager.refreshAccount(t!!.userSession)
+                getIMToken(t!!)
             }
         }, publishSubject, false)
 
@@ -163,35 +165,31 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      * 发送短信验证码
      */
     override fun sendSmsCode(phone: String, source: Int) {
-        if (!verifySmsCode(phone)) return Unit
+        if (!verifyPhone(phone)) return Unit
         SmsCodeController(context, phone, source, object : SmsCodeController.OnSmsCodeListener {
             override fun success(source: Int) {
                 T.showShort(context, R.string.sendSmsCode_succ)
                 (view as UserContract.SendSmsView).launchSendSmsButtonText()
                 countDownTimer.start()
             }
-        })
+        }).sendSms()
     }
 
 
-    /**
-     * 登录成功前的操作，链接融云
-     */
-    fun didLoginSuccessBefor(userBean: UserBean) {
-        AccountManager.refreshAccount(userBean.userSession)
-        Logger.d("1")
-        if (TextUtils.isEmpty(IMManager.token(context))) {
-            Logger.d("2")
-            getIMToken(userBean)
-        } else
-            connectRong(userBean)
-    }
+//    /**
+//     * 登录成功前的操作，链接融云
+//     */
+//    fun didLoginSuccessBefor(userBean: UserBean) {
+//        AccountManager.refreshAccount(userBean.userSession)
+//        connectRong(userBean)
+//    }
 
     fun getIMToken(userBean: UserBean) {
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(), object : SimpleSubscriber<TokenBean>(context) {
             override fun _onNext(t: TokenBean?) {
+                Logger.d("IMManager" + t!!.token)
                 IMManager.tokenPut(context, t!!.token)
-                connectRong(userBean)
+                connectRong(userBean, t!!.token)
             }
 
         })
@@ -203,6 +201,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      */
     fun didLoginSuccess(userBean: UserBean) {
         UserManager.cacheUserData(userBean)
+        AccountManager.refreshAccount(userBean.userSession)
         UserManager.setLoginStatus(context, true)
         if (userResponseCallBack != null) {
             userResponseCallBack!!.success(userBean)
@@ -213,9 +212,9 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
     /**
      * 链接融云
      */
-    fun connectRong(userBean: UserBean) {
+    fun connectRong(userBean: UserBean, token: String) {
         Handler().post {
-            RongIM.connect(IMManager.token(context), object : RongIMClient.ConnectCallback() {
+            RongIM.connect(token, object : RongIMClient.ConnectCallback() {
                 override fun onSuccess(p0: String?) {
                     Logger.d("onSuccess")
                     didLoginSuccess(userBean)
@@ -263,7 +262,7 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      * 校验密码
      */
     fun verifySmsCode(smsCode: String?): Boolean {
-        if (!VerifyUtils.verifyPassword(smsCode)) {
+        if (!VerifyUtils.verifySmsCode(smsCode)) {
             (view as UserContract.SendSmsView).showInputErrorFromSmsCode()
             return false
         }

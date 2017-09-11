@@ -67,8 +67,8 @@ class PreViewActivity : JBaseActivity(), ViewPager.OnPageChangeListener, ViewPag
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
 
     override fun onPageSelected(position: Int) {
-        if (titles != null) tv_title.text = titles!![position]
-        if (contents != null) tv_content.text = contents!![position]
+        if (titles != null && titles!![position] != null) tv_title.text = titles!![position]
+        if (contents != null && contents!![position] != null) tv_content.text = contents!![position]
         tv_page.text = (position + 1).toString() + "/" + pics.size
     }
 

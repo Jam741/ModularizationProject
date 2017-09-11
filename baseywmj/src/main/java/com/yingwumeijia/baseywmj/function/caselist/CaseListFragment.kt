@@ -24,6 +24,7 @@ import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
 import io.rong.imkit.RongIM
 import io.rong.imkit.manager.IUnReadMessageObserver
+import io.rong.imlib.RongIMClient
 import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.case_list_frag.*
 import kotlinx.android.synthetic.main.empty_layout.*
@@ -365,9 +366,14 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
             setSystemMessageListener()
             btn_message.visibility = View.VISIBLE
             btn_message.setOnClickListener {
+                iv_messagePoint.visibility = View.GONE
                 IMManager.cleanUnreadSystemMessage()
                 MessageActivity.start(activity)
             }
+
+
+
+
         }
         tv_empty.text = "抱歉，没有匹配的作品\n请选择其他类型或搜索"
         iv_empty.setImageResource(R.mipmap.work_search_no_result_ico)
@@ -401,9 +407,11 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
                 .addUnReadMessageCountChangedObserver(
                         IUnReadMessageObserver { i ->
                             if (i > 0) {
-                                iv_messagePoint.visibility = View.VISIBLE
+                                if (iv_messagePoint != null)
+                                    iv_messagePoint.visibility = View.VISIBLE
                             } else {
-                                iv_messagePoint.visibility = View.GONE
+                                if (iv_messagePoint != null)
+                                    iv_messagePoint.visibility = View.GONE
                             }
                         }, *arrayOf(Conversation.ConversationType.SYSTEM))
     }

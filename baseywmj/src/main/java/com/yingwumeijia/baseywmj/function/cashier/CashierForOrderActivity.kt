@@ -99,11 +99,7 @@ class CashierForOrderActivity : JBaseActivity(), CashierContract.View, CashierPr
         tv_unpayAmount.text = "￥ " + billSimpleInfo.cashAmount + ""
         unPayAmount = billSimpleInfo.cashAmount
         cashAmount = billSimpleInfo.cashAmount.toString()
-        if (miniAmount.compareTo(unPayAmount) == -1) {
-            phase_pay_layout.visibility = View.VISIBLE
-        } else {
-            phase_pay_layout.visibility = View.GONE
-        }
+        phase_pay_layout.visibility = if (billSimpleInfo.isSupportedPayPart) View.VISIBLE else View.GONE
         if (billSimpleInfo.isWhetherPayed)
             didPaySuccess()
         if (unPayAmount!!.compareTo(BigDecimal("0.00")) == 0) {
@@ -133,14 +129,14 @@ class CashierForOrderActivity : JBaseActivity(), CashierContract.View, CashierPr
     fun createInputPhasePayDialog(): AlertDialog {
         val phaselayout = LayoutInflater.from(context).inflate(R.layout.pay_phase_layout, null) as CardView
         val edInputPhaseContent = phaselayout.findViewById(R.id.ed_content) as EditText
-        phaselayout.findViewById(R.id.btn_cancel).setOnClickListener {
+        phaselayout.findViewById(R.id.btn_confirm).setOnClickListener {
             if (verifyAmount(edInputPhaseContent.text.toString())) {
                 presenter.toPayPart(phaseAmount!!)
                 inputPhasePayDialog!!.dismiss()
                 edInputPhaseContent.setText("")
             }
         }
-        phaselayout.findViewById(R.id.btn_confirm).setOnClickListener {
+        phaselayout.findViewById(R.id.btn_cancel).setOnClickListener {
             inputPhasePayDialog!!.dismiss()
             edInputPhaseContent.setText("")
         }

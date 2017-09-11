@@ -21,7 +21,7 @@ class MyUserInfoProvider : RongIM.UserInfoProvider {
     private fun findUserById(p0: String): UserInfo? {
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getMemberInfo(p0), object : Subscriber<MemberBean>() {
             override fun onError(e: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
             override fun onNext(t: MemberBean?) {

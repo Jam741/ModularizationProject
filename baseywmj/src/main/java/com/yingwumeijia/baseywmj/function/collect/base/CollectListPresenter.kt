@@ -23,17 +23,17 @@ abstract class CollectListPresenter<T>(var context: Context, var view: CollectLi
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : SimpleSubscriber<T>(context) {
             override fun _onNext(t: T?) {
                 if (t is CollectCompanyBean) {
-                    view.showEmpty(ListUtil.isEmpty(t.result))
+                    view.showEmpty(ListUtil.isEmpty(t.result) && page == Config.page)
                     view.onLoadComplete(page, ListUtil.isEmpty(t.result))
                     if (!ListUtil.isEmpty(t.result))
                         view.onResponse(t.result)
                 } else if (t is CollectEmployeeBean) {
-                    view.showEmpty(ListUtil.isEmpty(t.result))
+                    view.showEmpty(ListUtil.isEmpty(t.result) && page == Config.page)
                     view.onLoadComplete(page, ListUtil.isEmpty(t.result))
                     if (!ListUtil.isEmpty(t.result))
                         view.onResponse(t.result)
                 } else if (t is CollectCaseBean) {
-                    view.showEmpty(ListUtil.isEmpty(t.result))
+                    view.showEmpty(ListUtil.isEmpty(t.result) && page == Config.page)
                     view.onLoadComplete(page, ListUtil.isEmpty(t.result))
                     if (!ListUtil.isEmpty(t.result))
                         view.onResponse(t.result)

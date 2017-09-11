@@ -1,8 +1,6 @@
 package com.yingwumeijia.android.worker.function.home
 
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -12,10 +10,8 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.entity.bean.TokenBean
-import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.active.ActiveFragment
 import com.yingwumeijia.baseywmj.function.caselist.CaseListFragment
-import com.yingwumeijia.baseywmj.function.im.ConversationListFragment
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.IMManager
@@ -43,11 +39,11 @@ class EmployeeMainActivity : MainActivity() {
     }
 
     override fun getIconUnselectIds(): IntArray {
-        return intArrayOf(R.mipmap.tab_work_ico, R.mipmap.tab_favourable_ico, R.mipmap.tab_messgae_ico, R.mipmap.tab_mine_ico)
+        return intArrayOf(R.mipmap.tab_work_ico, R.mipmap.tab_chip_ic, R.mipmap.tab_messgae_ico, R.mipmap.tab_mine_ico)
     }
 
     override fun getIconSelectIds(): IntArray {
-        return intArrayOf(R.mipmap.tab_work_light_ico, R.mipmap.tab_favourable_light_ico, R.mipmap.tab_message_light_ico, R.mipmap.tab_mine_light_ico)
+        return intArrayOf(R.mipmap.tab_work_light_ico, R.mipmap.tab_chip_light_ic, R.mipmap.tab_message_light_ico, R.mipmap.tab_mine_light_ico)
     }
 
 
@@ -57,31 +53,53 @@ class EmployeeMainActivity : MainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (intent.data != null && UserManager.isLogin(context))
-            isFromPush(intent.data)
+//        getLastActivity()
     }
 
+//
+//    private fun isFromPush(uri: Uri) {
+//        //push
+//        if (uri.scheme == "rong" && uri.getQueryParameter("push") != null) {
+//
+//            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
+//            if (intent.data.getQueryParameter("push") == "true") {
+//                enterActivity()
+//            }
+//
+//        } else {//通知过来
+//            //程序切到后台，收到消息后点击进入,会执行这里
+//            if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
+//                enterActivity()
+//            } else {
+////                CustomerMainActivity.start(context)
+////                close()
+//            }
+//        }
+//
+//    }
 
-    private fun isFromPush(uri: Uri) {
-        //push
-        if (uri.scheme == "rong" && uri.getQueryParameter("push") != null) {
-
-            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
-            if (intent.data.getQueryParameter("push") == "true") {
-                enterActivity()
-            }
-
-        } else {//通知过来
-            //程序切到后台，收到消息后点击进入,会执行这里
-            if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
-                enterActivity()
-            } else {
-//                CustomerMainActivity.start(context)
-//                close()
-            }
-        }
-
-    }
+//
+//    private fun getLastActivity() {
+//        HttpUtil.getInstance().toNolifeSubscribe(Api.service.activeLast(), object : Subscriber<Int>() {
+//            override fun onCompleted() {
+//
+//            }
+//
+//            override fun onError(e: Throwable?) {
+//            }
+//
+//            override fun onNext(t: Int?) {
+//                SPUtils.put(context, "KEY_LAST_ACTIVITY", t)
+//                if (SPUtils.get(context, "KEY_LAST_ACTIVITY", 0) == t) {
+//                    tl_main.hideMsg(1)
+//                } else {
+//                    tl_main.showDot(1)
+//                    tl_main.setMsgMargin(1, -5f, 5f)
+//                }
+//            }
+//        })
+//
+//    }
 
 
     /**
@@ -128,9 +146,9 @@ class EmployeeMainActivity : MainActivity() {
 
 
     private fun getTokenFormSever() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object : SimpleSubscriber<TokenBean>(context){
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(), object : SimpleSubscriber<TokenBean>(context) {
             override fun _onNext(t: TokenBean?) {
-                if (t!=null)IMManager.tokenPut(context,t.token)
+                if (t != null) IMManager.tokenPut(context, t.token)
                 reconnect()
             }
 

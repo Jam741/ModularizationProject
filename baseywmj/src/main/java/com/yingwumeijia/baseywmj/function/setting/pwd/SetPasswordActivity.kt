@@ -7,14 +7,17 @@ import android.support.v4.app.ActivityCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
+import com.yingwumeijia.baseywmj.utils.RSAUtils
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import kotlinx.android.synthetic.main.password_set_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
+import rx.Observable
 
 /**
  * Created by jamisonline on 2017/7/27.
@@ -58,10 +61,24 @@ class SetPasswordActivity : JBaseActivity() {
             }
             return@setOnEditorActionListener false
         }
+
+        btn_confirm.setOnClickListener {
+            if (verifyInput()) {
+                changePassword()
+            }
+        }
     }
 
     private fun changePassword() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.setPassword(oldPasswordValue(), newComfirePasswordValue()), object : ProgressSubscriber<String>(context) {
+
+        val ob: Observable<String>
+        if (AppTypeManager.isAppC()) {
+            ob = Api.service.setPassword(RSAUtils.encryptByPublicKey(oldPasswordValue()), RSAUtils.encryptByPublicKey(newComfirePasswordValue()))
+        } else {
+            ob = Api.service.setPassword_E(RSAUtils.encryptByPublicKey(oldPasswordValue()), RSAUtils.encryptByPublicKey(newComfirePasswordValue()))
+        }
+
+        HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 toastWith(R.string.edit_password_succ)
                 close()

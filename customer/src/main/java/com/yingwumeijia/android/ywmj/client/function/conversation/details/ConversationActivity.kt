@@ -140,13 +140,15 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
         if (!TextUtils.isEmpty(titleStr))
             topTitle.text = titleStr
 
-        isPushMessage(intent)
+        enterFragment()
+
+//        isPushMessage(intent)
         presenter.start()
         TextViewUtils.setDrawableToLeft(context, topRight, R.mipmap.im_detail_call_ico)
         showBeginnerGuidance(SPUtils.get(context, Constant.KEY_FIRST_OKEN_CONVERSATION, false) as Boolean)
-        KeyboardChangeListener(this).setKeyBoardListener { isShow, _ ->
-            if (isShow) showQuickInputPop(false)
-        }
+//        KeyboardChangeListener(this).setKeyBoardListener { isShow, _ ->
+//            if (isShow) showQuickInputPop(false)
+//        }
         btn_know.setOnClickListener {
             SPUtils.put(context, Constant.KEY_FIRST_OKEN_CONVERSATION, false)
             showBeginnerGuidance(false)

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.flyco.tablayout.widget.MsgView
+import com.orhanobut.logger.Logger
 
 
 import com.yingwumeijia.baseywmj.R
@@ -38,6 +40,7 @@ class PersonMenuAdapter(private val data: List<MenuInfo>, private val context: C
         holder.divider.visibility = if (position == data.size - 1) View.GONE else View.VISIBLE
         holder.tv_menu.setCompoundDrawables(left_drawable, null, right_drawable, null)
         holder.tv_menu.text = text
+        holder.msgView.visibility = if (data[position].msgView) View.VISIBLE else View.GONE
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +51,7 @@ class PersonMenuAdapter(private val data: List<MenuInfo>, private val context: C
 
         val tv_menu = itemView.findViewById(R.id.tv_menu) as TextView
         val divider = itemView.findViewById(R.id.divider)
+        val msgView = itemView.findViewById(R.id.msgView)
 
         init {
             itemView.setOnClickListener(this)

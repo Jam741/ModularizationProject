@@ -46,10 +46,10 @@ class CouponPresenter(var context: Activity, var view: CouponContract.View, var 
                 }
 
                 if (resultBean.amount == null) {
-                    createSpannableTextViewForPrice(price, "", "" + (resultBean.amount.toInt()))
+                    createSpannableTextViewForPrice(price, "", "免费")
                 } else {
-                    if (resultBean.amount.toInt() != 0) {
-                        createSpannableTextViewForPrice(price, "¥ ", "" + (resultBean.amount.toInt()))
+                    if (resultBean.amount.toFloat() > 0f) {
+                        createSpannableTextViewForPrice(price, "¥ ", "" + resultBean.amount.toInt())
                     } else {
                         createSpannableTextViewForPrice(price, "", "免费")
                     }

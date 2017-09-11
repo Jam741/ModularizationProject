@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.camitor.pdfviewlibrary.PDFViewManager
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.android.ywmj.client.function.bill.MyBillActivity
 import com.yingwumeijia.android.ywmj.client.function.coupon.CouponActivity
-import com.yingwumeijia.android.ywmj.client.function.enter.EnterActivity
+import com.yingwumeijia.baseywmj.function.enter.EnterActivity
 import com.yingwumeijia.android.ywmj.client.function.historyView.HistoryViewActivity
 import com.yingwumeijia.android.ywmj.client.function.invite.InviteActivity
 import com.yingwumeijia.baseywmj.api.Api
-import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.AdvisorInfoBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
@@ -28,7 +26,6 @@ import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.CallUtils
-import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.TextViewUtils
 import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder
@@ -85,7 +82,7 @@ class MenuFragment : PersonMenuFragment() {
         ))
 
         groupList.add(createMenuGroup(
-                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "我的建议"),
+                MenuInfo(MenuAction.advice, R.mipmap.mine_feedback_ico, "意见反馈"),
                 MenuInfo(MenuAction.invite, R.mipmap.mine_invite_friends_ico, "推荐给朋友")
         ))
 

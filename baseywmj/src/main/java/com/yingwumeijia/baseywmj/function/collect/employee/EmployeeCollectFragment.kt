@@ -1,9 +1,10 @@
 package com.yingwumeijia.baseywmj.function.collect.employee
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.yingwumeijia.baseywmj.R
-import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.function.collect.base.CollectListContract
 import com.yingwumeijia.baseywmj.function.collect.base.CollectListFragment
 import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeActivity
@@ -15,6 +16,10 @@ import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
  * Created by jamisonline on 2017/7/1.
  */
 class EmployeeCollectFragment : CollectListFragment<CollectEmployeeBean.ResultBean>(), CollectListContract.View {
+    override fun layoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(activity)
+    }
+
     override fun createListAdapter(): CommonRecyclerAdapter<CollectEmployeeBean.ResultBean> {
 
         return object : CommonRecyclerAdapter<CollectEmployeeBean.ResultBean>(null, context, null, R.layout.item_session_member) {

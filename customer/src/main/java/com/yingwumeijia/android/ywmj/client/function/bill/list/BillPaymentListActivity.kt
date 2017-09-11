@@ -10,6 +10,7 @@ import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.BillIPaymentBean
+import com.yingwumeijia.baseywmj.function.extra.CreateBillServiceActivity
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.ListUtil
@@ -79,8 +80,12 @@ class BillPaymentListActivity : JBaseActivity() {
                     setTextWith(R.id.tv_type, billItemBean.billContentTypeStr)
                     setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
                         override fun itemClick(itemView: View, position: Int) {
-                            TODO("创建订单页面")
-                            //  CreateBillServiceActivity.start(context, billItemBean.getBillId() + "", null, null)
+//                              CreateBillServiceActivity.start(context, billItemBean.billId.toString(), null, null)
+                            val starter = Intent(context, CreateBillServiceActivity::class.java)
+                            starter.putExtra("BILL_ID", billItemBean.billId.toString())
+                            starter.putExtra("SESSION_ID", "")
+                            starter.putExtra("EXTRA", "")
+                            context.startActivity(starter)
                         }
                     })
                 }

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.minecase.MineCaseActivity
 import com.yingwumeijia.baseywmj.function.UserManager
@@ -17,6 +18,7 @@ import com.yingwumeijia.baseywmj.function.personal.PersonMenuFragment
 import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
+import com.yingwumeijia.commonlibrary.utils.SPUtils
 import kotlinx.android.synthetic.main.person_menu.*
 import java.util.ArrayList
 
@@ -132,14 +134,32 @@ class MenuFragment : PersonMenuFragment() {
             PersonalFragment.USER_TYPE_E_KFJL -> refreshMenu(menusForKFJL)
             PersonalFragment.USER_TYPE_E_DESIGNER -> refreshMenu(menusForDesigner)
         }
+
+        if (userTypeExtension == PersonalFragment.USER_TYPE_E_NORMAL || userTypeExtension == PersonalFragment.USER_TYPE_E_DESIGNER) {
+            if (SPUtils.get(activity, "KEY_SHOW_DOT_FOR_MINECASE", false) as Boolean) {
+                showDotForMineCase(true)
+            } else {
+                showDotForMineCase(false)
+            }
+        }
+
+
+    }
+
+    fun showDotForMineCase(show: Boolean) {
+        for (item in personGroupMenuAdapter.data) {
+            for (menu in item) {
+                if (menu.action == MenuAction.mineWorker) menu.msgView = show
+            }
+        }
+        personGroupMenuAdapter.notifyDataSetChanged()
     }
 
 
     override fun itemClick(action: MenuAction) {
 
         when (action) {
-            MenuAction.order -> WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() + "#/supervisionContractForEmployee")
-//            MenuAction.order -> WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() + "#/orderListE")
+            MenuAction.order -> WebViewManager.startFullScreen(activity, PATHUrlConfig.baseH5Url() + "#/orderListE")
             MenuAction.material -> WebViewManager.startFullScreen(activity, SeverUrlManager.baseWebUrl() + "#/materialSubsidyE")
             MenuAction.collect -> CollectActivity.start(activity)
             MenuAction.mineWorker -> MineCaseActivity.start(activity)

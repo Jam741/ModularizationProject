@@ -24,6 +24,7 @@ import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHol
 import com.yingwumeijia.commonlibrary.widget.SpannableTextView
 import rx.Observable
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by jamisonline on 2017/6/29.
@@ -75,7 +76,7 @@ class EmployeePresenter(var activity: Activity, var view: EmployeeContract.View,
     }
 
     private fun createServiceStandardAdapter(): CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean> {
-        return object : CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity, employeeBean!!.serviceStandardDto.serviceStandards as ArrayList<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>, R.layout.item_servicestandard) {
+        return object : CommonAdapter<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>(activity,null, R.layout.item_servicestandard) {
             override fun conver(helper: ViewHolder?, item: EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean?, position: Int) {
 
                 var price = ""
@@ -128,7 +129,7 @@ class EmployeePresenter(var activity: Activity, var view: EmployeeContract.View,
                 view.showIsCollected(t.isCollected)
 
                 if (!ListUtil.isEmpty(t.presentPics)) {
-                    view.showEmployeePhoto(t.presentPics[0])
+                    view.showEmployeePhoto(t.presentPics as ArrayList<String>)
                 }
 
                 if (!ListUtil.isEmpty(t.articles)) {
@@ -145,7 +146,7 @@ class EmployeePresenter(var activity: Activity, var view: EmployeeContract.View,
     override fun loadOtherCase(page: Int) {
         var ob: Observable<List<CaseBean>>
         if (isAppC) ob = Api.service.getEmployeeOtherCaseData_C(employeeId, page, Config.size)
-        else ob = Api.service.getEmployeeOtherCaseData_C(employeeId, page, Config.size)
+        else ob = Api.service.getEmployeeOtherCaseData_E(employeeId, page, Config.size)
 
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : SimpleSubscriber<List<CaseBean>>(activity) {
             override fun _onNext(t: List<CaseBean>?) {

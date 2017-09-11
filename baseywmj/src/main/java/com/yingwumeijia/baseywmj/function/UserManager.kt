@@ -70,6 +70,14 @@ object UserManager {
         Hawk.put(KEY_USER_CACHE_DATA, userBean)
     }
 
+    fun cacheUserTypeExtension(context: Context,userTypeExtension:Int){
+        SPUtils.put(context,"KEY_USER_TYPE_EXTENSION",userTypeExtension)
+    }
+
+    fun getUserTypeExtension(context: Context):Int{
+        return SPUtils.get(context,"KEY_USER_TYPE_EXTENSION",0) as Int
+    }
+
     fun getUserData(): UserBean? {
         var userBean: UserBean? = null
         try {

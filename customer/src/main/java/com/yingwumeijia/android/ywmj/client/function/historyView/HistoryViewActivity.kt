@@ -43,7 +43,6 @@ class HistoryViewActivity : JBaseActivity(), HistoryViewContract.View {
             adapter = presenter.historyViewAdapter
         }
 
-        presenter.start()
     }
 
     override fun onResume() {

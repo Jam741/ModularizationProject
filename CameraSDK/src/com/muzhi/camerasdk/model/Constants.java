@@ -12,6 +12,6 @@ import android.graphics.Bitmap;
 public class Constants {
 	public static Bitmap bitmap;
 	
-	public final static String folderName="CameraSDK";
+	public final static String folderName="YingWuMeiJia";
 	
 }

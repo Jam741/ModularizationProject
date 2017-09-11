@@ -24,9 +24,11 @@ import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.AdvertsBean
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
+import com.yingwumeijia.baseywmj.entity.bean.TokenBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.im.IMEventManager
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.AccountManager
@@ -38,6 +40,7 @@ import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.base.BaseApplication
 import com.yingwumeijia.commonlibrary.utils.AppUtils
 import io.rong.imkit.RongIM
+import io.rong.imlib.RongIMClient
 import io.rong.push.RongPushClient
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -170,17 +173,36 @@ class SplashActivity : JBaseActivity() {
 
         try {
 //            RongPushClient.registerHWPush(this)
-//            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
-
+            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
             if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
                 RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
                 IMEventManager(BaseApplication.appContext())
             }
-        }catch (e :Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
 
+        if (UserManager.isLogin(context)) {
+            connectRongClound( object : RongConnectListener {
+                override fun error() {
+                    UserManager.setLoginStatus(context,false)
+                    checkAdv(severBean)
+                }
+
+                override fun succ() {
+                    checkAdv(severBean)
+                }
+            })
+        } else {
+            checkAdv(severBean)
+        }
+
+
+    }
+
+
+    fun checkAdv(severBean: SeverBean) {
 
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getAdverts(), object : Subscriber<AdvertsBean>() {
             override fun onNext(t: AdvertsBean?) {
@@ -423,5 +445,61 @@ class SplashActivity : JBaseActivity() {
         System.exit(-1)
     }
 
+
+    private fun connectRongClound( rongConnectListener: RongConnectListener) {
+
+
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object :Subscriber<TokenBean>(){
+            override fun onNext(t: TokenBean?) {
+                RongIM.connect(t!!.token, object : RongIMClient.ConnectCallback() {
+
+                    /**
+                     * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+                     */
+                    override fun onTokenIncorrect() {
+                        Log.d("JAM", "=======connectRongClound-onTokenIncorrect")
+                        rongConnectListener.error()
+                    }
+
+                    /**
+                     * 连接融云成功
+                     * @param userid 当前 token
+                     */
+                    override fun onSuccess(userid: String) {
+                        rongConnectListener.succ()
+                    }
+
+                    /**
+                     * 连接融云失败
+                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
+                     */
+                    override fun onError(errorCode: RongIMClient.ErrorCode) {
+                        rongConnectListener.error()
+                        Log.d("JAM", "=======connectRongClound-onError:" + errorCode.message + "|" + errorCode.value)
+                    }
+                })
+            }
+
+            override fun onCompleted() {
+            }
+
+            override fun onError(e: Throwable?) {
+                rongConnectListener.error()
+            }
+        })
+
+        Log.d("JAM", "=======connectRongClound")
+        /**
+         * IMKit SDK调用第二步,建立与服务器的连接
+         */
+
+    }
+
+
+    interface RongConnectListener {
+        fun succ()
+
+        fun error()
+    }
 
 }

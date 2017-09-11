@@ -11,6 +11,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -20,6 +21,7 @@ import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
 import com.yingwumeijia.baseywmj.function.user.UserContract
 import com.yingwumeijia.baseywmj.function.user.UserPresenter
 import com.yingwumeijia.baseywmj.function.user.UserResponseCallBack
+import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import kotlinx.android.synthetic.main.register_layout.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 
@@ -37,7 +39,7 @@ class RegisterActivity : JBaseActivity(), UserContract.RegisterView, UserRespons
         fun start(activity: Activity, currentLogin: Boolean) {
             val starter: Intent = Intent(activity, RegisterActivity::class.java)
             starter.putExtra(Constant.KEY_LOGIN_SOURCE, currentLogin)
-            activity.startActivity(starter)
+            activity.startActivityForResult(starter, LoginActivity.request_code)
         }
     }
 
@@ -52,9 +54,15 @@ class RegisterActivity : JBaseActivity(), UserContract.RegisterView, UserRespons
     override fun success(userBean: UserBean) {}
 
     override fun completed() {
-        close()
-        if (!currentLogin)
+        if (!currentLogin) {
+            close()
             MainActivity.start(context)
+        } else {
+            val intent = Intent()
+            intent.putExtra(Constant.KEY_CURRENT, true)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
     }
 
 
@@ -130,6 +138,7 @@ class RegisterActivity : JBaseActivity(), UserContract.RegisterView, UserRespons
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 btn_register.isEnabled = true
+                btn_sendSmsCode.isEnabled = true
             }
 
             override fun afterTextChanged(s: Editable?) {}

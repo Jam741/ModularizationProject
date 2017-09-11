@@ -52,6 +52,15 @@ public class BillSimpleInfo {
     private String payTime;
     private boolean canPay;
     private boolean canBindCoupons;
+    private boolean supportedPayPart;
+
+    public boolean isSupportedPayPart() {
+        return supportedPayPart;
+    }
+
+    public void setSupportedPayPart(boolean supportedPayPart) {
+        this.supportedPayPart = supportedPayPart;
+    }
 
     public BigDecimal getHandledAmount() {
         return handledAmount;

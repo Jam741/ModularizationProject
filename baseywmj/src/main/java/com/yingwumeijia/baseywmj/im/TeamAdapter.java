@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yingwumeijia.baseywmj.AppTypeManager;
 import com.yingwumeijia.baseywmj.R;
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean;
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder;
@@ -132,6 +133,10 @@ public class TeamAdapter extends BaseExpandableListAdapter {
     }
 
     private void initGroupView(GroupViewHolder groupViewHolder, final int groupPosition) {
+
+        if (!AppTypeManager.INSTANCE.isAppC() && groupPosition == 0) {
+            groupViewHolder.btnAddTeam.setVisibility(View.GONE);
+        }
         groupViewHolder.tvGroupName.setText(groupPosition == 0 ? "业主" : "业者");
     }
 

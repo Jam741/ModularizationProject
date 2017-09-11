@@ -12,6 +12,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -132,6 +133,10 @@ class AddEmployeeActivity : JBaseActivity(), AddMemberContract.View {
             })
         }
         tl_eTitle.setViewPager(vp_content)
+
+        if (!AppTypeManager.isAppC()){
+            employeeLayout.visibility = View.GONE
+        }
 
     }
 

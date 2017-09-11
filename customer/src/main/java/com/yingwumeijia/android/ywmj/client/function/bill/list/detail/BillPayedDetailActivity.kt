@@ -22,7 +22,7 @@ class BillPayedDetailActivity : JBaseActivity() {
     val bilId by lazy { intent.getIntExtra(Constant.KEY_BILL_ID, Constant.DEFAULT_INT_VALUE) }
 
     companion object {
-        fun start(context: Context, billId: String) {
+        fun start(context: Context, billId: Int) {
             val starter = Intent(context, BillPayedDetailActivity::class.java)
             starter.putExtra(Constant.KEY_BILL_ID, billId)
             context.startActivity(starter)

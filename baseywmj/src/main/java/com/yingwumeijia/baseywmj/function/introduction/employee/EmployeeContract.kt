@@ -22,7 +22,7 @@ interface EmployeeContract {
 
         fun showDescribe(describe: String)
 
-        fun showEmployeePhoto(photo: String)
+        fun showEmployeePhoto(photo: ArrayList<String>)
 
         fun initEmployeePhotos(phontos: List<String>)
 

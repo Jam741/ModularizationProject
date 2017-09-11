@@ -104,6 +104,7 @@ class CashierPresenter(val context: Activity, val view: CashierContract.View, va
             override fun _onNext(t: BillSimpleInfo?) {
                 if (t == null) context.finish()
                 view.initBillSimple(t!!)
+
             }
 
         })

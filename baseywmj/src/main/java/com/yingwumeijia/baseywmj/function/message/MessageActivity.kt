@@ -13,6 +13,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
@@ -45,12 +46,12 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
     override fun onRefresh() {
         rv_conten.loadMoreComplete()
         page_num = 0
-        getData(true)
+        refreshData()
     }
 
     override fun onLoadMore() {
         page_num++
-        getData(false)
+        loadMoreData()
     }
 
     val MSG_TYPE_COMMON = 1
@@ -70,7 +71,7 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
     internal var page_size = 20
     internal var lastPosition = 0
 
-    internal var messageBeanList: MutableList<MessageBean> = ArrayList()
+    internal var messageBeanList = ArrayList<MessageBean>()
 
     val messageAdapter by lazy { createMessageAdapter() }
     private val allData: List<MessageBean>? by lazy { MessageManager.getMessageList(context) }
@@ -115,47 +116,91 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
         }
         topLeft.setOnClickListener { close() }
 
-        getData(true)
+        if (ListUtil.isEmpty(allData)) {
+            showEmptyLayout(true)
+        } else {
+            refreshData()
+        }
     }
 
 
-    private fun getData(isRefresh: Boolean) {
+//    private fun getData(isRefresh: Boolean) {
+//
+//        Logger.d(allData!!.size)
+//        if (ListUtil.isEmpty(allData)) {
+//            showEmptyLayout(true)
+//            return
+//        }
+//
+//        if (isRefresh) {
+//            lastPosition = 0
+//        }
+//
+//        messageBeanList.clear()
+//
+//
+//        if (allData!!.size <= page_size) {
+//            messageBeanList.addAll(allData!!)
+//        } else {
+//            for (i in 0..page_size - 1) {
+//                if (lastPosition < allData!!.size) {
+//                    messageBeanList.add(allData!!.get(lastPosition))
+//                    lastPosition++
+//                }
+//            }
+//        }
+//
+//
+//        if (isRefresh) {
+//            showEmptyLayout(messageBeanList.size == 0)
+//            messageAdapter.refresh(messageBeanList as ArrayList<MessageBean>)
+//            rv_conten.setIsnomore(false)
+//            rv_conten.refreshComplete()
+//        } else {
+//            rv_conten.loadMoreComplete()
+//            rv_conten.setIsnomore(messageBeanList.size == 0)
+//            messageAdapter.addRange(messageBeanList as ArrayList<MessageBean>)
+//        }
+//
+//    }
 
+
+    private fun refreshData() {
         if (ListUtil.isEmpty(allData)) {
             showEmptyLayout(true)
             return
         }
-
-        if (isRefresh) {
-            lastPosition = 0
+        messageBeanList.clear()
+        lastPosition = 0
+        if (allData!!.size > page_size) {
+            for (i in 0..9) {
+                messageBeanList.add(allData!!.get(lastPosition))
+                lastPosition++
+            }
+        } else {
+            messageBeanList = allData as ArrayList<MessageBean>
         }
 
+        showEmptyLayout(messageBeanList.size == 0)
+        messageAdapter.refresh(messageBeanList as ArrayList<MessageBean>)
+        rv_conten.setIsnomore(false)
+        rv_conten.refreshComplete()
+    }
+
+
+    private fun loadMoreData() {
         messageBeanList.clear()
-
-
-        if (allData!!.size <= page_size) {
-            messageBeanList.addAll(allData!!)
-        } else {
-            for (i in 0..page_size - 1) {
-                if (lastPosition < allData!!.size) {
+        if (allData!!.size > page_size) {
+            for (i in 0..9) {
+                if (allData!!.get(lastPosition) != null) {
                     messageBeanList.add(allData!!.get(lastPosition))
                     lastPosition++
                 }
             }
         }
-
-
-        if (isRefresh) {
-            showEmptyLayout(messageBeanList.size == 0)
-            messageAdapter.refresh(messageBeanList as ArrayList<MessageBean>)
-            rv_conten.setIsnomore(false)
-            rv_conten.refreshComplete()
-        } else {
-            rv_conten.loadMoreComplete()
-            rv_conten.setIsnomore(messageBeanList.size == 0)
-            messageAdapter.addRange(messageBeanList as ArrayList<MessageBean>)
-        }
-
+        rv_conten.loadMoreComplete()
+        rv_conten.setIsnomore(messageBeanList.size == 0)
+        messageAdapter.addRange(messageBeanList)
     }
 
 

@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
@@ -16,6 +17,8 @@ import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.utils.FromartDateUtil
 import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
+import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter
+import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
@@ -93,13 +96,11 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
     /**
      * 创建竣工图片适配器
      */
-    private fun createCeremonyAdapter(): CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean> {
-        val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>() }
-        if (teamData!!.surroundingMaterials.startCeremony != null) ceremonyBeanList.add(teamData!!.surroundingMaterials.startCeremony)
-        if (teamData!!.surroundingMaterials.endCeremony != null) ceremonyBeanList.add(teamData!!.surroundingMaterials.endCeremony)
-        return object : CommonRecyclerAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(null, fragment, ceremonyBeanList, R.layout.item_ceremony) {
-            override fun convert(holder: RecyclerViewHolder, ceremonyBean: ProductionTeamBean.SurroundingMaterials.CeremonyBean, position: Int) {
-                var itemView = holder.getViewWith(R.id.item_layout) as RelativeLayout
+    private fun createCeremonyAdapter(): CommonAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean> {
+        return object : CommonAdapter<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(fragment.context, null, R.layout.item_ceremony) {
+
+            override fun conver(holder: ViewHolder, ceremonyBean: ProductionTeamBean.SurroundingMaterials.CeremonyBean, position: Int) {
+                var itemView = holder.getView<RelativeLayout>(R.id.item_layout)
                 var imgWidth = Uri.parse(ceremonyBean.pics[0]).getQueryParameter("width").toInt()
                 var imgHeight = Uri.parse(ceremonyBean.pics[0]).getQueryParameter("height").toInt()
                 var lp = itemView.layoutParams
@@ -115,11 +116,13 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                         date = FromartDateUtil.fromartDateYMd(teamData!!.surroundingMaterials.endDate)
                 }
 
+                Logger.d(ceremonyBean.title)
+
                 holder
                         .run {
-                            setTextWith(R.id.tv_title, ceremonyBean.title)
-                            setTextWith(R.id.tv_date, date)
-                            setImageUrl480(fragment!!, R.id.iv_img, ceremonyBean.pics[0])
+                            setText(R.id.tv_title, ceremonyBean.title)
+                            setText(R.id.tv_date, date)
+                            setImageURL480(R.id.iv_img, ceremonyBean.pics[0], fragment!!)
                         }
             }
         }
@@ -136,8 +139,9 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                 if (t != null) {
                     teamData = t
                     view.showTeamList(t)
+                    view.supportMJProject(t.company.isSupportedSupervisor)
 
-                    val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>(); }
+                    val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>() }
                     if (t.surroundingMaterials == null) return
                     if (t.surroundingMaterials.startCeremony != null)
                         ceremonyBeanList.add(t.surroundingMaterials.startCeremony)
@@ -145,7 +149,6 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                         ceremonyBeanList.add(t.surroundingMaterials.endCeremony)
                     if (!ListUtil.isEmpty(ceremonyBeanList))
                         view.showCeremonyPic(ceremonyBeanList)
-                    view.supportMJProject(t.company.isSupportedSupervisor)
                 }
             }
 

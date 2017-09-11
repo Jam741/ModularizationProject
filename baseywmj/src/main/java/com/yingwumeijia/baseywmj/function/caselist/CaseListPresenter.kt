@@ -25,7 +25,7 @@ class CaseListPresenter(var view: CaseListContract.View, var context: Fragment, 
             ob = Api.service.getCaseList(page, Config.size, caseFilterOptionBody)
         else ob = Api.service.getCaseList_E(page, Config.size, caseFilterOptionBody)
 
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : SimpleSubscriber<List<CaseBean>>(context.context) {
+        HttpUtil.getInstance().toNolifeSubscribe(ob, object : SimpleSubscriber<List<CaseBean>>(context.context) {
             override fun _onNext(list: List<CaseBean>?) {
                 view.showEmpty(page == Config.page && ListUtil.isEmpty(list))
                 view.onLoadComplete(page, ListUtil.isEmpty(list))
@@ -33,7 +33,7 @@ class CaseListPresenter(var view: CaseListContract.View, var context: Fragment, 
                     view.onResponseList(list as ArrayList<CaseBean>)
             }
 
-        }, lifecycleSubject)
+        })
     }
 
     init {

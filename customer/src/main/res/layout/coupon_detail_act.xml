@@ -103,6 +103,7 @@
             <ImageView
                 android:id="@+id/iv_code"
                 android:layout_width="216dp"
+                android:layout_marginBottom="20dp"
                 android:layout_height="216dp"
                 android:layout_marginTop="35dp" />
 

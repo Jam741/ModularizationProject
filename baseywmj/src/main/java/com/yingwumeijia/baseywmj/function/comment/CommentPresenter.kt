@@ -5,10 +5,13 @@ import android.content.Context
 import android.graphics.Typeface
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.ImageView
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.CommentResultBean
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
@@ -34,6 +37,10 @@ class CommentPresenter(var context: Activity, var view: CommentContract.View, va
         createCommentAdapter()
     }
 
+    var mCurrentCommentId = 0
+
+    var isRepaly = false
+
 
     private fun createCommentAdapter(): CommonRecyclerAdapter<CommentResultBean.ResultBean> {
         return object : CommonRecyclerAdapter<CommentResultBean.ResultBean>(context, null, null, R.layout.item_comment) {
@@ -45,6 +52,19 @@ class CommentPresenter(var context: Activity, var view: CommentContract.View, va
                     setTextWith(R.id.tv_describe, resultBean.content)
                     setTextWith(R.id.tv_time, getInterval(resultBean.createTime))
                     setVisible(R.id.rv_reply, resultBean.replyList != null)
+                    setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
+                        override fun itemClick(itemView: View, position: Int) {
+                           if (!AppTypeManager.isAppC()){
+                               mCurrentCommentId = resultBean.id
+                               view.setInputHint("回复：" + resultBean.userShowName)
+                               view.showEdittextbody(true)
+                               isRepaly = true
+                           }
+//                            circleEt.setHint("回复：" + resultBean.userShowName)
+//                            edittextbody.setVisibility(View.VISIBLE)
+                        }
+
+                    })
                 }
 
                 if (!ListUtil.isEmpty(resultBean.replyList)) {

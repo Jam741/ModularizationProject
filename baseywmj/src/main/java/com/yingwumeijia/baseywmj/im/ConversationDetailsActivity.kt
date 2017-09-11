@@ -62,16 +62,18 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
     override fun showMemberList(teamListItemBeanList: Map<String, List<MemberBean>>) {
         val teamAdapter = TeamAdapter(teamListItemBeanList, this@ConversationDetailsActivity, sessionId)
         teamAdapter.run {
-            setOnChildClickListener { groupPosition, childPosition -> if (groupPosition != null) EmployeeActivity.start(context, getChild(groupPosition, childPosition).userId, 0) }
+            setOnChildClickListener { groupPosition, childPosition -> if (groupPosition != null && !getChild(groupPosition, childPosition).userType.equals("c")) EmployeeActivity.start(context, getChild(groupPosition, childPosition).userId, 0) }
             setOnChildLongClickListener { groupPosition, childPosition -> showRemoveMemberDialog(getChild(groupPosition, childPosition)) }
         }
         listTeam.run {
             setAdapter(teamAdapter)
             setOnGroupClickListener(ExpandableListView.OnGroupClickListener { parent, v, groupPosition, id ->
-                if (groupPosition == 0)
-                    AddCustomerActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
-                else
+                if (groupPosition == 0) {
+                    if (AppTypeManager.isAppC())
+                        AddCustomerActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
+                } else {
                     AddEmployeeActivity.start(this@ConversationDetailsActivity, sessionId, REQUST_CODE_ADDMEMBER)
+                }
                 return@OnGroupClickListener true
             })
         }

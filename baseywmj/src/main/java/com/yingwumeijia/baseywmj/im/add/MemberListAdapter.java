@@ -7,6 +7,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 
+import com.orhanobut.logger.Logger;
 import com.yingwumeijia.baseywmj.R;
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean;
 import com.yingwumeijia.commonlibrary.utils.ListUtil;
@@ -29,7 +30,6 @@ import java.util.Map;
 
 public class MemberListAdapter extends CommonRecyclerAdapter<MemberBean> {
 
-    private Fragment context;
 
     public MemberListAdapter(Fragment context) {
         this(null, context, null, R.layout.item_session_member);
@@ -45,13 +45,18 @@ public class MemberListAdapter extends CommonRecyclerAdapter<MemberBean> {
     @Override
     public void convert(RecyclerViewHolder holder, final MemberBean memberBean, final int position) {
 
+
         boolean isCustomer = memberBean.getUserType().equals("c");
         holder
                 .setVisible(R.id.employeeLayout, !isCustomer)
                 .setVisible(R.id.tv_cName, isCustomer)
                 .setChecked(R.id.btn_checked, memberBean.isSelected())
                 .setVisible(R.id.iv_right, false);
-        JImageLolder.INSTANCE.loadPortrait256(context, (ImageView) holder.getViewWith(R.id.iv_portrait), memberBean.getShowHead());
+
+        Logger.d(memberBean.getShowHead());
+        Logger.d(holder.getViewWith(R.id.iv_portrait));
+
+        JImageLolder.INSTANCE.loadPortrait256(getFragment(), (ImageView) holder.getViewWith(R.id.iv_portrait), memberBean.getShowHead());
 
         if (isCustomer) {
             holder.setTextWith(R.id.tv_cName, memberBean.getShowName());
@@ -63,7 +68,7 @@ public class MemberListAdapter extends CommonRecyclerAdapter<MemberBean> {
 
         CheckBox checkBox = (CheckBox) holder.getViewWith(R.id.btn_checked);
         checkBox.setEnabled(!memberBean.isJoinSession());//已加入会话的成员不能点击
-        TextViewUtils.setDrawableToLeft(context.getContext(), checkBox, memberBean.isJoinSession() ? R.mipmap.im_added_member_ico : R.drawable.connect_team_selector);
+        TextViewUtils.setDrawableToLeft(getFragment().getContext(), checkBox, memberBean.isJoinSession() ? R.mipmap.im_added_member_ico : R.drawable.connect_team_selector);
 
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -81,7 +86,6 @@ public class MemberListAdapter extends CommonRecyclerAdapter<MemberBean> {
         super.clearnData();
         map.clear();
     }
-
 
     public List<String> getSelectedMembers() {
         List<String> selsetedMembers = new ArrayList<>();

@@ -18,9 +18,10 @@ android {
 
         ndk {
 
-            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+            abiFilters"armeabi"
 
         }
+
     }
 
     signingConfigs {
@@ -67,15 +68,15 @@ android {
 
 
     sourceSets {
-        main {
-            java.srcDirs = ['src/main/java']
-            resources.srcDirs = ['src/main/java']
-            renderscript.srcDirs = ['src/main/java']
-            res.srcDirs = ['src/main/res']
-            assets.srcDirs = ['src/main/assets']
-            jni.srcDirs = []
-            jniLibs.srcDirs = ['src/libs']
-        }
+//        main {
+//            java.srcDirs = ['src/main/java']
+//            resources.srcDirs = ['src/main/java']
+//            renderscript.srcDirs = ['src/main/java']
+//            res.srcDirs = ['src/main/res']
+//            assets.srcDirs = ['src/main/assets']
+//            jni.srcDirs = []
+//            jniLibs.srcDirs = ['src/libs']
+//        }
     }
 
 
@@ -128,12 +129,10 @@ dependencies {
     compile project(':baseywmj')
     testCompile 'junit:junit:4.12'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    compile(name: 'HMS-SDK-2.4.0.300', ext: 'aar')
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.8'
 }
 repositories {
     mavenCentral()
-    flatDir { dirs 'aars' }
     maven {
         url "http://maven.aliyun.com/nexus/content/repositories/releases"
     }

@@ -47,7 +47,7 @@ object VerifyUtils {
         if (TextUtils.isEmpty(smsCode))
             return false
         else
-            return smsCode!!.trim().length == SMS_CODE_LENGTH;
+            return smsCode!!.trim().length == SMS_CODE_LENGTH
     }
 
 

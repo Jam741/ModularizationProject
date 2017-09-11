@@ -21,7 +21,7 @@ class CollectActivity : JBaseActivity() {
 
     val titles = arrayOf("作品", "业者", "公司")
 
-    val fragments = arrayListOf(CaseCollectFragment(), EmployeeCollectFragment(), CompanyCollectFragment())
+    val fragments = arrayListOf(CollectOldFragment(), EmployeeCollectFragment(), CompanyCollectFragment())
 
     val adapter by lazy { TabWithPagerAdapter(supportFragmentManager, titles, fragments) }
 

@@ -20,6 +20,10 @@ interface CommentContract {
         fun commentActionSuss(resultBean: CommentResultBean.ResultBean)
 
         fun showReplaySucc(resultBean: CommentResultBean.ResultBean)
+
+        fun setInputHint(hint:String)
+
+        fun showEdittextbody(show:Boolean)
     }
 
     interface Presenter : JBasePresenter {

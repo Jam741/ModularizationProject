@@ -29,7 +29,7 @@ class MyApp : JBaseApp() {
         super.onCreate()
 
         initHotfix()
-        ShareSDK.init(applicationContext)
+        ShareSDK.init(applicationContext,"2293291411","wxa57345f69f5a674d")
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG

@@ -20,7 +20,7 @@ class NewCommenetPresenter(private val context: Context, private val mView: Comm
 
 
     override fun getCommnetList(pageNum: Int) {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getCommentAllData(pageNum, Config.page), object : SimpleSubscriber<CommentResultBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getCommentAllData(pageNum, Config.size), object : SimpleSubscriber<CommentResultBean>(context) {
             override fun _onNext(t: CommentResultBean?) {
                 if (t == null) return Unit
                 mView.showEmpty(ListUtil.isEmpty(t.result) && pageNum == Config.page)

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_whide"
+    android:orientation="vertical"
+    android:paddingTop="30dp">
+
+
+    <ImageView
+        android:id="@+id/iv_image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:id="@+id/tv_title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/font5_sp"
+        tools:text="原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面原生平面" />
+
+</LinearLayout>

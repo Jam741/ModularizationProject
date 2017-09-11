@@ -16,7 +16,9 @@ import android.widget.AdapterView
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
+import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.entity.TabEntity
@@ -25,15 +27,22 @@ import com.yingwumeijia.baseywmj.function.active.ActiveFragment
 import com.yingwumeijia.baseywmj.function.caselist.CaseListFragment
 import com.yingwumeijia.baseywmj.function.im.ConversationListFragment
 import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
+import io.rong.imkit.RongIM
+import io.rong.imkit.manager.IUnReadMessageObserver
+import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.case_list_option_title.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.main_act.*
 import kotlinx.android.synthetic.main.main_page.*
+import rx.Subscriber
 import java.util.*
 import kotlin.collections.ArrayList
 
 abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener {
+
 
     companion object {
         fun start(context: Activity) {
@@ -59,6 +68,9 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
      * TabLayout
      */
     override fun onTabSelect(position: Int) {
+        if (position == 1) {
+            tl_main.hideMsg(1)
+        }
         viewpager.setCurrentItem(position, false)
         currentFragment = mFragments[position]
     }
@@ -95,6 +107,8 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 
 
+    val conversationTypes = arrayOf(Conversation.ConversationType.GROUP)
+
     override fun onResume() {
         super.onResume()
         hideSoftInput(tl_main)
@@ -103,7 +117,7 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_act)
-        Logger.d("Main","MainActivity onCreated")
+        Logger.d("Main", "MainActivity onCreated")
 
         controller.didCaseFilterSet()
 
@@ -137,7 +151,64 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
         lp.width = ScreenUtils.screenWidth * 8 / 12
         right_drawer.layoutParams = lp
 
+
+        getLastActivity()
+
+
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(IUnReadMessageObserver { i ->
+            if (AppTypeManager.isAppC()) {
+                if (tl_main != null) {
+                    if (i == 0) {
+                        tl_main.hideMsg(3)
+                    } else {
+                        tl_main.showMsg(3, i)
+                        tl_main.setMsgMargin(3, -5f, 5f)
+                    }
+
+                }
+            } else {
+                if (tl_main != null) {
+                    if (i == 0) {
+                        tl_main.hideMsg(2)
+                    } else {
+                        tl_main.showMsg(2, i)
+                        tl_main.setMsgMargin(2, -5f, 5f)
+                    }
+
+                }
+            }
+        }, *conversationTypes)
+
+
+
     }
+
+
+    private fun getLastActivity() {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.activeLast(), object : Subscriber<Int>() {
+            override fun onCompleted() {
+
+            }
+
+            override fun onError(e: Throwable?) {
+            }
+
+            override fun onNext(t: Int?) {
+
+                val lastActivityId = SPUtils.get(context, "KEY_LAST_ACTIVITY", 0) as Int
+                SPUtils.put(context, "KEY_LAST_ACTIVITY", t)
+                if (lastActivityId == t) {
+                    tl_main.hideMsg(1)
+                } else {
+                    tl_main.showMsg(1, 0)
+                    tl_main.setMsgMargin(1, -5f, 5f)
+                }
+
+            }
+        })
+
+    }
+
 
     private fun initTabEntities(): ArrayList<CustomTabEntity> {
         val data = ArrayList<CustomTabEntity>()

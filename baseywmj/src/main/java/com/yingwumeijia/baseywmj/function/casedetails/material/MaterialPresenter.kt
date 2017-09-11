@@ -153,7 +153,21 @@ class MaterialPresenter(var fragment: Fragment, var caseId: Int, var view: Mater
     }
 
     private fun createDesignDisplayAdapter(): CommonRecyclerAdapter<CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean> {
-        return object : CommonRecyclerAdapter<CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean>(null, fragment, infomationBean!!.designMaterials.displayImages as ArrayList<CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean>, R.layout.item_realscene_plane) {
+
+        //组装数据 供查看大图使用
+        val allPics = java.util.ArrayList<String>()
+        val allTitles = java.util.ArrayList<String>()
+        val allContents = java.util.ArrayList<String>()
+        if (!ListUtil.isEmpty(infomationBean!!.designMaterials.displayImages))
+            for (bean in infomationBean!!.designMaterials.displayImages) {
+                for (pic in bean.getPics()) {
+                    allPics.add(pic)
+                    allTitles.add(bean.getTitle())
+                    allContents.add(bean.getExplain())
+                }
+            }
+
+        return object : CommonRecyclerAdapter<CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean>(null, fragment, infomationBean!!.designMaterials.displayImages as ArrayList<CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean>, R.layout.item_infomation_display_photo) {
             override fun convert(holder: RecyclerViewHolder, t: CaseInfomationBean.DesignMaterialsBean.DisplayImagesBean, position: Int) {
 
                 val pics = t.pics
@@ -161,7 +175,7 @@ class MaterialPresenter(var fragment: Fragment, var caseId: Int, var view: Mater
                     setTextWith(R.id.tv_title1, t.explain)
                     setImageUrl480(fragment!!, R.id.iv_image1, pics[0])
                     setOnClickListener(R.id.iv_image1, View.OnClickListener {
-                        PreViewActivity.start(mContext!!, previewModelForDesignDisplay, position)
+                        PreViewActivity.start(mContext!!, PreviewModel(allPics, allTitles, allContents), position)
                     })
                 }
             }

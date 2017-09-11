@@ -34,20 +34,11 @@
             tools:text="ExpandableTextViewExpandableTextViewExpandableTextViewExpandableTextView" />
 
         <TextView
-            android:id="@+id/topRightSecond"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:drawableLeft="@mipmap/im_detail_member_ico"
-            android:gravity="center_vertical"
-            android:paddingRight="22dp"
-            tools:ignore="RelativeOverlap,RtlSymmetry" />
-
-        <TextView
             android:id="@+id/topRight"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:drawableLeft="@mipmap/im_detail_call_ico"
+            android:drawableLeft="@mipmap/im_detail_member_ico"
             android:gravity="center_vertical"
             android:paddingRight="22dp"
             tools:ignore="RelativeOverlap,RtlSymmetry" />

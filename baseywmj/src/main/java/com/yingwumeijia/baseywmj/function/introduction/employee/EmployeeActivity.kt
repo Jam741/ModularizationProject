@@ -19,7 +19,10 @@ import com.yingwumeijia.baseywmj.entity.bean.CaseBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
 import com.yingwumeijia.baseywmj.function.introduction.serviceStandard.ServiceStandardActivity
+import com.yingwumeijia.baseywmj.function.previewPic.PreViewActivity
+import com.yingwumeijia.baseywmj.function.previewPic.PreviewModel
 import com.yingwumeijia.baseywmj.option.Config
+import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.TextViewUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
@@ -36,6 +39,9 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
     val employeeId by lazy { intent.getIntExtra(Constant.KEY_EMPLOYEE_ID, Constant.DEFAULT_INT_VALUE) }
     val caseId by lazy { intent.getIntExtra(Constant.KEY_CASE_DETAIL_ID, Constant.DEFAULT_INT_VALUE) }
     val presenter by lazy { EmployeePresenter(context, this, employeeId, caseId) }
+
+
+    val photosPic by lazy { ArrayList<String>() }
 
     var isCollected = false
 
@@ -83,7 +89,7 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
     }
 
     override fun setEmployeePortrait(portraitUrl: String) {
-        JImageLolder.load256(context, headerViewHolder.ivPortrait, portraitUrl)
+        JImageLolder.loadPortrait256(context, headerViewHolder.ivPortrait, portraitUrl)
     }
 
     override fun showEmployeeName(name: String) {
@@ -102,8 +108,10 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
         headerViewHolder.tvDescribe.text = describe
     }
 
-    override fun showEmployeePhoto(photo: String) {
-        JImageLolder.load720(context, headerViewHolder.iv_personShow, photo)
+    override fun showEmployeePhoto(photo: ArrayList<String>) {
+        if (!ListUtil.isEmpty(photo))
+            JImageLolder.load720(context, headerViewHolder.iv_personShow, photo[0])
+        photosPic.addAll(photo)
     }
 
     override fun initEmployeePhotos(phontos: List<String>) {
@@ -129,6 +137,9 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
                 ServiceStandardActivity.start(context, bean.serviceName, bean.serviceType, employeeId, 2)
             }
         }
+
+        if (!ListUtil.isEmpty(serviceStandardDtoBean.serviceStandards))
+            presenter.serviceStandardAdapter.refresh(serviceStandardDtoBean.serviceStandards as java.util.ArrayList<EmployeeIntroductionBean.ServiceStandardDtoBean.ServiceStandardsBean>)
     }
 
     override fun responseOtherCase(list: List<CaseBean>) {
@@ -169,12 +180,12 @@ class EmployeeActivity : JBaseActivity(), EmployeeContract.View, View.OnClickLis
     class HeaderViewHolder(var activity: Activity, var rootView: View) : View.OnClickListener {
         override fun onClick(v: View?) {
             when (v!!.id) {
-                R.id.tv_personShow -> TODO("预览图片")
-                R.id.tv_personShow -> TODO("预览图片")
+                R.id.tv_personShow -> PreViewActivity.start(activity, PreviewModel((activity as EmployeeActivity).photosPic, null, null), 0)
+                R.id.iv_personShow -> PreViewActivity.start(activity, PreviewModel((activity as EmployeeActivity).photosPic, null, null), 0)
             }
         }
 
-        val ivPortrait: CircleImageView by lazy { rootView.findViewById(R.id.iv_portrait) as CircleImageView }
+        val ivPortrait: ImageView by lazy { rootView.findViewById(R.id.iv_portrait) as ImageView }
         val tvName: TextView by lazy { rootView.findViewById(R.id.tv_name) as TextView }
         val tv_job: TextView by lazy { rootView.findViewById(R.id.tv_job) as TextView }
         val tv_companyName: TextView by lazy { rootView.findViewById(R.id.tv_companyName) as TextView }

@@ -16,6 +16,7 @@ import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.enter.EnterActivity
 import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.user.UserContract
 import com.yingwumeijia.baseywmj.function.user.UserPresenter
@@ -34,6 +35,10 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
     val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
 
     companion object {
+
+        val request_code = 902
+
+
         fun start(context: Context, currentLogin: Boolean) {
             val starter = Intent(context, LoginActivity::class.java)
             starter.putExtra(Constant.KEY_LOGIN_SOURCE, currentLogin)
@@ -94,7 +99,19 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
         UserManager.setLoginStatus(context, false)
 
         /*E端隐藏注册按钮*/
-        if (isAppC) btn_register.visibility = View.VISIBLE else btn_register.visibility = View.GONE
+        if (isAppC) {
+            btn_register.text = "注册新账号"
+            btn_register.setOnClickListener { RegisterActivity.start(context, currentLogin) }
+
+            btn_findPwd.text = "找回密码"
+            btn_findPwd.setOnClickListener { v: View? -> FindPwdActivity.start(context, currentLogin) }
+        } else {
+            btn_register.text = "找回密码"
+            btn_register.setOnClickListener { FindPwdActivity.start(context, currentLogin) }
+
+            btn_findPwd.text = "申请入驻"
+            btn_findPwd.setOnClickListener { v: View? -> EnterActivity.start(context) }
+        }
 
         ed_phone.addTextChangedListener(object : TextWatcher {
 
@@ -118,8 +135,6 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
 
 
         btn_login.setOnClickListener { v: View? -> didLogin() }
-        btn_findPwd.setOnClickListener { v: View? -> FindPwdActivity.start(context, currentLogin) }
-        btn_register.setOnClickListener { v: View? -> RegisterActivity.start(context, currentLogin) }
 
     }
 
@@ -142,12 +157,22 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (!isAppC) {
-                close()
+                android.os.Process.killProcess(android.os.Process.myPid())
                 System.exit(0)
                 return true
             }
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == request_code) {
+            if (data != null) {
+                val success = data.getBooleanExtra(Constant.KEY_CURRENT, false)
+                if (success)
+                    close()
+            }
+        }
     }
 
 }

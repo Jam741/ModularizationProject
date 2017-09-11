@@ -16,15 +16,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.PopupWindow
+import android.widget.*
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.home.EmployeeMainActivity
+import com.yingwumeijia.baseywmj.base.BaseConversationActivity
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
+import com.yingwumeijia.baseywmj.entity.bean.GreetingLanguage
 import com.yingwumeijia.baseywmj.function.StartActivityManager
+import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.ConversationDetailsActivity
@@ -45,7 +47,8 @@ import java.util.*
 /**
  * Created by jamisonline on 2017/8/2.
  */
-class ConversationActivity :JBaseActivity(),ConversationControact.View{
+class ConversationActivity : BaseConversationActivity(), ConversationControact.View {
+
 
     val TAG by lazy { ConversationActivity::class.java.simpleName }
 
@@ -65,9 +68,60 @@ class ConversationActivity :JBaseActivity(),ConversationControact.View{
 
     val addInputDialog by lazy { createAddInputQuickDialog() }
 
-    val callWindow by lazy { createCallWindow() }
-
     val conversationFragment by lazy { createConversationFragment() }
+
+    var greetInputPop: PopupWindow? = null
+
+    val putGreetsingDialog by lazy { createPutGreeetsingDialog() }
+
+    fun createPutGreeetsingDialog(): AlertDialog {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.add_input_greetings_dialog, null)
+        val ed_Content_greet = dialogView.findViewById(R.id.ed_content) as EditText
+        (dialogView.findViewById(R.id.tv_default) as TextView).text = presenter.greetingLanguage!!.defaultGreeting
+        dialogView.findViewById(R.id.btn_cancel).setOnClickListener { putGreetsingDialog.dismiss() }
+
+        dialogView.findViewById(R.id.btn_confirm).setOnClickListener(View.OnClickListener {
+            if (ed_Content_greet.text == null) return@OnClickListener
+            if (!TextUtils.isEmpty(ed_Content_greet.text.toString().trim({ it <= ' ' }))) {
+                presenter.putGreetingsInput(ed_Content_greet.text.toString())
+            } else {
+                presenter.putGreetingsInput(null)
+            }
+        })
+        return AlertDialog.Builder(context)
+                .setView(dialogView)
+                .create()
+    }
+
+    override fun createGreetPopWindow(greetingLanguage: GreetingLanguage) {
+
+        val width = ScreenUtils.dp2px(300f, context)
+        val height = ScreenUtils.dp2px(318f, context)
+
+        val popupView = context.layoutInflater.inflate(R.layout.converstation_greetings_input, null)
+
+
+        val btnCloseInputQuick = popupView.findViewById(R.id.btnCloseInputQuick) as ImageView
+        val btnAdd = popupView.findViewById(R.id.btn_add) as Button
+        val tvContent1 = popupView.findViewById(R.id.tv_content1) as TextView
+        val tvContent2 = popupView.findViewById(R.id.tv_content2) as TextView
+        tvContent1.text = greetingLanguage.defaultGreeting
+        if (!TextUtils.isEmpty(greetingLanguage.appendGreeting))
+            tvContent2.text = greetingLanguage.appendGreeting
+        btnCloseInputQuick.setOnClickListener { showGreetInputPop(false) }
+        btnAdd.setOnClickListener { showPutInputGreetingsDialog(true) }
+
+        //  创建PopupWindow对象，指定宽度和高度
+        greetInputPop = PopupWindow(popupView, width, height).apply {
+            animationStyle = R.style.popup_window_anim
+            setBackgroundDrawable(ColorDrawable(Color.parseColor("#F8F8F8")))
+            isFocusable = true
+            isOutsideTouchable = true
+            update()
+        }
+        greetInputPop!!.showAtLocation(btn_openInputQuick, Gravity.BOTTOM, 0, ScreenUtils.dp2px(200f, context))
+
+    }
 
 
     private fun createConversationFragment(): Fragment {
@@ -78,22 +132,6 @@ class ConversationActivity :JBaseActivity(),ConversationControact.View{
         }
     }
 
-    private fun createCallWindow(): PopupWindow {
-        val callPopupView = layoutInflater.inflate(R.layout.conversation_call_window, null)
-        callPopupView.findViewById(R.id.btn_call).setOnClickListener {
-            presenter.callContactPhone(sessionId)
-            showCallContactDialog(false)
-        }
-        callPopupView.findViewById(R.id.btn_cancel).setOnClickListener { showCallContactDialog(false) }
-        return PopupWindow(callPopupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
-            animationStyle = R.style.popup_window_anim
-            isFocusable = true
-            isOutsideTouchable = true
-            isTouchable = true
-            update()
-        }
-
-    }
 
     private fun createAddInputQuickDialog(): AlertDialog {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.add_input_quick_dialog, null)
@@ -109,6 +147,10 @@ class ConversationActivity :JBaseActivity(),ConversationControact.View{
                 .create()
     }
 
+
+    /**
+     * 创建快捷回复的  弹窗
+     */
     private fun createInputPopupWindow(): PopupWindow {
         val width = ScreenUtils.dp2px(300f, context)
         val height = ScreenUtils.dp2px(318f, context)
@@ -139,17 +181,25 @@ class ConversationActivity :JBaseActivity(),ConversationControact.View{
 
         isPushMessage(intent)
         presenter.start()
-//        TextViewUtils.setDrawableToLeft(context, topRight, R.mipmap.im_detail_call_ico)
-        showBeginnerGuidance(SPUtils.get(context, Constant.KEY_FIRST_OKEN_CONVERSATION, false) as Boolean)
-        KeyboardChangeListener(this).setKeyBoardListener { isShow, _ ->
-            if (isShow) showQuickInputPop(false)
+
+        if (UserManager.getUserData()!!.userDetailType == 10) {
+            greetings_layout.visibility = View.VISIBLE
+            btn_openInputQuick.visibility = View.GONE
+        } else {
+            greetings_layout.visibility = View.GONE
+            btn_openInputQuick.visibility = View.VISIBLE
         }
+
+//        KeyboardChangeListener(this).setKeyBoardListener { isShow, _ ->
+//            if (isShow) showQuickInputPop(false)
+//        }
         topLeft.setOnClickListener { close() }
-        topRight.setOnClickListener { showCallContactDialog(true) }
-        topRightSecond.setOnClickListener { ConversationDetailsActivity.start(context, sessionId) }
-        btn_vipInfo.setOnClickListener { StartActivityManager.startVipInfoPage(context) }
-        btn_lookBack.setOnClickListener { if (presenter.sessionId != null) CaseDetailActivity.start(context, presenter.sessionInfo!!.relatedCaseInfo.id, true) }
-        btn_openInputQuick.setOnClickListener { showQuickInputPop(true) }
+        topRight.setOnClickListener { ConversationDetailsActivity.start(context, sessionId) }
+        btn_lookBack.setOnClickListener { if (presenter.sessionId != null) CaseDetailActivity.start(context, presenter.sessionInfo!!.relatedCaseInfo.id, true) }//回顾作品
+        btn_openInputQuick.setOnClickListener { showQuickInputPop(true) }//打开常用回复
+        btn_openInputQuick_greetings.setOnClickListener { showQuickInputPop(true) }//打开常用回复
+        btn_openInputGreetings.setOnClickListener { showGreetInputPop(true) }
+        btn__close_caseLayout.setOnClickListener { case_layout.visibility = View.GONE }
     }
 
 
@@ -174,22 +224,26 @@ class ConversationActivity :JBaseActivity(),ConversationControact.View{
 //    }
 //
 
+    override fun showGreetInputPop(show: Boolean) {
+        if (show) {
+                presenter.getGreetLanguage()
+
+        } else {
+            if (greetInputPop != null)
+                greetInputPop!!.dismiss()
+        }
+    }
+
+    override fun showPutInputGreetingsDialog(show: Boolean) {
+        if (show) putGreetsingDialog.show()
+        else putGreetsingDialog.dismiss()
+    }
+
+
     override fun showConversationTitle(title: String) {
         topTitle.text = title
     }
 
-    /**
-     * 显示拨打电话PopupWindow
-     */
-    override fun showCallContactDialog(show: Boolean) {
-        if (show) {
-            rootLayout.setBackgroundColor(Color.parseColor("#40000000"))
-            callWindow.showAtLocation(rootLayout, Gravity.BOTTOM, 0, 0)
-        } else {
-            callWindow.dismiss()
-            rootLayout.setBackgroundColor(resources.getColor(R.color.bg_whide))
-        }
-    }
 
     /**
      * 显示新增快捷输入Dialog

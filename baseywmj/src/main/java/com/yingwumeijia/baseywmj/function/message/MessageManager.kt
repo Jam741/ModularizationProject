@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import java.util.ArrayList
@@ -33,10 +34,8 @@ object MessageManager {
         if (TextUtils.isEmpty(result)) return null
         val listType = object : TypeToken<ArrayList<MessageBean>>() {}.type
 
-        val listResult = Gson().fromJson<ArrayList<MessageBean>>(result, listType)
-
-        val list = listResult?.filter { it.getMessageUserId().equals(UserManager.getUserData()!!.id) } as ArrayList
-
+        val list = ArrayList<MessageBean>()
+        Gson().fromJson<ArrayList<MessageBean>>(result, listType)?.filterTo(list) { it.getMessageUserId().equals(""+UserManager.getUserData()!!.id) }
         return list
     }
 

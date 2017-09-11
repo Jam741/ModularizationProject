@@ -196,7 +196,7 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
                         .setOnClickListener(R.id.layout_item, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                WebViewManager.INSTANCE.startFullScreen(context, item.getWebsite());
+                                WebViewManager.INSTANCE.startHasTitle(context,item.getWebsite(), null);
                             }
                         });
 

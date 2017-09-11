@@ -13,13 +13,16 @@
         android:layout_height="match_parent">
 
 
-        <include layout="@layout/search_header" />
 
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/actionbar_height"></FrameLayout>
+
+
+        <include layout="@layout/search_header" />
+
 
 
     </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.yingwumeijia.baseywmj.im
 
+import com.yingwumeijia.baseywmj.im.plugin.OrderPlugin
 import com.yingwumeijia.baseywmj.im.plugin.VipPlugin
 import io.rong.imkit.DefaultExtensionModule
 import io.rong.imkit.plugin.IPluginModule
@@ -13,12 +14,10 @@ class EmployeeExtensionModule : DefaultExtensionModule() {
 
     override fun getPluginModules(conversationType: Conversation.ConversationType?): MutableList<IPluginModule> {
         val pluginModules = super.getPluginModules(conversationType)
-        for (i in pluginModules.indices) {
-            val pluginModule = pluginModules[i]
-            if (pluginModule is FilePlugin) pluginModules.remove(pluginModule)
-        }
-        pluginModules.add(VipPlugin())
-//        pluginModules.add(new PayApplyPlugin());
-//        pluginModules.add(OrderPlugin())
+        pluginModules.indices
+                .map { pluginModules[it] }
+                .filterIsInstance<FilePlugin>()
+                .forEach { pluginModules.remove(it) }
+        pluginModules.add(OrderPlugin())
         return pluginModules    }
 }

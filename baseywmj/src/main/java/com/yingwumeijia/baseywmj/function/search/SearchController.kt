@@ -4,6 +4,8 @@ import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.main.MainController
@@ -14,6 +16,7 @@ import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.zhy.view.flowlayout.FlowLayout
 import com.zhy.view.flowlayout.TagAdapter
 import rx.Observable
+import rx.Subscriber
 import rx.functions.Action1
 import rx.subjects.PublishSubject
 
@@ -40,12 +43,13 @@ class SearchController(val activity: Activity, publishSubject: PublishSubject<Ac
     fun loadHistoryKeyWords() {
         val ob: Observable<List<String>> = Observable
                 .create(Observable.OnSubscribe {
-                    SearchHistoryMenager.getHistory(context)
+                    t: Subscriber<in List<String>>? ->
+                    t!!.onNext(SearchHistoryMenager.getHistory(context))
                 })
         ob.compose(HttpUtil.applySchedulers()).subscribe(object : Action1<List<String>> {
             override fun call(t: List<String>?) {
                 if (!ListUtil.isEmpty(t))
-                    historyKeyWordsAdapter.addRange(t!!)
+                    historyKeyWordsAdapter.refresh(t!!)
                 loadHistoryAndHotKeyWordsListener.didLoadHistoryKeyWords(t)
             }
         })
@@ -53,19 +57,24 @@ class SearchController(val activity: Activity, publishSubject: PublishSubject<Ac
 
 
     fun loadHotKeyWords() {
-        val ob = Api.service.getHotKeys()
-        HttpUtil.getInstance().toSimpleSubscribe(ob, object : ProgressSubscriber<List<String>>(context) {
+        val ob: Observable<List<String>>
+        if (AppTypeManager.isAppC()) {
+            ob = Api.service.getHotKeys()
+        } else {
+            ob = Api.service.getHotKeys_E()
+        }
+        HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<List<String>>(context) {
             override fun _onNext(t: List<String>?) {
                 if (!ListUtil.isEmpty(t))
-                    hotKeyWordsAdapter.addRange(t!!)
+                    hotKeyWordsAdapter.refresh(t!!)
                 loadHistoryAndHotKeyWordsListener.didLoadHotKeyWords(t)
             }
-        }, publishSubject, true)
+        })
     }
 
     fun insertHistoryKeyWords(keyWords: String) {
         SearchHistoryMenager.insertHistory(context, keyWords)
-        historyKeyWordsAdapter.insert(keyWords)
+        historyKeyWordsAdapter.refresh(SearchHistoryMenager.getHistory(context))
     }
 
     private fun createKeyWordsAdapter(): TagAdapter<String> {

@@ -76,7 +76,7 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
             override fun _onNext(t: RealSceneBean?) {
                 if (t != null) {
                     realSceneBena = t
-                    view.init720Layout(!TextUtils.isEmpty(t.pathOf720), t.caseCover)
+                    view.init720Layout(!TextUtils.isEmpty(t.pathOf720), t.caseCover,t.pathOf720)
                     val baseInfo: String = t.cityName + " / " + t.decorateStyle + " / " + t.houseType + " / " + t.houseArea + "m² / " + t.decorateType + MoneyFormatUtils.fromatWan(t.totalCost) + "万 / " + t.buildingName
                     view.initBaseInfoLayout(baseInfo, t.caseName, t.caseStory)
                     if (!ListUtil.isEmpty(t.scenes))

@@ -111,6 +111,17 @@
             android:name=".function.comment.newcomment.NewCommentActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".function.extra.CreateBillServiceActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".function.enter.EnterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".function.enter.EditEnterActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".function.introduction.company.resume.ResumeActivity"
+            android:screenOrientation="portrait"/>
 
         <!--*******************************************************************************-->
         <!--IM 会话相关-->
@@ -139,6 +150,9 @@
             android:name=".function.cashier.CashierForActiveActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".function.web.NativeWebActivity"
+            android:screenOrientation="portrait"/>
+
         <!--微信支付-->
         <activity
             android:name=".wxapi.WXPayEntryActivity"
@@ -152,6 +166,7 @@
                 <data android:scheme="wxd930ea5d5a258f4f" />
             </intent-filter>
         </activity>
+
 
 
         <!--*******************************************************************************-->

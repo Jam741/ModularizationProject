@@ -60,4 +60,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         return mDatas;
     }
 
+    public void refresh( ArrayList<T> data){
+        if (mDatas == null)mDatas = new ArrayList<T>();
+        mDatas.clear();
+        mDatas.addAll(data);
+        notifyDataSetChanged();
+    }
+
 }

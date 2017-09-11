@@ -48,7 +48,10 @@ class OpinionActivity : JBaseActivity(), OpinionContract.View {
                 }
             }
         }
-        btn_commit.setOnClickListener { persenter.commit(photoAdapter.imageList, inputValue()) }
+        btn_commit.setOnClickListener {
+            progressDialog.show()
+            persenter.commit(photoAdapter.imageList, inputValue())
+        }
         tv_opinionContent.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
 
@@ -67,6 +70,7 @@ class OpinionActivity : JBaseActivity(), OpinionContract.View {
     }
 
     override fun showSuccess() {
+        progressDialog.dismiss()
         toastWith("提交成功，我们将尽快解决")
         close()
     }

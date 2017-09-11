@@ -19,6 +19,7 @@ import com.yingwumeijia.baseywmj.function.casedetails.model.CreateSessionBean
 import com.yingwumeijia.baseywmj.function.collect.CollectType
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
+import com.yingwumeijia.commonlibrary.utils.T
 import com.yingwumeijia.sharelibrary.ShareData
 import com.yingwumeijia.sharelibrary.ShareDialog
 import com.yingwumeijia.sharelibrary.ShareManager
@@ -71,6 +72,7 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 view.setCollectStatus(true)
+                T.showShort(context,"收藏作品成功")
             }
         })
     }
@@ -81,7 +83,7 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
         Glide.with(context.applicationContext).load(shareInfo.cover + "&imageView2/2/w/256").asBitmap().into(object : SimpleTarget<Bitmap>() {
             override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
                 if (shareManager == null) {
-                    val shareData = ShareData(shareInfo.caseName, shareInfo.designConcept, shareInfo.cover, resource, shareInfo.cover + "&imageView2/2/w/256", 1)
+                    val shareData = ShareData(shareInfo.caseName, shareInfo.designConcept, shareInfo.url, resource, shareInfo.cover + "&imageView2/2/w/256", 1)
                     shareManager = ShareManager(context, shareData!!, object : WbShareCallback {
                         override fun onWbShareFail() {}
 
@@ -107,6 +109,8 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 view.setCollectStatus(false)
+                T.showShort(context,"取消收藏成功")
+
             }
         })
     }

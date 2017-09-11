@@ -1,5 +1,6 @@
 package com.yingwumeijia.commonlibrary.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
@@ -33,6 +34,10 @@ open class BaseFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         context = this
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun getContext(): Context {
+        return super.getContext()
     }
 
     fun toastWith(msg: String) {

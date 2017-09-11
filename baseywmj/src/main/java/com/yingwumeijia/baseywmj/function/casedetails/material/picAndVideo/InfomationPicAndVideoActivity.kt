@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.google.gson.Gson
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.toolbr_layout.*
  */
 class InfomationPicAndVideoActivity : JBaseActivity() {
 
-    private val checksBean: CaseInfomationBean.ChecksBean by lazy { Gson().fromJson(intent.getStringExtra(Constant.KEY_COMPANY_ID), CaseInfomationBean.ChecksBean::class.java) }
+    private val checksBean: CaseInfomationBean.ChecksBean by lazy { Gson().fromJson(intent.getStringExtra(Constant.KEY_CHECK_BEAN), CaseInfomationBean.ChecksBean::class.java) }
 
     private val videoAdapter by lazy { createVideoAdapter() }
 
@@ -75,6 +76,7 @@ class InfomationPicAndVideoActivity : JBaseActivity() {
 
     companion object {
         fun start(context: Context, checksBean: String) {
+            Logger.d(checksBean)
             val starter = Intent(context, InfomationPicAndVideoActivity::class.java)
             starter.putExtra(Constant.KEY_CHECK_BEAN, checksBean)
             context.startActivity(starter)

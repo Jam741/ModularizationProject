@@ -13,11 +13,27 @@
         android:layout_centerVertical="true"
         android:drawableLeft="@mipmap/mine_apply_ico"
         android:drawablePadding="20dp"
-        android:drawableRight="@mipmap/mine_more_ico"
         android:gravity="center_vertical"
         android:text="申请推客"
         android:textColor="@color/color_6"
         android:textSize="@dimen/font4_sp" />
+
+    <View
+        android:id="@+id/msgView"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:background="@drawable/dot_red" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/mine_more_ico" />
 
     <View
         android:id="@+id/divider"

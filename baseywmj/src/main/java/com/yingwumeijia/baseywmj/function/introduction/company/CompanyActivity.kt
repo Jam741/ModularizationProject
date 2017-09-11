@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import com.orhanobut.logger.Logger
 import com.rx.android.jamspeedlibrary.utils.view.MyListView
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
@@ -89,7 +90,7 @@ class CompanyActivity : JBaseActivity(), CompanyContract.View, XRecyclerView.Loa
     }
 
     override fun showCompanyPortrait(url: String) {
-        JImageLolder.load256(context, headerViewHolder.ivPortrait, url)
+        JImageLolder.loadPortrait256(context, headerViewHolder.ivPortrait, url)
     }
 
     override fun showCompanyName(name: String) {
@@ -101,6 +102,7 @@ class CompanyActivity : JBaseActivity(), CompanyContract.View, XRecyclerView.Loa
     }
 
     override fun showCompanyPic(picUrl: String?) {
+        Logger.d(picUrl)
         headerViewHolder.ivCompanyShow.visibility = View.VISIBLE
         JImageLolder.load720(context, headerViewHolder.ivCompanyShow, picUrl)
 
@@ -156,7 +158,7 @@ class CompanyActivity : JBaseActivity(), CompanyContract.View, XRecyclerView.Loa
             }
         }
 
-        val ivPortrait: CircleImageView by lazy { rootView.findViewById(R.id.iv_portrait) as CircleImageView }
+        val ivPortrait: ImageView by lazy { rootView.findViewById(R.id.iv_portrait) as ImageView }
         val tvCompanyName: TextView by lazy { rootView.findViewById(R.id.tv_companyName) as TextView }
         val tvDescribe: ExpandableTextView by lazy { rootView.findViewById(R.id.tv_describe) as ExpandableTextView }
         val tvCompanyShow: TextView by lazy { rootView.findViewById(R.id.tv_companyShow) as TextView }

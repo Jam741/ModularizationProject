@@ -36,6 +36,16 @@ public abstract class TagAdapter<T> {
         notifyDataChanged();
     }
 
+    public void refresh(List<T> data) {
+        if (mTagDatas == null) {
+            mTagDatas = data;
+        } else {
+            mTagDatas.clear();
+            mTagDatas.addAll(data);
+        }
+        notifyDataChanged();
+    }
+
     public void insert(T t) {
         if (mTagDatas == null)
             mTagDatas = new ArrayList<>();
@@ -83,7 +93,8 @@ public abstract class TagAdapter<T> {
     }
 
     public void notifyDataChanged() {
-        mOnDataChangedListener.onChanged();
+        if (mOnDataChangedListener != null)
+            mOnDataChangedListener.onChanged();
     }
 
     public T getItem(int position) {

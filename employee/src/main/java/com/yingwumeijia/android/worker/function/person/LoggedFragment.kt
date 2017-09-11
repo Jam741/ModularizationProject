@@ -76,9 +76,14 @@ class LoggedFragment : BaseLoggedFragment() {
         when (userBean!!.userTypeExtension) {
             PersonalFragment.USER_TYPE_E_JJGW -> switch1.visibility = View.VISIBLE
             PersonalFragment.USER_TYPE_E_KFJL -> switch1.visibility = View.VISIBLE
+            PersonalFragment.USER_TYPE_E_NORMAL -> switch1.visibility = View.GONE
+            PersonalFragment.USER_TYPE_E_DESIGNER -> switch1.visibility = View.GONE
         }
 
-        tv_name.text = userBean!!.showName
+        val role = userBean!!.userDetailTypeDesc
+
+
+        tv_name.text = if (TextUtils.isEmpty(userBean!!.showName)) "点击编辑信息" else userBean!!.showName + " - " + role
         if (TextUtils.isEmpty(userBean!!.showHead))
             JImageLolder.loadPortrait256(getContext(), iv_portrait, R.mipmap.mine_user_ywmj_circle)
         else

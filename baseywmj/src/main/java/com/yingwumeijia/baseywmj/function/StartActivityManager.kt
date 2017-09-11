@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
+import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import io.rong.imkit.RongIM
 import io.rong.imlib.model.Conversation
 
@@ -48,7 +49,8 @@ object StartActivityManager {
      * 跳转到美家保障协议
      */
     fun startMjProjectInfoPage(context: Context) {
-        WebViewManager.startHasTitle(context, "https://mobile.yingwumeijia.com/template/memberRights.html", null)
+        val url = PATHUrlConfig.baseH5Url().replace("appv/", "")
+        WebViewManager.startFullScreen(context, url + "template/safeguard/safeguard.html?backArrow=1")
     }
 
     fun startConversation(context: Context, sessionId: String) {
@@ -57,5 +59,14 @@ object StartActivityManager {
         }
     }
 
+
+    /**
+     * 优惠券说明
+
+     * @param context
+     */
+    fun startCouponKnow(context: Context) {
+        WebViewManager.startFullScreen(context, "https://mobile.yingwumeijia.com/template/twitter/coupon-know.shtml?close=1")
+    }
 
 }

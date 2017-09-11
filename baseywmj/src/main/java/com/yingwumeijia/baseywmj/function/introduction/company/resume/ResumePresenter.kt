@@ -10,6 +10,8 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.VideoPlayManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
+import com.yingwumeijia.baseywmj.function.previewPic.PreViewActivity
+import com.yingwumeijia.baseywmj.function.previewPic.PreviewModel
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.NetUtils
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
@@ -31,6 +33,13 @@ class ResumePresenter(var activity: Activity, var companyId: Int, var view: Resu
     val picListAdapter by lazy { createPicListAdapter() }
 
     private fun createPicListAdapter(): CommonRecyclerAdapter<CompanyResumeBean.PicsBean> {
+
+        val pic by lazy { ArrayList<String>() }
+
+
+        resumeBean!!.pics.mapTo(pic) { it.pics[0] }
+
+
         return object : CommonRecyclerAdapter<CompanyResumeBean.PicsBean>(activity, null, resumeBean!!.pics as ArrayList<CompanyResumeBean.PicsBean>, R.layout.item_company_resume_photo) {
             override fun convert(holder: RecyclerViewHolder, t: CompanyResumeBean.PicsBean, position: Int) {
 
@@ -46,7 +55,8 @@ class ResumePresenter(var activity: Activity, var companyId: Int, var view: Resu
                     setImageUrl480(activity!!, R.id.iv_image1, t.pics[0])
                     setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
                         override fun itemClick(itemView: View, position: Int) {
-                            TODO("图片预览")
+
+                            PreViewActivity.start(this@ResumePresenter.activity, PreviewModel(pic, null, null), position)
                         }
 
                     })
@@ -65,7 +75,8 @@ class ResumePresenter(var activity: Activity, var companyId: Int, var view: Resu
             override fun _onNext(t: CompanyResumeBean?) {
                 if (t == null) return Unit
                 resumeBean = t
-                view.show720Preview(t.cover)
+                if (!TextUtils.isEmpty(t.cover))
+                    view.show720Preview(t.cover)
                 if (t.video != null && !TextUtils.isEmpty(t.video.url)) {
                     view.showVide0Preview(t.video.url)
                 }

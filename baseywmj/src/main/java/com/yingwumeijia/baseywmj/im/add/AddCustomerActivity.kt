@@ -62,7 +62,7 @@ class AddCustomerActivity : JBaseActivity(), AddMemberContract.View {
             val inputMethodManager = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if (inputMethodManager.isActive) hideSoftInput(v)
             if (verifyKeyWords()) {
-                presenter.searchCustomer(keyWordsValue().trim())
+                presenter.searchCustomer(keyWordsValue())
             }
             return@setOnEditorActionListener false
         }

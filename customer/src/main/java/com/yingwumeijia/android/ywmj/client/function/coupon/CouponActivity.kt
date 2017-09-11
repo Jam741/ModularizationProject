@@ -9,6 +9,7 @@ import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CouponListResponseBean
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
@@ -52,8 +53,10 @@ class CouponActivity : JBaseActivity(), CouponContract.View, XRecyclerView.Loadi
             setLoadingListener(this@CouponActivity)
         }
 
+        topLeft.setOnClickListener { close() }
         btn_checkPast.setOnClickListener { CouponActivity.start(context, false) }
         btn_explain.visibility = if (available) View.VISIBLE else View.GONE
+        btn_explain.setOnClickListener { StartActivityManager.startCouponKnow(context) }
     }
 
     override fun onResume() {

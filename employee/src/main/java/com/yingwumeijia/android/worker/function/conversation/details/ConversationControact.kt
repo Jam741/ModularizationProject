@@ -3,6 +3,7 @@ package com.yingwumeijia.android.worker.function.conversation.details
 import com.yingwumeijia.baseywmj.base.JBasePresenter
 import com.yingwumeijia.baseywmj.base.JBaseView
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
+import com.yingwumeijia.baseywmj.entity.bean.GreetingLanguage
 
 /**
  * Created by jamisonline on 2017/7/14.
@@ -22,9 +23,12 @@ interface ConversationControact {
 
         fun showDeleteInputQuickDialog(commonLanguage: CommonLanguage, position: Int)
 
-        fun showCallContactDialog(show: Boolean)
+        fun showGreetInputPop(show: Boolean)
 
-//        fun initCaseState(state: Int)
+        fun createGreetPopWindow(greetingLanguage: GreetingLanguage)
+
+        fun showPutInputGreetingsDialog(show: Boolean)
+
     }
 
     interface Presenter : JBasePresenter {
@@ -35,10 +39,11 @@ interface ConversationControact {
 
         fun deleteInputQuick(id: Int, position: Int)
 
-        fun callContactPhone(sessionId: String)
-
         fun start()
 
+        fun getGreetLanguage()
+
+        fun putGreetingsInput(text: String?)
 
     }
 

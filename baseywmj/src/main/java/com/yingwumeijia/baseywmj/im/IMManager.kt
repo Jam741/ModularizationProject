@@ -24,6 +24,14 @@ object IMManager {
         SPUtils.put(context, Constant.KEY_IM_TOKEN, token)
     }
 
+    fun currentSessionId(context: Context): String {
+        return SPUtils.get(context, Constant.KEY_CURRENT_SESSION_ID, "") as String
+    }
+
+    fun setCurrentSessionId(context: Context, sessionId: String) {
+        SPUtils.put(context, Constant.KEY_CURRENT_SESSION_ID, sessionId)
+    }
+
     /**
      * 发送文本消息
      */

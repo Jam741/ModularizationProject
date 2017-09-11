@@ -1,5 +1,7 @@
 package com.yingwumeijia.baseywmj.function.collect.company
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import com.yingwumeijia.baseywmj.R
@@ -14,6 +16,9 @@ import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
  * Created by jamisonline on 2017/6/30.
  */
 class CompanyCollectFragment : CollectListFragment<CollectCompanyBean.ResultBean>() {
+    override fun layoutManager(): RecyclerView.LayoutManager {
+        return LinearLayoutManager(activity)
+    }
 
     override fun createListAdapter(): CommonRecyclerAdapter<CollectCompanyBean.ResultBean> {
         return object : CommonRecyclerAdapter<CollectCompanyBean.ResultBean>(null, context, null, R.layout.item_productionteam_child_employ) {

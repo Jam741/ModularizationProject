@@ -76,7 +76,7 @@ abstract class CommonRecyclerAdapter<T> constructor(var activity: Activity?, var
     fun remove(index: Int) {
         if (data == null) return
         data!!.removeAt(index)
-        notifyItemRemoved(index)
+        notifyDataSetChanged()
     }
 
     fun insert(o: T) {

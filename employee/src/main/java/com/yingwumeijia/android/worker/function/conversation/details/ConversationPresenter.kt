@@ -7,6 +7,7 @@ import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
+import com.yingwumeijia.baseywmj.entity.bean.GreetingLanguage
 import com.yingwumeijia.baseywmj.entity.bean.SessionDetailBean
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
@@ -25,6 +26,8 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
 
     var sessionInfo: SessionDetailBean? = null
 
+    var greetingLanguage: GreetingLanguage? = null
+
 
     override fun start() {
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfo(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
@@ -36,18 +39,6 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
         })
     }
 
-
-    /**
-     * 获取业者联系电话
-     */
-    override fun callContactPhone(sessionId: String) {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getEmployeeOpenPhoneList(sessionId), object : ProgressSubscriber<String>(context) {
-            override fun _onNext(t: String?) {
-                if (t == null) return Unit
-                CallUtils.callPhone(t!!, context)
-            }
-        })
-    }
 
     /**
      * 删除一条快捷回复
@@ -115,5 +106,25 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
         return adapter
     }
 
+
+    override fun getGreetLanguage() {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getGreetingLanguage(), object : ProgressSubscriber<GreetingLanguage>(context) {
+            override fun _onNext(t: GreetingLanguage?) {
+                greetingLanguage = t
+                view.createGreetPopWindow(t!!)
+            }
+        })
+    }
+
+
+    override fun putGreetingsInput(text: String?) {
+        greetingLanguage!!.appendGreeting = text
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.putGreetingLanguage(greetingLanguage!!), object : ProgressSubscriber<String>(context) {
+            override fun _onNext(t: String?) {
+                view.showPutInputGreetingsDialog(false)
+                view.showGreetInputPop(false)
+            }
+        })
+    }
 
 }

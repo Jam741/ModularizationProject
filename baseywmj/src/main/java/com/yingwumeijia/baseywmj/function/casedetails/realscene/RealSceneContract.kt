@@ -16,7 +16,7 @@ interface RealSceneContract {
 
         fun clippingLayoutOfVideo()
 
-        fun init720Layout(has720: Boolean, caseCoverUrl: String)
+        fun init720Layout(has720: Boolean, caseCoverUrl: String,urlOf720:String?)
 
         fun initBaseInfoLayout(baseInfo: String, caseName: String, caseStory: String)
 

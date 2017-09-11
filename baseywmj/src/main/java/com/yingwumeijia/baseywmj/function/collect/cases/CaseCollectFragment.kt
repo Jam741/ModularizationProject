@@ -1,5 +1,7 @@
 package com.yingwumeijia.baseywmj.function.collect.cases
 
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.function.StartActivityManager
@@ -14,6 +16,10 @@ import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHol
  * Created by jamisonline on 2017/7/1.
  */
 class CaseCollectFragment : CollectListFragment<CollectCaseBean.ResultBean>() {
+    override fun layoutManager(): RecyclerView.LayoutManager {
+        return GridLayoutManager(activity, 2)
+    }
+
     override fun createListAdapter(): CommonRecyclerAdapter<CollectCaseBean.ResultBean> {
         return object : CommonRecyclerAdapter<CollectCaseBean.ResultBean>(null, context, null, R.layout.item_collect_list) {
             override fun convert(holder: RecyclerViewHolder, t: CollectCaseBean.ResultBean, position: Int) {

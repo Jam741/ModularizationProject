@@ -14,6 +14,9 @@ import com.yingwumeijia.baseywmj.function.personal.c.NotLoggedFragment
 import com.yingwumeijia.baseywmj.function.setting.SettingActivity
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.IMManager
+import io.rong.imkit.RongIM
+import io.rong.imkit.manager.IUnReadMessageObserver
+import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.person_title_layout.*
 
 /**
@@ -92,7 +95,11 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_setting.setOnClickListener { startSetting() }
-        btn_message.setOnClickListener { startMessage() }
+        btn_message.setOnClickListener {
+            startMessage()
+            iv_messagePoint.visibility = View.GONE
+            IMManager.cleanUnreadSystemMessage()
+        }
         btn_scan.setOnClickListener { startScan() }
         showMenus()
         if (UserManager.isLogin(activity)) {
@@ -101,12 +108,29 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
         }
 
         if (isAppC) {
+            setSystemMessageListener()
             btn_scan.visibility = View.VISIBLE
             btn_message.visibility = View.VISIBLE
+
         } else {
             btn_scan.visibility = View.GONE
             btn_message.visibility = View.GONE
         }
+    }
+
+
+    fun setSystemMessageListener() {
+        RongIM.getInstance()
+                .addUnReadMessageCountChangedObserver(
+                        IUnReadMessageObserver { i ->
+                            if (i > 0) {
+                                if (iv_messagePoint != null)
+                                    iv_messagePoint.visibility = View.VISIBLE
+                            } else {
+                                if (iv_messagePoint != null)
+                                    iv_messagePoint.visibility = View.GONE
+                            }
+                        }, *arrayOf(Conversation.ConversationType.SYSTEM))
     }
 
     /**

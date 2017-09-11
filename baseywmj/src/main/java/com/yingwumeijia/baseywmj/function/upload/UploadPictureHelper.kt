@@ -58,21 +58,19 @@ object UploadPictureHelper {
                                 if (ListUtil.isEmpty(bitmaps)) {
                                     Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show()
                                 } else {
-                                    val dialog = KProgressHUD.create(context)
-                                    upLoadMultinPictureToQiniu(0, token!!, bitmaps!!, filePaths, multinLoadListener, ArrayList(), dialog)
+                                    upLoadMultinPictureToQiniu(0, token!!, bitmaps!!, filePaths, multinLoadListener, ArrayList())
                                 }
                             }
                         })
     }
 
-    private fun upLoadMultinPictureToQiniu(position: Int, token: String, bitmaps: ArrayList<Bitmap>, filePaths: ArrayList<String>, multinLoadListener: OnMultinLoadListener, urls: ArrayList<String>, dialog: KProgressHUD) {
+    private fun upLoadMultinPictureToQiniu(position: Int, token: String, bitmaps: ArrayList<Bitmap>, filePaths: ArrayList<String>, multinLoadListener: OnMultinLoadListener, urls: ArrayList<String>) {
         var index = position
         UploadManager().put(Bitmap2Bytes(bitmaps[index]), null, token, { key, info, response ->
-            dialog.dismiss()
             urls.add(assmibleUrl(response, filePaths[index]))
             index++
             if (index == bitmaps.size) multinLoadListener.success(urls)
-            else upLoadMultinPictureToQiniu(index, token, bitmaps, filePaths, multinLoadListener, urls, dialog)
+            else upLoadMultinPictureToQiniu(index, token, bitmaps, filePaths, multinLoadListener, urls)
         }, null)
     }
 

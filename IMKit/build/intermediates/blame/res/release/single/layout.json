@@ -112,12 +112,12 @@
         "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_item_public_service_list.xml"
     },
     {
-        "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_picsel_activity.xml",
-        "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_picsel_activity.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_item_public_service_rich_content_message.xml",
         "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_item_public_service_rich_content_message.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_picsel_activity.xml",
+        "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_picsel_activity.xml"
     },
     {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_fr_image.xml",
@@ -180,12 +180,12 @@
         "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_wi_vo_popup.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/layout/rc_item_system_conversation.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/layout/rc_item_system_conversation.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_plugin_location_activity.xml",
         "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_plugin_location_activity.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/IMKit/build/intermediates/res/merged/release/layout/rc_item_system_conversation.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/layout/rc_item_system_conversation.xml"
     },
     {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_fr_photo.xml",
@@ -204,12 +204,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/IMKit/src/main/res/layout/rc_icon_rt_location_marker.xml"
     },
     {
-        "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_item_public_service_message.xml",
-        "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_item_public_service_message.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_fr_conversation_member_list.xml",
         "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_fr_conversation_member_list.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_item_public_service_message.xml",
+        "source": "/Users/jamisonline/Desktop/MvpCliect/IMKit/src/main/res/layout/rc_item_public_service_message.xml"
     },
     {
         "merged": "/Users/jamisonline/Desktop/MvpCliect/IMKit/build/intermediates/res/merged/release/layout/rc_item_text_message.xml",

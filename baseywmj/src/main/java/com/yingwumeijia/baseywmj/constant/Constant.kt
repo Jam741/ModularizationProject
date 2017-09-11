@@ -45,6 +45,8 @@ object Constant {
 
     val KEY_CURRENT = "KEY_CURRENT"
 
+    val KEY_CURRENT_SESSION_ID = "KEY_CURRENT_SESSION_ID"
+
     val SYSTEM_TARGET_ID = "ywmj-sys-user"
     val REQUEST_CODE_GET_CONTACT_INFO = 10001
     val REQUEST_CODE_FOR_PAY = 103

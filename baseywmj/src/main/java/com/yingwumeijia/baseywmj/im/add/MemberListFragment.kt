@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -66,12 +67,13 @@ class MemberListFragment : JBaseFragment() {
 
     fun showMemberList(memberBeanList: List<MemberBean>) {
         tv_companyHint.visibility = View.GONE
+        memberListAdapter.clearnData()
         memberListAdapter.refresh(memberBeanList as ArrayList<MemberBean>)
     }
 
     fun insertMember(memberBean: MemberBean) {
-        tv_companyHint.visibility = View.GONE
-        memberListAdapter.clearnData()
-        memberListAdapter.insert(memberBean)
+        val list = ArrayList<MemberBean>()
+        list.add(memberBean)
+        showMemberList(list)
     }
 }

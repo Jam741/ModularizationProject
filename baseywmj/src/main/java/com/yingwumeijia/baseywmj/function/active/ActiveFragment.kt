@@ -42,8 +42,8 @@ class ActiveFragment : JBaseFragment() {
     fun initContent(url: String) {
         if (childFragmentManager.findFragmentById(R.id.content) == null) {
 
-//            val webFragment = OneWebFragment.newInstance(url)
-            val webFragment = OneWebFragment.newInstance("http://192.168.28.50:8089/src/template/activity/activityList.html?userType=c")
+            val webFragment = OneWebFragment.newInstance(url)
+//            val webFragment = OneWebFragment.newInstance("http://192.168.28.50:8089/src/template/activity/activityList.html?userType=c")
             childFragmentManager.beginTransaction().add(R.id.content, webFragment).commit()
         }
     }

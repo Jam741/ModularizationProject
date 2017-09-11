@@ -62,9 +62,15 @@ class MineCaseActivity : JBaseActivity(), MineCaseContract.View {
             })
         }
 
-        loadList()
+
+        topLeft.setOnClickListener { close() }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        loadList()
+    }
 
     fun loadList() {
         presenter.loadMineCase(pageNum)
@@ -98,15 +104,16 @@ class MineCaseActivity : JBaseActivity(), MineCaseContract.View {
 
                 val imageView = holder.getViewWith(R.id.iv_goods) as ImageView
                 val msgView = holder.getViewWith(R.id.tv_messageNum) as MsgView
-                UnreadMsgUtils.show(msgView, resultBean.unreadCommentNumber)
+                UnreadMsgUtils.show(msgView, resultBean.unreadCommentNumber, false)
                 JImageLolder.load(context, imageView, resultBean.caseCover)
                 holder.run {
+
                     setTextWith(R.id.tv_goodsName, resultBean.caseName)
                     setTextWith(R.id.tv_view_count, resultBean.visitNumber.toString())
                     setTextWith(R.id.tv_collect_count, resultBean.collectionNumber.toString())
                     setTextWith(R.id.tv_goodsName, resultBean.caseName)
                     setOnClickListener(R.id.btn_checkComment, View.OnClickListener {
-                        UnreadMsgUtils.show(msgView, 0)
+                        UnreadMsgUtils.show(msgView, 0, false)
                         CommentActivity.start(context, resultBean.id)
                     })
                     setOnItemClickListener(object : RecyclerViewHolder.OnItemCliceListener {
