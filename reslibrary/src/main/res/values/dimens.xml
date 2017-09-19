@@ -65,4 +65,10 @@
 
 
     <dimen name="commonTabLayoutHeight">54dp</dimen>
+
+
+    <!-- map -->
+    <dimen name="friend_map_btn_height">42dp</dimen>
+    <dimen name="friend_map_bound_padding">80dp</dimen>
+
 </resources>

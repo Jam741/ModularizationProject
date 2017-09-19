@@ -34,15 +34,21 @@ android {
 
 
     sourceSets {
-//        main {
+        main {
 //            java.srcDirs = ['src/main/java']
 //            resources.srcDirs = ['src/main/java']
 //            renderscript.srcDirs = ['src/main/java']
 //            res.srcDirs = ['src/main/res']
 //            assets.srcDirs = ['src/main/assets']
 //            jni.srcDirs = []
-//            jniLibs.srcDirs = ['src/libs']
-//        }
+            jniLibs.srcDirs = ['src/libs']
+        }
+    }
+
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 }
 
@@ -79,7 +85,7 @@ dependencies {
     compile project(':reslibrary')
     compile project(':sharelibrary')
     compile project(':pdfviewlibrary')
-    compile project(':IMKit')
+    //    compile project(':IMKit')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'de.hdodenhof:circleimageview:2.1.0'
@@ -87,9 +93,15 @@ dependencies {
     compile 'com.qiniu:qiniu-android-sdk:7.3.3'
     compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
     compile files('libs/alipaySingle-20161222.jar')
-    compile files('libs/MiPush_SDK_Client_3_2_2.jar')
     compile files('libs/tbs_sdk_thirdapp_v3.3.0.1045_43300_sharewithdownload_withoutGame_obfs_20170605_170212.jar')
+    compile 'com.umeng.analytics:analytics:6.1.2'
+    // 添加依赖。注意，版本号必须一致。
+    // 基础功能 (必需)
+    compile project(path: ':uikit')
+    compile files('libs/Android_Location_V1.3.1.jar')
+
 }
 repositories {
     mavenCentral()
+
 }

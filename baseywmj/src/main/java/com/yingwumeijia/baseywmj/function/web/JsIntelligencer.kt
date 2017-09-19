@@ -59,11 +59,6 @@ import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.sharelibrary.ShareData
 import com.yingwumeijia.sharelibrary.ShareDialog
 import com.yingwumeijia.sharelibrary.ShareManager
-import io.rong.imkit.RongIM
-import io.rong.imlib.IRongCallback
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
-import io.rong.imlib.model.Message
 import org.json.JSONException
 import org.json.JSONObject
 import rx.Observable
@@ -290,29 +285,29 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
 
         val payMessageBean = Gson().fromJson<ApplyPayMessageBean>(data, ApplyPayMessageBean::class.java)
-        val payOrderMessageContent = PayOrderMessageContent.obtain(payMessageBean.content, payMessageBean.billAmount, payMessageBean.billTypeStr, payMessageBean.billId.toString(), "1")
-        val myMessage = Message.obtain(IMManager.currentSessionId(activity), Conversation.ConversationType.GROUP, payOrderMessageContent)
-        RongIM.getInstance().sendMessage(myMessage, "支付款项", "支付款项", object : IRongCallback.ISendMediaMessageCallback {
-            override fun onProgress(message: Message, i: Int) {
-
-            }
-
-            override fun onCanceled(message: Message) {
-
-            }
-
-            override fun onAttached(message: Message) {
-
-            }
-
-            override fun onSuccess(message: Message) {
-                ActivityCompat.finishAfterTransition(activity)
-            }
-
-            override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
-                ActivityCompat.finishAfterTransition(activity)
-            }
-        })
+//        val payOrderMessageContent = PayOrderMessageContent.obtain(payMessageBean.content, payMessageBean.billAmount, payMessageBean.billTypeStr, payMessageBean.billId.toString(), "1")
+//        val myMessage = Message.obtain(IMManager.currentSessionId(activity), Conversation.ConversationType.GROUP, payOrderMessageContent)
+//        RongIM.getInstance().sendMessage(myMessage, "支付款项", "支付款项", object : IRongCallback.ISendMediaMessageCallback {
+//            override fun onProgress(message: Message, i: Int) {
+//
+//            }
+//
+//            override fun onCanceled(message: Message) {
+//
+//            }
+//
+//            override fun onAttached(message: Message) {
+//
+//            }
+//
+//            override fun onSuccess(message: Message) {
+//                ActivityCompat.finishAfterTransition(activity)
+//            }
+//
+//            override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
+//                ActivityCompat.finishAfterTransition(activity)
+//            }
+//        })
     }
 
 

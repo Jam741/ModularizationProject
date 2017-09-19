@@ -1,5 +1,8 @@
 package com.yingwumeijia.baseywmj.option
 
+import android.content.Context
+import android.os.Environment
+
 /**
  * Created by jamisonline on 2017/6/8.
  */
@@ -38,6 +41,12 @@ object Config {
         val APP_KEY = "5491751620075"
     }
 
+
+    object NIM_IM {
+        val dubug_app_key = "e8b991bf2ad74183a572fb272411ae85"
+        val release_app_key = "c65143f06c4ddb94357ebe373bbf831a"
+    }
+
     object PAY {
         /**************支付宝开始********************/
         val ALIPAY_APPID = "2017030906135512"
@@ -72,4 +81,12 @@ object Config {
     val CODE_OPEN_UPLOAD = 1021//
 
     val BASE_QINIU_URL = "http://o8nljewkg.bkt.clouddn.com/"
+
+
+    /**
+     * 本地存储路径
+     */
+    fun localStoreFolderPath(context: Context): String {
+        return Environment.getExternalStorageDirectory().toString() + "/" + context.packageName + "/YWMJ"
+    }
 }

@@ -1,8 +1,6 @@
 package com.yingwumeijia.android.worker.function.splash
 
-import android.app.Activity
 import android.app.ProgressDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,28 +9,20 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
-import com.yingwumeijia.android.worker.Constant
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.home.EmployeeMainActivity
-import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
-import com.yingwumeijia.baseywmj.entity.bean.TokenBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.IMEventManager
-import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
-import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.baseywmj.utils.net.interceptor.ProgressResponseBody
 import com.yingwumeijia.commonlibrary.base.BaseApplication
 import com.yingwumeijia.commonlibrary.utils.AppUtils
-import io.rong.imkit.RongIM
-import io.rong.imlib.RongIMClient
-import io.rong.push.RongPushClient
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -45,7 +35,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
-import rx.functions.Action1
 import rx.schedulers.Schedulers
 import java.io.*
 import java.math.BigInteger
@@ -58,22 +47,6 @@ class SplashActivity : JBaseActivity() {
 
     var severBean: SeverBean? = null
 
-    val mApi by lazy {
-        Retrofit.Builder()
-                .baseUrl(PATHUrlConfig.severUrl())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .client(defaultClient())
-                .build()
-                .create(Service::class.java)
-    }
-
-    val defaultSeverBean by lazy {
-        SeverBean().apply {
-            serverUrl = PATHUrlConfig.DEFAULT_URL_E
-            webUrl = PATHUrlConfig.BASE_URL_H5_RELEASE
-        }
-    }
 
     val downloaderProgressDialog: ProgressDialog by lazy {
         ProgressDialog(context).apply {
@@ -95,38 +68,38 @@ class SplashActivity : JBaseActivity() {
     }
 
 
-    fun loadBaseUrl() {
-        mApi
-                .getService("e", AppUtils.getVersionName(this))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : Subscriber<SeverBean>() {
-                    override fun onNext(t: SeverBean?) {
-                        if (t == null) {
-                            didSuccess(defaultSeverBean)
-                        } else {
-                            severBean = t!!
-                            if (t!!.isUpgrade) {//强制更新
-                                showMustUpDateDialog()
-                            } else if (t!!.isNewVersion) {//非强制更新
-                                showHasNewVersionDialog()
-                            } else {
-                                didSuccess(t!!)
-                            }
-                        }
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        didSuccess(defaultSeverBean)
-                    }
-
-                    override fun onCompleted() {
-
-                    }
-
-                })
-
-    }
+//    fun loadBaseUrl() {
+//        mApi
+//                .getService("e", AppUtils.getVersionName(this))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(object : Subscriber<SeverBean>() {
+//                    override fun onNext(t: SeverBean?) {
+//                        if (t == null) {
+//                            didSuccess(defaultSeverBean)
+//                        } else {
+//                            severBean = t!!
+//                            if (t!!.isUpgrade) {//强制更新
+//                                showMustUpDateDialog()
+//                            } else if (t!!.isNewVersion) {//非强制更新
+//                                showHasNewVersionDialog()
+//                            } else {
+//                                didSuccess(t!!)
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onError(e: Throwable?) {
+//                        didSuccess(defaultSeverBean)
+//                    }
+//
+//                    override fun onCompleted() {
+//
+//                    }
+//
+//                })
+//
+//    }
 
 
     /**
@@ -150,7 +123,7 @@ class SplashActivity : JBaseActivity() {
         AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setMessage("有新的版本可以更新")
-                .setNegativeButton("取消") { dialog, which -> didSuccess(severBean!!) }
+                .setNegativeButton("取消") { dialog, which -> didSuccess() }
                 .setPositiveButton("下载") { dialog, which -> startUpDownloader() }.show()
 
     }
@@ -159,32 +132,12 @@ class SplashActivity : JBaseActivity() {
     /**
      *  加载完成
      */
-    private fun didSuccess(severBean: SeverBean) {
-
-        SeverUrlManager.refreshBaseUrl(severBean.serverUrl)
-        SeverUrlManager.refreshWebBaseUrl(severBean.webUrl)
-        SeverUrlManager.refreshIMKey(severBean.appImkey)
-        RongPushClient.registerHWPush(this)
-        RongPushClient.registerMiPush(this, Config.MIPUSH_E.APP_ID, Config.MIPUSH_E.APP_KEY)
-        RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
-        IMEventManager(BaseApplication.appContext())
-
-
+    private fun didSuccess() {
 
 
         if (UserManager.isLogin(context)) {
-           connectRongClound(object:RongConnectListener{
-               override fun succ() {
-                   close()
-                   EmployeeMainActivity.start(context)
-               }
-
-               override fun error() {
-                   UserManager.setLoginStatus(context,false)
-                   close()
-                   LoginActivity.start(context, false)
-               }
-           })
+            close()
+            EmployeeMainActivity.start(context)
         } else {
             close()
             LoginActivity.start(context, false)
@@ -199,7 +152,7 @@ class SplashActivity : JBaseActivity() {
         /*set it to be full screen*/
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
-        loadBaseUrl()
+        didSuccess()
     }
 
 
@@ -382,47 +335,47 @@ class SplashActivity : JBaseActivity() {
     }
 
 
-    private fun connectRongClound( rongConnectListener: RongConnectListener) {
+    private fun connectRongClound(rongConnectListener: RongConnectListener) {
 
-
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object :Subscriber<TokenBean>(){
-            override fun onNext(t: TokenBean?) {
-                RongIM.connect(t!!.token, object : RongIMClient.ConnectCallback() {
-
-                    /**
-                     * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
-                     */
-                    override fun onTokenIncorrect() {
-                        Log.d("JAM", "=======connectRongClound-onTokenIncorrect")
-                        rongConnectListener.error()
-                    }
-
-                    /**
-                     * 连接融云成功
-                     * @param userid 当前 token
-                     */
-                    override fun onSuccess(userid: String) {
-                        rongConnectListener.succ()
-                    }
-
-                    /**
-                     * 连接融云失败
-                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
-                     */
-                    override fun onError(errorCode: RongIMClient.ErrorCode) {
-                        rongConnectListener.error()
-                        Log.d("JAM", "=======connectRongClound-onError:" + errorCode.message + "|" + errorCode.value)
-                    }
-                })
-            }
-
-            override fun onCompleted() {
-            }
-
-            override fun onError(e: Throwable?) {
-                rongConnectListener.error()
-            }
-        })
+//
+//        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object :Subscriber<TokenBean>(){
+//            override fun onNext(t: TokenBean?) {
+//                RongIM.connect(t!!.token, object : RongIMClient.ConnectCallback() {
+//
+//                    /**
+//                     * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+//                     */
+//                    override fun onTokenIncorrect() {
+//                        Log.d("JAM", "=======connectRongClound-onTokenIncorrect")
+//                        rongConnectListener.error()
+//                    }
+//
+//                    /**
+//                     * 连接融云成功
+//                     * @param userid 当前 token
+//                     */
+//                    override fun onSuccess(userid: String) {
+//                        rongConnectListener.succ()
+//                    }
+//
+//                    /**
+//                     * 连接融云失败
+//                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
+//                     */
+//                    override fun onError(errorCode: RongIMClient.ErrorCode) {
+//                        rongConnectListener.error()
+//                        Log.d("JAM", "=======connectRongClound-onError:" + errorCode.message + "|" + errorCode.value)
+//                    }
+//                })
+//            }
+//
+//            override fun onCompleted() {
+//            }
+//
+//            override fun onError(e: Throwable?) {
+//                rongConnectListener.error()
+//            }
+//        })
 
         Log.d("JAM", "=======connectRongClound")
         /**

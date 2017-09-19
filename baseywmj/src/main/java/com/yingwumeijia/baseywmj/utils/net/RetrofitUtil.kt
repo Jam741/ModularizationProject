@@ -1,6 +1,7 @@
 package com.yingwumeijia.baseywmj.utils.net
 
 import android.util.Log
+import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.baseywmj.utils.net.interceptor.AccountInterceptor
 import com.yingwumeijia.baseywmj.utils.net.proxy.ProxyHandler
@@ -27,7 +28,7 @@ class RetrofitUtil {
 
         private fun getRetrofit(): Retrofit {
             return Retrofit.Builder()
-                    .baseUrl(SeverUrlManager.baseUrl())
+                    .baseUrl(PATHUrlConfig.severUrl())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .client(defaultClient())

@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.netease.nim.uikit.recent.RecentContactsFragment
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.collectunread.CollectUnreadActivity
 import com.yingwumeijia.baseywmj.api.Api
@@ -19,10 +20,6 @@ import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.RetrofitUtil
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
-import io.rong.imkit.RongIM
-import io.rong.imkit.fragment.ConversationListFragment
-import io.rong.imkit.manager.IUnReadMessageObserver
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.conversation_list_container.*
 import rx.Subscriber
 
@@ -39,23 +36,16 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
     }
 
 
-    val loggedFragment by lazy { createConversationListFragment() }
+    val loggedFragment by lazy { assembleRecentContactsFragment() }
 
     val systemMessageAdapter by lazy { createSystemMessageAdapter() }
 
 
-    internal val conversationTypeSystem = arrayOf(Conversation.ConversationType.SYSTEM)
+//    internal val conversationTypeSystem = arrayOf(Conversation.ConversationType.SYSTEM)
 
-    /**
-     * 创建会话列表Fragment
-     */
-    private fun createConversationListFragment(): Fragment {
-        val fragment = ConversationListFragment()
-        fragment.uri = Uri.parse("rong://" + activity.applicationInfo.packageName).buildUpon()
-                .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//设置群组会话聚合显示
-                .build()
-        return fragment
+
+    private fun assembleRecentContactsFragment(): RecentContactsFragment {
+        return RecentContactsFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -74,22 +64,22 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
 
 
         getUnRead()
-
-        RongIM.getInstance()
-                .addUnReadMessageCountChangedObserver(unread, *conversationTypeSystem)
+//
+//        RongIM.getInstance()
+//                .addUnReadMessageCountChangedObserver(unread, *conversationTypeSystem)
     }
 
 
-    val unread = object : IUnReadMessageObserver {
-        override fun onCountChanged(p0: Int) {
-            if (p0 > 0) {
-                systemMessageAdapter.data!![2].content = "有新的消息"
-            } else {
-                systemMessageAdapter.data!![2].content = "暂时没有新消息"
-            }
-            systemMessageAdapter.notifyDataSetChanged()
-        }
-    }
+//    val unread = object : IUnReadMessageObserver {
+//        override fun onCountChanged(p0: Int) {
+//            if (p0 > 0) {
+//                systemMessageAdapter.data!![2].content = "有新的消息"
+//            } else {
+//                systemMessageAdapter.data!![2].content = "暂时没有新消息"
+//            }
+//            systemMessageAdapter.notifyDataSetChanged()
+//        }
+//    }
 
 
     private fun createSystemMessageAdapter(): CommonRecyclerAdapter<SystemMessageInfo> {

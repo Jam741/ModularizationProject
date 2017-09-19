@@ -5,8 +5,6 @@ import android.content.Context
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
-import io.rong.imkit.RongIM
-import io.rong.imlib.model.Conversation
 
 /**
  * Created by jamisonline on 2017/6/27.
@@ -54,9 +52,9 @@ object StartActivityManager {
     }
 
     fun startConversation(context: Context, sessionId: String) {
-        if (RongIM.getInstance() != null) {
-            RongIM.getInstance().startConversation(context, Conversation.ConversationType.GROUP, sessionId, null)
-        }
+//        if (RongIM.getInstance() != null) {
+//            RongIM.getInstance().startConversation(context, Conversation.ConversationType.GROUP, sessionId, null)
+//        }
     }
 
 

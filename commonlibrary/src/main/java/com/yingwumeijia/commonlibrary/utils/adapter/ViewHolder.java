@@ -21,7 +21,6 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder;
 
 

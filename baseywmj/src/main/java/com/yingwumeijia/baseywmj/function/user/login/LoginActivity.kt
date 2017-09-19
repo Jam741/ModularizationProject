@@ -4,26 +4,22 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.enter.EnterActivity
-import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.function.user.UserContract
 import com.yingwumeijia.baseywmj.function.user.UserPresenter
 import com.yingwumeijia.baseywmj.function.user.UserResponseCallBack
 import com.yingwumeijia.baseywmj.function.user.findpwd.FindPwdActivity
 import com.yingwumeijia.baseywmj.function.user.register.RegisterActivity
-import io.rong.imkit.RongIM
 import kotlinx.android.synthetic.main.login_layout.*
 
 /**
@@ -61,18 +57,7 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
     override fun completed() {
         close()
         if (!currentLogin) {
-//            if (AppTypeManager.isAppC()) {
-//                val activityName = "ECustomerMainActivity"
-//                val clazz = Class.forName(activityName)
-//                val intent = Intent(this, clazz)
-//                startActivity(intent)
-//            } else {
-//                val activityName = "EmployeeMainActivity"
-//                val clazz = Class.forName(activityName)
-//                val intent = Intent(this, clazz)
-//                startActivity(intent)
-//            }
-            RongIM.getInstance().startConversationList(context, null)
+//            RongIM.getInstance().startConversationList(context, null)
         }
     }
 

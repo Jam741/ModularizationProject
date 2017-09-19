@@ -26,9 +26,9 @@ class CaseListAdapter : CommonRecyclerAdapter<CaseBean> {
         val tvName = holder.getViewWith(R.id.tv_name)
         val tv_describe = holder.getViewWith(R.id.tv_describe)
 
-        val params = tvName.getLayoutParams() as RelativeLayout.LayoutParams
+        val params = tvName.layoutParams as RelativeLayout.LayoutParams
         params.setMargins(0, ScreenUtils.dp2px(7f, activity!!), 0, ScreenUtils.dp2px(3f, activity!!))
-        tvName.setLayoutParams(params)
+        tvName.layoutParams = params
         tvName.setPadding(ScreenUtils.dp2px(20f, activity!!), 0, 0, 0)
         tv_describe.setPadding(ScreenUtils.dp2px(20f, activity!!), 0, 0, 0)
 

@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/scanlibrary" />
             <option value="$PROJECT_DIR$/sharelibrary" />
             <option value="$PROJECT_DIR$/testapp" />
+            <option value="$PROJECT_DIR$/uikit" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

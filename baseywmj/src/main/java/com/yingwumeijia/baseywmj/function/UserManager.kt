@@ -2,6 +2,8 @@ package com.yingwumeijia.baseywmj.function
 
 import android.app.Activity
 import android.content.Context
+import android.text.TextUtils
+import com.netease.nimlib.sdk.auth.LoginInfo
 import com.orhanobut.hawk.Hawk
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UserBean
@@ -70,12 +72,12 @@ object UserManager {
         Hawk.put(KEY_USER_CACHE_DATA, userBean)
     }
 
-    fun cacheUserTypeExtension(context: Context,userTypeExtension:Int){
-        SPUtils.put(context,"KEY_USER_TYPE_EXTENSION",userTypeExtension)
+    fun cacheUserTypeExtension(context: Context, userTypeExtension: Int) {
+        SPUtils.put(context, "KEY_USER_TYPE_EXTENSION", userTypeExtension)
     }
 
-    fun getUserTypeExtension(context: Context):Int{
-        return SPUtils.get(context,"KEY_USER_TYPE_EXTENSION",0) as Int
+    fun getUserTypeExtension(context: Context): Int {
+        return SPUtils.get(context, "KEY_USER_TYPE_EXTENSION", 0) as Int
     }
 
     fun getUserData(): UserBean? {
@@ -123,4 +125,32 @@ object UserManager {
     fun getTwitterStatus(): Int {
         return Hawk.get(KEY_TWITTER_CACHE_DATA, Constant.DEFAULT_INT_VALUE)
     }
+
+
+    /****网易云信账号体系 开始*****/
+
+    fun getNIMLoginInfo(context: Context): LoginInfo? {
+        val account = SPUtils.get(context, Constant.KEY_NIM_ACCOUNT, "") as String
+        val token = SPUtils.get(context, Constant.KEY_NIM_TOKEN, "") as String
+
+        if (TextUtils.isEmpty(account) || TextUtils.isEmpty(token)) {
+            return null
+        } else {
+            return LoginInfo(account, token)
+        }
+
+    }
+
+    fun refreshNIMLogin(context: Context, loginInfo: LoginInfo) {
+        SPUtils.put(context, Constant.KEY_NIM_ACCOUNT, loginInfo.account)
+        SPUtils.put(context, Constant.KEY_NIM_TOKEN, loginInfo.token)
+    }
+
+    fun clearNIMLogin(context: Context) {
+        SPUtils.put(context, Constant.KEY_NIM_ACCOUNT, "")
+        SPUtils.put(context, Constant.KEY_NIM_TOKEN, "")
+    }
+
+    /****网易云信账号体系 结束*****/
+
 }

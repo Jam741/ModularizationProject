@@ -12,7 +12,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.amap.api.maps2d.model.Text;
 import com.orhanobut.logger.Logger;
 import com.yingwumeijia.baseywmj.R;
 import com.yingwumeijia.baseywmj.base.JBaseActivity;

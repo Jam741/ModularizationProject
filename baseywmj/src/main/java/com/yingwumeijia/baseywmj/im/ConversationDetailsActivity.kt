@@ -18,9 +18,6 @@ import com.yingwumeijia.baseywmj.function.introduction.employee.EmployeeActivity
 import com.yingwumeijia.baseywmj.im.add.AddCustomerActivity
 import com.yingwumeijia.baseywmj.im.add.AddEmployeeActivity
 import com.yingwumeijia.baseywmj.im.add.EditProjectNameActivity
-import io.rong.imkit.RongIM
-import io.rong.imlib.model.Conversation
-import io.rong.imlib.model.Group
 import kotlinx.android.synthetic.main.conversation_details_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 
@@ -126,7 +123,7 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
     }
 
     override fun dismissConversationSuccess() {
-        IMManager.removeConversation(Conversation.ConversationType.GROUP, sessionId)
+//        IMManager.removeConversation(Conversation.ConversationType.GROUP, sessionId)
         close()
         JBaseApp.finishCurrentConversation()
     }
@@ -138,8 +135,8 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
                 REQUST_CODE_RENAME -> {
                     if (data != null) {
                         tv_projectName.text = data.getStringExtra(Constant.KEY_INPUT_RESULT)
-                        val group = Group(sessionId, data.getStringExtra(Constant.KEY_INPUT_RESULT), Uri.parse(presenter.groupPortrait))
-                        RongIM.getInstance().refreshGroupInfoCache(group)
+//                        val group = Group(sessionId, data.getStringExtra(Constant.KEY_INPUT_RESULT), Uri.parse(presenter.groupPortrait))
+//                        RongIM.getInstance().refreshGroupInfoCache(group)
                     }
                 }
             }

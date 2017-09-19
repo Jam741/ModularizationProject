@@ -82,7 +82,7 @@ class SearchController(val activity: Activity, publishSubject: PublishSubject<Ac
             override fun getView(parent: FlowLayout?, position: Int, t: String?): View {
                 val mInflater = LayoutInflater.from(context)
                 val textView = mInflater.inflate(R.layout.tv_tag, parent, false) as TextView
-                textView.setText(t)
+                textView.text = t
                 return textView
             }
         }

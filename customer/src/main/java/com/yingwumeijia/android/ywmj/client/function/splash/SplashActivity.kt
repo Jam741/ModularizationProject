@@ -1,10 +1,8 @@
 package com.yingwumeijia.android.ywmj.client.function.splash
 
-import android.app.Activity
 import android.app.ActivityManager
 import android.app.ProgressDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,7 +12,6 @@ import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import com.orhanobut.logger.Logger
-import com.yingwumeijia.android.ywmj.client.Constant
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.android.ywmj.client.function.adverts.AdvertsActivity
 import com.yingwumeijia.android.ywmj.client.function.guidance.CustomerGuidanceActivity
@@ -24,24 +21,16 @@ import com.yingwumeijia.baseywmj.api.Service
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.entity.bean.AdvertsBean
 import com.yingwumeijia.baseywmj.entity.bean.SeverBean
-import com.yingwumeijia.baseywmj.entity.bean.TokenBean
 import com.yingwumeijia.baseywmj.function.UserManager
-import com.yingwumeijia.baseywmj.function.main.MainActivity
 import com.yingwumeijia.baseywmj.im.IMEventManager
-import com.yingwumeijia.baseywmj.im.IMManager
-import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 import com.yingwumeijia.baseywmj.utils.net.AccountManager
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.baseywmj.utils.net.interceptor.ProgressResponseBody
-import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.base.BaseApplication
 import com.yingwumeijia.commonlibrary.utils.AppUtils
-import io.rong.imkit.RongIM
-import io.rong.imlib.RongIMClient
-import io.rong.push.RongPushClient
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -106,36 +95,6 @@ class SplashActivity : JBaseActivity() {
 
 
     fun loadBaseUrl() {
-        mApi
-                .getService("c", AppUtils.getVersionName(this))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(object : Subscriber<SeverBean>() {
-                    override fun onNext(t: SeverBean?) {
-                        if (t == null) {
-                            didSuccessBefor(defaultSeverBean)
-                        } else {
-                            severBean = t!!
-                            if (t!!.isUpgrade) {//强制更新
-                                showMustUpDateDialog()
-                            } else if (t!!.isNewVersion) {//非强制更新
-                                showHasNewVersionDialog()
-                            } else {
-                                didSuccessBefor(t!!)
-                            }
-                        }
-                    }
-
-                    override fun onError(e: Throwable?) {
-                        didSuccessBefor(defaultSeverBean)
-                    }
-
-                    override fun onCompleted() {
-
-                    }
-
-                })
-
     }
 
     /**
@@ -167,50 +126,47 @@ class SplashActivity : JBaseActivity() {
 
 
     private fun didSuccessBefor(severBean: SeverBean) {
-        SeverUrlManager.refreshBaseUrl(severBean.serverUrl)
-        SeverUrlManager.refreshWebBaseUrl(severBean.webUrl)
-        SeverUrlManager.refreshIMKey(severBean.appImkey)
 
-        try {
-//            RongPushClient.registerHWPush(this)
-            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
-            if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
-                RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
-                IMEventManager(BaseApplication.appContext())
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        try {
+////            RongPushClient.registerHWPush(this)
+////            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
+//            if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
+////                RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
+////                IMEventManager(BaseApplication.appContext())
+////            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
 
-
-        if (UserManager.isLogin(context)) {
-            connectRongClound( object : RongConnectListener {
-                override fun error() {
-                    UserManager.setLoginStatus(context,false)
-                    checkAdv(severBean)
-                }
-
-                override fun succ() {
-                    checkAdv(severBean)
-                }
-            })
-        } else {
-            checkAdv(severBean)
-        }
+//
+//        if (UserManager.isLogin(context)) {
+//            connectRongClound( object : RongConnectListener {
+//                override fun error() {
+//                    UserManager.setLoginStatus(context,false)
+//                    checkAdv(severBean)
+//                }
+//
+//                override fun succ() {
+//                    checkAdv(severBean)
+//                }
+//            })
+//        } else {
+//            checkAdv(severBean)
+//        }
 
 
     }
 
 
-    fun checkAdv(severBean: SeverBean) {
+    fun checkAdv() {
 
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getAdverts(), object : Subscriber<AdvertsBean>() {
             override fun onNext(t: AdvertsBean?) {
                 if (t == null) {
-                    didSuccess(severBean)
+                    didSuccess()
                 } else {
                     if (UserManager.advertsId(context) == t.id) {
-                        didSuccess(severBean)
+                        didSuccess()
                     } else {
                         didAdvertsSuccess(t)
                     }
@@ -223,7 +179,7 @@ class SplashActivity : JBaseActivity() {
             }
 
             override fun onError(e: Throwable?) {
-                didSuccess(severBean)
+                didSuccess()
             }
         })
     }
@@ -241,7 +197,7 @@ class SplashActivity : JBaseActivity() {
     /**
      *  加载完成
      */
-    private fun didSuccess(severBean: SeverBean) {
+    private fun didSuccess() {
         close()
         if (UserManager.isFirst(context)) {
             CustomerGuidanceActivity.start(context)
@@ -263,7 +219,7 @@ class SplashActivity : JBaseActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
         if (!UserManager.isLogin(context)) AccountManager.clearnAccount()
-        loadBaseUrl()
+        checkAdv()
     }
 
 
@@ -446,47 +402,47 @@ class SplashActivity : JBaseActivity() {
     }
 
 
-    private fun connectRongClound( rongConnectListener: RongConnectListener) {
+    private fun connectRongClound(rongConnectListener: RongConnectListener) {
 
-
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object :Subscriber<TokenBean>(){
-            override fun onNext(t: TokenBean?) {
-                RongIM.connect(t!!.token, object : RongIMClient.ConnectCallback() {
-
-                    /**
-                     * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
-                     */
-                    override fun onTokenIncorrect() {
-                        Log.d("JAM", "=======connectRongClound-onTokenIncorrect")
-                        rongConnectListener.error()
-                    }
-
-                    /**
-                     * 连接融云成功
-                     * @param userid 当前 token
-                     */
-                    override fun onSuccess(userid: String) {
-                        rongConnectListener.succ()
-                    }
-
-                    /**
-                     * 连接融云失败
-                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
-                     */
-                    override fun onError(errorCode: RongIMClient.ErrorCode) {
-                        rongConnectListener.error()
-                        Log.d("JAM", "=======connectRongClound-onError:" + errorCode.message + "|" + errorCode.value)
-                    }
-                })
-            }
-
-            override fun onCompleted() {
-            }
-
-            override fun onError(e: Throwable?) {
-                rongConnectListener.error()
-            }
-        })
+//
+//        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(),object :Subscriber<TokenBean>(){
+//            override fun onNext(t: TokenBean?) {
+//                RongIM.connect(t!!.token, object : RongIMClient.ConnectCallback() {
+//
+//                    /**
+//                     * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+//                     */
+//                    override fun onTokenIncorrect() {
+//                        Log.d("JAM", "=======connectRongClound-onTokenIncorrect")
+//                        rongConnectListener.error()
+//                    }
+//
+//                    /**
+//                     * 连接融云成功
+//                     * @param userid 当前 token
+//                     */
+//                    override fun onSuccess(userid: String) {
+//                        rongConnectListener.succ()
+//                    }
+//
+//                    /**
+//                     * 连接融云失败
+//                     * @param errorCode 错误码，可到官网 查看错误码对应的注释
+//                     */
+//                    override fun onError(errorCode: RongIMClient.ErrorCode) {
+//                        rongConnectListener.error()
+//                        Log.d("JAM", "=======connectRongClound-onError:" + errorCode.message + "|" + errorCode.value)
+//                    }
+//                })
+//            }
+//
+//            override fun onCompleted() {
+//            }
+//
+//            override fun onError(e: Throwable?) {
+//                rongConnectListener.error()
+//            }
+//        })
 
         Log.d("JAM", "=======connectRongClound")
         /**

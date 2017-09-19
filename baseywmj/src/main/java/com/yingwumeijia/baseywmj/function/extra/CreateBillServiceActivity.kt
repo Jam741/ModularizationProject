@@ -19,15 +19,9 @@ import com.yingwumeijia.baseywmj.entity.bean.BillSimpleInfo
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean
 import com.yingwumeijia.baseywmj.entity.bean.PayBillInfo
 import com.yingwumeijia.baseywmj.function.cashier.CashierForActiveActivity
-import com.yingwumeijia.baseywmj.im.message.PayMessageContent
 import com.yingwumeijia.commonlibrary.utils.ListUtil
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.glide.JImageLolder
-import io.rong.imkit.RongIM
-import io.rong.imlib.IRongCallback
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
-import io.rong.imlib.model.Message
 import kotlinx.android.synthetic.main.create_bill_service_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 import rx.Observable
@@ -261,29 +255,29 @@ class CreateBillServiceActivity : JBaseActivity(), CreateBillServicContract.View
     }
 
     override fun toCashier(bill: String) {
-        val payMessageContent = PayMessageContent.obtain("付款邀请", bill, "1")
-        val myMessage = Message.obtain(mSessionId, Conversation.ConversationType.GROUP, payMessageContent)
-        RongIM.getInstance().sendMessage(myMessage, "邀请付款消息", "邀请付款消息", object : IRongCallback.ISendMediaMessageCallback {
-            override fun onProgress(message: Message, i: Int) {
-
-            }
-
-            override fun onCanceled(message: Message) {
-
-            }
-
-            override fun onAttached(message: Message) {
-
-            }
-
-            override fun onSuccess(message: Message) {
-                ActivityCompat.finishAfterTransition(context)
-            }
-
-            override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
-                ActivityCompat.finishAfterTransition(context)
-            }
-        })
+//        val payMessageContent = PayMessageContent.obtain("付款邀请", bill, "1")
+//        val myMessage = Message.obtain(mSessionId, Conversation.ConversationType.GROUP, payMessageContent)
+//        RongIM.getInstance().sendMessage(myMessage, "邀请付款消息", "邀请付款消息", object : IRongCallback.ISendMediaMessageCallback {
+//            override fun onProgress(message: Message, i: Int) {
+//
+//            }
+//
+//            override fun onCanceled(message: Message) {
+//
+//            }
+//
+//            override fun onAttached(message: Message) {
+//
+//            }
+//
+//            override fun onSuccess(message: Message) {
+//                ActivityCompat.finishAfterTransition(context)
+//            }
+//
+//            override fun onError(message: Message, errorCode: RongIMClient.ErrorCode) {
+//                ActivityCompat.finishAfterTransition(context)
+//            }
+//        })
     }
 
     override fun initBillSimple(billSimpleInfo: BillSimpleInfo) {

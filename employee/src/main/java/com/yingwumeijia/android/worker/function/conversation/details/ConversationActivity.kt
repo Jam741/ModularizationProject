@@ -35,10 +35,6 @@ import com.yingwumeijia.commonlibrary.utils.KeyboardChangeListener
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import com.yingwumeijia.commonlibrary.utils.TextViewUtils
-import io.rong.imkit.RongIM
-import io.rong.imkit.fragment.ConversationFragment
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.conversation_act.*
 import kotlinx.android.synthetic.main.conversation_status.*
 import kotlinx.android.synthetic.main.conversation_toolbar.*
@@ -58,7 +54,7 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
 
     val titleStr: String? by lazy { uri.getQueryParameter("title") }
 
-    val mConversationType by lazy { Conversation.ConversationType.valueOf(uri.lastPathSegment.toUpperCase(Locale.getDefault())) }
+//    val mConversationType by lazy { Conversation.ConversationType.valueOf(uri.lastPathSegment.toUpperCase(Locale.getDefault())) }
 
     var isFromPush = false
 
@@ -68,7 +64,7 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
 
     val addInputDialog by lazy { createAddInputQuickDialog() }
 
-    val conversationFragment by lazy { createConversationFragment() }
+//    val conversationFragment by lazy { createConversationFragment() }
 
     var greetInputPop: PopupWindow? = null
 
@@ -124,13 +120,13 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
     }
 
 
-    private fun createConversationFragment(): Fragment {
-        return ConversationFragment().apply {
-            uri = Uri.parse("rong://" + applicationInfo.packageName).buildUpon()
-                    .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
-                    .appendQueryParameter("targetId", sessionId).build()
-        }
-    }
+//    private fun createConversationFragment(): Fragment {
+//        return ConversationFragment().apply {
+//            uri = Uri.parse("rong://" + applicationInfo.packageName).buildUpon()
+//                    .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
+//                    .appendQueryParameter("targetId", sessionId).build()
+//        }
+//    }
 
 
     private fun createAddInputQuickDialog(): AlertDialog {
@@ -179,7 +175,7 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
         if (!TextUtils.isEmpty(titleStr))
             topTitle.text = titleStr
 
-        isPushMessage(intent)
+//        isPushMessage(intent)
         presenter.start()
 
         if (UserManager.getUserData()!!.userDetailType == 10) {
@@ -286,53 +282,53 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
     }
 
 
-    /**
-     * 判断是否是 Push 消息，判断是否需要做 connect 操作
-     */
-    private fun isPushMessage(intent: Intent?) {
-
-        if (intent == null || intent.data == null)
-            return
-        //push
-        if (intent.data.scheme == "rong" && intent.data.getQueryParameter("isFromPush") != null) {
-
-            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
-            if (uri.getQueryParameter("isFromPush") == "true") {
-                //只有收到系统消息和不落地 push 消息的时候，pushId 不为 null。而且这两种消息只能通过 server 来发送，客户端发送不了。
-                //RongIM.getInstance().getRongIMClient().recordNotificationEvent(id);
-                progressDialog.dismiss()
-                isFromPush = true
-                enterActivity()
-            } else if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
-                progressDialog.dismiss()
-                if (uri.path.contains("conversation/system")) {
-                    //系统消息
-                    close()
-                    EmployeeMainActivity.start(context)
-//                    intent1.putExtra("systemconversation", true)
-//                    startActivity(intent1)
-//                    SealAppContext.getInstance().popAllActivity()
-                    return
-                }
-                enterActivity()
-            } else {
-                if (uri.path.contains("conversation/system")) {
-                    close()
-                    EmployeeMainActivity.start(context)
-                    return
-                }
-                enterFragment()
-            }
-
-        } else {
-            if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
-                progressDialog.show()
-                Handler().postDelayed({ enterActivity() }, 300)
-            } else {
-                enterFragment()
-            }
-        }
-    }
+//    /**
+//     * 判断是否是 Push 消息，判断是否需要做 connect 操作
+//     */
+//    private fun isPushMessage(intent: Intent?) {
+//
+//        if (intent == null || intent.data == null)
+//            return
+//        //push
+//        if (intent.data.scheme == "rong" && intent.data.getQueryParameter("isFromPush") != null) {
+//
+//            //通过intent.getData().getQueryParameter("push") 为true，判断是否是push消息
+//            if (uri.getQueryParameter("isFromPush") == "true") {
+//                //只有收到系统消息和不落地 push 消息的时候，pushId 不为 null。而且这两种消息只能通过 server 来发送，客户端发送不了。
+//                //RongIM.getInstance().getRongIMClient().recordNotificationEvent(id);
+//                progressDialog.dismiss()
+//                isFromPush = true
+//                enterActivity()
+//            } else if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
+//                progressDialog.dismiss()
+//                if (uri.path.contains("conversation/system")) {
+//                    //系统消息
+//                    close()
+//                    EmployeeMainActivity.start(context)
+////                    intent1.putExtra("systemconversation", true)
+////                    startActivity(intent1)
+////                    SealAppContext.getInstance().popAllActivity()
+//                    return
+//                }
+//                enterActivity()
+//            } else {
+//                if (uri.path.contains("conversation/system")) {
+//                    close()
+//                    EmployeeMainActivity.start(context)
+//                    return
+//                }
+//                enterFragment()
+//            }
+//
+//        } else {
+//            if (RongIM.getInstance().currentConnectionStatus == RongIMClient.ConnectionStatusListener.ConnectionStatus.DISCONNECTED) {
+//                progressDialog.show()
+//                Handler().postDelayed({ enterActivity() }, 300)
+//            } else {
+//                enterFragment()
+//            }
+//        }
+//    }
 
 
     /**
@@ -363,32 +359,32 @@ class ConversationActivity : BaseConversationActivity(), ConversationControact.V
 
 
     private fun reconnect(token: String) {
-        RongIM.connect(token, object : RongIMClient.ConnectCallback() {
-            override fun onTokenIncorrect() {
-                Log.e(TAG, "---onTokenIncorrect--")
-            }
-
-            override fun onSuccess(s: String) {
-                Log.i(TAG, "---onSuccess--" + s)
-                Logger.d("ConversationActivity push", "push4")
-
-                progressDialog.dismiss()
-
-                enterFragment()
-
-            }
-
-            override fun onError(e: RongIMClient.ErrorCode) {
-                Log.e(TAG, "---onError--" + e)
-                progressDialog.dismiss()
-                enterFragment()
-            }
-        })
+//        RongIM.connect(token, object : RongIMClient.ConnectCallback() {
+//            override fun onTokenIncorrect() {
+//                Log.e(TAG, "---onTokenIncorrect--")
+//            }
+//
+//            override fun onSuccess(s: String) {
+//                Log.i(TAG, "---onSuccess--" + s)
+//                Logger.d("ConversationActivity push", "push4")
+//
+//                progressDialog.dismiss()
+//
+//                enterFragment()
+//
+//            }
+//
+//            override fun onError(e: RongIMClient.ErrorCode) {
+//                Log.e(TAG, "---onError--" + e)
+//                progressDialog.dismiss()
+//                enterFragment()
+//            }
+//        })
 
     }
 
 
     fun enterFragment() {
-        supportFragmentManager.beginTransaction().add(R.id.conversation, conversationFragment).commitAllowingStateLoss()
+//        supportFragmentManager.beginTransaction().add(R.id.conversation, conversationFragment).commitAllowingStateLoss()
     }
 }

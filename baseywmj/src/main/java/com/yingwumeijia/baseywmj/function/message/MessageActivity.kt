@@ -30,9 +30,6 @@ import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerA
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
-import io.rong.imkit.RongIM
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.message_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 import java.text.SimpleDateFormat
@@ -328,17 +325,17 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
     private fun insertMessage(mCurrentMessageBean: MessageBean) {
         if (messageAdapter != null) {
             messageAdapter.insert(messageAdapter.itemCount, mCurrentMessageBean)
-            if (RongIM.getInstance() != null) {
-                RongIM.getInstance().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, Constant.SYSTEM_TARGET_ID, object : RongIMClient.ResultCallback<Boolean>() {
-                    override fun onSuccess(aBoolean: Boolean?) {
-
-                    }
-
-                    override fun onError(errorCode: RongIMClient.ErrorCode) {
-
-                    }
-                })
-            }
+//            if (RongIM.getInstance() != null) {
+//                RongIM.getInstance().clearMessagesUnreadStatus(Conversation.ConversationType.SYSTEM, Constant.SYSTEM_TARGET_ID, object : RongIMClient.ResultCallback<Boolean>() {
+//                    override fun onSuccess(aBoolean: Boolean?) {
+//
+//                    }
+//
+//                    override fun onError(errorCode: RongIMClient.ErrorCode) {
+//
+//                    }
+//                })
+//            }
         }
     }
 

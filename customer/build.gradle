@@ -131,10 +131,16 @@ dependencies {
     compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.8'
     compile files('libs/UPPayAssistEx.jar')
     compile files('libs/UPPayPluginExPro.jar')
+    compile(name: 'HMS-SDK-2.4.0.300', ext: 'aar')
+
+
 }
 repositories {
     mavenCentral()
     maven {
         url "http://maven.aliyun.com/nexus/content/repositories/releases"
+    }
+    flatDir {
+        dirs 'aars'
     }
 }

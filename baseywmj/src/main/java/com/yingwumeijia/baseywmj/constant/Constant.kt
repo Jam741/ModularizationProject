@@ -53,4 +53,8 @@ object Constant {
 
     val WX_PAY_BORAD_COST_ACTION = "ywmj.com.client.wxpay.broadcost"
 
+    /*云信*/
+    val KEY_NIM_ACCOUNT = "KEY_NIM_ACCOUNT"
+    val KEY_NIM_TOKEN = "KEY_NIM_TOKEN"
+
 }

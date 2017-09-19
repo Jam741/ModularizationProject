@@ -2,10 +2,12 @@ package com.yingwumeijia.baseywmj.function.setting
 
 import android.app.Activity
 import com.tencent.smtt.sdk.WebStorage
+import com.umeng.analytics.MobclickAgent
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.IMManager
+import com.yingwumeijia.baseywmj.utils.net.AccountManager
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.DataCleanManager
@@ -51,7 +53,10 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
                 IMManager.loginOut()
                 WebStorage.getInstance().deleteAllData()
                 view.showLoginOutButton(false)
+                MobclickAgent.onProfileSignOff()
                 UserManager.setLoginStatus(activity, false)
+                UserManager.clearNIMLogin(activity)
+                AccountManager.clearnAccount()
                 LoginActivity.startCurrent(activity)
             }
         })

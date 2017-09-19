@@ -30,9 +30,6 @@ import com.yingwumeijia.baseywmj.function.personal.PersonalFragment
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
-import io.rong.imkit.RongIM
-import io.rong.imkit.manager.IUnReadMessageObserver
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.case_list_option_title.*
 import kotlinx.android.synthetic.main.drawer_layout.*
 import kotlinx.android.synthetic.main.main_act.*
@@ -107,7 +104,7 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 
 
-    val conversationTypes = arrayOf(Conversation.ConversationType.GROUP)
+//    val conversationTypes = arrayOf(Conversation.ConversationType.GROUP)
 
     override fun onResume() {
         super.onResume()
@@ -154,31 +151,31 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
 
         getLastActivity()
 
-
-        RongIM.getInstance().addUnReadMessageCountChangedObserver(IUnReadMessageObserver { i ->
-            if (AppTypeManager.isAppC()) {
-                if (tl_main != null) {
-                    if (i == 0) {
-                        tl_main.hideMsg(3)
-                    } else {
-                        tl_main.showMsg(3, i)
-                        tl_main.setMsgMargin(3, -5f, 5f)
-                    }
-
-                }
-            } else {
-                if (tl_main != null) {
-                    if (i == 0) {
-                        tl_main.hideMsg(2)
-                    } else {
-                        tl_main.showMsg(2, i)
-                        tl_main.setMsgMargin(2, -5f, 5f)
-                    }
-
-                }
-            }
-        }, *conversationTypes)
-
+//
+//        RongIM.getInstance().addUnReadMessageCountChangedObserver(IUnReadMessageObserver { i ->
+//            if (AppTypeManager.isAppC()) {
+//                if (tl_main != null) {
+//                    if (i == 0) {
+//                        tl_main.hideMsg(3)
+//                    } else {
+//                        tl_main.showMsg(3, i)
+//                        tl_main.setMsgMargin(3, -5f, 5f)
+//                    }
+//
+//                }
+//            } else {
+//                if (tl_main != null) {
+//                    if (i == 0) {
+//                        tl_main.hideMsg(2)
+//                    } else {
+//                        tl_main.showMsg(2, i)
+//                        tl_main.setMsgMargin(2, -5f, 5f)
+//                    }
+//
+//                }
+//            }
+//        }, *conversationTypes)
+//
 
 
     }

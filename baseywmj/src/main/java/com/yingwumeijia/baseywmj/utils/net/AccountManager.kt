@@ -36,7 +36,7 @@ object AccountManager {
         return SPUtils.get(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_ASSESS_TOKEN, "") as String
     }
 
-    fun refreshAccessToken(context: android.content.Context, token: String) {
+    fun refreshAccessToken(context: android.content.Context, token: String?) {
         SPUtils.put(context, com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_ASSESS_TOKEN, token)
     }
 
@@ -45,7 +45,7 @@ object AccountManager {
         return SPUtils.get(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_SESSION_ID, "") as String
     }
 
-    fun refreshSessionId(context: android.content.Context, token: String) {
+    fun refreshSessionId(context: android.content.Context, token: String?) {
         SPUtils.put(context, com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_SESSION_ID, token)
     }
 
@@ -53,7 +53,7 @@ object AccountManager {
         return com.yingwumeijia.commonlibrary.utils.SPUtils.get(com.yingwumeijia.commonlibrary.base.BaseApplication.Companion.appContext(), com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_REFRESH_TOKEN, "") as String
     }
 
-    fun refreshRefreshToken(context: android.content.Context, token: String) {
+    fun refreshRefreshToken(context: android.content.Context, token: String?) {
         SPUtils.put(context, com.yingwumeijia.baseywmj.utils.net.AccountManager.KEY_ACCOUNT_REFRESH_TOKEN, token)
     }
 

@@ -111,17 +111,21 @@
             android:name=".function.comment.newcomment.NewCommentActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".function.extra.CreateBillServiceActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".function.extra.CreateBillServiceActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".function.enter.EnterActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".function.enter.EnterActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".function.enter.EditEnterActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".function.enter.EditEnterActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".function.introduction.company.resume.ResumeActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".function.introduction.company.resume.ResumeActivity"
+            android:screenOrientation="portrait" />
 
         <!--*******************************************************************************-->
         <!--IM 会话相关-->
@@ -150,8 +154,9 @@
             android:name=".function.cashier.CashierForActiveActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".function.web.NativeWebActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".function.web.NativeWebActivity"
+            android:screenOrientation="portrait" />
 
         <!--微信支付-->
         <activity
@@ -167,6 +172,20 @@
             </intent-filter>
         </activity>
 
+
+        <!-- map -->
+        <activity
+            android:name=".nimim.location.activity.LocationAmapActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/location_map"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".nimim.location.activity.NavigationAmapActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/location_navigate"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
 
         <!--*******************************************************************************-->

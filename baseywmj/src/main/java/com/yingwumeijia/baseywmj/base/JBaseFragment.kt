@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.orhanobut.logger.Logger
+import com.umeng.analytics.MobclickAgent
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.commonlibrary.base.BaseFragment
@@ -26,13 +27,10 @@ open class JBaseFragment : BaseFragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         lifecycleSubject.onNext(ActivityLifeCycleEvent.CREATE)
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "onViewCreated")
-
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
-        Log.d(TAG, "onHiddenChanged hidden:" + hidden)
     }
 
     override fun onLowMemory() {
@@ -42,28 +40,26 @@ open class JBaseFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.d(TAG, "onResume")
+        lifecycleSubject.onNext(ActivityLifeCycleEvent.RESUME)
+        MobclickAgent.onPageStart(this.javaClass.simpleName)
+
     }
 
 
     override fun onPause() {
-        lifecycleSubject.onNext(ActivityLifeCycleEvent.PAUSE)
         super.onPause()
-        Log.d(TAG, "onPause")
-
+        lifecycleSubject.onNext(ActivityLifeCycleEvent.PAUSE)
+        MobclickAgent.onPageEnd(this.javaClass.simpleName)
     }
 
     override fun onStop() {
         lifecycleSubject.onNext(ActivityLifeCycleEvent.STOP)
         super.onStop()
-        Log.d(TAG, "onStop")
 
     }
 
     override fun onDestroy() {
         lifecycleSubject.onNext(ActivityLifeCycleEvent.DESTROY)
         super.onDestroy()
-        Log.d(TAG, "onDestroy")
-
     }
 }

@@ -13,8 +13,6 @@ import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.SPUtils
-import io.rong.imkit.RongIM
-import io.rong.imlib.model.UserInfo
 import rx.Observable
 import rx.subjects.PublishSubject
 import java.util.ArrayList
@@ -50,14 +48,14 @@ class PersonPresenter(var fragment: Fragment, var view: PersonContract.View, var
                     }
                     UserManager.cacheUserData(bean.customerDto)
 
-
-                    if (RongIM.getInstance() != null)
-                        RongIM.getInstance().refreshUserInfoCache(
-                                UserInfo(
-                                        bean.customerDto.imUid,
-                                        bean.customerDto.showName,
-                                        Uri.parse(bean.customerDto.showHead))
-                        )
+//
+//                    if (RongIM.getInstance() != null)
+//                        RongIM.getInstance().refreshUserInfoCache(
+//                                UserInfo(
+//                                        bean.customerDto.imUid,
+//                                        bean.customerDto.showName,
+//                                        Uri.parse(bean.customerDto.showHead))
+//                        )
 
                 } else {
                     when (bean.employeeDto.userDetailType) {
@@ -84,14 +82,14 @@ class PersonPresenter(var fragment: Fragment, var view: PersonContract.View, var
                     }
 
                     UserManager.cacheUserData(bean.employeeDto)
-
-                    if (RongIM.getInstance() != null)
-                        RongIM.getInstance().refreshUserInfoCache(
-                                UserInfo(
-                                        bean.employeeDto.imUid,
-                                        bean.employeeDto.showName,
-                                        Uri.parse(bean.employeeDto.showHead))
-                        )
+//
+//                    if (RongIM.getInstance() != null)
+//                        RongIM.getInstance().refreshUserInfoCache(
+//                                UserInfo(
+//                                        bean.employeeDto.imUid,
+//                                        bean.employeeDto.showName,
+//                                        Uri.parse(bean.employeeDto.showHead))
+//                        )
                 }
                 UserManager.cacheTwitterStatus(bean.twitterStatus)
                 view.didUpDateUserData()

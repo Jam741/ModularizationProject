@@ -22,10 +22,6 @@ import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.widget.recycler.LoadingMoreFooter
 import com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
-import io.rong.imkit.RongIM
-import io.rong.imkit.manager.IUnReadMessageObserver
-import io.rong.imlib.RongIMClient
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.case_list_frag.*
 import kotlinx.android.synthetic.main.empty_layout.*
 import kotlinx.android.synthetic.main.nav_layout.*
@@ -403,17 +399,17 @@ class CaseListFragment : JBaseFragment(), CaseListContract.View, XRecyclerView.L
 
 
     fun setSystemMessageListener() {
-        RongIM.getInstance()
-                .addUnReadMessageCountChangedObserver(
-                        IUnReadMessageObserver { i ->
-                            if (i > 0) {
-                                if (iv_messagePoint != null)
-                                    iv_messagePoint.visibility = View.VISIBLE
-                            } else {
-                                if (iv_messagePoint != null)
-                                    iv_messagePoint.visibility = View.GONE
-                            }
-                        }, *arrayOf(Conversation.ConversationType.SYSTEM))
+//        RongIM.getInstance()
+//                .addUnReadMessageCountChangedObserver(
+//                        IUnReadMessageObserver { i ->
+//                            if (i > 0) {
+//                                if (iv_messagePoint != null)
+//                                    iv_messagePoint.visibility = View.VISIBLE
+//                            } else {
+//                                if (iv_messagePoint != null)
+//                                    iv_messagePoint.visibility = View.GONE
+//                            }
+//                        }, *arrayOf(Conversation.ConversationType.SYSTEM))
     }
 
 }

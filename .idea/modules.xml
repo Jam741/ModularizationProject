@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/scanlibrary/scanlibrary.iml" filepath="$PROJECT_DIR$/scanlibrary/scanlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/sharelibrary/sharelibrary.iml" filepath="$PROJECT_DIR$/sharelibrary/sharelibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/testapp/testapp.iml" filepath="$PROJECT_DIR$/testapp/testapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/uikit/uikit.iml" filepath="$PROJECT_DIR$/uikit/uikit.iml" />
     </modules>
   </component>
 </project>

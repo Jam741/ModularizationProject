@@ -10,9 +10,9 @@ import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.android.ywmj.client.function.conversation.list.ConversationNotLoggedFragment
 import com.yingwumeijia.baseywmj.base.JBaseFragment
 import com.yingwumeijia.baseywmj.function.UserManager
-import io.rong.imkit.fragment.ConversationListFragment
-import io.rong.imlib.model.Conversation
 import kotlinx.android.synthetic.main.conversation_list_container.*
+import com.netease.nim.uikit.recent.RecentContactsFragment
+
 
 /**
  * Created by jamisonline on 2017/7/14.
@@ -20,6 +20,12 @@ import kotlinx.android.synthetic.main.conversation_list_container.*
  * 会话列表容器 Fragment 解耦会话列表
  */
 class CustomerConversationListFragment : JBaseFragment() {
+
+    private val contactsFragment: RecentContactsFragment by lazy { assembleRecentContactsFragment() }
+
+    private fun assembleRecentContactsFragment(): RecentContactsFragment {
+        return RecentContactsFragment()
+    }
 
 
     companion object {
@@ -30,30 +36,19 @@ class CustomerConversationListFragment : JBaseFragment() {
 
     val notLoggedFragment by lazy { ConversationNotLoggedFragment() }
 
-    val loggedFragment by lazy { createConversationListFragment() }
-
-    /**
-     * 创建会话列表Fragment
-     */
-    private fun createConversationListFragment(): Fragment {
-        val fragment = ConversationListFragment()
-        fragment.uri = Uri.parse("rong://" + activity.applicationInfo.packageName).buildUpon()
-                .appendPath("conversationlist")
-                .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//设置群组会话聚合显示
-                .build()
-        return fragment
-    }
+    val loggedFragment by lazy { contactsFragment }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.conversation_list_container, container, false)
     }
 
-
+    //
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         topTitle.text = "聊天"
     }
 
+    //
     override fun onResume() {
         super.onResume()
         if (UserManager.isLogin(activity)) putFragment(loggedFragment) else putFragment(notLoggedFragment)

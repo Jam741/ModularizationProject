@@ -6,9 +6,13 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
-import android.widget.TextView
 import android.widget.Toast
+import com.netease.nim.uikit.NimUIKit
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.RequestCallback
+import com.netease.nimlib.sdk.auth.LoginInfo
 import com.orhanobut.logger.Logger
+import com.umeng.analytics.MobclickAgent
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.entity.bean.RegisterResultBean
@@ -17,18 +21,17 @@ import com.yingwumeijia.baseywmj.entity.bean.UserBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.sms.SmsCodeController
 import com.yingwumeijia.baseywmj.im.IMManager
+import com.yingwumeijia.baseywmj.nimim.NIMIMCache
 import com.yingwumeijia.baseywmj.utils.RSAUtils
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
 import com.yingwumeijia.baseywmj.utils.net.AccountManager
-import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
+import com.yingwumeijia.commonlibrary.base.ActivityLifeCycleEvent
 import com.yingwumeijia.commonlibrary.utils.AppInfo
 import com.yingwumeijia.commonlibrary.utils.NetworkUtils
 import com.yingwumeijia.commonlibrary.utils.T
-import io.rong.imkit.RongIM
-import io.rong.imlib.RongIMClient
 import rx.subjects.PublishSubject
 
 /**
@@ -90,6 +93,12 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
                 getIMToken(t!!)
             }
         })
+    }
+
+
+    private fun cacheLoginInfo(account: String, token: String) {
+        NIMIMCache.setAccount(account.toLowerCase())
+        UserManager.refreshNIMLogin(context, LoginInfo(account, token))
     }
 
 
@@ -189,7 +198,8 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
             override fun _onNext(t: TokenBean?) {
                 Logger.d("IMManager" + t!!.token)
                 IMManager.tokenPut(context, t!!.token)
-                connectRong(userBean, t!!.token)
+                cacheLoginInfo(t.imUid, t!!.token)
+                logigToNIM(userBean)
             }
 
         })
@@ -203,35 +213,40 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
         UserManager.cacheUserData(userBean)
         AccountManager.refreshAccount(userBean.userSession)
         UserManager.setLoginStatus(context, true)
+        MobclickAgent.onProfileSignIn(userBean.id.toString())
         if (userResponseCallBack != null) {
             userResponseCallBack!!.success(userBean)
             userResponseCallBack!!.completed()
         }
     }
 
+
     /**
-     * 链接融云
+     * 登录到网易云信
      */
-    fun connectRong(userBean: UserBean, token: String) {
-        Handler().post {
-            RongIM.connect(token, object : RongIMClient.ConnectCallback() {
-                override fun onSuccess(p0: String?) {
-                    Logger.d("onSuccess")
-                    didLoginSuccess(userBean)
-                }
+    fun logigToNIM(userBean: UserBean) {
 
-                override fun onError(p0: RongIMClient.ErrorCode?) {
-                    Logger.d("LoginError", p0!!.message)
-                    T.showShort(context, "登录失败")
-                }
 
-                override fun onTokenIncorrect() {
-                    Logger.d("onTokenIncorrect")
-                    getIMToken(userBean)
+        NimUIKit.doLogin(UserManager.getNIMLoginInfo(context), object : RequestCallback<LoginInfo> {
+            override fun onFailed(code: Int) {
+                Logger.d(code)
+                if (code == 302 || code == 404) {
+                    Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "登录失败: " + code, Toast.LENGTH_SHORT).show();
                 }
-            })
-        }
+            }
 
+            override fun onException(p0: Throwable?) {
+                Logger.d(p0!!.message)
+                p0.printStackTrace()
+                Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+            }
+
+            override fun onSuccess(p0: LoginInfo?) {
+                didLoginSuccess(userBean)
+            }
+        })
     }
 
 
