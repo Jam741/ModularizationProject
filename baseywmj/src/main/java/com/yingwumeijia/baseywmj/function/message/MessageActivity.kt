@@ -18,6 +18,7 @@ import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.WebViewManager
 import com.yingwumeijia.baseywmj.function.db.DBManager
 import com.yingwumeijia.baseywmj.option.Config
@@ -228,7 +229,7 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
                         imageView.setImageResource(R.mipmap.notice_list_talk_ico)
                         btn.visibility = View.VISIBLE
                         btn.text = "查看聊天"
-                        btn.setOnClickListener { TODO("去回话详情") }
+                        btn.setOnClickListener { StartActivityManager.startConversation(context, messageBean.messageTargetId) }
                     }
                     MSG_TYPE_APPOINTMENT -> {
                         btn.visibility = View.VISIBLE

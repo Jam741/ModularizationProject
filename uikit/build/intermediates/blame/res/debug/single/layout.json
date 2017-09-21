@@ -28,20 +28,20 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_time_text_view_layout.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_item_location.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_item_location.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_robot_link.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_robot_link.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_advanced_team_info_activity.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_advanced_team_info_activity.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_item_location.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_item_location.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_team_info_activity.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_team_info_activity.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_advanced_team_info_activity.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_advanced_team_info_activity.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_team_message_activity.xml",
@@ -56,24 +56,24 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_easy_alert_dialog_with_edit_text.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/design_navigation_item_header.xml",
-        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_navigation_item_header.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/pull_to_refresh_header_custom.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res-ptr2/layout/pull_to_refresh_header_custom.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
-        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_navigation_item.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/design_navigation_item_header.xml",
+        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_navigation_item_header.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_voice_trans_layout.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_voice_trans_layout.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_template_custom_big.xml",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/notification_template_custom_big.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_voice_trans_layout.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_voice_trans_layout.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
+        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_navigation_item.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_action_bar_right_clickable_tv.xml",
@@ -130,10 +130,6 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/abc_screen_toolbar.xml"
-    },
-    {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_template_big_media_narrow.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_item.xml",
@@ -404,10 +400,6 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_robot_image.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_media_cancel_action.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_media_cancel_action.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_fragment.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_fragment.xml"
     },
@@ -432,14 +424,6 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_recent_contact_list_item.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_template_big_media_custom.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_template_big_media_custom.xml"
-    },
-    {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow_custom.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_template_big_media_narrow_custom.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_list_activity_layout.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_list_activity_layout.xml"
     },
@@ -458,10 +442,6 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_preview_image_layout_multi_touch.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_preview_image_layout_multi_touch.xml"
-    },
-    {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_media_action.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_media_action.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_ait_contact_team_member_item.xml",
@@ -578,10 +558,6 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/nim_message_item_name_layout.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_item_name_layout.xml"
-    },
-    {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/notification_template_big_media.xml",
-        "source": "/Users/jamisonline/.android/build-cache/3dd618e805bb6114214396d982a6002936bc3779/output/res/layout/notification_template_big_media.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/layout/select_dialog_item_material.xml",

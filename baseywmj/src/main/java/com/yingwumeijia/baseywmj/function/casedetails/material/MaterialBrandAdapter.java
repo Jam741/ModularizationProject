@@ -1,6 +1,7 @@
 package com.yingwumeijia.baseywmj.function.casedetails.material;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -196,7 +197,10 @@ public class MaterialBrandAdapter extends BaseExpandableListAdapter {
                         .setOnClickListener(R.id.layout_item, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                WebViewManager.INSTANCE.startHasTitle(context,item.getWebsite(), null);
+                                if (TextUtils.isEmpty(item.getWebsite()))
+                                    NullWebsiteActivity.Companion.statr(context);
+                                else
+                                    WebViewManager.INSTANCE.startHasTitle(context, item.getWebsite(), null);
                             }
                         });
 

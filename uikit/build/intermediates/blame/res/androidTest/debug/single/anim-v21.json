@@ -1,9 +1,5 @@
 [
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/anim-v21/design_appbar_state_list_animator.xml",
-        "source": "/Users/jamisonline/.android/build-cache/f804e3ad98efa3f5e0f11e3e3d546f1ebfa7103f/output/res/anim-v21/design_appbar_state_list_animator.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/anim-v21/design_bottom_sheet_slide_in.xml",
         "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/anim-v21/design_bottom_sheet_slide_in.xml"
     },

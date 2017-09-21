@@ -48,24 +48,24 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_contact_checkbox_unchecked.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_picker_image_normal.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_picker_image_normal.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_switch_track_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_picker_image_selected.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_picker_image_selected.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_menu_hardkey_panel_mtrl_mult.9.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_ic_star_half_black_36dp.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_video_capture_stop_btn.png",
@@ -120,12 +120,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_list_divider_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_ic_trans_fail.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_ic_trans_fail.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_star_black_16dp.png",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_ic_trans_fail.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_ic_trans_fail.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_actionbar_search_dark_icon.png",
@@ -148,36 +148,36 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_team_owner_icon.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_actionbar_dark_logo_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_actionbar_dark_logo_icon.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_contact_select_dot_avatar.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_contact_select_dot_avatar.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_actionbar_dark_logo_icon.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_actionbar_dark_logo_icon.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_message_input_keyboard_pressed.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_message_input_keyboard_pressed.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_picker_preview_disable.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_picker_preview_disable.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_actionbar_dark_back_icon.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_actionbar_dark_back_icon.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_team_admin_icon.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_team_admin_icon.png"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_picker_preview_disable.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_picker_preview_disable.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_list_focused_holo.9.png",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_team_admin_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_team_admin_icon.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_audio_animation_list_left_2.png",

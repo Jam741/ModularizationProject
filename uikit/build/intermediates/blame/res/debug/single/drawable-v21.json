@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
-        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
         "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/drawable-v21/avd_hide_password.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
+        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",

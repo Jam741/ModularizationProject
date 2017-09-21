@@ -360,12 +360,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-hdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_emotion_pressed.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_emotion_pressed.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/design_ic_visibility_off.png",
         "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/drawable-hdpi-v4/design_ic_visibility_off.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_emotion_pressed.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_emotion_pressed.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_picker_image_normal.png",
@@ -496,12 +496,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_plus_pressed.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_video_play_icon.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_video_play_icon.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_dialog_toast_bg.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_dialog_toast_bg.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_video_play_icon.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_video_play_icon.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_scrubber_track_mtrl_alpha.9.png",

@@ -135,6 +135,11 @@
         <activity
             android:name=".nimim.conversation.YWMJTeamMessageActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.casedetails.material.NullWebsiteActivity"
+            android:screenOrientation="portrait" />
+
         <!--*******************************************************************************-->
         <!--IM 会话相关-->
         <!--*******************************************************************************-->
