@@ -81,7 +81,7 @@ public class ImageLoaderKit {
                     .asBitmap()
                     .centerCrop()
                     .into(imageSize, imageSize)
-                    .get(200, TimeUnit.MILLISECONDS); // 最大等待200ms
+                    .get(2000, TimeUnit.MILLISECONDS); // 最大等待200ms
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -85,10 +85,8 @@ public class RecentContactsFragment extends TFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         findViews();
         initMessageList();
-        requestMessages(true);
         registerObservers(true);
         registerDropCompletedListener(true);
         registerOnlineStateChangeListener(true);
@@ -97,6 +95,16 @@ public class RecentContactsFragment extends TFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.nim_recent_contacts, container, false);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+        requestMessages(true);
+
     }
 
     private void notifyDataSetChanged() {

@@ -160,14 +160,14 @@ public class LocationAmapActivity extends UI implements  OnCameraChangeListener,
     protected void onPause() {
         super.onPause();
         mapView.onPause();
-        locationManager.deactive();
+        locationManager.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        locationManager.activate();
+        locationManager.request();
     }
 
 
@@ -176,7 +176,7 @@ public class LocationAmapActivity extends UI implements  OnCameraChangeListener,
         super.onDestroy();
         mapView.onDestroy();
         if (locationManager != null) {
-        	locationManager.deactive();
+        	locationManager.stop();
         }
 
         callback = null;

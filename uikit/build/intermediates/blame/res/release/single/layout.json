@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/notification_template_part_chronometer.xml",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_message_item_video.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_message_item_video.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/notification_template_part_chronometer.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_ait_contact_label_item.xml",
@@ -24,12 +24,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/abc_action_menu_layout.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/design_layout_snackbar.xml",
-        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_layout_snackbar.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_advanced_team_create_announce.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_advanced_team_create_announce.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/design_layout_snackbar.xml",
+        "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/layout/design_layout_snackbar.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_preview_image_from_local_activity.xml",
@@ -52,16 +52,16 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_easy_alert_dialog_bottom_button.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_advanced_team_announce_list_item.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_advanced_team_announce_list_item.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/notification_template_media_custom.xml",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/notification_template_media_custom.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_team_message_activity.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_team_message_activity.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/notification_template_media_custom.xml",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/layout/notification_template_media_custom.xml"
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_advanced_team_announce_list_item.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/layout/nim_advanced_team_announce_list_item.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/layout/nim_easy_progress_dialog.xml",

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
+import com.yingwumeijia.baseywmj.nimim.conversation.YWMJTeamMessageActivity
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 
 /**
@@ -55,6 +56,9 @@ object StartActivityManager {
 //        if (RongIM.getInstance() != null) {
 //            RongIM.getInstance().startConversation(context, Conversation.ConversationType.GROUP, sessionId, null)
 //        }
+
+        YWMJTeamMessageActivity.start(context,sessionId)
+//        NimUIKit.startTeamSession(context, sessionId)
     }
 
 

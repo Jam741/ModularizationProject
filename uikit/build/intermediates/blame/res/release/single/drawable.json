@@ -44,12 +44,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable/abc_ic_search_api_material.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_message_button_bottom_add_selector.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_message_button_bottom_add_selector.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_bottom_divider_match_parent_selector.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_bottom_divider_match_parent_selector.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_message_button_bottom_add_selector.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_message_button_bottom_add_selector.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/abc_list_selector_background_transition_holo_dark.xml",
@@ -60,12 +60,12 @@
         "source": "/Users/jamisonline/.android/build-cache/7c75ba669678ab1795a0fd3d4e31e369da505066/output/res/drawable/design_snackbar_background.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_contact_list_item_selecter.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_contact_list_item_selecter.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/abc_btn_default_mtrl_shape.xml",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable/abc_btn_default_mtrl_shape.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_contact_list_item_selecter.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_contact_list_item_selecter.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/abc_ratingbar_small_material.xml",
@@ -152,12 +152,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable/abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_semitransparency_selector.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_semitransparency_selector.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/abc_item_background_holo_light.xml",
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable/abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_semitransparency_selector.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_semitransparency_selector.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/sample_footer_loading_progress.xml",
@@ -180,12 +180,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable/notification_bg_low.xml"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_cancel_record_red_bg.xml",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_cancel_record_red_bg.xml"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_message_plus_video_selector.xml",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_message_plus_video_selector.xml"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_cancel_record_red_bg.xml",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable/nim_cancel_record_red_bg.xml"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/release/drawable/nim_video_play_icon_selector.xml",

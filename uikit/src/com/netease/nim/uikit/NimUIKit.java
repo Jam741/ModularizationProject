@@ -180,6 +180,10 @@ public final class NimUIKit {
         }
     }
 
+    public static SessionCustomization getCommonTeamSessionCustomization() {
+        return commonTeamSessionCustomization;
+    }
+
     /**
      * 打开单聊界面，若开发者未设置 {@link NimUIKit#setCommonP2PSessionCustomization(SessionCustomization)},
      * 则定制化信息 SessionCustomization 为{@link DefaultP2PSessionCustomization}

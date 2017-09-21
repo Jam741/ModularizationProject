@@ -46,8 +46,6 @@ import java.util.*
 class ConversationActivity : BaseConversationActivity(), ConversationControact.View {
 
 
-
-
     val TAG by lazy { ConversationActivity::class.java.simpleName }
 
     val uri by lazy { intent.data }

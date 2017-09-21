@@ -1,6 +1,8 @@
 package com.yingwumeijia.baseywmj.function.setting
 
 import android.app.Activity
+import com.netease.nim.uikit.NimUIKit
+import com.netease.nimlib.sdk.NIMClient
 import com.tencent.smtt.sdk.WebStorage
 import com.umeng.analytics.MobclickAgent
 import com.yingwumeijia.baseywmj.api.Api
@@ -51,6 +53,7 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(activity) {
             override fun _onNext(t: String?) {
                 IMManager.loginOut()
+                NimUIKit.clearCache()
                 WebStorage.getInstance().deleteAllData()
                 view.showLoginOutButton(false)
                 MobclickAgent.onProfileSignOff()
