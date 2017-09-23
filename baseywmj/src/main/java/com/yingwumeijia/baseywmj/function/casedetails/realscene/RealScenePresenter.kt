@@ -76,7 +76,7 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
             override fun _onNext(t: RealSceneBean?) {
                 if (t != null) {
                     realSceneBena = t
-                    view.init720Layout(!TextUtils.isEmpty(t.pathOf720), t.caseCover,t.pathOf720)
+                    view.init720Layout(!TextUtils.isEmpty(t.pathOf720), t.caseCover, t.pathOf720)
                     val baseInfo: String = t.cityName + " / " + t.decorateStyle + " / " + t.houseType + " / " + t.houseArea + "m² / " + t.decorateType + MoneyFormatUtils.fromatWan(t.totalCost) + "万 / " + t.buildingName
                     view.initBaseInfoLayout(baseInfo, t.caseName, t.caseStory)
                     if (!ListUtil.isEmpty(t.scenes))
@@ -86,7 +86,14 @@ class RealScenePresenter(var context: Activity, var caseId: Int, var view: RealS
                     if (!ListUtil.isEmpty(t.relativeCases))
                         view.initCaseListLayout(t.relativeCases)
 
-                    view.initBaseInfoExtra(t.designPriceRangeDtos, t.viewCount, t.collectionCount)
+                    var designPriceRangeDto: RealSceneBean.DesignPriceRangeDto? = null
+
+                    if (!ListUtil.isEmpty(t.designPriceRangeDtos)) {
+                        designPriceRangeDto = t.designPriceRangeDtos[0]
+                    }
+                    view.initBaseInfoExtra(t.designPriceRangeDtos, t.viewCount, t.collectionCount, designPriceRangeDto)
+
+                    view.initSafeguardLayout(t.isSupportedSupervisor)
                 }
             }
         })

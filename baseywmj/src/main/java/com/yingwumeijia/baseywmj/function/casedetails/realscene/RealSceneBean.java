@@ -49,6 +49,15 @@ public class RealSceneBean {
     private String softPrice;
     private int viewCount;
     private int collectionCount;
+    private boolean supportedSupervisor;
+
+    public boolean isSupportedSupervisor() {
+        return supportedSupervisor;
+    }
+
+    public void setSupportedSupervisor(boolean supportedSupervisor) {
+        this.supportedSupervisor = supportedSupervisor;
+    }
 
     public List<DesignPriceRangeDto> getDesignPriceRangeDtos() {
         return designPriceRangeDtos;

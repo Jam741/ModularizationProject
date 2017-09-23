@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import com.netease.nim.uikit.NimUIKit
 import com.netease.nim.uikit.custom.DefaultUserInfoProvider
+import com.netease.nim.uikit.session.module.MsgForwardFilter
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.SDKOptions
@@ -22,6 +23,7 @@ import com.yingwumeijia.baseywmj.base.JBaseApp
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.nimim.NIMIMCache
 import com.yingwumeijia.baseywmj.nimim.UserPreferences
+import com.yingwumeijia.baseywmj.nimim.conversation.customer.CustomerTeamCustomization
 import com.yingwumeijia.baseywmj.nimim.provider.NimDemoLocationProvider
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.utils.SystemUtil
@@ -39,7 +41,7 @@ class MyApp : JBaseApp() {
     override fun onCreate() {
         super.onCreate()
         initHotfix()
-        ShareSDK.init(applicationContext,"3416527308","wxe317a57cc8b93035")
+        ShareSDK.init(applicationContext, "3416527308", "wxe317a57cc8b93035")
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG
@@ -48,9 +50,9 @@ class MyApp : JBaseApp() {
 
         NIMIMCache.setContext(this)
         // 注册小米推送，参数：小米推送证书名称（需要在云信管理后台配置）、appID 、appKey，该逻辑放在 NIMClient init 之前
-        NIMPushClient.registerMiPush(this, "CustomerMIPHSU", Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
+        NIMPushClient.registerMiPush(this, "EmployeeMIPHSU", Config.MIPUSH_E.APP_ID, Config.MIPUSH_E.APP_KEY)
         // 注册华为推送，参数：华为推送证书名称（需要在云信管理后台配置）
-        NIMPushClient.registerHWPush(this, "CustomerHWPUSH")
+        NIMPushClient.registerHWPush(this, "EmployeeHWPUSH")
         //网易云信 SDK初始化（启动后台服务，若已经存在用户登录信息， SDK 将完成自动登录）
         NIMClient.init(this, getLoginInfo(), options())
 
@@ -61,13 +63,14 @@ class MyApp : JBaseApp() {
 
         }
 
+
     }
-
-
 
     private fun initUIKit() {
         // 初始化，使用 uikit 默认的用户信息提供者
         NimUIKit.init(this)
+
+        NimUIKit.setCommonTeamSessionCustomization(CustomerTeamCustomization())
 
         // 设置地理位置提供者。如果需要发送地理位置消息，该参数必须提供。如果不需要，可以忽略。
         NimUIKit.setLocationProvider(NimDemoLocationProvider())
@@ -76,12 +79,18 @@ class MyApp : JBaseApp() {
 //        SessionHelper.init()
 
         // 通讯录列表定制初始化
-//        ContactHelper.init()
+//        ContactHelper.init
+
+//        NIMClient.c
 
         // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
         // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());
 
 //        NimUIKit.setOnlineStateContentProvider(DemoOnlineStateContentProvider())
+
+//        NimUIKit.setMsgForwardFilter {
+//            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
     }
 
 
@@ -118,7 +127,7 @@ class MyApp : JBaseApp() {
         options.sdkStorageRootPath = Config.localStoreFolderPath(this)
 
         // 配置数据库加密秘钥
-        options.databaseEncryptKey = "BeautifulHome"
+        options.databaseEncryptKey = "BeautifulHomeEmployee"
 
         // 配置是否需要预下载附件缩略图
         options.preloadAttach = true
@@ -141,6 +150,19 @@ class MyApp : JBaseApp() {
         return options
     }
 
+
+    private fun configServerAddress(options: SDKOptions) {
+//        val appKey = PrivatizationConfig.getAppKey()
+//        if (!TextUtils.isEmpty(appKey)) {
+//            options.appKey = appKey
+//        }
+//
+//        val serverConfig = PrivatizationConfig.getServerAddresses()
+//        if (serverConfig != null) {
+//            options.serverConfig = serverConfig
+//        }
+    }
+
     private fun initStatusBarNotificationConfig(options: SDKOptions) {
         // load 用户的 StatusBarNotificationConfig 设置项
         var userConfig = UserPreferences.getStatusConfig()
@@ -159,7 +181,7 @@ class MyApp : JBaseApp() {
         val config = StatusBarNotificationConfig()
         // 点击通知需要跳转到的界面
         config.notificationEntrance = SplashActivity::class.java
-        config.notificationSmallIconId = R.mipmap.push_logo
+        config.notificationSmallIconId = R.mipmap.push_logo_e
         config.notificationColor = resources.getColor(R.color.color_6)
         // 通知铃声的uri字符串
         config.notificationSound = "android.resource://com.netease.nim.demo/raw/msg"

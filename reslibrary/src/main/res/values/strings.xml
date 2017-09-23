@@ -97,4 +97,9 @@
     <string name="tools_selected">选择工具</string>
     <string name="friends_map_navigation_web">在网页中打开</string>
     <string name="location_open_map_error">打开地图出错</string>
+
+    <!--im-->
+    <string name="nim_im_action_order">创建订单</string>
+    <string name="nim_im_action_vip">会员权益</string>
+
 </resources>

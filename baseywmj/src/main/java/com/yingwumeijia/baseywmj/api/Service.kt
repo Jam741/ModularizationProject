@@ -789,6 +789,16 @@ interface Service {
     @GET("im/session/{sessionId}")
     fun getSessionInfo(@Path("sessionId") sessionId: String): Observable<SessionDetailBean>
 
+    /**
+     * 获取会话信息
+
+     * @param sessionId
+     * *
+     * @return
+     */
+    @GET("im/session/groupId/{groupId}")
+    fun getSessionInfoNIM(@Path("groupId") sessionId: String): Observable<SessionDetailBean>
+
 
     /**
      * 获取开放电话的业者的列表

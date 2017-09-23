@@ -18,6 +18,9 @@ import rx.Observable
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import com.netease.nimlib.sdk.auth.AuthService
+
+
 
 /**
  * Created by jamisonline on 2017/6/30.
@@ -53,7 +56,6 @@ class SettingPresenter(var activity: Activity, var view: SettingContract.View) :
         HttpUtil.getInstance().toNolifeSubscribe(ob, object : ProgressSubscriber<String>(activity) {
             override fun _onNext(t: String?) {
                 IMManager.loginOut()
-                NimUIKit.clearCache()
                 WebStorage.getInstance().deleteAllData()
                 view.showLoginOutButton(false)
                 MobclickAgent.onProfileSignOff()

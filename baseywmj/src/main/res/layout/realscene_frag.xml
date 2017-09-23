@@ -21,6 +21,11 @@
 
         <include layout="@layout/realscene_extra"/>
 
+        <include layout="@layout/realscene_safeguard"/>
+
+
+
+
 
         <TextView
             android:id="@+id/tv_other_case"

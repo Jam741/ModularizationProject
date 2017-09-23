@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:divider="@android:color/transparent"></com.rx.android.jamspeedlibrary.utils.view.MyListView>
+        android:divider="@android:color/transparent"
+        android:visibility="visible"></com.rx.android.jamspeedlibrary.utils.view.MyListView>
 
 
     <LinearLayout
@@ -31,6 +32,7 @@
 
 
         <TextView
+            android:id="@+id/tv_casePriceType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -71,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableLeft="@mipmap/work_view_ic"
             android:text="作品已浏览"
             android:textColor="@color/color_4"
             android:textSize="@dimen/font3_sp" />
@@ -105,6 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableLeft="@mipmap/work_save_ic"
             android:text="作品已收藏"
             android:textColor="@color/color_4"
             android:textSize="@dimen/font3_sp" />

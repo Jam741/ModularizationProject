@@ -23,14 +23,29 @@ import kotlinx.android.synthetic.main.realscene_base_info.*
 import kotlinx.android.synthetic.main.realscene_extra.*
 import kotlinx.android.synthetic.main.realscene_frag.*
 import kotlinx.android.synthetic.main.realscene_photo.*
+import kotlinx.android.synthetic.main.realscene_safeguard.*
 import kotlinx.android.synthetic.main.realscene_video.*
 
 /**
  * Created by jamisonline on 2017/6/26.
  */
 class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
-    override fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int) {
+
+    override fun initSafeguardLayout(show: Boolean) {
+        safeguard_layout.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int, designPriceRangeDtos: RealSceneBean.DesignPriceRangeDto?) {
         realscene_extra_layout.visibility = View.VISIBLE
+
+
+
+        if (designPriceRangeDtos != null) {
+            softPrice_layout.visibility = View.VISIBLE
+            tv_casePriceType.text = if (designPriceRangeDtos.type == 1) "硬装（设计费）" else "软装（设计费）"
+            tv_extra_softPrice.text = "￥ " + designPriceRangeDtos.priceStart + "-" + designPriceRangeDtos.priceEnd + "元"
+        }
+
 
         if (ListUtil.isEmpty(priceList)) {
             lv_serviceStandard.visibility = View.GONE

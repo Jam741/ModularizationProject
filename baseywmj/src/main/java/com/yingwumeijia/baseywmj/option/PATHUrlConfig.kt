@@ -1,6 +1,5 @@
 package com.yingwumeijia.baseywmj.option
 
-import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.BuildConfig
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager

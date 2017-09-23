@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/conversation_toolbar" />
+        <include layout="@layout/customer_conversation_toolbar" />
 
         <View
             android:layout_width="match_parent"

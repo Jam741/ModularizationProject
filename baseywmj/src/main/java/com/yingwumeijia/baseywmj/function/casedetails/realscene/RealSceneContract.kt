@@ -16,7 +16,7 @@ interface RealSceneContract {
 
         fun clippingLayoutOfVideo()
 
-        fun init720Layout(has720: Boolean, caseCoverUrl: String,urlOf720:String?)
+        fun init720Layout(has720: Boolean, caseCoverUrl: String, urlOf720: String?)
 
         fun initBaseInfoLayout(baseInfo: String, caseName: String, caseStory: String)
 
@@ -26,7 +26,9 @@ interface RealSceneContract {
 
         fun initCaseListLayout(caseList: List<CaseBean>)
 
-        fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int)
+        fun initBaseInfoExtra(priceList: List<RealSceneBean.DesignPriceRangeDto>?, viewCount: Int, collectCount: Int, designPriceRangeDtos: RealSceneBean.DesignPriceRangeDto?)
+
+        fun initSafeguardLayout(show: Boolean)
     }
 
     interface Presenter : JBasePresenter {

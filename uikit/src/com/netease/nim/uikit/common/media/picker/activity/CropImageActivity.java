@@ -51,6 +51,7 @@ public class CropImageActivity extends UI {
 
         ToolBarOptions options = new ToolBarOptions();
         options.titleId = R.string.crop;
+        options.logoId = 0;
         setToolBar(R.id.toolbar, options);
 
         processIntent();

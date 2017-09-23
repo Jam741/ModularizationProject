@@ -133,7 +133,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".nimim.conversation.YWMJTeamMessageActivity"
+            android:name=".nimim.conversation.customer.CustomerTeamMessageActivity"
             android:screenOrientation="portrait" />
 
         <activity
