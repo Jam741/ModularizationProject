@@ -1,10 +1,12 @@
 package com.yingwumeijia.baseywmj.entity.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by jamisonline on 2017/6/15.
  */
 
-public class ApplyPayMessageBean {
+public class ApplyPayMessageBean implements Serializable {
 
 //    {
 //        orderId:123,
@@ -14,7 +16,7 @@ public class ApplyPayMessageBean {
 //            content:"支付定金"
 //    }
 
- //   {"orderId":240,"billId":359,"billTypeStr":"设计订单","billAmount":0.01,"content":"支付定金"}
+    //   {"orderId":240,"billId":359,"billTypeStr":"设计订单","billAmount":0.01,"content":"支付定金"}
 
 
     int orderId;
@@ -62,7 +64,6 @@ public class ApplyPayMessageBean {
     public void setBillAmount(String billAmount) {
         this.billAmount = billAmount;
     }
-
 
 
 }

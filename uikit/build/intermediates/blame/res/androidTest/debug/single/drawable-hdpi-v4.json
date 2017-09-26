@@ -372,6 +372,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_contact_letter_view_hit_point.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/arrow.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/arrow.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_team_member_delete_pressed.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_team_member_delete_pressed.png"
     },
@@ -510,6 +514,10 @@
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_contact_hit_letter_bg.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/nim_contact_hit_letter_bg.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/no_talk_ic.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-hdpi-v4/no_talk_ic.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/nim_picker_image_normal.png",

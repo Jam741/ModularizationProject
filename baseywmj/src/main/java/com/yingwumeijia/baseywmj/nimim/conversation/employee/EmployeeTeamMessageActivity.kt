@@ -1,8 +1,10 @@
 package com.yingwumeijia.baseywmj.nimim.conversation.employee
 
 import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -22,6 +24,7 @@ import com.netease.nim.uikit.session.constant.Extras
 import com.netease.nim.uikit.session.fragment.MessageFragment
 import com.netease.nim.uikit.session.fragment.TeamMessageFragment
 import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.netease.nimlib.sdk.team.TeamService
@@ -29,12 +32,15 @@ import com.netease.nimlib.sdk.team.constant.TeamTypeEnum
 import com.netease.nimlib.sdk.team.model.Team
 import com.netease.nimlib.sdk.team.model.TeamMember
 import com.yingwumeijia.baseywmj.R
+import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.entity.bean.ApplyPayMessageBean
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
 import com.yingwumeijia.baseywmj.entity.bean.GreetingLanguage
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.im.ConversationDetailsActivity
+import com.yingwumeijia.baseywmj.nimim.msg.PayMessageAttachment
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import kotlinx.android.synthetic.main.conversation_status.*
 import kotlinx.android.synthetic.main.employee_conversation_toolbar.*
@@ -64,6 +70,9 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
     var greetInputPop: PopupWindow? = null
 
     val putGreetsingDialog by lazy { createPutGreeetsingDialog() }
+
+
+    val sendPayMessageBroadCastReceived by lazy { SendPayMessageBroadCastReceived() }
 
 
     // model
@@ -101,6 +110,8 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        registerSendPayMessageBroadCastReceived()
+
 //        backToClass = intent.getSerializableExtra(Extras.EXTRA_BACK_TO_CLASS) as Class<out Activity>
         findViews()
 
@@ -112,7 +123,7 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
 
     override fun onDestroy() {
         super.onDestroy()
-
+        unRegisterSendPayMessageBroadCastReceived()
         registerTeamUpdateObserver(false)
     }
 
@@ -444,6 +455,37 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确认") { dialog, which -> presenter.deleteInputQuick(commonLanguage.id, position) }
                 .show()
+    }
+
+
+    private fun registerSendPayMessageBroadCastReceived() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Constant.SEND_PAY_MESSAGE_ACTION)
+        registerReceiver(sendPayMessageBroadCastReceived, intentFilter)
+    }
+
+    private fun unRegisterSendPayMessageBroadCastReceived() {
+        unregisterReceiver(sendPayMessageBroadCastReceived)
+    }
+
+
+    /**
+     * 需要发送邀请支付消息广播接收
+     */
+    inner class SendPayMessageBroadCastReceived : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val messageBean = intent!!.getSerializableExtra(Constant.KEY_PAY_MESSAGE) as ApplyPayMessageBean
+
+            //发送消息
+            val payMessageAttachment = PayMessageAttachment()
+            payMessageAttachment.billTypeStr = messageBean.billTypeStr
+            payMessageAttachment.billAmount = messageBean.billAmount.toInt()
+            payMessageAttachment.billId = messageBean.billId
+            payMessageAttachment.title = messageBean.content
+            val payIMMessage = MessageBuilder.createCustomMessage(sessionId, SessionTypeEnum.Team, PayMessageAttachment())
+            sendMessage(payIMMessage)
+        }
+
     }
 
 

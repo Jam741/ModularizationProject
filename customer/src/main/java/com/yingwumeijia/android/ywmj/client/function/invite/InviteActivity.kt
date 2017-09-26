@@ -8,30 +8,22 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
 import android.util.Log
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.animation.GlideAnimation
-import com.bumptech.glide.request.target.SimpleTarget
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import com.sina.weibo.sdk.share.WbShareCallback
-import com.tencent.tauth.IUiListener
-import com.tencent.tauth.Tencent
-import com.tencent.tauth.UiError
+import com.pisces.android.sharesdk.ShareBean
+import com.pisces.android.sharesdk.ShareClient
 import com.yingwumeijia.android.ywmj.client.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
-import com.yingwumeijia.sharelibrary.ShareData
-import com.yingwumeijia.sharelibrary.ShareManager
 import kotlinx.android.synthetic.main.invite_act.*
 import kotlinx.android.synthetic.main.toolbr_layout.*
 
 /**
  * Created by jamisonline on 2017/7/5.
  */
-class InviteActivity : JBaseActivity(), WbShareCallback {
+class InviteActivity : JBaseActivity() {
 
 
     private val shareTitle = "定制家装就找鹦鹉美家"
@@ -40,8 +32,7 @@ class InviteActivity : JBaseActivity(), WbShareCallback {
     private val bitmapBytes: ByteArray? = null
     private val imageUrl = "http://o7zlnyltf.bkt.clouddn.com/down_load_pic.png"
 
-    var shareData: ShareData? = null
-    var shareManager: ShareManager? = null
+    val shareClient by lazy { ShareClient(this, ShareBean(shareTitle, shareSubTitle, shareUrl, imageUrl)) }
 
     companion object {
         fun start(context: Context) {
@@ -57,40 +48,20 @@ class InviteActivity : JBaseActivity(), WbShareCallback {
         topTitle.text = "推荐给朋友使用"
         iv_image.setImageBitmap(encodeAsBitmap(shareUrl))
         progressDialog.show()
-        Glide.with(context.applicationContext).load(imageUrl + "?imageView2/2/w/256").asBitmap().into(object : SimpleTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                progressDialog.dismiss()
-                shareData = ShareData(shareTitle, shareSubTitle, shareUrl, resource, imageUrl, 1)
-                shareManager = ShareManager(context, shareData!!, object : WbShareCallback {
-                    override fun onWbShareFail() {}
-
-                    override fun onWbShareCancel() {}
-
-                    override fun onWbShareSuccess() {}
-                }, object : IUiListener {
-                    override fun onComplete(p0: Any?) {}
-
-                    override fun onCancel() {}
-
-                    override fun onError(p0: UiError?) {}
-                })
-            }
-        })
 
         topLeft.setOnClickListener { close() }
-        wchart.setOnClickListener { if (shareManager != null) shareManager!!.shareToWXConversation() }
-        friends.setOnClickListener { if (shareManager != null) shareManager!!.shareToWXFirends() }
+        wchart.setOnClickListener { shareClient.shareToWx(true) }
+        friends.setOnClickListener { shareClient.shareToWx(false) }
         message.setOnClickListener { getContactInfo() }
-        weibo.setOnClickListener { if (shareManager != null) shareManager!!.shareToWb() }
-        qq.setOnClickListener { if (shareManager != null) shareManager!!.shareToQq() }
+        weibo.setOnClickListener { shareClient.shareToWeibo() }
+        qq.setOnClickListener { shareClient.shareToQQ(1) }
 
 
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        if (intent != null && shareManager != null)
-            shareManager!!.onNextIntent(intent!!)
+        shareClient.didNewIntent(intent)
     }
 
 
@@ -112,15 +83,6 @@ class InviteActivity : JBaseActivity(), WbShareCallback {
         return bitmap
     }
 
-    override fun onWbShareFail() {
-    }
-
-    override fun onWbShareCancel() {
-    }
-
-    override fun onWbShareSuccess() {
-    }
-
 
     /**
      * 打开通讯了获取联系人信息
@@ -133,12 +95,14 @@ class InviteActivity : JBaseActivity(), WbShareCallback {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        Tencent.onActivityResultData(requestCode, resultCode, data, this)
+
         if (resultCode == RESULT_OK) {
             when (requestCode) {
                 Constant.REQUEST_CODE_GET_CONTACT_INFO -> getUserContactFroData(data)
             }
         }
+
+        shareClient.didActivityResult(requestCode, resultCode, data)
     }
 
 

@@ -120,12 +120,12 @@
         "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_list_divider_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_star_black_16dp.png",
-        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_ic_star_black_16dp.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_ic_trans_fail.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/nim_ic_trans_fail.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/abc_ic_star_black_16dp.png",
+        "source": "/Users/jamisonline/.android/build-cache/99e654f0643b296766e6d297983b6780cad8de60/output/res/drawable-xhdpi-v4/abc_ic_star_black_16dp.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/nim_actionbar_search_dark_icon.png",

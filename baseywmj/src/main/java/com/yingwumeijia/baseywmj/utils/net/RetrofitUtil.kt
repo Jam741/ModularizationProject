@@ -27,6 +27,9 @@ class RetrofitUtil {
         }
 
         private fun getRetrofit(): Retrofit {
+
+            Log.d("JAM", "======getRetrofit=====" + PATHUrlConfig.severUrl())
+
             return Retrofit.Builder()
                     .baseUrl(PATHUrlConfig.severUrl())
                     .addConverterFactory(GsonConverterFactory.create())

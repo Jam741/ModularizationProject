@@ -27,6 +27,8 @@ import com.google.gson.reflect.TypeToken
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.muzhi.camerasdk.model.CameraSdkParameterInfo
 import com.orhanobut.logger.Logger
+import com.pisces.android.sharesdk.ShareBean
+import com.pisces.android.sharesdk.ShareClient
 import com.sina.weibo.sdk.share.WbShareCallback
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
@@ -56,9 +58,6 @@ import com.yingwumeijia.commonlibrary.base.BaseActivity
 import com.yingwumeijia.commonlibrary.utils.CallUtils
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
-import com.yingwumeijia.sharelibrary.ShareData
-import com.yingwumeijia.sharelibrary.ShareDialog
-import com.yingwumeijia.sharelibrary.ShareManager
 import org.json.JSONException
 import org.json.JSONObject
 import rx.Observable
@@ -118,39 +117,44 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
     fun shareActivity(json: String) {
         var shareModel = gson.fromJson(json, ShareModel::class.java)
         Logger.d(Gson().toJson(shareModel))
-        Observable.create<Boolean> {
-            Glide.with(activity).load(shareModel.img).asBitmap().into(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                    val shareData = ShareData(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), resource, shareModel.img, 0)
-                    ShareDialog(ShareManager(activity, shareData, object : WbShareCallback {
-                        override fun onWbShareFail() {}
 
-                        override fun onWbShareCancel() {}
 
-                        override fun onWbShareSuccess() {}
-                    }, object : IUiListener {
-                        override fun onComplete(p0: Any?) {}
+        var shareClient = ShareClient(activity, ShareBean(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), shareModel.img))
+        shareClient.launchShareDialog()
 
-                        override fun onCancel() {}
-
-                        override fun onError(p0: UiError?) {}
-                    })).show()
-                }
-            })
-        }.subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<Boolean>() {
-                    override fun onNext(t: Boolean?) {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onError(e: Throwable?) {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onCompleted() {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-                })
+//        Observable.create<Boolean> {
+//            Glide.with(activity).load(shareModel.img).asBitmap().into(object : SimpleTarget<Bitmap>() {
+//                override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+//                    val shareData = ShareData(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), resource, shareModel.img, 0)
+//                    ShareDialog(ShareManager(activity, shareData, object : WbShareCallback {
+//                        override fun onWbShareFail() {}
+//
+//                        override fun onWbShareCancel() {}
+//
+//                        override fun onWbShareSuccess() {}
+//                    }, object : IUiListener {
+//                        override fun onComplete(p0: Any?) {}
+//
+//                        override fun onCancel() {}
+//
+//                        override fun onError(p0: UiError?) {}
+//                    })).show()
+//                }
+//            })
+//        }.subscribeOn(AndroidSchedulers.mainThread())
+//                .subscribe(object : Subscriber<Boolean>() {
+//                    override fun onNext(t: Boolean?) {
+////                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                    }
+//
+//                    override fun onError(e: Throwable?) {
+////                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                    }
+//
+//                    override fun onCompleted() {
+////                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//                    }
+//                })
 
 
     }
@@ -195,7 +199,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
     @JavascriptInterface
     fun toPay(billId: String) {
-        CashierForActiveActivity.start(activity,billId)
+        CashierForActiveActivity.start(activity, billId)
     }
 
     @JavascriptInterface
@@ -254,7 +258,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             Config.CODE_CHOOSE_ADRESS -> showChooseAddress(data)
             Config.CODE_GET_CONTACT_INFO -> getContactInfo()
             Config.CODE_PICK_SINGLE_STING -> singleChoosePick(data as String)
-            Config.CODE_CALL_PHONE_NUMBER -> if (data != null)  CallUtils.callPhone(data, activity)
+            Config.CODE_CALL_PHONE_NUMBER -> if (data != null) CallUtils.callPhone(data, activity)
             Config.CODE_ORDER_BILL_PAY -> {
                 CashierForOrderActivity.start(activity, data!!)
             }
@@ -285,6 +289,13 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
 
 
         val payMessageBean = Gson().fromJson<ApplyPayMessageBean>(data, ApplyPayMessageBean::class.java)
+//        val payOrderMessageContent = PayOrderMessageContent.obtain(payMessageBean.content, payMessageBean.billAmount, payMessageBean.billTypeStr, payMessageBean.billId.toString(), "1")
+
+        val intent = Intent()
+        intent.putExtra(Constant.KEY_PAY_MESSAGE, payMessageBean)
+        intent.action = (Constant.SEND_PAY_MESSAGE_ACTION)
+        activity.sendBroadcast(intent)
+        ActivityCompat.finishAfterTransition(activity)
 //        val payOrderMessageContent = PayOrderMessageContent.obtain(payMessageBean.content, payMessageBean.billAmount, payMessageBean.billTypeStr, payMessageBean.billId.toString(), "1")
 //        val myMessage = Message.obtain(IMManager.currentSessionId(activity), Conversation.ConversationType.GROUP, payOrderMessageContent)
 //        RongIM.getInstance().sendMessage(myMessage, "支付款项", "支付款项", object : IRongCallback.ISendMediaMessageCallback {
@@ -337,14 +348,13 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
         } else {
             if (openBean.title == null) {
                 Logger.d("befo==" + openBean.url)
-                NativeWebActivity.start(activity, openBean.url,null,false)
+                NativeWebActivity.start(activity, openBean.url, null, false)
             } else {
-                NativeWebActivity.start(activity, openBean.url,openBean.title,true)
+                NativeWebActivity.start(activity, openBean.url, openBean.title, true)
             }
         }
 
     }
-
 
 
     fun singleChoosePick(data: String) {
@@ -476,7 +486,7 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
             single_pic_choose_requestcode -> getBundle(data!!.extras)
             contract_info_requestcode -> getUserContactFroData(data)
             Constant.REQUEST_CODE_FOR_PAY -> {
-                if (data==null)return
+                if (data == null) return
                 Log.d("jam", "==========ybao_resquest -经来了==========")
                 val isPaySuccess = data!!.getBooleanExtra(Constant.PAY_SUCCESS_KEY, false)
                 if (isPaySuccess) {

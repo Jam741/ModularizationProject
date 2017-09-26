@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.yingwumeijia.commonlibrary.widget.MyScrollview xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,6 +12,46 @@
         android:background="@color/bg_whide"
         android:orientation="vertical"
         android:paddingTop="10dp">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"></com.youth.banner.Banner>
+
+
+        <LinearLayout
+            android:id="@+id/banner_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color_1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/tvBannerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/font3_sp"
+                tools:text="hello" />
+
+            <TextView
+                android:id="@+id/tvBannerDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="18dp"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/font4_sp"
+                tools:text="hello" />
+
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="match_parent"
@@ -38,13 +79,13 @@
         <ImageView
             android:id="@+id/image_mjProject"
             android:layout_width="match_parent"
-            android:adjustViewBounds="true"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true" />
 
-        <com.rx.android.jamspeedlibrary.utils.view.MyListView
-            android:id="@+id/rv_ceremony"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <!--<com.rx.android.jamspeedlibrary.utils.view.MyListView-->
+        <!--android:id="@+id/rv_ceremony"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
 
     </LinearLayout>
 

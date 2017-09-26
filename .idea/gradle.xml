@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/FlycoTabLayout_Lib" />
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
+            <option value="$PROJECT_DIR$/banner" />
             <option value="$PROJECT_DIR$/baseywmj" />
             <option value="$PROJECT_DIR$/commonlibrary" />
             <option value="$PROJECT_DIR$/customer" />
@@ -21,7 +22,7 @@
             <option value="$PROJECT_DIR$/pdfviewlibrary" />
             <option value="$PROJECT_DIR$/reslibrary" />
             <option value="$PROJECT_DIR$/scanlibrary" />
-            <option value="$PROJECT_DIR$/sharelibrary" />
+            <option value="$PROJECT_DIR$/sharesdk" />
             <option value="$PROJECT_DIR$/testapp" />
             <option value="$PROJECT_DIR$/uikit" />
           </set>

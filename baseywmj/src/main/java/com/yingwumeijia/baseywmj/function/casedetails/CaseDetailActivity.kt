@@ -8,9 +8,11 @@ import android.support.v4.app.Fragment
 import android.view.View
 import com.flyco.tablayout.utils.UnreadMsgUtils
 import com.orhanobut.logger.Logger
+import com.pisces.android.sharesdk.ShareClient
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.entity.bean.ShareBean
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.adapter.TabWithPagerAdapter
 import com.yingwumeijia.baseywmj.function.casedetails.realscene.RealSceneFragment
@@ -39,6 +41,8 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
     val presenter by lazy { CaseDetailPresenter(context, caseId, this) }
 
     val mTitles = arrayOf("现场实景", "原创团队", "项目资料")
+
+    var shareClient: ShareClient? = null
 
     val mFragments by lazy {
         arrayListOf(RealSceneFragment.newInstance(caseId), CaseTeamFragment.newInstance(caseId), MaterialFragment.newInstance(caseId))
@@ -84,6 +88,13 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
         UnreadMsgUtils.show(tv_messageNum, count, false)
     }
 
+    override fun share(shareInfo: ShareBean) {
+        //                    val shareData = ShareData(shareInfo.caseName, shareInfo.designConcept, shareInfo.url, resource, shareInfo.cover + "&imageView2/2/w/256", 1)
+
+        if (shareClient == null) shareClient = ShareClient(this, com.pisces.android.sharesdk.ShareBean(shareInfo.caseName, shareInfo.designConcept, shareInfo.url, shareInfo.cover + "&imageView2/2/w/256"))
+        shareClient!!.launchShareDialog()
+    }
+
 
     companion object {
         fun start(context: Context, id: Int, forGoBack: Boolean) {
@@ -96,9 +107,12 @@ class CaseDetailActivity : JBaseActivity(), CaseDetailContract.View, View.OnClic
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        presenter.onNewIntent(intent)
+        shareClient?.didNewIntent(intent)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        shareClient?.didActivityResult(requestCode, resultCode, data)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

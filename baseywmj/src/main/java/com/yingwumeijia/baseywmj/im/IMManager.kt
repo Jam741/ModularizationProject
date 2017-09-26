@@ -45,9 +45,9 @@ object IMManager {
      */
     fun sendTextMessage(sessionId: String, content: String) {
 
-        val msg = MessageBuilder.createTextMessage(sessionId, SessionTypeEnum.Team, content)
-
-        NIMClient.getService(MsgService::class.java).sendMessage(msg, true)
+//        val msg = MessageBuilder.createTextMessage(sessionId, SessionTypeEnum.Team, content)
+//
+//        NIMClient.getService(MsgService::class.java).sendMessage(msg, true)
 
 //        val customerMsg = MessageBuilder.createCustomMessage()
 

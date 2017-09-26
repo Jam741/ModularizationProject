@@ -13,7 +13,7 @@ interface CaseTeamContract {
 
         fun showTeamList(teamData: ProductionTeamBean)
 
-        fun showCeremonyPic(ceremonyBeanList: List<ProductionTeamBean.SurroundingMaterials.CeremonyBean>)
+        fun showCeremonyPic(ceremonyBeanList: List<ProductionTeamBean.CaseMaterialDto>)
 
         fun supportMJProject(support: Boolean)
 

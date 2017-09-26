@@ -141,14 +141,14 @@ class CaseTeamPresenter(var fragment: Fragment, var caseId: Int, var view: CaseT
                     view.showTeamList(t)
                     view.supportMJProject(t.company.isSupportedSupervisor)
 
-                    val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>() }
-                    if (t.surroundingMaterials == null) return
-                    if (t.surroundingMaterials.startCeremony != null)
-                        ceremonyBeanList.add(t.surroundingMaterials.startCeremony)
-                    if (t.surroundingMaterials.endCeremony != null)
-                        ceremonyBeanList.add(t.surroundingMaterials.endCeremony)
-                    if (!ListUtil.isEmpty(ceremonyBeanList))
-                        view.showCeremonyPic(ceremonyBeanList)
+//                    val ceremonyBeanList by lazy { ArrayList<ProductionTeamBean.SurroundingMaterials.CeremonyBean>() }
+//                    if (t.surroundingMaterials == null) return
+//                    if (t.surroundingMaterials.startCeremony != null)
+//                        ceremonyBeanList.add(t.surroundingMaterials.startCeremony)
+//                    if (t.surroundingMaterials.endCeremony != null)
+//                        ceremonyBeanList.add(t.surroundingMaterials.endCeremony)
+                    if (!ListUtil.isEmpty(t.caseMaterialDtos))
+                        view.showCeremonyPic(t.caseMaterialDtos)
                 }
             }
 

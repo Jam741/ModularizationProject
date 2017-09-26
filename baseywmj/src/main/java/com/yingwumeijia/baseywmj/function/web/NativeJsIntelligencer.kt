@@ -26,6 +26,8 @@ import com.google.gson.reflect.TypeToken
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.muzhi.camerasdk.model.CameraSdkParameterInfo
 import com.orhanobut.logger.Logger
+import com.pisces.android.sharesdk.ShareBean
+import com.pisces.android.sharesdk.ShareClient
 import com.sina.weibo.sdk.share.WbShareCallback
 import com.tencent.tauth.IUiListener
 import com.tencent.tauth.UiError
@@ -49,9 +51,6 @@ import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.CallUtils
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
-import com.yingwumeijia.sharelibrary.ShareData
-import com.yingwumeijia.sharelibrary.ShareDialog
-import com.yingwumeijia.sharelibrary.ShareManager
 import org.json.JSONException
 import org.json.JSONObject
 import rx.Observable
@@ -110,39 +109,9 @@ class NativeJsIntelligencer(activity: Activity) : NativeBaseJsBirdge(activity) {
     @JavascriptInterface
     fun shareActivity(json: String) {
         var shareModel = gson.fromJson(json, ShareModel::class.java)
-        Observable.create<Boolean> {
-            Glide.with(activity).load(shareModel.img).asBitmap().into(object : SimpleTarget<Bitmap>() {
-                override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
-                    val shareData = ShareData(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), resource, shareModel.img, 0)
-                    ShareDialog(ShareManager(activity, shareData, object : WbShareCallback {
-                        override fun onWbShareFail() {}
 
-                        override fun onWbShareCancel() {}
-
-                        override fun onWbShareSuccess() {}
-                    }, object : IUiListener {
-                        override fun onComplete(p0: Any?) {}
-
-                        override fun onCancel() {}
-
-                        override fun onError(p0: UiError?) {}
-                    })).show()
-                }
-            })
-        }.subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(object : Subscriber<Boolean>() {
-                    override fun onNext(t: Boolean?) {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onError(e: Throwable?) {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-
-                    override fun onCompleted() {
-//                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
-                })
+        var shareClient = ShareClient(activity, ShareBean(shareModel.getmShareTitle(), shareModel.getmDescription(), shareModel.getmShareUrl(), shareModel.img))
+        shareClient.launchShareDialog()
 
 
     }

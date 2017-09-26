@@ -19,7 +19,7 @@ class ConversationDetailsPresenter(var context: Activity, var sessionId: String,
     var projectName: String? = null
 
     override fun start() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfo(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfoNIM(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
             override fun _onNext(t: SessionDetailBean?) {
                 if (t == null) return
                 projectName = t.sessionInfo.name

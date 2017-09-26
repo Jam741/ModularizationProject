@@ -102,7 +102,7 @@ class RealSceneFragment : JBaseFragment(), RealSceneContract.View {
     override fun initRealPhotoLayout(scenes: List<RealSceneBean.ScenesBean>) {
         realPhoto_layout.visibility = View.VISIBLE
         rv_photo.run {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(activity)
             adapter = presenter.realPhotoAdapter
         }
     }

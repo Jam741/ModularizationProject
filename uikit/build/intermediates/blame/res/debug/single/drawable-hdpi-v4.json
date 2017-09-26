@@ -144,6 +144,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_watch_video_download_progress_foreground.9.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/no_talk_ic.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/no_talk_ic.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_g_download_progress_bar_bg.9.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_g_download_progress_bar_bg.9.png"
     },
@@ -440,6 +444,10 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_picker_image_selected.png"
     },
     {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/arrow.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/arrow.png"
+    },
+    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_voice_normal.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_voice_normal.png"
     },
@@ -488,12 +496,12 @@
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_edittext_box.9.png"
     },
     {
-        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_icon_download_pause.png",
-        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_icon_download_pause.png"
-    },
-    {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_message_input_plus_pressed.png",
         "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_message_input_plus_pressed.png"
+    },
+    {
+        "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_icon_download_pause.png",
+        "source": "/Users/jamisonline/Documents/ModularizationProject/uikit/res/drawable-hdpi/nim_icon_download_pause.png"
     },
     {
         "merged": "/Users/jamisonline/Documents/ModularizationProject/uikit/build/intermediates/res/merged/debug/drawable-hdpi-v4/nim_dialog_toast_bg.png",

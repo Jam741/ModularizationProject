@@ -16,9 +16,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //
-        ndk {
-            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
-        }
+
     }
     buildTypes {
         release {
@@ -81,9 +79,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/BASE64.jar')
     compile project(':flowlayout-lib')
-    //    compile project(':oneweb')
+    compile project(':banner')
     compile project(':reslibrary')
-    compile project(':sharelibrary')
+    compile project(':sharesdk')
     compile project(':pdfviewlibrary')
     //    compile project(':IMKit')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

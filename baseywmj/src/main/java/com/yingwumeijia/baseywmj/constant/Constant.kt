@@ -44,7 +44,7 @@ object Constant {
     val KEY_TWITTER_URL = "KEY_TWITTER_URL"
 
     val KEY_CURRENT = "KEY_CURRENT"
-
+    val KEY_PAY_MESSAGE = "KEY_PAY_MESSAGE"
     val KEY_CURRENT_SESSION_ID = "KEY_CURRENT_SESSION_ID"
     val KEY_CURRENT_GROUP_ID = "KEY_CURRENT_GROUP_ID"
 
@@ -53,6 +53,9 @@ object Constant {
     val REQUEST_CODE_FOR_PAY = 103
 
     val WX_PAY_BORAD_COST_ACTION = "ywmj.com.client.wxpay.broadcost"
+
+    val SEND_PAY_MESSAGE_ACTION = "ywmj.com.worker.sendpaymessage.broadcost"
+
 
     /*云信*/
     val KEY_NIM_ACCOUNT = "KEY_NIM_ACCOUNT"

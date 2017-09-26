@@ -47,7 +47,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.d("jam", "==resp=");
+        Log.d("jam", "==resp=" + resp.errCode);
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             int code = resp.errCode;
             if (code == 0) {
@@ -67,6 +67,39 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //            }
 
         }
+
+
+//        //形参resp 有下面两个个属性比较重要
+//        //1.resp.errCode
+//        //2.resp.transaction则是在分享数据的时候手动指定的字符创,用来分辨是那次分享(参照4.中req.transaction)
+//        switch (resp.errCode) { //根据需要的情况进行处理
+//            case BaseResp.ErrCode.ERR_OK:
+//                //正确返回
+//                break;
+//            case BaseResp.ErrCode.ERR_USER_CANCEL:
+//                //用户取消
+//                break;
+//            case BaseResp.ErrCode.ERR_AUTH_DENIED:
+//                //认证被否决
+//                break;
+//            case BaseResp.ErrCode.ERR_SENT_FAILED:
+//                //发送失败
+//                break;
+//            case BaseResp.ErrCode.ERR_UNSUPPORT:
+//                /不支持错误
+//                break;
+//            case BaseResp.ErrCode.ERR_COMM:
+//                //一般错误
+//                break;
+//            default:
+//                //其他不可名状的情况
+//                break;
+//        }
+//
+//        作者：吐痰高手
+//        链接：http://www.jianshu.com/p/e1a3f6844079
+//        來源：简书
+//        著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
     }
 
 

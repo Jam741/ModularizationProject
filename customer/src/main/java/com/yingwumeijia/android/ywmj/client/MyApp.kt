@@ -1,17 +1,11 @@
 package com.yingwumeijia.android.ywmj.client
 
-//import com.tencent.smtt.sdk.QbSdk
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Environment
-import android.text.TextUtils
-import android.util.Log
 import com.alibaba.fastjson.JSON
-import com.alibaba.fastjson.JSONObject
 import com.google.gson.Gson
 import com.netease.nim.uikit.NimUIKit
-import com.netease.nim.uikit.contact.core.util.ContactHelper
 import com.netease.nim.uikit.custom.DefaultUserInfoProvider
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase
 import com.netease.nimlib.sdk.NIMClient
@@ -20,14 +14,17 @@ import com.netease.nimlib.sdk.SDKOptions
 import com.netease.nimlib.sdk.StatusBarNotificationConfig
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.netease.nimlib.sdk.mixpush.NIMPushClient
-import com.netease.nimlib.sdk.msg.*
+import com.netease.nimlib.sdk.msg.MessageBuilder
+import com.netease.nimlib.sdk.msg.MessageNotifierCustomization
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.MsgServiceObserve
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
-import com.netease.nimlib.sdk.msg.model.CustomNotification
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.pisces.android.sharesdk.ShareSDK
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 import com.yingwumeijia.android.ywmj.client.function.splash.SplashActivity
@@ -44,9 +41,7 @@ import com.yingwumeijia.baseywmj.nimim.conversation.customer.CustomerTeamCustomi
 import com.yingwumeijia.baseywmj.nimim.msg.*
 import com.yingwumeijia.baseywmj.nimim.provider.NimDemoLocationProvider
 import com.yingwumeijia.baseywmj.option.Config
-import com.yingwumeijia.baseywmj.utils.net.AccountManager
 import com.yingwumeijia.commonlibrary.utils.SystemUtil
-import com.yingwumeijia.sharelibrary.ShareSDK
 
 
 /**
@@ -66,7 +61,7 @@ class MyApp : JBaseApp() {
         initHotfix()
 
         //Jam分享SDK初始化
-        ShareSDK.init(applicationContext, "2293291411", "wxa57345f69f5a674d")
+        ShareSDK.initSDK(this, "2293291411", "wxa57345f69f5a674d")
 
         //配置日志打印级别
         Logger.addLogAdapter(object : AndroidLogAdapter() {
@@ -127,6 +122,13 @@ class MyApp : JBaseApp() {
             }
 
 
+        }, true)
+
+
+        NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage(object : Observer<List<IMMessage>> {
+            override fun onEvent(p0: List<IMMessage>?) {
+
+            }
         }, true)
 
     }

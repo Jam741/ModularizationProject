@@ -1,33 +1,47 @@
 package com.yingwumeijia.android.worker
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import com.alibaba.fastjson.JSON
+import com.google.gson.Gson
 import com.netease.nim.uikit.NimUIKit
 import com.netease.nim.uikit.custom.DefaultUserInfoProvider
-import com.netease.nim.uikit.session.module.MsgForwardFilter
 import com.netease.nim.uikit.session.viewholder.MsgViewHolderThumbBase
 import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.SDKOptions
 import com.netease.nimlib.sdk.StatusBarNotificationConfig
 import com.netease.nimlib.sdk.auth.LoginInfo
 import com.netease.nimlib.sdk.mixpush.NIMPushClient
+import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.MsgServiceObserve
+import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.pisces.android.sharesdk.ShareSDK
 import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 import com.yingwumeijia.android.worker.function.splash.SplashActivity
 import com.yingwumeijia.baseywmj.AppType
 import com.yingwumeijia.baseywmj.base.JBaseApp
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.message.MessageActivity
+import com.yingwumeijia.baseywmj.function.message.MessageBean
+import com.yingwumeijia.baseywmj.function.message.MessageManager
 import com.yingwumeijia.baseywmj.nimim.NIMIMCache
 import com.yingwumeijia.baseywmj.nimim.UserPreferences
-import com.yingwumeijia.baseywmj.nimim.conversation.customer.CustomerTeamCustomization
+import com.yingwumeijia.baseywmj.nimim.conversation.customer.EmployeeTeamCustomization
+import com.yingwumeijia.baseywmj.nimim.msg.*
 import com.yingwumeijia.baseywmj.nimim.provider.NimDemoLocationProvider
 import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.commonlibrary.utils.SystemUtil
-import com.yingwumeijia.sharelibrary.ShareSDK
 
 /**
  * Created by jamisonline on 2017/5/31.
@@ -41,7 +55,7 @@ class MyApp : JBaseApp() {
     override fun onCreate() {
         super.onCreate()
         initHotfix()
-        ShareSDK.init(applicationContext, "3416527308", "wxe317a57cc8b93035")
+        ShareSDK.initSDK(this, "3416527308", "wxe317a57cc8b93035")
         Logger.addLogAdapter(object : AndroidLogAdapter() {
             override fun isLoggable(priority: Int, tag: String?): Boolean {
                 return BuildConfig.DEBUG
@@ -69,30 +83,80 @@ class MyApp : JBaseApp() {
     private fun initUIKit() {
         // 初始化，使用 uikit 默认的用户信息提供者
         NimUIKit.init(this)
-
-        NimUIKit.setCommonTeamSessionCustomization(CustomerTeamCustomization())
-
         // 设置地理位置提供者。如果需要发送地理位置消息，该参数必须提供。如果不需要，可以忽略。
         NimUIKit.setLocationProvider(NimDemoLocationProvider())
 
-        // 会话窗口的定制初始化。
-//        SessionHelper.init()
+        NimUIKit.setCommonTeamSessionCustomization(EmployeeTeamCustomization())
 
-        // 通讯录列表定制初始化
-//        ContactHelper.init
+        NimUIKit.registerMsgItemViewHolder(PayMessageAttachment::class.java, MsgViewHolderPay::class.java)
 
-//        NIMClient.c
+        NIMClient.getService(MsgService::class.java).registerCustomAttachmentParser(CustomAttachParser())
 
-        // 添加自定义推送文案以及选项，请开发者在各端（Android、IOS、PC、Web）消息发送时保持一致，以免出现通知不一致的情况
-        // NimUIKit.CustomPushContentProvider(new DemoPushContentProvider());
+        NIMClient.getService(MsgServiceObserve::class.java).observeCustomNotification({ p0 ->
+            Logger.d(p0.sessionType)
+            Logger.d(p0.content)
 
-//        NimUIKit.setOnlineStateContentProvider(DemoOnlineStateContentProvider())
 
-//        NimUIKit.setMsgForwardFilter {
-//            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-//        }
+            val ob = JSON.parseObject(p0.content)
+            val noticeType = ob.getInteger("noticeType")
+            if (noticeType == CustomAttachmentType.NOTICE_SYSTEM_MESSAGE) {
+                //收到站内信
+                val content = ob.getJSONObject("content").toJSONString()
+                didSystemMessageReceived(content)
+
+            } else if (noticeType == CustomAttachmentType.NOTICE_NOTICE_MESSAGE) {
+                //收到小灰条消息
+                val content = ob.getJSONObject("content").toJSONString()
+                didNoticeMessageReceived(content)
+            }
+
+
+        }, true)
+
+
+        NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage(object : Observer<List<IMMessage>> {
+            override fun onEvent(p0: List<IMMessage>?) {
+
+            }
+        },true)
     }
 
+
+    private fun didNoticeMessageReceived(content: String) {
+        val noticeMsgBean = Gson().fromJson(content, NoticeMsgBean::class.java)
+        // 向群里插入一条Tip消息，使得该群能立即出现在最近联系人列表（会话列表）中，满足部分开发者需求。
+        val content = HashMap<String, Any>(1)
+        content.put("content", noticeMsgBean.message)
+        // 创建tip消息，teamId需要开发者已经存在的team的teamId
+        val msg = MessageBuilder.createTipMessage(noticeMsgBean.groupId, SessionTypeEnum.Team)
+        msg.remoteExtension = content
+        // 自定义消息配置选项
+        val config = CustomMessageConfig()
+        // 消息不计入未读
+        config.enableUnreadCount = false
+        msg.config = config
+        // 消息发送状态设置为success
+        msg.status = MsgStatusEnum.success
+        NIMClient.getService(MsgService::class.java).saveMessageToLocal(msg, true)
+    }
+
+
+    fun didSystemMessageReceived(content: String) {
+        val messageBean = assembleMessageBean(content)
+        MessageManager.insert(this, messageBean)
+        //发送广播
+        val mIntent = Intent(MessageActivity.ACTION_MESSAGE)
+        mIntent.putExtra(MessageActivity.KEY_MESSAGE, messageBean)
+        sendBroadcast(mIntent)
+    }
+
+    private fun assembleMessageBean(message: String): MessageBean {
+
+        val bean = Gson().fromJson<MessageBean>(message, MessageBean::class.java!!)
+        bean.messageSendId = Constant.SYSTEM_TARGET_ID
+        bean.messageUserId = "" + UserManager.getUserData()!!.id
+        return bean
+    }
 
     private fun getLoginInfo(): LoginInfo? {
         val loginInfo = UserManager.getNIMLoginInfo(this)

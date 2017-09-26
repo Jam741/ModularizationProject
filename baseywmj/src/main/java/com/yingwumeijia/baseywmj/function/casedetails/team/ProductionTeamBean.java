@@ -17,6 +17,17 @@ public class ProductionTeamBean {
     private CompanyBean company;
     private List<EmployeesBean> employees;
     private SurroundingMaterials surroundingMaterials;
+    private List<CaseMaterialDto> caseMaterialDtos;
+
+
+    public List<CaseMaterialDto> getCaseMaterialDtos() {
+        return caseMaterialDtos;
+    }
+
+    public void setCaseMaterialDtos(List<CaseMaterialDto> caseMaterialDtos) {
+        this.caseMaterialDtos = caseMaterialDtos;
+    }
+
 
     public SurroundingMaterials getSurroundingMaterials() {
         return surroundingMaterials;
@@ -265,4 +276,54 @@ public class ProductionTeamBean {
             }
         }
     }
+
+
+    public static class CaseMaterialDto {
+
+
+        /**
+         * title : 开工典礼
+         * pics : ["http://o8nljewkg.bkt.clouddn.com/o_1bqhdv6e01qbi1el2n7112lm112mm.jpg?width=3500&height=2182"]
+         * caseMaterialType : 开工
+         * bulidDate : 1504569600000
+         */
+
+        private String title;
+        private String caseMaterialType;
+        private long bulidDate;
+        private List<String> pics;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getCaseMaterialType() {
+            return caseMaterialType;
+        }
+
+        public void setCaseMaterialType(String caseMaterialType) {
+            this.caseMaterialType = caseMaterialType;
+        }
+
+        public long getBulidDate() {
+            return bulidDate;
+        }
+
+        public void setBulidDate(long bulidDate) {
+            this.bulidDate = bulidDate;
+        }
+
+        public List<String> getPics() {
+            return pics;
+        }
+
+        public void setPics(List<String> pics) {
+            this.pics = pics;
+        }
+    }
+
 }

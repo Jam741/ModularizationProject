@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
 
@@ -46,9 +47,9 @@
                     android:id="@+id/topRight"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:drawableLeft="@mipmap/bottom_collect_ico"
                     android:gravity="center_vertical"
                     android:paddingLeft="11dp"
-                    android:drawableLeft="@mipmap/bottom_collect_ico"
                     android:paddingRight="12dp"
                     tools:ignore="RelativeOverlap,RtlSymmetry" />
 
@@ -59,11 +60,11 @@
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@id/topRight"
                     android:button="@null"
-                    android:src="@mipmap/bottom_share_ico"
                     android:gravity="center_vertical"
                     android:paddingLeft="12dp"
-                    android:visibility="gone"
                     android:paddingRight="22dp"
+                    android:src="@mipmap/bottom_share_ico"
+                    android:visibility="gone"
                     tools:ignore="RtlSymmetry" />
 
 
