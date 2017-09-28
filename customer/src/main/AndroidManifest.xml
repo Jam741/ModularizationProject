@@ -135,22 +135,22 @@
 
 
         <!--会话-->
-        <activity
-            android:name=".function.conversation.details.ConversationActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize">
+        <!--<activity-->
+            <!--android:name=".function.conversation.details.ConversationActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
 
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
 
-                <data
-                    android:host="com.yingwumeijia.android.ywmj.client"
-                    android:pathPrefix="/conversation/"
-                    android:scheme="rong" />
-            </intent-filter>
-        </activity>
+                <!--<data-->
+                    <!--android:host="com.yingwumeijia.android.ywmj.client"-->
+                    <!--android:pathPrefix="/conversation/"-->
+                    <!--android:scheme="rong" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <!--支付宝支付-->
         <activity

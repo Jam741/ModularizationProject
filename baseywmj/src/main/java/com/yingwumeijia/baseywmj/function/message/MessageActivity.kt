@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseActivity
@@ -25,6 +26,7 @@ import com.yingwumeijia.baseywmj.option.Config
 import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber
 import com.yingwumeijia.commonlibrary.utils.ListUtil
+import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.adapter.CommonAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.ViewHolder
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
@@ -87,15 +89,24 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
 
     companion object {
 
-
-        val ACTION_MESSAGE = "com.yingwumeijia.client.message"
+        val ACTION_MESSAGE_C = "com.yingwumeijia.client.message"
+        val ACTION_MESSAGE_E = "com.yingwumeijia.worker.message"
         val KEY_MESSAGE = "KEY_MESSAGE"
+
+        fun setUnReader(context: Context, isUnRead: Boolean) {
+            SPUtils.put(context, "KEY_UNREADER", isUnRead)
+        }
+
+        fun isUnRead(context: Context): Boolean {
+            return SPUtils.get(context, "KEY_UNREADER", false) as Boolean
+        }
 
         fun start(context: Context) {
             val starter = Intent(context, MessageActivity::class.java)
             context.startActivity(starter)
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,6 +130,12 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
         } else {
             refreshData()
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        setUnReader(context, false)
     }
 
 
@@ -311,10 +328,8 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
     internal var mBroadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            if (action == ACTION_MESSAGE) {
-                mRecivedMessageBean = intent.getSerializableExtra(KEY_MESSAGE) as MessageBean
-                mHandler.sendEmptyMessage(RECEIVE_MSG)
-            }
+            mRecivedMessageBean = intent.getSerializableExtra(KEY_MESSAGE) as MessageBean
+            mHandler.sendEmptyMessage(RECEIVE_MSG)
         }
     }
 
@@ -343,7 +358,11 @@ class MessageActivity : JBaseActivity(), XRecyclerView.LoadingListener {
 
     fun registerBoradcastReceiver() {
         val myIntentFilter = IntentFilter()
-        myIntentFilter.addAction(ACTION_MESSAGE)
+        if (AppTypeManager.isAppC())
+            myIntentFilter.addAction(ACTION_MESSAGE_C)
+        else
+            myIntentFilter.addAction(ACTION_MESSAGE_E)
+
         //注册广播
         registerReceiver(mBroadcastReceiver, myIntentFilter)
     }

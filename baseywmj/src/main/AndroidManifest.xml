@@ -135,6 +135,10 @@
         <activity
             android:name=".nimim.conversation.customer.CustomerTeamMessageActivity"
             android:screenOrientation="portrait" />
+        <!--会话-->
+        <activity
+            android:name=".nimim.conversation.employee.EmployeeTeamMessageActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".function.casedetails.material.NullWebsiteActivity"

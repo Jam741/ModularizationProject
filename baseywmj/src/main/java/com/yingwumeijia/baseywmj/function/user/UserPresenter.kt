@@ -6,6 +6,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import com.netease.nim.uikit.NimUIKit
 import com.netease.nimlib.sdk.NIMClient
@@ -196,7 +197,6 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
     fun getIMToken(userBean: UserBean) {
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getIMToken(), object : SimpleSubscriber<TokenBean>(context) {
             override fun _onNext(t: TokenBean?) {
-                Logger.d("IMManager" + t!!.token)
                 IMManager.tokenPut(context, t!!.token)
                 cacheLoginInfo(t.imUid, t!!.token)
                 logigToNIM(userBean)
@@ -225,25 +225,25 @@ class UserPresenter(var context: Context, var view: UserContract.View, var publi
      * 登录到网易云信
      */
     fun logigToNIM(userBean: UserBean) {
-
-
+        Log.d("NIM", "========begin")
         NimUIKit.doLogin(UserManager.getNIMLoginInfo(context), object : RequestCallback<LoginInfo> {
             override fun onFailed(code: Int) {
-                Logger.d(code)
+                Log.d("NIM", "========onFailed" + code)
                 if (code == 302 || code == 404) {
-                    Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "登录失败: " + code, Toast.LENGTH_SHORT).show();
                 }
             }
 
             override fun onException(p0: Throwable?) {
-                Logger.d(p0!!.message)
+                Log.d("NIM", "========onException" + p0!!.message)
                 p0.printStackTrace()
-                Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "登录失败", Toast.LENGTH_SHORT).show()
             }
 
             override fun onSuccess(p0: LoginInfo?) {
+                Log.d("NIM", "===NIM=====onSuccess")
                 didLoginSuccess(userBean)
             }
         })

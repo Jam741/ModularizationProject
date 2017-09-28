@@ -119,8 +119,8 @@ class CaseDetailPresenter(var context: Activity, var caseId: Int, var view: Case
                 override fun _onNext(t: CreateSessionBean?) {
                     if (t == null) return Unit
                     if (caseSimpleData != null)
-                        caseSimpleData!!.chatId = t!!.id
-                    StartActivityManager.startConversation(context, t!!.id)
+                        caseSimpleData!!.chatId = t!!.groupId
+                    StartActivityManager.startConversation(context, t!!.groupId)
                 }
             })
         }

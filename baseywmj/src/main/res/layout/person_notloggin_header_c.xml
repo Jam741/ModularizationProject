@@ -52,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/btn_bg_stroke_whide"
         android:gravity="center"
-        android:text="立即登陆"
+        android:text="立即登录"
         android:textColor="@color/text_color_whide"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -713,7 +713,7 @@ interface Service {
      * *
      * @return
      */
-    @POST("/order/confirm")
+    @POST("order/confirm")
     fun scanOrderConfirm(@Query("sign") sign: String): Observable<String>
 
     /**

@@ -32,8 +32,9 @@ class ConversationPresenter(var context: Activity, var sessionId: String, var vi
 
 
     override fun start() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfo(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfoNIM(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
             override fun _onNext(t: SessionDetailBean?) {
+                IMManager.setCurrentSessionId(context, t!!.sessionInfo.id.toString())
                 sessionInfo = t
                 if (t != null)
                     view.showConversationTitle(t.sessionInfo.name + "(" + t.sessionInfo.members.size + ")")

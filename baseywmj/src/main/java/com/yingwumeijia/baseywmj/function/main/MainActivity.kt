@@ -1,20 +1,31 @@
 package com.yingwumeijia.baseywmj.function.main
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
+import android.util.Log
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.AdapterView
+import android.widget.Toast
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.Observer
+import com.netease.nimlib.sdk.RequestCallbackWrapper
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.MsgServiceObserve
+import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.orhanobut.logger.Logger
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
@@ -37,6 +48,13 @@ import kotlinx.android.synthetic.main.main_page.*
 import rx.Subscriber
 import java.util.*
 import kotlin.collections.ArrayList
+import com.netease.nimlib.sdk.msg.model.RecentContact
+import com.yingwumeijia.baseywmj.constant.Constant
+import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.message.MessageActivity
+import com.yingwumeijia.baseywmj.function.message.MessageBean
+import com.yingwumeijia.commonlibrary.utils.ListUtil
+
 
 abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.OnPageChangeListener, AdapterView.OnItemClickListener {
 
@@ -104,17 +122,26 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
     var mPageAdapter = MainPageAdapter(mFragments, supportFragmentManager)
 
 
+    val msgReceivedBroadCast = MsgReceivedBroadCast()
+
 //    val conversationTypes = arrayOf(Conversation.ConversationType.GROUP)
 
     override fun onResume() {
         super.onResume()
         hideSoftInput(tl_main)
+
+        if (UserManager.isLogin(context)) {
+            setUnReadCount()
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_act)
         Logger.d("Main", "MainActivity onCreated")
+
+        registerMsgReceivedBroadCast()
 
         controller.didCaseFilterSet()
 
@@ -151,31 +178,65 @@ abstract class MainActivity : JBaseActivity(), OnTabSelectListener, ViewPager.On
 
         getLastActivity()
 
-//
-//        RongIM.getInstance().addUnReadMessageCountChangedObserver(IUnReadMessageObserver { i ->
-//            if (AppTypeManager.isAppC()) {
-//                if (tl_main != null) {
-//                    if (i == 0) {
-//                        tl_main.hideMsg(3)
-//                    } else {
-//                        tl_main.showMsg(3, i)
-//                        tl_main.setMsgMargin(3, -5f, 5f)
-//                    }
-//
-//                }
-//            } else {
-//                if (tl_main != null) {
-//                    if (i == 0) {
-//                        tl_main.hideMsg(2)
-//                    } else {
-//                        tl_main.showMsg(2, i)
-//                        tl_main.setMsgMargin(2, -5f, 5f)
-//                    }
-//
-//                }
-//            }
-//        }, *conversationTypes)
-//
+
+    }
+
+    override fun onDestroy() {
+        unRegisterMsgReceivedBroadCast()
+        super.onDestroy()
+    }
+
+    inner class MsgReceivedBroadCast : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d("JAM", "MsgReceivedBroadCast")
+            toastWith("MsgReceivedBroadCast")
+            setUnReadCount()
+        }
+
+    }
+
+    fun registerMsgReceivedBroadCast() {
+        val myIntentFilter = IntentFilter()
+        myIntentFilter.addAction(if (AppTypeManager.isAppC()) Constant.MSG_RECEIVE_ACTION_C else Constant.MSG_RECEIVE_ACTION_E)
+        registerReceiver(msgReceivedBroadCast, myIntentFilter)
+
+    }
+
+    fun unRegisterMsgReceivedBroadCast() {
+        unregisterReceiver(msgReceivedBroadCast)
+    }
+
+
+    fun setUnReadCount() {
+
+
+        val recents = NIMClient.getService(MsgService::class.java).queryRecentContactsBlock()
+
+
+        var unreadNum = 0
+        if (!ListUtil.isEmpty(recents))
+            unreadNum = recents!!.sumBy { it.unreadCount }
+        if (AppTypeManager.isAppC()) {
+            if (tl_main != null) {
+                if (unreadNum == 0) {
+                    tl_main.hideMsg(3)
+                } else {
+                    tl_main.showMsg(3, unreadNum)
+                    tl_main.setMsgMargin(3, -5f, 5f)
+                }
+
+            }
+        } else {
+            if (tl_main != null) {
+                if (unreadNum == 0) {
+                    tl_main.hideMsg(2)
+                } else {
+                    tl_main.showMsg(2, unreadNum)
+                    tl_main.setMsgMargin(2, -5f, 5f)
+                }
+
+            }
+        }
 
 
     }

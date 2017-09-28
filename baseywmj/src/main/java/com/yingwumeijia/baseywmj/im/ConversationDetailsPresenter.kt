@@ -22,6 +22,7 @@ class ConversationDetailsPresenter(var context: Activity, var sessionId: String,
         HttpUtil.getInstance().toNolifeSubscribe(Api.service.getSessionInfoNIM(sessionId), object : ProgressSubscriber<SessionDetailBean>(context) {
             override fun _onNext(t: SessionDetailBean?) {
                 if (t == null) return
+                IMManager.setCurrentSessionId(context, t.sessionInfo.id.toString())
                 projectName = t.sessionInfo.name
                 view.showProjectName(t.sessionInfo.name)
                 val allMembers by lazy { HashMap<String, List<MemberBean>>() }
@@ -51,7 +52,7 @@ class ConversationDetailsPresenter(var context: Activity, var sessionId: String,
 
 
     override fun quitSession() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.quitSession(sessionId), object : ProgressSubscriber<String>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.quitSession(IMManager.currentSessionId(context)), object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 view.dismissConversationSuccess()
             }
@@ -59,7 +60,7 @@ class ConversationDetailsPresenter(var context: Activity, var sessionId: String,
     }
 
     override fun dismissConversation() {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.dismissConversation(sessionId), object : ProgressSubscriber<String>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.dismissConversation(IMManager.currentSessionId(context)), object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 view.dismissConversationSuccess()
             }
@@ -67,7 +68,7 @@ class ConversationDetailsPresenter(var context: Activity, var sessionId: String,
     }
 
     override fun removeMember(memberId: String) {
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.deleteMemberFromSession(sessionId, memberId), object : ProgressSubscriber<String>(context) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.deleteMemberFromSession(IMManager.currentSessionId(context), memberId), object : ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 start()
             }

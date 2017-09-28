@@ -53,6 +53,7 @@ public class SessionDetailBean {
 
         private int id;
         private int userId;
+        private String groupId;
         private String userType;
         private String name;
         private int callTotal;
@@ -64,6 +65,14 @@ public class SessionDetailBean {
         private String updateTime;
         private int relatedCaseId;
         private List<MemberBean> members;
+
+        public String getGroupId() {
+            return groupId;
+        }
+
+        public void setGroupId(String groupId) {
+            this.groupId = groupId;
+        }
 
         public int getId() {
             return id;
@@ -183,7 +192,7 @@ public class SessionDetailBean {
         private int id;
         private String caseName;
         private String caseCover;
-        private String status;
+        private int status;
         private int collectionNumber;
 
         public int getId() {
@@ -210,11 +219,11 @@ public class SessionDetailBean {
             this.caseCover = caseCover;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 

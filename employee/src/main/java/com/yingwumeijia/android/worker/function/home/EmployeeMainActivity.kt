@@ -3,6 +3,7 @@ package com.yingwumeijia.android.worker.function.home
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import com.yingwumeijia.android.worker.function.conversation.EmployeeConversationFragment
 import com.yingwumeijia.android.worker.function.person.EmployeePersonFragment
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
@@ -37,7 +38,7 @@ class EmployeeMainActivity : MainActivity() {
 
 
     override fun getFragments(): ArrayList<JBaseFragment> {
-        return arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), ActiveFragment.newInstance(), EmployeePersonFragment.newInstance())
+        return arrayListOf(CaseListFragment.newInstance(false), ActiveFragment.newInstance(), EmployeeConversationFragment.newInstance(), EmployeePersonFragment.newInstance())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

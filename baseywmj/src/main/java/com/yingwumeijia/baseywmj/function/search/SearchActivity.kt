@@ -114,6 +114,7 @@ class SearchActivity : JBaseActivity(), AdapterView.OnItemClickListener, SearchC
                         controller.loadHistoryKeyWords()
                     }
                     Logger.d("search")
+                    search_assist_layout.visibility = View.GONE
                     caseListFragment.search(mKeyWords!!)
                 }
             }

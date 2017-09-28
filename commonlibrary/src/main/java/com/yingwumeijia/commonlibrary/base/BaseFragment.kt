@@ -36,9 +36,6 @@ open class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun getContext(): Context {
-        return super.getContext()
-    }
 
     fun toastWith(msg: String) {
         if (toast == null)

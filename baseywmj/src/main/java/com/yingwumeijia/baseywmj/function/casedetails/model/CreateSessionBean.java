@@ -15,6 +15,15 @@ public class CreateSessionBean {
 
     private String id;
     private String name;
+    private String groupId;
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
 
     public String getId() {
         return id;

@@ -123,7 +123,7 @@ class ConversationDetailsActivity : JBaseActivity(), ConversationDetailsContract
     }
 
     override fun dismissConversationSuccess() {
-//        IMManager.removeConversation(Conversation.ConversationType.GROUP, sessionId)
+        IMManager.removeConversation( sessionId)
         close()
         JBaseApp.finishCurrentConversation()
     }

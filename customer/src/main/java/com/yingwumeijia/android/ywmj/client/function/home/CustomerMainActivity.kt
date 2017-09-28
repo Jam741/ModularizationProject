@@ -23,6 +23,7 @@ class CustomerMainActivity : MainActivity() {
 
     companion object {
         fun start(context: Activity) {
+            Logger.d("CustomerMainActivity")
             val starter = Intent(context, CustomerMainActivity::class.java)
             context.startActivity(starter)
         }

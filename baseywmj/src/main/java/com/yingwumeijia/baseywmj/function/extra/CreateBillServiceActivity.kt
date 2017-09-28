@@ -246,7 +246,7 @@ class CreateBillServiceActivity : JBaseActivity(), CreateBillServicContract.View
 
     override fun showCompanyName(companyName: String) {
         if (!TextUtils.isEmpty(companyName))
-            tv_companyName.setText(companyName)
+            tv_companyName.text = companyName
     }
 
     override fun showCompanyPortrait(portrait: String) {

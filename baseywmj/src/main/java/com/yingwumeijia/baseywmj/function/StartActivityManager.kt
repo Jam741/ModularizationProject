@@ -2,10 +2,12 @@ package com.yingwumeijia.baseywmj.function
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
 import com.yingwumeijia.baseywmj.nimim.conversation.customer.CustomerTeamMessageActivity
+import com.yingwumeijia.baseywmj.nimim.conversation.employee.EmployeeTeamMessageActivity
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
 
 /**
@@ -58,10 +60,12 @@ object StartActivityManager {
 //            RongIM.getInstance().startConversation(context, Conversation.ConversationType.GROUP, sessionId, null)
 //        }
 
+        Log.d("startConversation", "groupId：" + sessionId)
+
         if (AppTypeManager.isAppC())
             CustomerTeamMessageActivity.start(context, sessionId)
-//        else
-
+        else
+            EmployeeTeamMessageActivity.start(context, sessionId)
 //        NimUIKit.startTeamSession(context, sessionId)
     }
 

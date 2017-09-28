@@ -39,7 +39,7 @@ android {
 //            res.srcDirs = ['src/main/res']
 //            assets.srcDirs = ['src/main/assets']
 //            jni.srcDirs = []
-            jniLibs.srcDirs = ['src/libs']
+            jniLibs.srcDirs = ['libs']
         }
     }
 

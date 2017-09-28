@@ -1,15 +1,21 @@
 package com.yingwumeijia.baseywmj.function.personal
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.orhanobut.logger.Logger
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseFragment
+import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.message.MessageActivity
 import com.yingwumeijia.baseywmj.function.personal.c.NotLoggedFragment
 import com.yingwumeijia.baseywmj.function.setting.SettingActivity
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
@@ -34,6 +40,9 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
         val USER_TYPE_C_NORMAL = 4
         val USER_TYPE_C_TWITTER = 5
     }
+
+
+    val systenMessageReceive = SystenMessageReceive()
 
     val presenter: PersonContract.Presenter by lazy {
         PersonPresenter(this, this, lifecycleSubject)
@@ -113,8 +122,15 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
             btn_scan.visibility = View.GONE
             btn_message.visibility = View.GONE
         }
+
+        registerSystemMessafeReceive()
     }
 
+
+    override fun onDestroyView() {
+        unRegisterSystemMessafeReceive()
+        super.onDestroyView()
+    }
 
     fun setSystemMessageListener() {
 //        RongIM.getInstance()
@@ -128,6 +144,12 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
 //                                    iv_messagePoint.visibility = View.GONE
 //                            }
 //                        }, *arrayOf(Conversation.ConversationType.SYSTEM))
+
+        if (MessageActivity.isUnRead(getContext())) {
+            iv_messagePoint.visibility = View.VISIBLE
+        } else {
+            iv_messagePoint.visibility = View.VISIBLE
+        }
     }
 
     /**
@@ -188,4 +210,23 @@ abstract class PersonalFragment : JBaseFragment(), PersonContract.View {
         loggedFragment.showDistributionStatus(show)
     }
 
+
+    inner class SystenMessageReceive : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (AppTypeManager.isAppC())
+                iv_messagePoint.visibility = View.VISIBLE
+        }
+
+    }
+
+    fun registerSystemMessafeReceive() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(if (AppTypeManager.isAppC()) Constant.SYSTEN_MSG_RECEIVE_ACTION_C else Constant.SYSTEM_MSG_RECEIVE_ACTION_E)
+        getContext().registerReceiver(systenMessageReceive, intentFilter)
+    }
+
+
+    fun unRegisterSystemMessafeReceive() {
+        getContext().unregisterReceiver(systenMessageReceive)
+    }
 }

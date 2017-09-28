@@ -33,11 +33,13 @@ import com.netease.nimlib.sdk.team.constant.TeamTypeEnum
 import com.netease.nimlib.sdk.team.model.Team
 import com.netease.nimlib.sdk.team.model.TeamMember
 import com.yingwumeijia.baseywmj.R
+import com.yingwumeijia.baseywmj.base.JBaseApp
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
 import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.im.ConversationDetailsActivity
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
 import kotlinx.android.synthetic.main.conversation_beginner_guidance.*
@@ -52,6 +54,16 @@ import kotlinx.android.synthetic.main.customer_team_message_activity.*
  * Created by huangjun on 2015/3/5.
  */
 class CustomerTeamMessageActivity : BaseMessageActivity(), ConversationControact.View {
+    override fun showCaseDownLayout(show: Boolean) {
+        if (show) {
+            state_layput.visibility = View.VISIBLE
+            case_layout.visibility = View.GONE
+        } else {
+            state_layput.visibility = View.GONE
+            case_layout.visibility = View.VISIBLE
+
+        }
+    }
 
     override fun sendMessage(imMessage: IMMessage) {
         messageFragment.sendMessage(imMessage)
@@ -96,6 +108,9 @@ class CustomerTeamMessageActivity : BaseMessageActivity(), ConversationControact
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        JBaseApp.setCurrentConversation(this)
+        IMManager.setCurrentGroupId(this, sessionId)
 
 //        backToClass = intent.getSerializableExtra(Extras.EXTRA_BACK_TO_CLASS) as Class<out Activity>
 
@@ -157,9 +172,7 @@ class CustomerTeamMessageActivity : BaseMessageActivity(), ConversationControact
         team = d
         fragment!!.setTeam(team)
 
-        topTitle.text = team!!.name
-
-//        topTitle!!.text = if (team == null) sessionId else team!!.name + "(" + team!!.memberCount + "人)"
+        topTitle!!.text = if (team == null) sessionId else team!!.name + "(" + team!!.memberCount + "人)"
 
         invalidTeamTipText!!.setText(if (team!!.type == TeamTypeEnum.Normal) R.string.normal_team_invalid_tip else R.string.team_invalid_tip)
         invalidTeamTipView!!.visibility = if (team!!.isMyTeam) View.GONE else View.VISIBLE
@@ -312,11 +325,10 @@ class CustomerTeamMessageActivity : BaseMessageActivity(), ConversationControact
 
     override fun showCallContactDialog(show: Boolean) {
         if (show) {
-            rootLayout.setBackgroundColor(Color.parseColor("#40000000"))
+            rootLayout.alpha = 0.5f
             callWindow.showAtLocation(rootLayout, Gravity.BOTTOM, 0, 0)
         } else {
             callWindow.dismiss()
-            rootLayout.setBackgroundColor(resources.getColor(R.color.bg_whide))
         }
     }
 
@@ -333,6 +345,7 @@ class CustomerTeamMessageActivity : BaseMessageActivity(), ConversationControact
             isFocusable = true
             isOutsideTouchable = true
             isTouchable = true
+            setOnDismissListener { rootLayout.alpha = 1f }
             update()
         }
 

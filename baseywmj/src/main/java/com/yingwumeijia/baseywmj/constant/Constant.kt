@@ -57,6 +57,12 @@ object Constant {
     val SEND_PAY_MESSAGE_ACTION = "ywmj.com.worker.sendpaymessage.broadcost"
 
 
+    val MSG_RECEIVE_ACTION_C = "com.ywmj.client.msg.received"
+    val MSG_RECEIVE_ACTION_E = "com.ywmj.worker.msg.received"
+
+    val SYSTEN_MSG_RECEIVE_ACTION_C = "com.ywmj.client.system.msg.received"
+    val SYSTEM_MSG_RECEIVE_ACTION_E = "com.ywmj.worker.system.msg.received"
+
     /*云信*/
     val KEY_NIM_ACCOUNT = "KEY_NIM_ACCOUNT"
     val KEY_NIM_TOKEN = "KEY_NIM_TOKEN"

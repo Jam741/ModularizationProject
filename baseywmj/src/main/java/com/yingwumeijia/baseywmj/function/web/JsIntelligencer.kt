@@ -244,8 +244,14 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
         currentJsbridgeInfo = getJsBridgeBean(jsonParam)
         var data: String? = getDataJson(jsonParam)
         when (currentJsbridgeInfo!!.code) {
-            Config.CODE_DIALOG_SHOW -> dialog?.show()
-            Config.CODE_DIALOG_HIDE -> dialog?.dismiss()
+            Config.CODE_DIALOG_SHOW -> {
+                dialog?.show()
+                invokeH5NoParam()
+            }
+            Config.CODE_DIALOG_HIDE -> {
+                dialog?.dismiss()
+                invokeH5NoParam()
+            }
             Config.CODE_CLOSE -> ActivityCompat.finishAfterTransition(activity)
             Config.CODE_TOAST -> showToastMessage(data!!)
             Config.CODE_LOGIN -> LoginActivity.startCurrent(activity)
@@ -556,6 +562,14 @@ class JsIntelligencer(activity: Activity) : BaseJsBirdge(activity) {
     fun invokeH5(callbackName: String, o: Any) {
         webView.post {
             webView.loadUrl("javascript:" + callbackName + "('" + Base64Utils.encryptBASE64(gson.toJson(o).toByteArray()) + "')")
+        }
+    }
+
+
+    fun invokeH5NoParam() {
+        webView.post {
+            if (!TextUtils.isEmpty(currentJsbridgeInfo!!.callback))
+                webView.loadUrl("javascript:" + currentJsbridgeInfo!!.callback + "()")
         }
     }
 

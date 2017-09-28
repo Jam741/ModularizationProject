@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import com.orhanobut.logger.Logger
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.home.EmployeeMainActivity
 import com.yingwumeijia.baseywmj.api.Service
@@ -18,6 +19,7 @@ import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.user.login.LoginActivity
 import com.yingwumeijia.baseywmj.im.IMEventManager
 import com.yingwumeijia.baseywmj.option.PATHUrlConfig
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
 import com.yingwumeijia.baseywmj.utils.net.SeverUrlManager
 import com.yingwumeijia.baseywmj.utils.net.converter.GsonConverterFactory
 import com.yingwumeijia.baseywmj.utils.net.interceptor.ProgressResponseBody
@@ -44,6 +46,20 @@ import java.util.concurrent.TimeUnit
 
 class SplashActivity : JBaseActivity() {
 
+    val GATE_URL = "https://gate.yingwumeijia.com"
+
+
+    val mApi by lazy {
+        Logger.d(PATHUrlConfig.severUrl())
+        Retrofit.Builder()
+                .baseUrl(GATE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .client(defaultClient())
+                .build()
+                .create(Service::class.java)
+    }
+
 
     var severBean: SeverBean? = null
 
@@ -68,38 +84,29 @@ class SplashActivity : JBaseActivity() {
     }
 
 
-//    fun loadBaseUrl() {
-//        mApi
-//                .getService("e", AppUtils.getVersionName(this))
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(object : Subscriber<SeverBean>() {
-//                    override fun onNext(t: SeverBean?) {
-//                        if (t == null) {
-//                            didSuccess(defaultSeverBean)
-//                        } else {
-//                            severBean = t!!
-//                            if (t!!.isUpgrade) {//强制更新
-//                                showMustUpDateDialog()
-//                            } else if (t!!.isNewVersion) {//非强制更新
-//                                showHasNewVersionDialog()
-//                            } else {
-//                                didSuccess(t!!)
-//                            }
-//                        }
-//                    }
-//
-//                    override fun onError(e: Throwable?) {
-//                        didSuccess(defaultSeverBean)
-//                    }
-//
-//                    override fun onCompleted() {
-//
-//                    }
-//
-//                })
-//
-//    }
+    fun loadBaseUrl() {
+        HttpUtil.getInstance().toNolifeSubscribe(mApi.getService("e", AppUtils.getVersionName(context)), object : Subscriber<SeverBean>() {
+            override fun onError(e: Throwable?) {
+
+            }
+
+            override fun onCompleted() {
+            }
+
+            override fun onNext(t: SeverBean?) {
+                if (t == null) return
+                if (t.isNewVersion) {
+                    showHasNewVersionDialog()
+                } else if (t.isUpgrade) {
+                    showMustUpDateDialog()
+                } else {
+                    SeverUrlManager.refreshBaseUrl(t.serverUrl)
+                    SeverUrlManager.refreshWebBaseUrl(t.webUrl)
+                    didSuccess()
+                }
+            }
+        })
+    }
 
 
     /**
@@ -152,7 +159,8 @@ class SplashActivity : JBaseActivity() {
         /*set it to be full screen*/
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
-        didSuccess()
+//        didSuccess()
+        loadBaseUrl()
     }
 
 

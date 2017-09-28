@@ -8,38 +8,38 @@
     <!--android:orientation="vertical">-->
 
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/state_layput"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/bg_whide"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:visibility="gone">-->
+    <LinearLayout
+        android:id="@+id/state_layput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
 
-    <!--<TextView-->
-    <!--android:id="@+id/tv_case_state"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_weight="1"-->
-    <!--android:paddingBottom="@dimen/vertical_margin"-->
-    <!--android:paddingLeft="25dp"-->
-    <!--android:paddingTop="@dimen/vertical_margin"-->
-    <!--android:text="您所关注的本案作品已被下架"-->
-    <!--android:textColor="@color/text_color_less"-->
-    <!--android:textSize="@dimen/text_small" />-->
+        <TextView
+            android:id="@+id/tv_case_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingLeft="25dp"
+            android:paddingTop="@dimen/vertical_margin"
+            android:text="您所关注的本案作品已被下架"
+            android:textColor="@color/text_color_less"
+            android:textSize="@dimen/text_small" />
 
 
-    <!--<ImageView-->
-    <!--android:id="@+id/btn_close_stateLayout"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_centerVertical="true"-->
-    <!--android:padding="@dimen/vertical_margin"-->
-    <!--android:src="@mipmap/im_detail_close_ico" />-->
-    <!--</LinearLayout>-->
+        <ImageView
+            android:id="@+id/btn_close_stateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/vertical_margin"
+            android:src="@mipmap/im_detail_close_ico" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/case_layout"

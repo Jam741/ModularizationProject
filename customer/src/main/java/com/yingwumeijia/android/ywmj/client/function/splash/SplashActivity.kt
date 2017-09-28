@@ -52,12 +52,14 @@ import java.util.concurrent.TimeUnit
 
 class SplashActivity : JBaseActivity() {
 
+    val GATE_URL = "https://gate.yingwumeijia.com"
+
     var severBean: SeverBean? = null
 
     val mApi by lazy {
         Logger.d(PATHUrlConfig.severUrl())
         Retrofit.Builder()
-                .baseUrl(PATHUrlConfig.severUrl())
+                .baseUrl(GATE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(defaultClient())
@@ -95,6 +97,29 @@ class SplashActivity : JBaseActivity() {
 
 
     fun loadBaseUrl() {
+        HttpUtil.getInstance().toNolifeSubscribe(mApi.getService("c", AppUtils.getVersionName(context)), object : Subscriber<SeverBean>() {
+            override fun onError(e: Throwable?) {
+
+            }
+
+            override fun onCompleted() {
+            }
+
+            override fun onNext(t: SeverBean?) {
+                if (t == null) return
+                if (t.isNewVersion) {
+                    showHasNewVersionDialog()
+                } else if (t.isUpgrade) {
+                    showMustUpDateDialog()
+                } else {
+
+                    SeverUrlManager.refreshBaseUrl(t.serverUrl)
+                    SeverUrlManager.refreshWebBaseUrl(t.webUrl)
+
+                    checkAdv()
+                }
+            }
+        })
     }
 
     /**
@@ -118,49 +143,35 @@ class SplashActivity : JBaseActivity() {
         AlertDialog.Builder(context)
                 .setTitle("提示")
                 .setMessage("有新的版本可以更新")
-                .setNegativeButton("取消") { dialog, which -> didSuccessBefor(severBean!!) }
+                .setNegativeButton("取消") { dialog, which -> checkAdv() }
                 .setPositiveButton("下载") { dialog, which -> startUpDownloader() }
                 .show()
 
     }
 
 
-    private fun didSuccessBefor(severBean: SeverBean) {
-
-//        try {
-////            RongPushClient.registerHWPush(this)
-////            RongPushClient.registerMiPush(this, Config.MIPUSH_C.APP_ID, Config.MIPUSH_C.APP_KEY)
-//            if (context.applicationInfo.packageName.equals(getCurProcessName(context))) {
-////                RongIM.init(BaseApplication.appContext(), SeverUrlManager.IMKey())
-////                IMEventManager(BaseApplication.appContext())
-////            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
-
-//
-//        if (UserManager.isLogin(context)) {
-//            connectRongClound( object : RongConnectListener {
-//                override fun error() {
-//                    UserManager.setLoginStatus(context,false)
-//                    checkAdv(severBean)
-//                }
-//
-//                override fun succ() {
-//                    checkAdv(severBean)
-//                }
-//            })
-//        } else {
-//            checkAdv(severBean)
-//        }
-
-
-    }
-
-
     fun checkAdv() {
 
-        HttpUtil.getInstance().toNolifeSubscribe(Api.service.getAdverts(), object : Subscriber<AdvertsBean>() {
+        var ob: Observable<AdvertsBean>? = null
+        Log.d("JAM", "-=-=-=-=-=-=-==-=-=-=-=1")
+
+        try {
+            Log.d("JAM", "-=-=-=-=-=-=-==-=-=-=-=2")
+
+            ob = Api.service.getAdverts()
+
+            Log.d("JAM", "-=-=-=-=-=-=-==-=-=-=-=3")
+
+        } catch (e: Exception) {
+            Log.d("JAM", "-=-=-=-=-=-=-==-=-=-=-=4" + e.localizedMessage)
+
+            e.printStackTrace()
+        }
+
+
+        Log.d("JAM", ob.toString())
+
+        HttpUtil.getInstance().toNolifeSubscribe(ob, object : Subscriber<AdvertsBean>() {
             override fun onNext(t: AdvertsBean?) {
                 if (t == null) {
                     didSuccess()
@@ -179,20 +190,14 @@ class SplashActivity : JBaseActivity() {
             }
 
             override fun onError(e: Throwable?) {
+                e!!.printStackTrace()
                 didSuccess()
             }
         })
+
+
     }
 
-    private fun getCurProcessName(context: Context): String? {
-
-        val pid = android.os.Process.myPid()
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-
-        return activityManager.runningAppProcesses
-                .firstOrNull { it.pid == pid }
-                ?.processName
-    }
 
     /**
      *  加载完成
@@ -219,7 +224,7 @@ class SplashActivity : JBaseActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_splash)
         if (!UserManager.isLogin(context)) AccountManager.clearnAccount()
-        checkAdv()
+        loadBaseUrl()
     }
 
 

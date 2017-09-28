@@ -1,5 +1,9 @@
 package com.yingwumeijia.android.worker.function.conversation
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -7,12 +11,20 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.netease.nim.uikit.recent.RecentContactsCallback
 import com.netease.nim.uikit.recent.RecentContactsFragment
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.msg.MsgService
+import com.netease.nimlib.sdk.msg.attachment.MsgAttachment
+import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.yingwumeijia.android.worker.R
 import com.yingwumeijia.android.worker.function.collectunread.CollectUnreadActivity
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.UnreadBean
+import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.comment.newcomment.NewCommentActivity
 import com.yingwumeijia.baseywmj.function.im.JBaseConversationListFragment
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
@@ -21,6 +33,7 @@ import com.yingwumeijia.baseywmj.utils.net.RetrofitUtil
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.CommonRecyclerAdapter
 import com.yingwumeijia.commonlibrary.utils.adapter.recyclerview.RecyclerViewHolder
 import kotlinx.android.synthetic.main.conversation_list_container.*
+import kotlinx.android.synthetic.main.person_title_layout.*
 import rx.Subscriber
 
 /**
@@ -36,6 +49,9 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
     }
 
 
+    val systenMessageReceive = SystenMessageReceive()
+
+
     val loggedFragment by lazy { assembleRecentContactsFragment() }
 
     val systemMessageAdapter by lazy { createSystemMessageAdapter() }
@@ -45,7 +61,9 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
 
 
     private fun assembleRecentContactsFragment(): RecentContactsFragment {
-        return RecentContactsFragment()
+        val recentContactsFragment = RecentContactsFragment()
+        recentContactsFragment.setCallback(contactssCallback())
+        return recentContactsFragment
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,6 +75,8 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
         super.onViewCreated(view, savedInstanceState)
         topTitle.text = "聊天"
 
+        registerSystemMessafeReceive()
+
         rv_message.run {
             layoutManager = LinearLayoutManager(context)
             adapter = systemMessageAdapter
@@ -67,6 +87,12 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
 //
 //        RongIM.getInstance()
 //                .addUnReadMessageCountChangedObserver(unread, *conversationTypeSystem)
+
+
+        if (MessageActivity.isUnRead(getContext())) {
+            systemMessageAdapter.data!![2].content = "有新的消息"
+            systemMessageAdapter.notifyDataSetChanged()
+        }
     }
 
 
@@ -104,6 +130,7 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
                                         SystemMessageInfo.MessageType.COLLECT -> CollectUnreadActivity.start(getContext())
                                         SystemMessageInfo.MessageType.SYSTEM -> {
 //                                            RongIM.getInstance().removeUnReadMessageCountChangedObserver(unread)
+                                            MessageActivity.setUnReader(getContext(), false)
                                             systemMessageAdapter.data!![2].content = "暂时没有新消息"
                                             systemMessageAdapter.notifyDataSetChanged()
                                             MessageActivity.start(getContext())
@@ -117,6 +144,11 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
         }
     }
 
+
+    override fun onDestroyView() {
+        unRegisterSystemMessafeReceive()
+        super.onDestroyView()
+    }
 
     override fun onResume() {
         super.onResume()
@@ -159,5 +191,67 @@ class EmployeeConversationFragment : JBaseConversationListFragment() {
 
         })
 
+    }
+
+
+    /**
+     * 会话列表事件回调
+     */
+    inner class contactssCallback : RecentContactsCallback {
+        override fun onRecentContactsLoaded() {
+            // 最近联系人列表加载完毕
+        }
+
+        override fun onUnreadCountChange(unreadCount: Int) {
+            // 未读数发生变化
+        }
+
+        override fun onItemClick(recent: RecentContact?) {
+            when (recent!!.sessionType) {
+                SessionTypeEnum.Team -> StartActivityManager.startConversation(getContext(), recent.contactId)
+            }
+        }
+
+        override fun getDigestOfAttachment(recent: RecentContact?, attachment: MsgAttachment?): String? {
+            // 设置自定义消息的摘要消息，展示在最近联系人列表的消息缩略栏上
+            // 当然，你也可以自定义一些内建消息的缩略语，例如图片，语音，音视频会话等，自定义的缩略语会被优先使用。
+            return null
+        }
+
+        override fun getDigestOfTipMsg(recent: RecentContact?): String? {
+            val msgId = recent!!.recentMessageId
+            val uuids = ArrayList<String>()
+            uuids.add(msgId)
+            val msgs = NIMClient.getService(MsgService::class.java).queryMessageListByUuidBlock(uuids)
+            if (msgs != null && !msgs.isEmpty()) {
+                val msg = msgs[0]
+                val content = msg.remoteExtension
+                if (content != null && !content.isEmpty()) {
+                    return content["content"] as String
+                }
+            }
+            return null
+        }
+
+    }
+
+
+    inner class SystenMessageReceive : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            systemMessageAdapter.data!![2].content = "有新的消息"
+        }
+
+    }
+
+
+    fun registerSystemMessafeReceive() {
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(Constant.SYSTEM_MSG_RECEIVE_ACTION_E)
+        getContext().registerReceiver(systenMessageReceive, intentFilter)
+    }
+
+
+    fun unRegisterSystemMessafeReceive() {
+        getContext().unregisterReceiver(systenMessageReceive)
     }
 }

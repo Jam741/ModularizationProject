@@ -26,6 +26,8 @@ interface ConversationControact {
         fun showCallContactDialog(show: Boolean)
 
         fun sendMessage(imMessage: IMMessage)
+
+        fun showCaseDownLayout(show: Boolean)
     }
 
     interface Presenter : JBasePresenter {

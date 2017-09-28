@@ -6,9 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.yingwumeijia.baseywmj.AppTypeManager
 import com.yingwumeijia.baseywmj.R
 import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.login_layout.*
 /**
  * Created by jamisonline on 2017/6/15.
  */
-open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallBack {
+class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponseCallBack {
 
 
     val currentLogin by lazy { intent.getBooleanExtra(Constant.KEY_LOGIN_SOURCE, Constant.DEFAULT_BOOLEAN_VALUE) }
@@ -57,9 +59,29 @@ open class LoginActivity : JBaseActivity(), UserContract.LoginView, UserResponse
     override fun completed() {
         close()
         if (!currentLogin) {
-//            RongIM.getInstance().startConversationList(context, null)
+
+            Log.d("JAM", "toMain")
+            val intent = Intent()
+
+            if (AppTypeManager.isAppC()) {
+                intent.setClassName(this, "com.yingwumeijia.android.ywmj.client.function.home.CustomerMainActivity")
+            } else {
+                intent.setClassName(this, "com.yingwumeijia.android.worker.function.home.EmployeeMainActivity")
+            }
+            startActivity(intent)
+//            // Verify it resolves
+//            val packageManager = packageManager
+//            val activities = packageManager.queryIntentActivities(intent, 0)
+//            val isIntentSafe = activities.size > 0
+//            // Start an activity if it's safe
+//            if (isIntentSafe) {
+//                startActivity(intent)
+//            }
+
         }
     }
+
+//    abstract fun toMainActivity()
 
     val userPresenter by lazy {
         UserPresenter(context, this@LoginActivity, lifecycleSubject, this@LoginActivity)

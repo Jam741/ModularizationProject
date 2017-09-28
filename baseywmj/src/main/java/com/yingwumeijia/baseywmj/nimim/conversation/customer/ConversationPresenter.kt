@@ -21,9 +21,12 @@ class ConversationPresenter(var context: android.app.Activity, var sessionId: St
     override fun start() {
         com.yingwumeijia.baseywmj.utils.net.HttpUtil.getInstance().toNolifeSubscribe(com.yingwumeijia.baseywmj.api.Api.Companion.service.getSessionInfoNIM(sessionId), object : com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber<SessionDetailBean>(context) {
             override fun _onNext(t: com.yingwumeijia.baseywmj.entity.bean.SessionDetailBean?) {
+                IMManager.setCurrentSessionId(context, t!!.sessionInfo.id.toString())
                 sessionInfo = t
-                if (t != null)
+                if (t != null) {
                     view.showConversationTitle(t.sessionInfo.name + "(" + t.sessionInfo.members.size + ")")
+                    view.showCaseDownLayout(t.relatedCaseInfo.status == 2 || t.relatedCaseInfo.status == 3)
+                }
             }
         })
     }
@@ -33,7 +36,7 @@ class ConversationPresenter(var context: android.app.Activity, var sessionId: St
      * 获取业者联系电话
      */
     override fun callContactPhone(sessionId: String) {
-        com.yingwumeijia.baseywmj.utils.net.HttpUtil.getInstance().toNolifeSubscribe(com.yingwumeijia.baseywmj.api.Api.Companion.service.getEmployeeOpenPhoneList(sessionId), object : com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber<String>(context) {
+        com.yingwumeijia.baseywmj.utils.net.HttpUtil.getInstance().toNolifeSubscribe(com.yingwumeijia.baseywmj.api.Api.Companion.service.getEmployeeOpenPhoneList(IMManager.currentSessionId(context)), object : com.yingwumeijia.baseywmj.utils.net.subscriber.ProgressSubscriber<String>(context) {
             override fun _onNext(t: String?) {
                 if (t == null) return Unit
                 com.yingwumeijia.commonlibrary.utils.CallUtils.callPhone(t!!, context)

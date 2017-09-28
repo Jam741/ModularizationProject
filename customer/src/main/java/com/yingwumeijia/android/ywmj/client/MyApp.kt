@@ -3,6 +3,7 @@ package com.yingwumeijia.android.ywmj.client
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import com.alibaba.fastjson.JSON
 import com.google.gson.Gson
 import com.netease.nim.uikit.NimUIKit
@@ -18,10 +19,12 @@ import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MessageNotifierCustomization
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.MsgServiceObserve
+import com.netease.nimlib.sdk.msg.attachment.NotificationAttachment
 import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.CustomMessageConfig
 import com.netease.nimlib.sdk.msg.model.IMMessage
+import com.netease.nimlib.sdk.team.model.IMMessageFilter
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.pisces.android.sharesdk.ShareSDK
@@ -29,9 +32,12 @@ import com.taobao.sophix.PatchStatus
 import com.taobao.sophix.SophixManager
 import com.yingwumeijia.android.ywmj.client.function.splash.SplashActivity
 import com.yingwumeijia.baseywmj.AppType
+import com.yingwumeijia.baseywmj.AppTypeManager
+import com.yingwumeijia.baseywmj.api.Api
 import com.yingwumeijia.baseywmj.base.JBaseApp
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.function.UserManager
+import com.yingwumeijia.baseywmj.function.db.DBManager
 import com.yingwumeijia.baseywmj.function.message.MessageActivity
 import com.yingwumeijia.baseywmj.function.message.MessageBean
 import com.yingwumeijia.baseywmj.function.message.MessageManager
@@ -41,6 +47,8 @@ import com.yingwumeijia.baseywmj.nimim.conversation.customer.CustomerTeamCustomi
 import com.yingwumeijia.baseywmj.nimim.msg.*
 import com.yingwumeijia.baseywmj.nimim.provider.NimDemoLocationProvider
 import com.yingwumeijia.baseywmj.option.Config
+import com.yingwumeijia.baseywmj.utils.net.HttpUtil
+import com.yingwumeijia.baseywmj.utils.net.subscriber.SimpleSubscriber
 import com.yingwumeijia.commonlibrary.utils.SystemUtil
 
 
@@ -127,9 +135,46 @@ class MyApp : JBaseApp() {
 
         NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage(object : Observer<List<IMMessage>> {
             override fun onEvent(p0: List<IMMessage>?) {
-
+                val mIntent = Intent(Constant.MSG_RECEIVE_ACTION_C)
+                sendBroadcast(mIntent)
             }
         }, true)
+
+        NIMClient.getService(MsgServiceObserve::class.java).observeMsgStatus(object : Observer<IMMessage> {
+            override fun onEvent(p0: IMMessage?) {
+                val dbManager = DBManager.getInstnace(applicationContext)
+//                if (p0 == null) return Unit
+                if (dbManager.isFirstConversation(p0!!.sessionId, UserManager.getUserData()!!.imUid)) {
+                    postFirstMessage(p0!!.sessionId, UserManager.getUserData()!!.imUid)
+                }
+            }
+        }, true)
+
+
+        //过滤云信发送的通知消息
+        NIMClient.getService(MsgService::
+        class.java).registerIMMessageFilter(IMMessageFilter { p0 ->
+            if (p0!!.msgType.value == 5) {
+                return@IMMessageFilter true
+            }
+            false
+        })
+
+
+    }
+
+
+    /**
+     * 报告第一条消息
+     */
+    fun postFirstMessage(sessionId: String, sendId: String) {
+        HttpUtil.getInstance().toNolifeSubscribe(Api.service.isFirstSession(sessionId, sendId), object : SimpleSubscriber<Boolean>(applicationContext) {
+            override fun _onNext(t: Boolean?) {
+                val dbManager = DBManager.getInstnace(context)
+                dbManager.insertForFIRST_CALL(DBManager.FirstConversationBean(null, sendId, "" + UserManager.getUserData()!!.id, sessionId, 1))
+            }
+
+        })
 
     }
 
@@ -144,7 +189,7 @@ class MyApp : JBaseApp() {
         // 自定义消息配置选项
         val config = CustomMessageConfig()
         // 消息不计入未读
-        config.enableUnreadCount = false
+        config.enableUnreadCount = true
         msg.config = config
         // 消息发送状态设置为success
         msg.status = MsgStatusEnum.success
@@ -155,8 +200,14 @@ class MyApp : JBaseApp() {
     fun didSystemMessageReceived(content: String) {
         val messageBean = assembleMessageBean(content)
         MessageManager.insert(this, messageBean)
+
+        MessageActivity.setUnReader(applicationContext, true)
+
+        val intent = Intent(Constant.SYSTEN_MSG_RECEIVE_ACTION_C)
+        sendBroadcast(intent)
+
         //发送广播
-        val mIntent = Intent(MessageActivity.ACTION_MESSAGE)
+        val mIntent = Intent(MessageActivity.ACTION_MESSAGE_C)
         mIntent.putExtra(MessageActivity.KEY_MESSAGE, messageBean)
         sendBroadcast(mIntent)
     }
@@ -224,7 +275,7 @@ class MyApp : JBaseApp() {
         val options = SDKOptions()
 
         if (BuildConfig.DEBUG) {
-            options.appKey = Config.NIM_IM.dubug_app_key
+            options.appKey = Config.NIM_IM.release_app_key
         } else {
             options.appKey = Config.NIM_IM.release_app_key
         }
@@ -257,18 +308,6 @@ class MyApp : JBaseApp() {
         return options
     }
 
-
-    private fun configServerAddress(options: SDKOptions) {
-//        val appKey = PrivatizationConfig.getAppKey()
-//        if (!TextUtils.isEmpty(appKey)) {
-//            options.appKey = appKey
-//        }
-//
-//        val serverConfig = PrivatizationConfig.getServerAddresses()
-//        if (serverConfig != null) {
-//            options.serverConfig = serverConfig
-//        }
-    }
 
     private fun initStatusBarNotificationConfig(options: SDKOptions) {
         // load 用户的 StatusBarNotificationConfig 设置项

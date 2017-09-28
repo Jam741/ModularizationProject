@@ -303,7 +303,7 @@ public abstract class MsgViewHolderBase extends RecyclerViewHolder<BaseMultiItem
                 // 优先派发给自己处理，
                 if (!onItemLongClick()) {
                     if (getMsgAdapter().getEventListener() != null) {
-                        getMsgAdapter().getEventListener().onViewHolderLongClick(contentContainer, view, message);
+//                        getMsgAdapter().getEventListener().onViewHolderLongClick(contentContainer, view, message);
                         return true;
                     }
                 }

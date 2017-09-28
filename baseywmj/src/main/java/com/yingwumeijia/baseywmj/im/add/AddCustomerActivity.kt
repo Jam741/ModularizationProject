@@ -15,6 +15,7 @@ import com.yingwumeijia.baseywmj.base.JBaseActivity
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.AddSessionMember
 import com.yingwumeijia.baseywmj.entity.bean.MemberBean
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.utils.VerifyUtils
 import kotlinx.android.synthetic.main.add_member_header.*
 
@@ -27,7 +28,7 @@ class AddCustomerActivity : JBaseActivity(), AddMemberContract.View {
 
     val memberListFragment by lazy { MemberListFragment.newInstance(MemberListFragment.SEARCH_TYPE.CUSTOM) }
 
-    val presenter by lazy { AddMemberPresenter(context, this, sessionId) }
+    val presenter by lazy { AddMemberPresenter(context, this, IMManager.currentSessionId(context)) }
 
     companion object {
         fun start(activity: Activity, sessionId: String, request_code: Int) {
@@ -45,7 +46,7 @@ class AddCustomerActivity : JBaseActivity(), AddMemberContract.View {
         btn_cancel.setOnClickListener { close() }
         btn_confirm.setOnClickListener {
             if (memberListFragment.memberListAdapter.selectedMembers.size == 0) toastWith("未选中")
-            else presenter.addMemberToSession(AddSessionMember(memberListFragment.memberListAdapter.selectedMembers, sessionId))
+            else presenter.addMemberToSession(AddSessionMember(memberListFragment.memberListAdapter.selectedMembers, IMManager.currentSessionId(context)))
         }
         ed_key_words.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

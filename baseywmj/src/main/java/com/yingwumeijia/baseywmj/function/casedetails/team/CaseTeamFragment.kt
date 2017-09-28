@@ -32,12 +32,22 @@ class CaseTeamFragment : JBaseFragment(), CaseTeamContract.View {
 
     override fun supportMJProject(support: Boolean) {
         Logger.d(support)
-        image_mjProject.setImageResource(if (support) {
-            if (AppTypeManager.isAppC()) R.mipmap.mj_protect_pic_more else R.mipmap.mj_protect_pic
+
+        if (AppTypeManager.isAppC()) {
+            if (support) {
+                image_mjProject.setOnClickListener { StartActivityManager.startMjProjectInfoPage(activity) }
+                image_mjProject.setImageResource(R.mipmap.mj_protect_pic_more)
+            } else {
+                image_mjProject.visibility = View.GONE
+            }
         } else {
-            R.mipmap.mj_no_protect_pic
-        })
-        image_mjProject.setOnClickListener { if (support && AppTypeManager.isAppC()) StartActivityManager.startMjProjectInfoPage(activity) }
+            if (support) {
+                image_mjProject.setImageResource(R.mipmap.mj_protect_pic)
+            } else {
+                image_mjProject.setImageResource(R.mipmap.mj_no_protect_pic)
+            }
+        }
+
     }
 
     override fun showTeamList(teamData: ProductionTeamBean) {
@@ -86,10 +96,15 @@ class CaseTeamFragment : JBaseFragment(), CaseTeamContract.View {
 
             override fun onPageSelected(position: Int) {
                 val i = position % images.size
-                if (titles != null && titles[i] != null)
-                    tvBannerTitle.text = titles[i]
-                if (date != null && date [i] != null)
-                    tvBannerDate.text = date[i]
+                if (titles != null && titles[i] != null) {
+                    if (TextUtils.isEmpty(titles[i]))
+                        tvBannerTitle.text = titles[i]
+                }
+                if (date != null && date [i] != null) {
+                    if (TextUtils.isEmpty(date[i])) {
+                        tvBannerDate.text = date[i]
+                    }
+                }
             }
         })
         banner.start()
@@ -97,8 +112,14 @@ class CaseTeamFragment : JBaseFragment(), CaseTeamContract.View {
     }
 
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStart() {
+        super.onStart()
+        banner.startAutoPlay()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        banner.startAutoPlay()
     }
 
     companion object {

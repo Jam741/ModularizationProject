@@ -46,7 +46,8 @@ import com.yingwumeijia.commonlibrary.utils.SystemUtil
 /**
  * Created by jamisonline on 2017/5/31.
  */
-class MyApp : JBaseApp() {
+class
+MyApp : JBaseApp() {
 
     override fun appType(): AppType {
         return AppType.APP_E
@@ -116,9 +117,10 @@ class MyApp : JBaseApp() {
 
         NIMClient.getService(MsgServiceObserve::class.java).observeReceiveMessage(object : Observer<List<IMMessage>> {
             override fun onEvent(p0: List<IMMessage>?) {
-
+                val mIntent = Intent(Constant.MSG_RECEIVE_ACTION_E)
+                sendBroadcast(mIntent)
             }
-        },true)
+        }, true)
     }
 
 
@@ -134,9 +136,10 @@ class MyApp : JBaseApp() {
         val config = CustomMessageConfig()
         // 消息不计入未读
         config.enableUnreadCount = false
-        msg.config = config
+        msg.setConfig(config)
         // 消息发送状态设置为success
-        msg.status = MsgStatusEnum.success
+        msg.setStatus(MsgStatusEnum.success)
+        // 保存消息到本地数据库，但不发送到服务器
         NIMClient.getService(MsgService::class.java).saveMessageToLocal(msg, true)
     }
 
@@ -144,8 +147,13 @@ class MyApp : JBaseApp() {
     fun didSystemMessageReceived(content: String) {
         val messageBean = assembleMessageBean(content)
         MessageManager.insert(this, messageBean)
+
+        MessageActivity.setUnReader(applicationContext,true)
+
+        val intent = Intent(Constant.SYSTEM_MSG_RECEIVE_ACTION_E)
+        sendBroadcast(intent)
         //发送广播
-        val mIntent = Intent(MessageActivity.ACTION_MESSAGE)
+        val mIntent = Intent(MessageActivity.ACTION_MESSAGE_E)
         mIntent.putExtra(MessageActivity.KEY_MESSAGE, messageBean)
         sendBroadcast(mIntent)
     }
@@ -161,7 +169,7 @@ class MyApp : JBaseApp() {
     private fun getLoginInfo(): LoginInfo? {
         val loginInfo = UserManager.getNIMLoginInfo(this)
         if (loginInfo != null) {
-            NIMIMCache.setAccount(loginInfo.account.toLowerCase())
+            NIMIMCache.setAccount(loginInfo.account)
             return loginInfo
         } else {
             return null
@@ -181,7 +189,7 @@ class MyApp : JBaseApp() {
         val options = SDKOptions()
 
         if (BuildConfig.DEBUG) {
-            options.appKey = Config.NIM_IM.dubug_app_key
+            options.appKey = Config.NIM_IM.release_app_key
         } else {
             options.appKey = Config.NIM_IM.release_app_key
         }

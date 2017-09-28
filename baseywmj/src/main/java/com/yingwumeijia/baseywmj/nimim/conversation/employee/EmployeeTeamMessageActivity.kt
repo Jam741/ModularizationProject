@@ -32,17 +32,18 @@ import com.netease.nimlib.sdk.team.constant.TeamTypeEnum
 import com.netease.nimlib.sdk.team.model.Team
 import com.netease.nimlib.sdk.team.model.TeamMember
 import com.yingwumeijia.baseywmj.R
+import com.yingwumeijia.baseywmj.base.JBaseApp
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.baseywmj.entity.bean.ApplyPayMessageBean
 import com.yingwumeijia.baseywmj.entity.bean.CommonLanguage
 import com.yingwumeijia.baseywmj.entity.bean.GreetingLanguage
-import com.yingwumeijia.baseywmj.function.StartActivityManager
 import com.yingwumeijia.baseywmj.function.UserManager
 import com.yingwumeijia.baseywmj.function.casedetails.CaseDetailActivity
 import com.yingwumeijia.baseywmj.im.ConversationDetailsActivity
+import com.yingwumeijia.baseywmj.im.IMManager
 import com.yingwumeijia.baseywmj.nimim.msg.PayMessageAttachment
 import com.yingwumeijia.commonlibrary.utils.ScreenUtils
-import kotlinx.android.synthetic.main.conversation_status.*
+import kotlinx.android.synthetic.main.employee_conversation_status.*
 import kotlinx.android.synthetic.main.employee_conversation_toolbar.*
 import kotlinx.android.synthetic.main.employee_team_message_activity.*
 
@@ -102,14 +103,17 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
             btn_openInputQuick.visibility = View.VISIBLE
         }
 
-        btn_vipInfo.setOnClickListener { StartActivityManager.startVipInfoPage(this) }
-        btn_lookBack.setOnClickListener { if (presenter.sessionId != null) CaseDetailActivity.start(this, presenter.sessionInfo!!.relatedCaseInfo.id, true) }
-        btn_openInputQuick.setOnClickListener { showQuickInputPop(true) }
+        btn_lookBack.setOnClickListener { if (presenter.sessionId != null) CaseDetailActivity.start(this, presenter.sessionInfo!!.relatedCaseInfo.id, true) }//回顾作品
+        btn_openInputQuick.setOnClickListener { showQuickInputPop(true) }//打开常用回复
+        btn_openInputQuick_greetings.setOnClickListener { showQuickInputPop(true) }//打开常用回复
+        btn_openInputGreetings.setOnClickListener { showGreetInputPop(true) }
+        btn_close_caseLayout.setOnClickListener { case_layout.visibility = View.GONE }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        JBaseApp.setCurrentConversation(this)
+        IMManager.setCurrentGroupId(this, sessionId)
         registerSendPayMessageBroadCastReceived()
 
 //        backToClass = intent.getSerializableExtra(Extras.EXTRA_BACK_TO_CLASS) as Class<out Activity>
@@ -170,9 +174,7 @@ class EmployeeTeamMessageActivity : BaseMessageActivity(), ConversationControact
         team = d
         fragment!!.setTeam(team)
 
-        topTitle.text = team!!.name
-
-//        topTitle!!.text = if (team == null) sessionId else team!!.name + "(" + team!!.memberCount + "人)"
+        topTitle!!.text = if (team == null) sessionId else team!!.name + "(" + team!!.memberCount + "人)"
 
         invalidTeamTipText!!.setText(if (team!!.type == TeamTypeEnum.Normal) R.string.normal_team_invalid_tip else R.string.team_invalid_tip)
         invalidTeamTipView!!.visibility = if (team!!.isMyTeam) View.GONE else View.VISIBLE

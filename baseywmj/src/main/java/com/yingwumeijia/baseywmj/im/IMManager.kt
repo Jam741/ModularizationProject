@@ -1,11 +1,13 @@
 package com.yingwumeijia.baseywmj.im
 
 import android.content.Context
+import com.netease.nim.uikit.NimUIKit
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.auth.AuthService
 import com.netease.nimlib.sdk.msg.MessageBuilder
 import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
+import com.netease.nimlib.sdk.msg.model.RecentContact
 import com.yingwumeijia.baseywmj.constant.Constant
 import com.yingwumeijia.commonlibrary.utils.SPUtils
 
@@ -81,21 +83,26 @@ object IMManager {
     /**
      * 删除会话
      */
-    //    fun removeConversation(conversationType: Conversation.ConversationType, sessionId: String) {
-//        if (RongIM.getInstance() != null)
-//            RongIM.getInstance().removeConversation(conversationType, sessionId, object : RongIMClient.ResultCallback<Boolean>() {
-//                override fun onSuccess(p0: Boolean?) {
-//
-//                }
-//
-//                override fun onError(p0: RongIMClient.ErrorCode?) {
-//
-//                }
-//            })
-//    }
+    fun removeConversation(sessionId: String) {
+
+        val recentContacts = NIMClient.getService(MsgService::class.java).queryRecentContactsBlock()
+
+        NIMClient.getService(MsgService::class.java).deleteRecentContact2(sessionId, SessionTypeEnum.Team)
+        NIMClient.getService(MsgService::class.java).clearChattingHistory(sessionId, SessionTypeEnum.Team)
+
+
+//        for (recentContact in recentContacts) {
+//            if (recentContact.contactId.equals(sessionId) && recentContact.sessionType == SessionTypeEnum.Team) {
+//                NIMClient.getService(MsgService::class.java).deleteRecentContact2(recentContact)
+//                NIMClient.getService(MsgService::class.java).clearChattingHistory(sessionId, SessionTypeEnum.Team)
+//            }
+//        }
+
+    }
 
     fun loginOut() {
         NIMClient.getService(AuthService::class.java).logout()
+        NimUIKit.clearCache()
     }
 
 
