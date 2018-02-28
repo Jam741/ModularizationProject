@@ -31,3 +31,13 @@
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+
+# activityrouter
+-keep class com.github.mzule.activityrouter.router.** { *; }
+
+#Gson
+-keep class com.google.gson.** { *; }
+-keepattributes Signature

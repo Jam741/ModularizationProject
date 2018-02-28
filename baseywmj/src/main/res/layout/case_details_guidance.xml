@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/rootView"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:orientation="vertical">
+
+
+    <com.yingwumeijia.commonlibrary.widget.NoScrollViewPager
+        android:id="@+id/vp_guidance"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.yingwumeijia.commonlibrary.widget.NoScrollViewPager>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/actionbar_height" />
+
+        <include layout="@layout/common_sliding_tab_layout" />
+
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_img"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/horizontal_margin"-->
+        <!--android:layout_marginRight="@dimen/horizontal_margin"-->
+        <!--android:layout_marginTop="@dimen/vertical_margin"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:src="@mipmap/work_details_guild_1" />-->
+
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="134dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="230dp"
+            android:background="@drawable/case_details_guidance_btn"
+            android:text="下一步"
+            android:textColor="@color/bg_whide"
+            android:textSize="@dimen/font8_sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/btn_close"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="135dp"
+        android:adjustViewBounds="true"
+        android:drawableLeft="@mipmap/close_guild_ic" />
+
+</FrameLayout>

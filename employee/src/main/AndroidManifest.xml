@@ -2,10 +2,58 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yingwumeijia.android.worker">
 
-    <application android:allowBackup="true" android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true" android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" android:label="@string/app_name"
+
+    <!-- 权限声明 -->
+    <!-- 访问网络状态-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 控制呼吸灯，振动器等，用于新消息提醒 -->
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 外置存储存取权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 多媒体相关 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
+    <!-- ⼩米 配置开始 < -->
+    <permission
+        android:name="com.yingwumeijia.android.worker.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.yingwumeijia.android.worker.permission.MIPUSH_RECEIVE" />
+    <!-- ⼩米 配置结束 < -->
+    <!--&lt;!&ndash; GCM 配置开始 < &ndash;&gt;-->
+    <!--<permission-->
+    <!--android:name="com.yingwumeijia.android.ywmj.client.permission.C2D_MESSAGE"-->
+    <!--android:protectionLevel="signature" />-->
+    <!--<uses-permission android:name="com.yingwumeijia.android.ywmj.client.permission.C2D_MESSAGE" />-->
+    <!--&lt;!&ndash; GCM 配置结束 < &ndash;&gt;-->
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
+    <permission
+        android:name="com.yingwumeijia.android.worker.permission.RECEIVE_MSG"
+        android:protectionLevel="signature" />
+    <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
+    <uses-permission android:name="com.yingwumeijia.android.worker.permission.RECEIVE_MSG" />
+
+    <application
+        android:name=".MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ywmj_business_ico"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".function.splash.SplashActivity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -13,6 +61,143 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".function.home.EmployeeMainActivity"
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.yingwumeijia.android.worker"
+                    android:pathPrefix="/conversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".function.collectunread.CollectUnreadActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".function.minecase.MineCaseActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".function.person.info.PersonInfoActivity"
+            android:screenOrientation="portrait" />
+
+
+
+        <!--<activity-->
+        <!--android:name=".function.conversation.details.ConversationActivity"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:windowSoftInputMode="stateHidden|adjustResize">-->
+
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.VIEW" />-->
+
+        <!--<category android:name="android.intent.category.DEFAULT" />-->
+
+        <!--<data-->
+        <!--android:host="com.yingwumeijia.android.worker"-->
+        <!--android:pathPrefix="/conversation/"-->
+        <!--android:scheme="rong" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <!--分享配置开始-->
+        <!--微信-->
+        <meta-data
+            android:name="WX_APP_ID"
+            android:value="wxe317a57cc8b93035" />
+        <!--微博-->
+        <meta-data
+            android:name="WB_APP_KEY"
+            android:value="3416527308" />
+        <!--QQ-->
+        <meta-data
+            android:name="QQ_APP_ID"
+            android:value="1105522002" />
+        <!--分享配置结束-->
+
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="57b54f88e0f55a51460024f2"></meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="bc26ebb41cdaab04fcc0c4b8335879bb"></meta-data>
+
+
+        <!--&lt;!&ndash; APP key, 可以在这里设置，也可以在 SDKOptions 中提供。-->
+        <!--如果 SDKOptions 中提供了，取 SDKOptions 中的值。 &ndash;&gt;-->
+        <!--<meta-data-->
+        <!--android:name="com.netease.nim.appKey"-->
+        <!--android:value="key_of_your_app" />-->
+
+
+        <!-- 声明网易云通信后台服务，如需保持后台推送，使用独立进程效果会更好。 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService"
+            android:process=":core" />
+
+        <!-- 运行后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.service.NimService$Aux"
+            android:process=":core" />
+
+        <!-- 声明网易云通信后台辅助服务 -->
+        <service
+            android:name="com.netease.nimlib.job.NIMJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:process=":core" />
+
+        <!-- 网易云通信SDK的监视系统启动和网络变化的广播接收器，用户开机自启动以及网络变化时候重新登录，
+            保持和 NimService 同一进程 -->
+        <receiver
+            android:name="com.netease.nimlib.service.NimReceiver"
+            android:exported="false"
+            android:process=":core">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 网易云通信进程间通信 Receiver -->
+        <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
+
+        <!-- 网易云通信进程间通信service -->
+        <service android:name="com.netease.nimlib.service.ResponseService" />
+
+        <!-- 安卓保活配置 -->
+        <service
+            android:name="com.netease.cosine.core.CosineService"
+            android:process=":cosine"></service>
+
+        <receiver
+            android:name="com.netease.cosine.target.CosineReceiver"
+            android:exported="true"
+            android:process=":cosine"></receiver>
+
+        <meta-data
+            android:name="com.netease.cosine.target"
+            android:value="" />
+        <meta-data
+            android:name="com.netease.cosine.target.receiver"
+            android:value="com.netease.nimlib.service.NimReceiver" />
+
+
     </application>
 
 </manifest>

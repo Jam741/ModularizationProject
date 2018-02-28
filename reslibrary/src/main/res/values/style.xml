@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <!--标题-->
+    <style name="TextTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/color_1</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <!--文本输入框-->
+    <style name="BaseEditTextStyle">
+        <item name="android:textColor">@color/text_color_black</item>
+        <item name="android:textColorHint">@color/text_color_weak</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <!--密码输入框-->
+    <style name="EditTextPassword" parent="BaseEditTextStyle">
+        <item name="android:maxLength">20</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:digits">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNORQRSTUVWXYZ
+        </item>
+        <item name="android:hint">@string/hint_password</item>
+    </style>
+
+    <!--电话号码输入框-->
+    <style name="EditTextPhone" parent="BaseEditTextStyle">
+        <item name="android:maxLength">11</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:hint">@string/hint_phone</item>
+    </style>
+
+
+    <!--昵称输入框-->
+    <style name="EditTextNikeName" parent="BaseEditTextStyle">
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">15</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <!--短信验证码输入框-->
+    <style name="EditTextSmsCode" parent="BaseEditTextStyle">
+        <item name="android:hint">@string/hint_sms_code</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">6</item>
+        <item name="android:inputType">numberSigned</item>
+    </style>
+
+
+    <style name="MyButton">
+        <item name="android:background">@drawable/btn_bg_selector</item>
+        <item name="android:textColor">@color/bg_whide</item>
+    </style>
+
+    <style name="MyButton2">
+        <item name="android:background">@drawable/btn_bg_selector2</item>
+        <item name="android:textColor">@color/bg_whide</item>
+    </style>
+
+
+    <!-- pupupwindow的弹出和消失动画 -->
+    <style name="popup_window_anim">
+        <item name="android:windowEnterAnimation">@anim/in</item>
+        <item name="android:windowExitAnimation">@anim/out</item>
+    </style>
+
+    <style name="MySwitchButton" parent="AppTheme">
+
+        <item name="colorControlNormal">@color/bg_whide</item>
+    </style>
+</resources>

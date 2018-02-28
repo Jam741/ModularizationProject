@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.yingwumeijia.commonlibrary.widget.recycler.XRecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/windowBackground" />
+
+        <RelativeLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/windowBackground">
+
+            <TextView
+                android:id="@+id/tv_empty_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="@dimen/activity_vertical_margin"
+                android:drawableTop="@mipmap/no_collection_ico"
+                android:paddingBottom="50dp"
+                android:scaleType="centerInside"
+                android:text="空空如也，快去上传作品吧"
+                android:textColor="@color/color_5"
+                android:textSize="@dimen/font4_sp"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

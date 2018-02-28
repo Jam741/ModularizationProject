@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="58dp"
+        android:drawablePadding="30dp"
+        android:drawableTop="@mipmap/no_collection_ico"
+        android:text="哎呀,什么都木有,快去登录吧"
+        android:textColor="@color/text_color_less"
+        android:textSize="@dimen/text_normal" />
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/MyButton"
+        android:layout_width="167dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="42dp"
+        android:layout_marginRight="42dp"
+        android:layout_marginTop="42dp"
+        android:enabled="true"
+        android:gravity="center"
+        android:text="立即登录"
+        android:textColor="@color/btn_color"
+        android:textSize="@dimen/text_normal" />
+
+</LinearLayout>

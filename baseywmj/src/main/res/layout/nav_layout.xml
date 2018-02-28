@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navlayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:background="@color/bg_whide"
+    android:paddingLeft="12dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/btn_classify"
+        android:layout_width="60dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/tv_classify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/home_filter_ic"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:text="分类"
+            android:textColor="@color/text_color_black"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_style"
+        android:layout_width="60dp"
+        android:layout_height="30dp">
+
+
+        <TextView
+            android:id="@+id/tv_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/home_filter_ic"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:text="@string/case_list_nav_style"
+            android:textColor="@color/text_color_black"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_fx"
+        android:layout_width="60dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/tv_fx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/home_filter_ic"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:text="@string/case_list_nav_fx"
+            android:textColor="@color/text_color_black"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_area"
+        android:layout_width="60dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/tv_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/home_filter_ic"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:text="面积"
+            android:textColor="@color/text_color_black"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_city"
+        android:layout_width="60dp"
+        android:layout_height="30dp">
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableRight="@mipmap/home_filter_ic"
+            android:ellipsize="none"
+            android:gravity="center"
+            android:maxLength="3"
+            android:singleLine="true"
+            android:text="城市"
+            android:textColor="@color/text_color_black"
+            android:textSize="15sp" />
+    </RelativeLayout>
+</LinearLayout>

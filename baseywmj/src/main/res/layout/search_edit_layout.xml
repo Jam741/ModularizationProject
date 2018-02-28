@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:background="@color/bg_whide">
+
+
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:maxLength="20"
+        android:paddingLeft="@dimen/horizontal_margin"
+        android:paddingRight="@dimen/horizontal_margin"
+        android:text="取消"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_title_medium"
+        tools:ignore="HardcodedText" />
+
+    <EditText
+        android:id="@+id/ed_key_words"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/horizontal_margin"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@id/btn_cancel"
+        android:background="@drawable/btn_bg_stroke_gray"
+        android:drawableLeft="@mipmap/search_box_ico"
+        android:drawablePadding="8dp"
+        android:hint="搜索作品／设计师／公司／楼盘"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLength="30"
+        android:maxLines="1"
+        android:paddingLeft="8dp"
+        android:textColor="@color/text_color_black"
+        android:textColorHint="@color/text_color_weak"
+        android:textSize="@dimen/text_normal"
+        android:textStyle="normal"
+        tools:ignore="HardcodedText,RtlSymmetry" />
+
+
+    <ImageView
+        android:id="@+id/btn_clear_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/horizontal_margin"
+        android:layout_toLeftOf="@id/btn_cancel"
+        android:padding="@dimen/vertical_margin"
+        android:src="@mipmap/delete_ico"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

@@ -1,1 +1,1 @@
-include ':app', ':commonlibrary', ':customer', ':employee'
+include ':commonlibrary', ':customer', ':employee', ':baseywmj', ':testapp', ':FlycoTabLayout_Lib', ':oneweb', ':flowlayout-lib', ':scanlibrary', ':CameraSDK', ':reslibrary', ':pdfviewlibrary', ':IMLib', ':IMKit', ':uikit', ':banner', ':sharesdk'

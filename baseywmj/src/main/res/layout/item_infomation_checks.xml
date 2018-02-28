@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_checksTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp"
+        android:textStyle="bold"
+        tools:text="[硬装时候用]" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/divider_normal" />
+
+    <RelativeLayout
+        android:id="@+id/layout_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/infomation_check_hint_stroke"
+        android:padding="15dp">
+
+
+        <TextView
+            android:id="@+id/tv_icon"
+            android:layout_width="63dp"
+            android:layout_height="19dp"
+            android:background="@color/color_1"
+            android:gravity="center"
+            android:text="特别提示"
+            android:textColor="@color/bg_whide"
+            android:textSize="@dimen/font5_sp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/tv_icon"
+            android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+            android:text="　　　　　我们对项目施工各阶段的验收，进行视频和照片拍摄，详细记录工长及现场情况。这是您判别工长是否为本工地的负责人，以及能力的重要依据"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp" />
+
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_checks_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_normal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" />
+
+
+</LinearLayout>

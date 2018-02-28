@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_floor1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            tools:text="1F"
+            android:textColor="@color/color_1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="原始平面图"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/font4_sp" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:adjustViewBounds="true" />
+
+    <LinearLayout
+        android:id="@+id/layout_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_floor2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            tools:text="1F"
+            android:textColor="@color/color_1"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
+            android:text="设计平面图"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/font4_sp" />
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_image2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/vertical_margin"
+        android:layout_marginTop="@dimen/vertical_margin"
+        android:adjustViewBounds="true" />
+
+
+    <TextView
+        android:id="@+id/tv_describe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+        android:paddingBottom="20dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/color_4"
+        android:textSize="@dimen/font4_sp"
+        tools:text="设计平面" />
+
+
+</LinearLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.yingwumeijia.baseywmj.function.main.MainActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/main_page" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tl_main"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            tl:tl_iconHeight="23dp"
+            tl:tl_iconWidth="23dp"
+            tl:tl_indicator_color="#2C97DE"
+            tl:tl_indicator_height="0dp"
+            tl:tl_textSelectColor="#787878"
+            tl:tl_textUnselectColor="#929292"
+            tl:tl_textsize="12sp"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_underline_height="1dp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/right_drawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:background="@mipmap/black_shadow"
+        android:fitsSystemWindows="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <include layout="@layout/drawer_layout" />
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.DrawerLayout>

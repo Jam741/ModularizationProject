@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mine_top_height"
+    android:background="@mipmap/user_bg_shadow"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/portraitLayout"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginBottom="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:background="@drawable/portrait_border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_portrait"
+            android:layout_width="94dp"
+            android:layout_height="94dp"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/mine_user_ywmj_circle"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="19dp"
+        android:paddingBottom="50dp"
+        android:paddingLeft="100dp"
+        android:paddingTop="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/portraitLayout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/portraitLayout"
+        app:srcCompat="@mipmap/mine_info_more_ico" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="21dp"
+        android:textColor="@color/bg_whide"
+        android:textSize="@dimen/text_title_lag"
+        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintTop_toTopOf="@+id/portraitLayout"
+        tools:text="TextView" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switch1"
+        style="@style/MySwitchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="9dp"
+        android:text="接受派单 "
+        android:textColor="@color/bg_whide"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/portraitLayout"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+</android.support.constraint.ConstraintLayout>

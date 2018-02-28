@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="118dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:id="@+id/coupon_bg"
+            android:layout_width="127dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_6"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <com.yingwumeijia.commonlibrary.widget.SpannableTextView
+                android:id="@+id/tv_couponPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/tv_couponType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="装修抵用券"
+                android:textColor="@color/bg_whide"
+                android:textSize="@dimen/font4_sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="127dp"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tv_couponTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@color/color_1"
+                        android:textSize="@dimen/font3_sp"
+                        android:textStyle="bold"
+                        tools:text="DHkjdhDHkjdhDHkjdh" />
+
+                    <TextView
+                        android:id="@+id/tv_couponDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/color_4"
+                        android:textSize="@dimen/font6_sp"
+                        android:textStyle="normal"
+                        tools:text="desc" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+
+                <TextView
+                    android:id="@+id/tv_couponDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@mipmap/time_ico"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_6"
+                    android:textSize="@dimen/font6_dp"
+                    tools:text="sljsaj" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/tv_couponIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right" />
+    </android.support.v7.widget.CardView>
+
+
+    <View
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+
+    <TextView
+        android:id="@+id/btn_checkPast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@mipmap/mine_more_ico"
+        android:padding="10dp"
+        android:text="查看已失效的券"
+        android:textColor="@color/color_5"
+        android:textSize="@dimen/font6_sp"
+        android:visibility="gone" />
+
+</LinearLayout>

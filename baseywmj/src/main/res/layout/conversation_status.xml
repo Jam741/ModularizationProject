@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/bg_whide"-->
+    <!--android:orientation="vertical">-->
+
+
+    <LinearLayout
+        android:id="@+id/state_layput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+
+        <TextView
+            android:id="@+id/tv_case_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingLeft="25dp"
+            android:paddingTop="@dimen/vertical_margin"
+            android:text="您所关注的本案作品已被下架"
+            android:textColor="@color/text_color_less"
+            android:textSize="@dimen/text_small" />
+
+
+        <ImageView
+            android:id="@+id/btn_close_stateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/vertical_margin"
+            android:src="@mipmap/im_detail_close_ico" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/case_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/bg_whide"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <!--<ImageView-->
+        <!--android:id="@+id/iv_case_img"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginLeft="25dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+        <!--tools:src="@mipmap/ic_launcher" />-->
+
+
+        <TextView
+            android:id="@+id/btn_lookBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="46dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/im_details_know_more_ico"
+            android:gravity="center"
+            android:text="点击回顾作品"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font4_dp" />
+
+        <View
+            android:layout_width="@dimen/divider_height"
+            android:layout_height="17dp"
+            android:layout_centerInParent="true"
+            android:background="@color/divider_normal" />
+
+        <TextView
+            android:id="@+id/btn_vipInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="46dp"
+            android:layout_marginRight="46dp"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/im_details_know_more_ico"
+            android:gravity="center"
+            android:text="了解会员权益"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font4_dp" />
+
+
+        <!--<TextView-->
+        <!--android:id="@+id/tv_case_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignTop="@id/iv_case_img"-->
+        <!--android:layout_toLeftOf="@id/btn__close_caseLayout"-->
+        <!--android:layout_toRightOf="@id/iv_case_img"-->
+        <!--android:ellipsize="end"-->
+        <!--android:maxLines="1"-->
+        <!--android:singleLine="true"-->
+        <!--android:textColor="@color/text_color_black"-->
+        <!--android:textSize="@dimen/text_normal"-->
+        <!--tools:text="" />-->
+
+    </RelativeLayout>
+    <!--</LinearLayout>-->
+
+</merge>

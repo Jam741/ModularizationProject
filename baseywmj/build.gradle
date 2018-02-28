@@ -1,0 +1,104 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    sourceSets {
+        main {
+//            java.srcDirs = ['src/main/java']
+//            resources.srcDirs = ['src/main/java']
+//            renderscript.srcDirs = ['src/main/java']
+//            res.srcDirs = ['src/main/res']
+//            assets.srcDirs = ['src/main/assets']
+//            jni.srcDirs = []
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+configurations.all {
+
+
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion rootProject.ext.appcompat
+            }
+        }
+    }
+}
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:' + rootProject.ext.appcompat
+    compile 'com.android.support:design:' + rootProject.ext.appcompat
+    compile 'com.android.support:cardview-v7:' + rootProject.ext.appcompat
+    compile 'com.android.support.constraint:constraint-layout:' + rootProject.ext.constraintLayout
+    compile project(':FlycoTabLayout_Lib')
+    compile project(':commonlibrary')
+    testCompile 'junit:junit:4.12'
+    compile files('libs/BASE64.jar')
+    compile project(':flowlayout-lib')
+    compile project(':banner')
+    compile project(':reslibrary')
+    compile project(':sharesdk')
+    compile project(':pdfviewlibrary')
+    //    compile project(':IMKit')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.ms-square:expandableTextView:0.1.4'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile project(':CameraSDK')
+    compile 'com.qiniu:qiniu-android-sdk:7.3.3'
+    compile 'cn.qqtheme.framework:WheelPicker:1.4.3'
+    compile files('libs/alipaySingle-20161222.jar')
+    compile files('libs/tbs_sdk_thirdapp_v3.3.0.1045_43300_sharewithdownload_withoutGame_obfs_20170605_170212.jar')
+    compile 'com.umeng.analytics:analytics:6.1.2'
+    // 添加依赖。注意，版本号必须一致。
+    // 基础功能 (必需)
+    compile project(path: ':uikit')
+
+}
+repositories {
+    mavenCentral()
+
+}

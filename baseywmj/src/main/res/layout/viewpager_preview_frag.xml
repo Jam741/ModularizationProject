@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <com.yingwumeijia.commonlibrary.widget.photoview.PhotoViewPager
+        android:id="@+id/vp_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:id="@+id/tv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/work_details_big_pic_txt_bg"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/bg_whide"
+            android:textSize="@dimen/font2_sp"
+            tools:text="Title" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:scrollIndicators="right"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical">
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/vertical_margin"
+                android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+                android:textColor="@color/bg_whide"
+                android:textSize="@dimen/font4_sp"
+                tools:text="Content" />
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/tv_page"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_color_whide"
+            android:textSize="@dimen/font2_sp"
+            tools:text="1/2" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/topLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/actionbar_height"
+        android:drawableLeft="@mipmap/back_ico"
+        android:gravity="center_vertical"
+        android:paddingLeft="22dp"
+        tools:ignore="RtlSymmetry" />
+
+</RelativeLayout>

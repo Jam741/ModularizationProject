@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnToWxFriends"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/work_details_share_weixin"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/vertical_margin"
+            android:text="微信好友"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp" />
+
+        <View
+            android:layout_width="@dimen/divider_height"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@color/divider_accent" />
+
+        <TextView
+            android:id="@+id/btnToWxCircle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/work_details_share_friends_cicle"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/vertical_margin"
+            android:text="朋友圈"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/divider_accent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnToWeiBo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/work_details_share_weibo"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/vertical_margin"
+            android:text="新浪微博"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp" />
+
+        <View
+            android:layout_width="@dimen/divider_height"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:background="@color/divider_accent" />
+
+        <TextView
+            android:id="@+id/btnCopyLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableTop="@mipmap/work_details_share_link"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/vertical_margin"
+            android:text="拷贝链接"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

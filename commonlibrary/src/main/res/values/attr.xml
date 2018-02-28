@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="squareCenterImage" format="reference" />
+    <attr name="squareTextSize" format="dimension" />
+    <attr name="squareTextColor" format="color" />
+    <attr name="squareText" format="string" />
+    <attr name="squareDrawPadding" format="dimension" />
+
+    <declare-styleable name="SquareTabView">
+        <attr name="squareCenterImage" />
+        <attr name="squareTextSize" />
+        <attr name="squareTextColor" />
+        <attr name="squareText" />
+        <attr name="squareDrawPadding" />
+
+    </declare-styleable>
+
+    <attr name="leftText" format="string"/>
+    <attr name="leftTextSize" format="dimension" />
+    <attr name="leftTextColor" format="color" />
+    <attr name="leftTextImg" format="reference" />
+    <attr name="rightText" format="string"/>
+    <attr name="rightTextSize" format="dimension" />
+    <attr name="rightTextColor" format="color" />
+    <attr name="rightTextImg" format="reference" />
+
+    <declare-styleable name="TabBarView">
+        <attr name="leftTextSize" />
+        <attr name="leftTextColor" />
+        <attr name="leftTextImg" />
+        <attr name="rightTextSize" />
+        <attr name="rightTextColor" />
+        <attr name="rightTextImg" />
+        <attr name="rightText" />
+        <attr name="leftText" />
+    </declare-styleable>
+
+</resources>

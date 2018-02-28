@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_whide"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/edit_height"
+            android:layout_marginLeft="58dp"
+            android:layout_marginRight="58dp"
+            android:layout_marginTop="64dp">
+
+            <EditText
+                android:id="@+id/ed_input"
+                style="@style/EditTextNikeName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:paddingRight="30dp" />
+
+            <ImageView
+                android:id="@+id/btn_clear_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/vertical_margin"
+                android:src="@mipmap/delete_ico"
+                tools:ignore="ContentDescription,RtlHardcoded" />
+
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="42dp"
+            android:layout_marginTop="42dp"
+            android:background="@drawable/btn_bg_selector"
+            android:enabled="false"
+            android:gravity="center"
+            android:text="使用"
+            android:textColor="@color/btn_color"
+            android:textSize="@dimen/text_normal"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+
+</LinearLayout>

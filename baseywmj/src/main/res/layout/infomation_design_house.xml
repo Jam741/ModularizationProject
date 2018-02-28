@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_DesignHouseImage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="户型改造"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/divider_normal" />
+
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/tv_houseImageDescribe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="20dp"
+        app:animDuration="200"
+        app:maxCollapsedLines="2">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/nomal_lineSpacingExtra"
+            android:textColor="@color/color_4"
+            android:textSize="@dimen/font5_sp"
+            tools:text="CompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyName" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:src="@mipmap/open_details_ic" />
+
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_houseImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_normal" />
+
+</LinearLayout>

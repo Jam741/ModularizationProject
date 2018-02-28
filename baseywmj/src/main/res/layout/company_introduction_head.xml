@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/bg_whide"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_portrait"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp" />
+
+        <TextView
+            android:id="@+id/tv_companyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font2_sp"
+            tools:text="CompanyName" />
+
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            android:id="@+id/tv_describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_whide"
+            android:paddingBottom="@dimen/vertical_margin"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            app:animDuration="200"
+            app:collapseDrawable="@mipmap/open_details_ic_11"
+            app:expandDrawable="@mipmap/open_details_ic"
+            app:maxCollapsedLines="3">
+
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/mini_lineSpacingExtra"
+                android:text="CompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyName"
+                android:textColor="@color/color_4"
+                android:textSize="@dimen/font5_sp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:background="@android:color/transparent"
+                android:padding="16dp" />
+
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_accent" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_companyShow"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/bg_whide"
+        android:drawableRight="@mipmap/work_details_more_ico"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="公司展示"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_companyShow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        tools:src="@mipmap/ic_launcher" />
+
+    <include layout="@layout/service_standrad_layout" />
+
+    <TextView
+        android:id="@+id/tv_other_case"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bg_whide"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="全部作品"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp" />
+
+</LinearLayout>

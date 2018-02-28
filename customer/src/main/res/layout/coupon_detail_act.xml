@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_whide"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <com.yingwumeijia.commonlibrary.widget.SpannableTextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="35dp"
+                    tools:text="sss" />
+
+
+                <TextView
+                    android:id="@+id/tv_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font3_sp"
+                    android:textStyle="normal"
+                    tools:text="ssss" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/color_6"
+                    android:textSize="@dimen/font6_sp"
+                    android:textStyle="normal"
+                    tools:text="ssss" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="42dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/coupon_divider"
+                    android:layerType="software" />
+
+                <com.yingwumeijia.commonlibrary.widget.SpannableTextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    tools:text="ssss" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/divider_height"
+                android:background="@color/divider_normal" />
+
+            <Button
+                android:id="@+id/btn_commit"
+                style="@style/MyButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="42dp"
+                android:layout_marginRight="42dp"
+                android:layout_marginTop="24dp"
+                android:enabled="false"
+                android:background="@drawable/btn_bg_selector2"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="@color/bg_whide"
+                android:textSize="@dimen/text_normal" />
+
+
+            <ImageView
+                android:id="@+id/iv_code"
+                android:layout_width="216dp"
+                android:layout_marginBottom="20dp"
+                android:layout_height="216dp"
+                android:layout_marginTop="35dp" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

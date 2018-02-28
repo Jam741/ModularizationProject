@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_base_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:gravity="center"
+        android:lineSpacingExtra="5sp"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="@dimen/vertical_margin"
+        android:textColor="#979797"
+        android:textSize="10sp"
+        android:textStyle="normal"
+        tools:text="Test text" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/divider_normal" />
+
+
+    <TextView
+        android:id="@+id/tv_caseName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/bg_whide"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font2_sp"
+        android:textStyle="bold"
+        tools:text="Case name" />
+
+
+    <TextView
+        android:id="@+id/tv_all_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/mini_lineSpacingExtra"
+        android:textColor="@color/color_1"
+        android:textSize="@dimen/font5_sp"
+        tools:text="CompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyName" />
+
+
+
+    <com.ms.square.android.expandabletextview.ExpandableTextView
+        android:id="@+id/tv_caseDescribe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_whide"
+        android:paddingBottom="@dimen/vertical_margin"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:animDuration="200"
+        app:collapseDrawable="@mipmap/open_details_ic_11"
+        app:expandDrawable="@mipmap/open_details_ic"
+        app:maxCollapsedLines="1">
+
+        <TextView
+            android:id="@id/expandable_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/mini_lineSpacingExtra"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font5_sp"
+            tools:text="CompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyNameCompanyName" />
+
+        <ImageButton
+            android:id="@id/expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:background="@android:color/transparent"
+            android:padding="16dp" />
+
+    </com.ms.square.android.expandabletextview.ExpandableTextView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_normal" />
+
+</LinearLayout>

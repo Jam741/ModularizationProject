@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <com.yingwumeijia.commonlibrary.widget.MyScrollview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/tv_of_720"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@color/bg_whide"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="公司全景"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font5_sp" />
+
+            <RelativeLayout
+                android:id="@+id/layout_of_720"
+                android:layout_width="match_parent"
+                android:layout_height="500px"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/iv_preview_of_720"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:background="@color/bg_whide" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@mipmap/work_details_xcsj_title_bg" />
+
+
+                <ImageView
+                    android:id="@+id/btn_play_720"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/vertical_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:src="@mipmap/work_details_720_play_ico" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/video_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_margin"
+                android:background="@color/bg_whide"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@color/bg_whide"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="公司视频"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font5_sp" />
+
+
+                <RelativeLayout
+                    android:id="@+id/previewVideoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp">
+
+
+                    <ImageView
+                        android:id="@+id/iv_video_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/btn_play_video"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:src="@mipmap/case_details_play_ico" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#30000000" />
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/bg_whide"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="公司实景"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font5_sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/divider_normal" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/lv_pics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dividerHeight="0dp" />
+        </LinearLayout>
+    </com.yingwumeijia.commonlibrary.widget.MyScrollview>
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/iv_costBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.45"
+            android:background="@color/color_1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_totalCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/bg_whide"
+                android:textSize="35sp"
+                android:textStyle="bold"
+                tools:text="¥ 376.23万" />
+
+            <View
+                android:layout_width="184dp"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginTop="10dp"
+                android:background="@color/bg_whide" />
+
+            <TextView
+                android:id="@+id/tv_totalArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="12dp"
+                android:textColor="@color/bg_whide"
+                android:textSize="@dimen/font4_sp"
+                android:textStyle="normal"
+                tools:text="施工面积" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_costTitle"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="34dp"-->
+    <!--android:background="#EEEEEE"-->
+    <!--android:gravity="center"-->
+    <!--android:text="设计土建基装"-->
+    <!--android:textColor="#6a6a6a"-->
+    <!--android:textSize="@dimen/font6_sp"-->
+    <!--android:visibility="gone" />-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/rv_cost"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>-->
+
+</LinearLayout>

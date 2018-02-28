@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <include layout="@layout/customer_conversation_toolbar" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_accent" />
+
+        <!--回话状态-->
+        <include layout="@layout/conversation_status" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/conversation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_openInputQuick"
+                    style="@style/MyButton"
+                    android:layout_width="63dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="right"
+                    android:background="@mipmap/usual_questions_bt"
+                    android:text="常用回复"
+                    android:textSize="@dimen/font6_sp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/greetings_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/usual_questions_bt"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/btn_openInputQuick_greetings"
+                        style="@style/MyButton"
+                        android:layout_width="63dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:background="@android:color/transparent"
+                        android:text="常用回复"
+                        android:textSize="@dimen/font6_sp"
+                        android:visibility="visible" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/divider_height"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@color/bg_whide" />
+
+                    <Button
+                        android:id="@+id/btn_openInputGreetings"
+                        style="@style/MyButton"
+                        android:layout_width="63dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="right"
+                        android:background="@android:color/transparent"
+                        android:text="问候语"
+                        android:textSize="@dimen/font6_sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

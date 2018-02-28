@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ivMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="12dp"
+        android:src="@mipmap/mine_more_ico" />
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/ivMore"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tv_serviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font4_sp"
+                android:textStyle="bold"
+                tools:text="硬装设计" />
+
+            <com.yingwumeijia.commonlibrary.widget.SpannableTextView
+                android:id="@+id/tv_servicePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font4_sp"
+                android:textStyle="bold"
+                tools:text="硬装设计" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_serviceContent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/title"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--android:layout_toLeftOf="@id/ivMore"-->
+    <!--android:ellipsize="end"-->
+    <!--android:maxLines="2"-->
+    <!--android:textColor="@color/color_4"-->
+    <!--android:textSize="@dimen/font4_sp"-->
+    <!--tools:text="硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计硬装设计" />-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/divider_normal" />
+
+</RelativeLayout>

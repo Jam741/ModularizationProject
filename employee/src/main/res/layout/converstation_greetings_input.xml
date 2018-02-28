@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_inputQuick"
+        android:layout_width="300dp"
+        android:layout_height="318dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/bg_whide"
+        android:elevation="2dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="28dp"
+                android:text="问候语"
+                android:textColor="@color/color_1"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/btnCloseInputQuick"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_alignParentRight="true"
+                android:scaleType="centerInside"
+                android:src="@mipmap/usual_questions_close_ic" />
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_content1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="5sp"
+                    android:paddingLeft="27dp"
+                    android:paddingRight="27dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font5_sp"
+                    tools:text="sdmasdksa自己的卡萨丁了；" />
+
+                <TextView
+                    android:id="@+id/tv_content2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginTop="12dp"
+                    android:lineSpacingExtra="5sp"
+                    android:paddingLeft="27dp"
+                    android:paddingRight="27dp"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font5_sp"
+                    tools:text="sdmasdksa自己的卡萨丁了；" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="268dp"
+                android:layout_height="37dp"
+                android:background="@color/color_6"
+                android:gravity="center"
+                android:text="修改问候语"
+                android:textColor="@color/bg_whide"
+                android:textSize="@dimen/font5_sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

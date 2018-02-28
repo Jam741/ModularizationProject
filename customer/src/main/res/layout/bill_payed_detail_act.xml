@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toolbr_layout" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/bg_whide"
+        android:gravity="center_vertical|center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="¥"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/color_1"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="1000"
+                android:textColor="@color/color_1"
+                android:textSize="47sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_normal" />
+
+    <LinearLayout
+        android:id="@+id/preview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/bg_whide"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:text="收款公司"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font2_dp" />
+
+            <TextView
+                android:id="@+id/tv_companyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:text=""
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font2_dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/bg_whide"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:text="付款用途"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font2_dp" />
+
+            <TextView
+                android:id="@+id/tv_contentType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font1_dp"
+                android:textStyle="normal"
+                tools:text="用途" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_whide"
+            android:gravity="center_vertical"
+            android:minHeight="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:text="付款时间"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font2_dp" />
+
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/color_1"
+                android:textSize="@dimen/font2_dp"
+                tools:text="硬装设计" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btnCall"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:textColor="@color/color_5"
+            android:textSize="@dimen/font4_dp"
+            android:lineSpacingExtra="7dp"
+            android:visibility="visible"
+            android:text="如果您有任何疑问，请致电鹦鹉美家\n028-85108029" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

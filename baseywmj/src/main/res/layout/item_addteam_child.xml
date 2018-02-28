@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/bg_whide"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="@dimen/horizontal_margin">
+
+
+        <ImageView
+            android:id="@+id/iv_portrait"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            tools:src="@color/icon_color_end" />
+
+        <LinearLayout
+            android:id="@+id/employeeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_eName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/horizontal_margin"
+                    android:gravity="center"
+                    android:textColor="@color/color_1"
+                    android:textSize="@dimen/font4_sp"
+                    tools:text="eName" />
+
+                <View
+                    android:layout_width="@dimen/divider_height"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/color_3" />
+
+
+                <TextView
+                    android:id="@+id/tv_eJob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/horizontal_margin"
+                    android:gravity="center"
+                    android:textColor="@color/color_6"
+                    android:textSize="@dimen/font4_sp"
+                    tools:text="eJob" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_eCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:drawablePadding="@dimen/horizontal_margin"
+                android:gravity="center"
+                android:textColor="@color/color_5"
+                android:textSize="@dimen/font6_sp"
+                tools:text="eCompany" />
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_cName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/horizontal_margin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@color/color_1"
+            android:textSize="@dimen/font4_sp"
+            android:visibility="gone"
+            tools:text="eName" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/divider_normal" />
+
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:src="@mipmap/mine_more_ico" />
+
+</RelativeLayout>
